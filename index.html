@@ -187,6 +187,22 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
 
 .choropick { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-bottom: 8px; }
 .choropick label { font-size: 13px; color: var(--muted); }
+
+.searchrow input { flex: 1; min-width: 0; font: inherit; padding: 8px 10px; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; }
+.searchrow input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.quiz-card { max-width: 560px; }
+.quiz-prog { font-size: 13px; color: var(--muted); margin: 0 0 10px; }
+.quiz-q { font-size: 17px; font-weight: 600; margin: 0 0 14px; line-height: 1.4; }
+.quiz-opts { display: grid; gap: 8px; margin-bottom: 14px; }
+.quiz-opt { display: block; width: 100%; text-align: left; padding: 10px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; cursor: pointer; font: inherit; color: var(--fg); }
+.quiz-opt:hover:not(:disabled) { border-color: var(--accent); }
+.quiz-opt:disabled { cursor: default; }
+.quiz-opt.right { border-color: #2e9e53; background: rgba(46,158,83,.12); font-weight: 600; }
+.quiz-opt.wrong { border-color: #c0392b; background: rgba(192,57,43,.12); }
+.quiz-exp { font-size: 14px; color: var(--muted); margin: 0 0 14px; }
+.quiz-next, .quiz-restart { background: var(--fg); color: var(--bg); border: 0; border-radius: 6px; padding: 9px 18px; font: inherit; cursor: pointer; }
+.quiz-score { font-size: 19px; font-weight: 600; margin: 0 0 10px; }
 .legend { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 8px; font-size: 12.5px; color: var(--muted); }
 .legend span { display: inline-flex; align-items: center; gap: 5px; }
 .legend i { width: 14px; height: 14px; border: 1px solid var(--line); display: inline-block; }
@@ -219,6 +235,11 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
 
   <div class="layout">
     <section class="mapcol" id="mapcol">
+      <div class="pickrow searchrow">
+        <label for="search" id="lblsearch"></label>
+        <input type="text" id="search" list="statelist" autocomplete="off" inputmode="search">
+        <datalist id="statelist"></datalist>
+      </div>
       <div class="pickrow">
         <label for="pick" id="lblpick"></label>
         <select id="pick"></select>
@@ -579,8 +600,8 @@ const ofN = (rank, tot) => L(`${nf.format(tot)}টির মধ্যে ${ord(r
 const KM = () => L('বর্গ কিমি', 'वर्ग किमी', 'sq km');
 const PKM = () => L('জন/বর্গ কিমি', 'व्यक्ति/वर्ग किमी', 'people/sq km');
 const TYPE_LABEL = () => ({ state: L('রাজ্য', 'राज्य', 'State'), ut: L('কেন্দ্রশাসিত অঞ্চল', 'केंद्रशासित प्रदेश', 'Union Territory') });
-const ST_TAB = () => [['gen', L('সাধারণ', 'सामान्य', 'General')], ['pol', L('রাজনীতি', 'राजनीति', 'Politics')], ['eco', L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy')], ['edu', L('শিক্ষা', 'शिक्षा', 'Education')], ['saf', L('নারী নিরাপত্তা', 'महिला सुरक्षा', "Women's safety")], ['trv', L('ভ্রমণ', 'यात्रा', 'Travel')], ['cmp', L('তুলনা', 'तुलना', 'Compare')]];
-const NAT_TAB = () => [['gen', L('সাধারণ', 'सामान्य', 'General')], ['pol', L('রাজনীতি', 'राजनीति', 'Politics')], ['eco', L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy')], ['mkt', L('ডলার, সোনা, রুপো', 'डॉलर, सोना, चाँदी', 'Dollar, gold, silver')], ['idx', L('সূচক', 'सूचकांक', 'Indices')], ['air', L('দূষণ', 'प्रदूषण', 'Pollution')], ['saf', L('নারী নিরাপত্তা', 'महिला सुरक्षा', "Women's safety")], ['trv', L('ভ্রমণ', 'यात्रा', 'Travel')], ['spt', L('খেলা', 'खेल', 'Sports')], ['cmp', L('রাজ্য তুলনা', 'राज्यों की तुलना', 'Compare states')]];
+const ST_TAB = () => [['gen', L('সাধারণ', 'सामान्य', 'General')], ['pol', L('রাজনীতি', 'राजनीति', 'Politics')], ['eco', L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy')], ['edu', L('শিক্ষা', 'शिक्षा', 'Education')], ['cul', L('সংস্কৃতি', 'संस्कृति', 'Culture')], ['saf', L('নারী নিরাপত্তা', 'महिला सुरक्षा', "Women's safety")], ['trv', L('ভ্রমণ', 'यात्रा', 'Travel')], ['cmp', L('তুলনা', 'तुलना', 'Compare')]];
+const NAT_TAB = () => [['gen', L('সাধারণ', 'सामान्य', 'General')], ['pol', L('রাজনীতি', 'राजनीति', 'Politics')], ['eco', L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy')], ['mkt', L('ডলার, সোনা, রুপো', 'डॉलर, सोना, चाँदी', 'Dollar, gold, silver')], ['idx', L('সূচক', 'सूचकांक', 'Indices')], ['air', L('দূষণ', 'प्रदूषण', 'Pollution')], ['saf', L('নারী নিরাপত্তা', 'महिला सुरक्षा', "Women's safety")], ['rgt', L('মৌলিক অধিকার', 'मौलिक अधिकार', 'Fundamental Rights')], ['sym', L('জাতীয় প্রতীক', 'राष्ट्रीय प्रतीक', 'National Symbols')], ['trv', L('ভ্রমণ', 'यात्रा', 'Travel')], ['spt', L('খেলা', 'खेल', 'Sports')], ['quiz', L('কুইজ', 'क्विज़', 'Quiz')], ['cmp', L('রাজ্য তুলনা', 'राज्यों की तुलना', 'Compare states')]];
 const zn = (z) => ZNX[z][lang === 'bn' ? 0 : lang === 'hi' ? 1 : 2];
 const R = (x) => {
   if (lang === 'bn') return { n: x.bn, cap: x.cap, lg: x.lang, cm: x.cm, since: x.since, tour: x.tour, sh: x.sh };
@@ -588,6 +609,7 @@ const R = (x) => {
   return { n: a[0], cap: a[1], lg: a[2], cm: a[3], since: a[4], tour: a[5], sh: SHX[lang][x.id] || a[0] };
 };
 
+let NAME2ID = {};
 const NAT_DENSITY_2011 = TOTAL_POP / TOTAL_AREA;
 const byId = Object.fromEntries(T.map((x) => [x.id, x]));
 let cur = 'india', tab = 'gen', cmpKey = 'pop';
@@ -625,6 +647,13 @@ function labelMap() {
   $('#choro-sel').value = choroKey;
   applyChoro();
   $('#chips').innerHTML = CHIPS.map((id) => `<button type="button" class="chip" data-go="${id}">${R(byId[id]).sh}</button>`).join('');
+  NAME2ID = {};
+  const dl = ['india', ...T.map((x) => x.id)].map((id) => {
+    const n = id === 'india' ? L('সারা ভারত', 'पूरा भारत', 'All of India') : R(byId[id]).n;
+    NAME2ID[n.trim().toLowerCase()] = id;
+    return `<option value="${n}"></option>`;
+  }).join('');
+  $('#statelist').innerHTML = dl;
 }
 function applyStatic() {
   document.documentElement.lang = lang;
@@ -635,7 +664,9 @@ function applyStatic() {
   const today = new Intl.DateTimeFormat(LOC[lang], { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date());
   $('#asof').textContent = L('তথ্য সর্বশেষ হালনাগাদ: ৩ নভেম্বর ২০২৬', 'डेटा आख़िरी बार अपडेट: 3 नवंबर 2026', 'Data last updated: 3 November 2026') + ' · ' + L('আজ: ', 'आज: ', 'Today: ') + today;
   $('#lblchoro').textContent = L('মানচিত্রে রং:', 'नक़्शे पर रंग:', 'Colour the map by:');
-  $('#lblpick').textContent = L('খুঁজুন', 'खोजें', 'Find');
+  $('#lblpick').textContent = L('তালিকা থেকে বাছুন', 'सूची से चुनें', 'Pick from list');
+  $('#lblsearch').textContent = L('খুঁজুন', 'खोजें', 'Search');
+  $('#search').placeholder = L('রাজ্য বা অঞ্চলের নাম লিখুন…', 'राज्य या क्षेत्र का नाम लिखें…', 'Type a state or territory name…');
   $('#zbar').setAttribute('aria-label', L('মানচিত্র বড় বা ছোট করুন', 'नक़्शा बड़ा या छोटा करें', 'Zoom the map'));
   $('#zin').setAttribute('aria-label', L('মানচিত্র বড় করুন', 'नक़्शा बड़ा करें', 'Zoom in'));
   $('#zout').setAttribute('aria-label', L('মানচিত্র ছোট করুন', 'नक़्शा छोटा करें', 'Zoom out'));
@@ -837,6 +868,71 @@ function natCmp() {
 }
 
 
+/* ---------- মৌলিক অধিকার ---------- */
+const RIGHTS = [
+  [L('সমতার অধিকার', 'समता का अधिकार', 'Right to Equality'), L('আইনের চোখে সবাই সমান। ধর্ম, জাতি, বর্ণ, লিঙ্গ বা জন্মস্থানের ভিত্তিতে বৈষম্য নিষিদ্ধ। সরকারি চাকরিতে সমান সুযোগ, অস্পৃশ্যতা ও উপাধি নিষিদ্ধ।', 'कानून की नज़र में सब बराबर। धर्म, जाति, वर्ण, लिंग या जन्मस्थान के आधार पर भेदभाव वर्जित। सरकारी नौकरी में समान अवसर, अस्पृश्यता और उपाधियाँ वर्जित।', 'Equality before the law. No discrimination on grounds of religion, race, caste, sex or place of birth. Equal opportunity in public employment; untouchability and titles are abolished.'), L('সংবিধান, অনুচ্ছেদ ১৪–১৮', 'संविधान, अनुच्छेद 14–18', 'Constitution, Articles 14–18')],
+  [L('স্বাধীনতার অধিকার', 'स्वतंत्रता का अधिकार', 'Right to Freedom'), L('বাক ও মত প্রকাশ, শান্তিপূর্ণ সমাবেশ, সংগঠন তৈরি, অবাধ চলাফেরা, বসবাস ও যেকোনো পেশা বেছে নেওয়ার স্বাধীনতা। জীবন ও ব্যক্তিস্বাধীনতার সুরক্ষাও এর অংশ।', 'वाक और अभिव्यक्ति, शांतिपूर्ण सभा, संगठन बनाने, स्वतंत्र आवागमन, निवास और कोई भी पेशा चुनने की स्वतंत्रता। जीवन और व्यक्तिगत स्वतंत्रता की सुरक्षा भी इसका हिस्सा है।', 'Freedom of speech and expression, peaceful assembly, forming associations, free movement, residence and choice of profession. Protection of life and personal liberty is part of this right.'), L('সংবিধান, অনুচ্ছেদ ১৯–২২', 'संविधान, अनुच्छेद 19–22', 'Constitution, Articles 19–22')],
+  [L('শোষণের বিরুদ্ধে অধিকার', 'शोषण के विरुद्ध अधिकार', 'Right against Exploitation'), L('মানুষ কেনাবেচা ও জোরপূর্বক শ্রম (বেগার) নিষিদ্ধ। ১৪ বছরের কম বয়সী শিশুদের কারখানা, খনি বা অন্য বিপজ্জনক কাজে নিয়োগ নিষিদ্ধ।', 'मानव व्यापार और बलात् श्रम (बेगार) वर्जित। 14 वर्ष से कम उम्र के बच्चों को कारख़ाने, खदान या अन्य ख़तरनाक काम में लगाना वर्जित।', 'Prohibits human trafficking and forced labour (begar). Bans employing children under 14 in factories, mines or other hazardous work.'), L('সংবিধান, অনুচ্ছেদ ২৩–২৪', 'संविधान, अनुच्छेद 23–24', 'Constitution, Articles 23–24')],
+  [L('ধর্মীয় স্বাধীনতার অধিকার', 'धार्मिक स्वतंत्रता का अधिकार', 'Right to Freedom of Religion'), L('যেকোনো ধর্ম গ্রহণ, পালন ও প্রচারের স্বাধীনতা। ভারত কোনো রাষ্ট্রধর্ম মানে না, রাষ্ট্র সব ধর্মের প্রতি সমান দৃষ্টিভঙ্গি রাখে।', 'किसी भी धर्म को मानने, आचरण करने और प्रचार करने की स्वतंत्रता। भारत का कोई राजधर्म नहीं है, राज्य सभी धर्मों के प्रति समान दृष्टिकोण रखता है।', 'Freedom to profess, practise and propagate any religion. India has no state religion; the state treats all religions equally.'), L('সংবিধান, অনুচ্ছেদ ২৫–২৮', 'संविधान, अनुच्छेद 25–28', 'Constitution, Articles 25–28')],
+  [L('সাংস্কৃতিক ও শিক্ষাগত অধিকার', 'सांस्कृतिक और शैक्षणिक अधिकार', 'Cultural and Educational Rights'), L('সংখ্যালঘু সম্প্রদায়ের নিজস্ব ভাষা, লিপি ও সংস্কৃতি সংরক্ষণের অধিকার, এবং নিজস্ব শিক্ষাপ্রতিষ্ঠান প্রতিষ্ঠা ও পরিচালনার অধিকার।', 'अल्पसंख्यक समुदायों को अपनी भाषा, लिपि और संस्कृति सुरक्षित रखने का अधिकार, और अपनी शिक्षण संस्थाएँ स्थापित व संचालित करने का अधिकार।', 'Minorities have the right to conserve their own language, script and culture, and to establish and administer their own educational institutions.'), L('সংবিধান, অনুচ্ছেদ ২৯–৩০', 'संविधान, अनुच्छेद 29–30', 'Constitution, Articles 29–30')],
+  [L('সাংবিধানিক প্রতিকারের অধিকার', 'संवैधानिक उपचारों का अधिकार', 'Right to Constitutional Remedies'), L('মৌলিক অধিকার লঙ্ঘিত হলে সরাসরি সুপ্রিম কোর্ট বা হাইকোর্টে যাওয়ার অধিকার। ড. বি. আর. আম্বেদকর একে "সংবিধানের হৃদয় ও আত্মা" বলেছিলেন।', 'मौलिक अधिकार का उल्लंघन होने पर सीधे सुप्रीम कोर्ट या हाईकोर्ट जाने का अधिकार। डॉ. बी. आर. आंबेडकर ने इसे "संविधान की आत्मा और हृदय" कहा था।', 'The right to move the Supreme Court or a High Court directly if a fundamental right is violated. Dr. B. R. Ambedkar called it "the heart and soul of the Constitution".'), L('সংবিধান, অনুচ্ছেদ ৩২', 'संविधान, अनुच्छेद 32', 'Constitution, Article 32')]
+];
+function natRgt() {
+  const li = lang === 'bn' ? 0 : lang === 'hi' ? 1 : 2;
+  return facts(RIGHTS.map((r) => fact(r[0], r[1], r[2]))) +
+    `<p class="hint">${L('মূলত ৭টি মৌলিক অধিকার ছিল। সম্পত্তির অধিকার ১৯৭৮ সালের ৪৪তম সংবিধান সংশোধনীতে মৌলিক অধিকারের তালিকা থেকে সরিয়ে অনুচ্ছেদ ৩০০ক-তে আইনি অধিকার করা হয়। এখন ৬টি মৌলিক অধিকার আছে। স্কুল পাঠ্যবইয়ের NCERT নাগরিকশাস্ত্র অনুযায়ী সংক্ষেপ, হুবহু আইনি ভাষা নয়।', 'मूल रूप से 7 मौलिक अधिकार थे। संपत्ति के अधिकार को 1978 के 44वें संविधान संशोधन से मौलिक अधिकारों की सूची से हटाकर अनुच्छेद 300क के तहत एक विधिक (क़ानूनी) अधिकार बना दिया गया। अब 6 मौलिक अधिकार हैं। NCERT नागरिक शास्त्र की पाठ्यपुस्तकों के अनुसार संक्षेप, शब्दशः विधिक भाषा नहीं।', 'There were originally 7 Fundamental Rights. The Right to Property was removed from this list by the 44th Amendment (1978) and made a legal right under Article 300A instead. There are now 6 Fundamental Rights. Summarised from NCERT civics textbooks, not verbatim legal text.')}</p>`;
+}
+
+/* ---------- জাতীয় প্রতীক ---------- */
+function natSym() {
+  return facts([
+    fact(L('জাতীয় পতাকা', 'राष्ट्रीय ध्वज', 'National flag'), L('তিরঙ্গা — কমলা, সাদা, সবুজ, মাঝে ২৪ দাগের অশোকচক্র', 'तिरंगा — केसरिया, सफ़ेद, हरा, बीच में 24 तीलियों का अशोक चक्र', 'The Tiranga — saffron, white and green, with the 24-spoke Ashoka Chakra at the centre'), L('গৃহীত ২২ জুলাই ১৯৪৭', 'अपनाया गया 22 जुलाई 1947', 'Adopted 22 July 1947')),
+    fact(L('জাতীয় সংগীত', 'राष्ट्रगान', 'National anthem'), L('জন গণ মন', 'जन गण मन', 'Jana Gana Mana'), L('রবীন্দ্রনাথ ঠাকুর রচিত, গৃহীত ২৪ জানুয়ারি ১৯৫০', 'रबींद्रनाथ टैगोर द्वारा रचित, अपनाया गया 24 जनवरी 1950', "Written by Rabindranath Tagore, adopted 24 January 1950")),
+    fact(L('জাতীয় সংগীত (গীত)', 'राष्ट्रीय गीत', 'National song'), L('বন্দে মাতরম', 'वंदे मातरम्', 'Vande Mataram'), L('বঙ্কিমচন্দ্র চট্টোপাধ্যায় রচিত', 'बंकिमचंद्र चट्टोपाध्याय द्वारा रचित', 'Written by Bankim Chandra Chattopadhyay')),
+    fact(L('জাতীয় পশু', 'राष्ट्रीय पशु', 'National animal'), L('রয়্যাল বেঙ্গল টাইগার', 'रॉयल बंगाल टाइगर', 'Royal Bengal Tiger')),
+    fact(L('জাতীয় পাখি', 'राष्ट्रीय पक्षी', 'National bird'), L('ময়ূর', 'मोर', 'Peacock')),
+    fact(L('জাতীয় ফুল', 'राष्ट्रीय पुष्प', 'National flower'), L('পদ্ম', 'कमल', 'Lotus')),
+    fact(L('জাতীয় ফল', 'राष्ट्रीय फल', 'National fruit'), L('আম', 'आम', 'Mango')),
+    fact(L('জাতীয় গাছ', 'राष्ट्रीय वृक्ष', 'National tree'), L('বট', 'बरगद', 'Banyan')),
+    fact(L('জাতীয় জলজ প্রাণী', 'राष्ट्रीय जलीय जीव', 'National aquatic animal'), L('গাঙ্গেয় শুশুক (রিভার ডলফিন)', 'गंगा की डॉल्फ़िन (रिवर डॉल्फ़िन)', 'Ganges river dolphin')),
+    fact(L('জাতীয় খেলা', 'राष्ट्रीय खेल', 'National sport'), L('কোনো সরকারি ঘোষণা নেই', 'कोई आधिकारिक घोषणा नहीं', 'No official designation'), L('প্রচলিত ধারণায় হকি বলা হয়, কিন্তু সরকার ২০১২ সালে তথ্যের অধিকার আইনের জবাবে জানায় যে কোনো খেলাকে আনুষ্ঠানিকভাবে জাতীয় খেলা ঘোষণা করা হয়নি', 'आम धारणा में हॉकी को राष्ट्रीय खेल माना जाता है, पर सरकार ने 2012 में RTI के जवाब में कहा कि किसी भी खेल को आधिकारिक रूप से राष्ट्रीय खेल घोषित नहीं किया गया है', 'Hockey is popularly called the national sport, but the government stated in a 2012 RTI reply that no sport has been officially designated as such')),
+    fact(L('রাষ্ট্রীয় প্রতীক', 'राजचिह्न', 'State emblem'), L('সারনাথের অশোকস্তম্ভের সিংহশীর্ষ', 'सारनाथ के अशोक स्तंभ का सिंह-शीर्ष', 'The Lion Capital of Ashoka at Sarnath'), L('মূলমন্ত্র "সত্যমেব জয়তে" (মুণ্ডক উপনিষদ থেকে), গৃহীত ২৬ জানুয়ারি ১৯৫০', 'आदर्श वाक्य "सत्यमेव जयते" (मुंडक उपनिषद से), अपनाया गया 26 जनवरी 1950', 'Motto "Satyameva Jayate" (from the Mundaka Upanishad), adopted 26 January 1950')),
+    fact(L('জাতীয় দিবস', 'राष्ट्रीय दिवस', 'National days'), L('প্রজাতন্ত্র দিবস ২৬ জানুয়ারি, স্বাধীনতা দিবস ১৫ আগস্ট, গান্ধী জয়ন্তী ২ অক্টোবর', 'गणतंत्र दिवस 26 जनवरी, स्वतंत्रता दिवस 15 अगस्त, गांधी जयंती 2 अक्टूबर', 'Republic Day 26 January, Independence Day 15 August, Gandhi Jayanti 2 October'))
+  ]);
+}
+
+/* ---------- কুইজ ---------- */
+const QUIZ = [
+  [L('ভারতের রাজধানী কোনটি?', 'भारत की राजधानी कौन-सी है?', "What is India's capital?"), [L('মুম্বই', 'मुंबई', 'Mumbai'), L('নয়াদিল্লি', 'नई दिल्ली', 'New Delhi'), L('কলকাতা', 'कोलकाता', 'Kolkata'), L('চেন্নাই', 'चेन्नई', 'Chennai')], 1],
+  [L('ভারতের জাতীয় পশু কোনটি?', 'भारत का राष्ट्रीय पशु कौन-सा है?', "What is India's national animal?"), [L('সিংহ', 'शेर', 'Lion'), L('হাতি', 'हाथी', 'Elephant'), L('রয়্যাল বেঙ্গল টাইগার', 'रॉयल बंगाल टाइगर', 'Royal Bengal Tiger'), L('ময়ূর', 'मोर', 'Peacock')], 2],
+  [L('ভারত কত সালে স্বাধীনতা পায়?', 'भारत को किस वर्ष स्वतंत्रता मिली?', 'In which year did India gain independence?'), ['1930', '1947', '1950', '1952'], 1],
+  [L('ভারতের সংবিধান কবে কার্যকর হয়?', 'भारत का संविधान कब लागू हुआ?', "When did India's Constitution come into force?"), [L('১৫ আগস্ট ১৯৪৭', '15 अगस्त 1947', '15 August 1947'), L('২৬ নভেম্বর ১৯৪৯', '26 नवंबर 1949', '26 November 1949'), L('২৬ জানুয়ারি ১৯৫০', '26 जनवरी 1950', '26 January 1950'), L('২ অক্টোবর ১৯৫০', '2 अक्टूबर 1950', '2 October 1950')], 2],
+  [L('ভারতের প্রথম প্রধানমন্ত্রী কে ছিলেন?', 'भारत के पहले प्रधानमंत्री कौन थे?', "Who was India's first Prime Minister?"), [L('মহাত্মা গান্ধী', 'महात्मा गांधी', 'Mahatma Gandhi'), L('সর্দার প্যাটেল', 'सरदार पटेल', 'Sardar Patel'), L('জওহরলাল নেহরু', 'जवाहरलाल नेहरू', 'Jawaharlal Nehru'), L('ড. রাজেন্দ্র প্রসাদ', 'डॉ. राजेंद्र प्रसाद', 'Dr. Rajendra Prasad')], 2],
+  [L('ভারতের প্রথম রাষ্ট্রপতি কে ছিলেন?', 'भारत के पहले राष्ट्रपति कौन थे?', "Who was India's first President?"), [L('জওহরলাল নেহরু', 'जवाहरलाल नेहरू', 'Jawaharlal Nehru'), L('ড. রাজেন্দ্র প্রসাদ', 'डॉ. राजेंद्र प्रसाद', 'Dr. Rajendra Prasad'), L('এস. রাধাকৃষ্ণন', 'एस. राधाकृष्णन', 'S. Radhakrishnan'), L('এ. পি. জে. আবদুল কালাম', 'ए. पी. जे. अब्दुल कलाम', 'A. P. J. Abdul Kalam')], 1],
+  [L('সংবিধানের অষ্টম তফসিলে কতটি ভাষা স্বীকৃত?', 'संविधान की आठवीं अनुसूची में कितनी भाषाएँ मान्यता-प्राप्त हैं?', 'How many languages are recognised in the Eighth Schedule of the Constitution?'), ['15', '18', '22', '25'], 2],
+  [L('বর্তমানে ভারতে কতটি রাজ্য আছে?', 'वर्तमान में भारत में कितने राज्य हैं?', 'How many states does India currently have?'), ['27', '28', '29', '30'], 1],
+  [L('বর্তমানে মৌলিক অধিকার কতটি?', 'वर्तमान में मौलिक अधिकार कितने हैं?', 'How many Fundamental Rights are there currently?'), ['5', '6', '7', '8'], 1],
+  [L('আয়তনে ভারতের বৃহত্তম রাজ্য কোনটি?', 'क्षेत्रफल में भारत का सबसे बड़ा राज्य कौन-सा है?', "Which is India's largest state by area?"), [L('মধ্যপ্রদেশ', 'मध्य प्रदेश', 'Madhya Pradesh'), L('মহারাষ্ট্র', 'महाराष्ट्र', 'Maharashtra'), L('রাজস্থান', 'राजस्थान', 'Rajasthan'), L('উত্তরপ্রদেশ', 'उत्तर प्रदेश', 'Uttar Pradesh')], 2]
+];
+let quizI = 0, quizScore = 0, quizPicked = -1;
+function natQuiz() {
+  if (quizI >= QUIZ.length) {
+    return `<p class="quiz-score">${L(`আপনার স্কোর: ${nf.format(quizScore)} / ${nf.format(QUIZ.length)}`, `आपका स्कोर: ${nf.format(quizScore)} / ${nf.format(QUIZ.length)}`, `Your score: ${quizScore} / ${QUIZ.length}`)}</p>` +
+      `<button type="button" class="quiz-restart" data-quiz-restart>${L('আবার শুরু করুন', 'फिर से शुरू करें', 'Restart')}</button>`;
+  }
+  const [q, opts, ans] = QUIZ[quizI];
+  const answered = quizPicked >= 0;
+  const optHtml = opts.map((o, i) => {
+    let cls = 'quiz-opt';
+    if (answered && i === ans) cls += ' right';
+    else if (answered && i === quizPicked) cls += ' wrong';
+    return `<button type="button" class="${cls}" data-quiz-opt="${i}" ${answered ? 'disabled' : ''}>${o}</button>`;
+  }).join('');
+  return `<div class="quiz-card"><p class="quiz-prog">${L(`প্রশ্ন ${nf.format(quizI + 1)} / ${nf.format(QUIZ.length)} · স্কোর ${nf.format(quizScore)}`, `प्रश्न ${nf.format(quizI + 1)} / ${nf.format(QUIZ.length)} · स्कोर ${nf.format(quizScore)}`, `Question ${quizI + 1} / ${QUIZ.length} · Score ${quizScore}`)}</p>` +
+    `<p class="quiz-q">${q}</p><div class="quiz-opts">${optHtml}</div>` +
+    (answered ? `<button type="button" class="quiz-next" data-quiz-next>${quizI + 1 < QUIZ.length ? L('পরের প্রশ্ন', 'अगला प्रश्न', 'Next question') : L('ফলাফল দেখুন', 'नतीजा देखें', 'See result')}</button>` : '') + `</div>`;
+}
+
 /* ---------- বায়ুদূষণ ---------- */
 const AIR_CITIES = { dl: ['Delhi', 4], up: ['Loni, Ghaziabad', 1], ml: ['Byrnihat', 0] };
 function natAir() {
@@ -956,6 +1052,54 @@ function stEdu(x) {
 }
 const stTrv = (x) => `<ul class="places">${R(x).tour.map((p) => `<li>${p}</li>`).join('')}</ul><p class="hint">${L('প্রতিটি রাজ্যের তিনটি সুপরিচিত জায়গা দেওয়া হয়েছে, পূর্ণ তালিকা নয়।', 'हर राज्य के तीन जाने-पहचाने स्थान दिए गए हैं, पूरी सूची नहीं।', 'Three well-known places are given for each state, not a full list.')}</p>`;
 
+/* ---------- সংস্কৃতি: খাবার ও উৎসব ---------- */
+const CUL = {
+  jk: { food: ['রোগান জোশ ও কাশ্মীরি ওয়াজওয়ান', 'रोगन जोश और कश्मीरी वाज़वान', 'Rogan josh and Kashmiri wazwan'], fest: ['নভরেহ (কাশ্মীরি নববর্ষ)', 'नवरेह (कश्मीरी नववर्ष)', 'Navreh (Kashmiri New Year)'] },
+  la: { food: ['থুকপা ও মোমো', 'थुक्पा और मोमो', 'Thukpa and momos'], fest: ['হেমিস উৎসব', 'हेमिस उत्सव', 'Hemis Festival'] },
+  pb: { food: ['সরসো দা শাক ও মক্কি দি রোটি', 'सरसों दा साग और मक्की दी रोटी', 'Sarson da saag and makki di roti'], fest: ['বৈশাখী', 'बैसाखी', 'Baisakhi'] },
+  hp: { food: ['ধাম (ঐতিহ্যবাহী ভোজ)', 'धाम (पारंपरिक भोज)', 'Dham (a traditional feast)'], fest: ['কুল্লু দশেরা', 'कुल्लू दशहरा', 'Kullu Dussehra'] },
+  uk: { food: ['কাফুলি ও বাল মিঠাই', 'काफुली और बाल मिठाई', 'Kafuli and bal mithai'], fest: ['হরিদ্বার কুম্ভ মেলা (প্রতি ১২ বছরে)', 'हरिद्वार कुंभ मेला (हर 12 वर्ष में)', 'Haridwar Kumbh Mela (every 12 years)'] },
+  sk: { food: ['মোমো ও থুকপা', 'मोमो और थुक्पा', 'Momos and thukpa'], fest: ['লোসার (তিব্বতি নববর্ষ)', 'लोसार (तिब्बती नववर्ष)', 'Losar (Tibetan New Year)'] },
+  ar: { food: ['বাঁশের চোঙায় রান্না করা মাংস', 'बांस में पकाया मांस', 'Meat cooked in bamboo tubes'], fest: ['সি-দোনিয়ি উৎসব', 'सी-दोन्यी उत्सव', 'Si-Donyi festival'] },
+  ch: { food: ['ছোলে ভাটুরে ও অন্যান্য পাঞ্জাবি খাবার', 'छोले भटूरे व अन्य पंजाबी व्यंजन', 'Chole bhature and other Punjabi food'], fest: ['চণ্ডীগড় কার্নিভাল (রোজ ফেস্টিভাল)', 'चंडीगढ़ कार्निवल (रोज़ फेस्टिवल)', 'Chandigarh Carnival (Rose Festival)'] },
+  hr: { food: ['বাজরে কি খিচড়ি ও ঘি', 'बाजरे की खिचड़ी और घी', 'Bajra khichdi with ghee'], fest: ['সূরজকুণ্ড মেলা', 'सूरजकुंड मेला', 'Surajkund Mela'] },
+  dl: { food: ['ছোলে ভাটুরে, পরোটা ও চাট', 'छोले भटूरे, पराठे और चाट', 'Chole bhature, parathas and chaat'], fest: ['ফুলওয়ালোঁ কি সৈর', 'फूलवालों की सैर', 'Phool Walon Ki Sair'] },
+  up: { food: ['লখনৌই বিরিয়ানি ও কাবাব', 'लखनवी बिरयानी और कबाब', 'Lucknowi biryani and kebabs'], fest: ['প্রয়াগরাজ কুম্ভ মেলা', 'प्रयागराज कुंभ मेला', 'Prayagraj Kumbh Mela'] },
+  br: { food: ['লিট্টি চোখা', 'लिट्टी चोखा', 'Litti chokha'], fest: ['ছট পূজা', 'छठ पूजा', 'Chhath Puja'] },
+  wb: { food: ['মাছ-ভাত ও রসগোল্লা', 'माछ-भात और रसगुल्ला', 'Fish-rice (macher jhol-bhaat) and rasgulla'], fest: ['দুর্গাপূজা', 'दुर्गा पूजा', 'Durga Puja'] },
+  as: { food: ['আসামি থালি ও মাছের তেঙা', 'असमिया थाली और मछली की टेंगा', 'Assamese thali and fish tenga'], fest: ['বিহু', 'बिहू', 'Bihu'] },
+  nl: { food: ['স্মোকড পর্ক ও বাঁশের কোড়ল', 'स्मोक्ड पोर्क और बांस की कोंपल', 'Smoked pork and bamboo shoot'], fest: ['হর্নবিল উৎসব', 'हॉर्नबिल उत्सव', 'Hornbill Festival'] },
+  rj: { food: ['দাল বাটি চুরমা', 'दाल बाटी चूरमा', 'Dal baati churma'], fest: ['পুষ্কর মেলা', 'पुष्कर मेला', 'Pushkar Mela'] },
+  mp: { food: ['পোহা ও ভুট্টে কা কিস', 'पोहा और भुट्टे का कीस', 'Poha and bhutte ka kees'], fest: ['খাজুরাহো নৃত্য উৎসব', 'खजुराहो नृत्य महोत्सव', 'Khajuraho Dance Festival'] },
+  cg: { food: ['চিলা ও ফারা', 'चीला और फरा', 'Chila and fara'], fest: ['বস্তার দশেরা', 'बस्तर दशहरा', 'Bastar Dussehra'] },
+  jh: { food: ['ধুসকা ও পিত্তা', 'धुसका और पित्था', 'Dhuska and pittha'], fest: ['সারহুল', 'सरहुल', 'Sarhul'] },
+  ml: { food: ['জাদোহ', 'जादोह', 'Jadoh'], fest: ['ওয়াংগালা উৎসব', 'वांगाला उत्सव', 'Wangala festival'] },
+  mn: { food: ['ইরোম্বা', 'इरोम्बा', 'Eromba'], fest: ['য়াওশাং', 'याओशांग', 'Yaoshang'] },
+  gj: { food: ['ঢোকলা ও থেপলা', 'ढोकला और थेपला', 'Dhokla and thepla'], fest: ['নবরাত্রি', 'नवरात्रि', 'Navratri'] },
+  dd: { food: ['গোয়ান-ঘরানার সীফুড ও পর্তুগিজ প্রভাবিত খাবার', 'गोवा-शैली का समुद्री भोजन और पुर्तगाली प्रभाव वाले व्यंजन', 'Goan-style seafood and Portuguese-influenced food'], fest: ['তারপা উৎসব (আদিবাসী)', 'तारपा उत्सव (आदिवासी)', 'Tarpa festival (tribal)'] },
+  mh: { food: ['বড়া পাও ও পুরণপোলি', 'वड़ा पाव और पुरनपोली', 'Vada pav and puran poli'], fest: ['গণেশ চতুর্থী', 'गणेश चतुर्थी', 'Ganesh Chaturthi'] },
+  tg: { food: ['হায়দরাবাদি বিরিয়ানি', 'हैदराबादी बिरयानी', 'Hyderabadi biryani'], fest: ['বাতুকাম্মা', 'बतुकम्मा', 'Bathukamma'] },
+  od: { food: ['পাখালা ভাত', 'पखाला भात', 'Pakhala bhata'], fest: ['রথযাত্রা (পুরী)', 'रथ यात्रा (पुरी)', 'Rath Yatra (Puri)'] },
+  tr: { food: ['মুই বোরোক (বাঁশে রান্না)', 'मुई बोरोक (बांस में पका)', 'Mui borok (cooked in bamboo)'], fest: ['কের পূজা ও গরিয়া উৎসব', 'केर पूजा और गड़िया उत्सव', 'Kher Puja and Garia festival'] },
+  mz: { food: ['বাই', 'बाई', 'Bai'], fest: ['চাপচার কুট', 'चापचार कुट', 'Chapchar Kut'] },
+  ga: { food: ['ফিশ কারি রাইস ও বেবিনকা', 'फिश करी राइस और बेबिंका', 'Fish curry rice and bebinca'], fest: ['গোয়া কার্নিভাল', 'गोवा कार्निवल', 'Goa Carnival'] },
+  ka: { food: ['বিসি বেলে বাথ ও মাইসোর পাক', 'बिसी बेले बाथ और मैसूर पाक', 'Bisi bele bath and Mysore pak'], fest: ['মহীশূর দশেরা', 'मैसूर दशहरा', 'Mysore Dussehra'] },
+  ap: { food: ['আন্ধ্র বিরিয়ানি ও গোঙ্গুরা পাচাড়ি', 'आंध्र बिरयानी और गोंगुरा पचड़ी', 'Andhra biryani and gongura pachadi'], fest: ['উগাদি', 'उगादी', 'Ugadi'] },
+  kl: { food: ['সাদ্যা (কলাপাতায় নিরামিষ ভোজ)', 'साद्या (केले के पत्ते पर शाकाहारी भोज)', 'Sadya (a vegetarian feast on a banana leaf)'], fest: ['ওনাম', 'ओणम', 'Onam'] },
+  tn: { food: ['ইডলি, দোসা ও সাম্বার', 'इडली, डोसा और सांभर', 'Idli, dosa and sambar'], fest: ['পোঙ্গল', 'पोंगल', 'Pongal'] },
+  py: { food: ['ফরাসি প্রভাবিত তামিল খাবার', 'फ्रांसीसी प्रभाव वाला तमिल खाना', 'French-influenced Tamil cuisine'], fest: ['পুদুচেরি উৎসব (ফ্রাঁস দিবস, ১৪ জুলাই)', 'पुदुचेरी उत्सव (फ्रांस दिवस, 14 जुलाई)', "Fête de Pondichéry (Bastille Day, 14 July)"] },
+  an: { food: ['সীফুড ও নারকেল-ভিত্তিক খাবার', 'समुद्री भोजन और नारियल आधारित व्यंजन', 'Seafood and coconut-based dishes'], fest: ['আইল্যান্ড ট্যুরিজম ফেস্টিভাল', 'आइलैंड टूरिज़्म फेस्टिवल', 'Island Tourism Festival'] },
+  ld: { food: ['নারকেল ও মাছ-ভিত্তিক খাবার (যেমন মাস কারি)', 'नारियल और मछली आधारित व्यंजन (जैसे मास करी)', 'Coconut and fish-based dishes (such as mas curry)'], fest: ['স্থানীয় মাপ্পিলা সংস্কৃতির উৎসব', 'स्थानीय मापिला संस्कृति के उत्सव', 'Local Mappila cultural festivals'] }
+};
+function stCul(x) {
+  const c = CUL[x.id];
+  if (!c) return '';
+  return facts([
+    fact(L('বিখ্যাত খাবার', 'प्रसिद्ध भोजन', 'Famous food'), L(...c.food)),
+    fact(L('প্রধান উৎসব', 'प्रमुख त्योहार', 'Major festival'), L(...c.fest))
+  ]) + `<p class="hint">${L('একটি করে উদাহরণ দেওয়া হয়েছে, পূর্ণ তালিকা নয়। স্থানীয়ভাবে আরও অনেক খাবার ও উৎসব প্রচলিত।', 'एक-एक उदाहरण दिया गया है, पूरी सूची नहीं। स्थानीय स्तर पर कई और व्यंजन और त्योहार प्रचलित हैं।', 'One example each is given, not a full list — many more local dishes and festivals exist.')}</p>`;
+}
+
 function stVs(x) {
   const opts = T.filter((y) => y.id !== x.id).sort((a, b) => R(a).n.localeCompare(R(b).n, LOC[lang])).map((y) => `<option value="${y.id}"${y.id === vsWith ? ' selected' : ''}>${R(y).n}</option>`).join('');
   let h = `<div class="vsbox"><label for="vs-sel" class="hint" style="margin:0 8px 0 0">${L('অন্য রাজ্যের সঙ্গে তুলনা:', 'किसी और राज्य से तुलना:', 'Compare with another state:')}</label><select id="vs-sel" data-vs style="max-width:240px"><option value="">—</option>${opts}</select>`;
@@ -996,7 +1140,10 @@ const CAD = {
   air: ['IQAir-এর বার্ষিক প্রতিবেদন, পরেরটি ২০২৭ সালের মার্চে।', 'IQAir की वार्षिक रिपोर्ट, अगली मार्च 2027 में।', 'IQAir annual report; the next one is due in March 2027.'],
   saf: ['NCRB বছরে একবার প্রকাশ করে।', 'NCRB साल में एक बार प्रकाशित करता है।', 'NCRB publishes once a year.'],
   edu: ['সাক্ষরতার জরিপ বছরে একবার।', 'साक्षरता सर्वेक्षण साल में एक बार।', 'The literacy survey is annual.'],
-  spt: ['খেলার ফল ঘটনা অনুযায়ী বদলায়।', 'खेल के नतीजे घटनाओं के अनुसार बदलते हैं।', 'Sports results change with events.']
+  spt: ['খেলার ফল ঘটনা অনুযায়ী বদলায়।', 'खेल के नतीजे घटनाओं के अनुसार बदलते हैं।', 'Sports results change with events.'],
+  rgt: ['সংবিধানের অংশ, সাধারণত বদলায় না।', 'संविधान का हिस्सा, आमतौर पर नहीं बदलता।', 'Part of the Constitution; this rarely changes.'],
+  sym: ['জাতীয় প্রতীক সাধারণত বদলায় না।', 'राष्ट्रीय प्रतीक आमतौर पर नहीं बदलते।', 'National symbols rarely change.'],
+  cul: ['খাবার ও উৎসবের তথ্য সাধারণত বদলায় না।', 'खाने और त्योहारों की जानकारी आमतौर पर नहीं बदलती।', 'Food and festival facts rarely change.']
 };
 
 /* ---------- প্যানেল ---------- */
@@ -1009,7 +1156,7 @@ function render() {
   $('#back').hidden = nat;
   $('#pick').value = cur;
   $('#tabs').innerHTML = tabs.map(([k, l]) => `<button role="tab" id="tab-${k}" data-tab="${k}" aria-selected="${k === tab}" tabindex="${k === tab ? 0 : -1}">${l}</button>`).join('');
-  const bodies = nat ? { gen: natGen, pol: natPol, eco: natEco, mkt: natMkt, idx: natIdx, air: natAir, saf: natSaf, trv: natTrv, spt: natSpt, cmp: natCmp } : { gen: () => stGen(x), pol: () => stPol(x), eco: () => stEco(x), edu: () => stEdu(x), saf: () => stSaf(x), trv: () => stTrv(x), cmp: () => stCmp(x) };
+  const bodies = nat ? { gen: natGen, pol: natPol, eco: natEco, mkt: natMkt, idx: natIdx, air: natAir, saf: natSaf, rgt: natRgt, sym: natSym, trv: natTrv, spt: natSpt, quiz: natQuiz, cmp: natCmp } : { gen: () => stGen(x), pol: () => stPol(x), eco: () => stEco(x), edu: () => stEdu(x), cul: () => stCul(x), saf: () => stSaf(x), trv: () => stTrv(x), cmp: () => stCmp(x) };
   const bd = $('#body');
   bd.setAttribute('aria-labelledby', 'tab-' + tab);
   bd.innerHTML = bodies[tab]() + `<p class="hint upd">${L('এই বিভাগ শেষ যাচাই: ৩ নভেম্বর ২০২৬। ', 'यह खंड आख़िरी बार जाँचा गया: 3 नवंबर 2026। ', 'This section last checked: 3 November 2026. ')}${CAD[tab] ? L(...CAD[tab]) : ''}</p>`;
@@ -1049,8 +1196,23 @@ document.addEventListener('click', (e) => {
   if (lg) { setLang(lg.dataset.lang); return; }
   const so = e.target.closest('[data-sort]');
   if (so) { cmpKey = so.dataset.sort; render(); }
+  const qo = e.target.closest('[data-quiz-opt]');
+  if (qo) { if (quizPicked < 0) { quizPicked = +qo.dataset.quizOpt; if (quizPicked === QUIZ[quizI][2]) quizScore++; render(); } return; }
+  const qn = e.target.closest('[data-quiz-next]');
+  if (qn) { quizI++; quizPicked = -1; render(); return; }
+  const qr = e.target.closest('[data-quiz-restart]');
+  if (qr) { quizI = 0; quizScore = 0; quizPicked = -1; render(); return; }
 });
 $('#pick').addEventListener('change', (e) => { location.hash = e.target.value; });
+function trySearch(raw) {
+  const v = raw.trim().toLowerCase();
+  if (!v) return;
+  let id = NAME2ID[v];
+  if (!id) { const k = Object.keys(NAME2ID).find((n) => n.startsWith(v)); id = k ? NAME2ID[k] : null; }
+  if (id) { $('#search').value = ''; location.hash = id; }
+}
+$('#search').addEventListener('change', (e) => { trySearch(e.target.value); });
+$('#search').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); trySearch(e.target.value); } });
 $('#tabs').addEventListener('keydown', (e) => {
   const nx = e.key === 'ArrowRight' || e.key === 'ArrowDown', pv = e.key === 'ArrowLeft' || e.key === 'ArrowUp';
   if (!nx && !pv) return;
