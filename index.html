@@ -633,7 +633,7 @@ function applyStatic() {
     'नक़्शे पर किसी राज्य या क्षेत्र को टैप करें। राजनीति, यात्रा और तुलना की जानकारी एक जगह मिलेगी। पूरे देश की अर्थव्यवस्था, सूचकांक और खेल भी हैं।',
     'Tap a state or territory on the map. Politics, travel and comparisons in one place, plus national economy, indices and sports.');
   const today = new Intl.DateTimeFormat(LOC[lang], { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date());
-  $('#asof').textContent = L('তথ্য সর্বশেষ হালনাগাদ: ১ নভেম্বর ২০২৬', 'डेटा आख़िरी बार अपडेट: 1 नवंबर 2026', 'Data last updated: 1 November 2026') + ' · ' + L('আজ: ', 'आज: ', 'Today: ') + today;
+  $('#asof').textContent = L('তথ্য সর্বশেষ হালনাগাদ: ৩ নভেম্বর ২০২৬', 'डेटा आख़िरी बार अपडेट: 3 नवंबर 2026', 'Data last updated: 3 November 2026') + ' · ' + L('আজ: ', 'आज: ', 'Today: ') + today;
   $('#lblchoro').textContent = L('মানচিত্রে রং:', 'नक़्शे पर रंग:', 'Colour the map by:');
   $('#lblpick').textContent = L('খুঁজুন', 'खोजें', 'Find');
   $('#zbar').setAttribute('aria-label', L('মানচিত্র বড় বা ছোট করুন', 'नक़्शा बड़ा या छोटा करें', 'Zoom the map'));
@@ -1012,7 +1012,7 @@ function render() {
   const bodies = nat ? { gen: natGen, pol: natPol, eco: natEco, mkt: natMkt, idx: natIdx, air: natAir, saf: natSaf, trv: natTrv, spt: natSpt, cmp: natCmp } : { gen: () => stGen(x), pol: () => stPol(x), eco: () => stEco(x), edu: () => stEdu(x), saf: () => stSaf(x), trv: () => stTrv(x), cmp: () => stCmp(x) };
   const bd = $('#body');
   bd.setAttribute('aria-labelledby', 'tab-' + tab);
-  bd.innerHTML = bodies[tab]() + `<p class="hint upd">${L('এই বিভাগ শেষ যাচাই: ১ নভেম্বর ২০২৬। ', 'यह खंड आख़िरी बार जाँचा गया: 1 नवंबर 2026। ', 'This section last checked: 1 November 2026. ')}${CAD[tab] ? L(...CAD[tab]) : ''}</p>`;
+  bd.innerHTML = bodies[tab]() + `<p class="hint upd">${L('এই বিভাগ শেষ যাচাই: ৩ নভেম্বর ২০২৬। ', 'यह खंड आख़िरी बार जाँचा गया: 3 नवंबर 2026। ', 'This section last checked: 3 November 2026. ')}${CAD[tab] ? L(...CAD[tab]) : ''}</p>`;
   highlight();
   document.title = nat ? L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance') : R(x).n + ' | ' + L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance');
 }
