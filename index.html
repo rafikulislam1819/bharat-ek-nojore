@@ -203,6 +203,13 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
 .quiz-exp { font-size: 14px; color: var(--muted); margin: 0 0 14px; }
 .quiz-next, .quiz-restart { background: var(--fg); color: var(--bg); border: 0; border-radius: 6px; padding: 9px 18px; font: inherit; cursor: pointer; }
 .quiz-score { font-size: 19px; font-weight: 600; margin: 0 0 10px; }
+
+.rgt-list { display: flex; flex-direction: column; gap: 4px; }
+.rgt-card { padding: 13px 0; border-bottom: 1px solid var(--line); }
+.rgt-card:last-child { border-bottom: 0; }
+.rgt-card h4 { margin: 0 0 6px; font-size: 16px; font-weight: 700; color: var(--accent); }
+.rgt-card p { margin: 0 0 6px; line-height: 1.55; }
+.rgt-card small { display: block; color: var(--muted); font-size: 13px; }
 .legend { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 8px; font-size: 12.5px; color: var(--muted); }
 .legend span { display: inline-flex; align-items: center; gap: 5px; }
 .legend i { width: 14px; height: 14px; border: 1px solid var(--line); display: inline-block; }
@@ -869,7 +876,7 @@ function natCmp() {
 
 
 /* ---------- মৌলিক অধিকার ---------- */
-const RIGHTS = [
+const RIGHTS = () => [
   [L('সমতার অধিকার', 'समता का अधिकार', 'Right to Equality'), L('আইনের চোখে সবাই সমান। ধর্ম, জাতি, বর্ণ, লিঙ্গ বা জন্মস্থানের ভিত্তিতে বৈষম্য নিষিদ্ধ। সরকারি চাকরিতে সমান সুযোগ, অস্পৃশ্যতা ও উপাধি নিষিদ্ধ।', 'कानून की नज़र में सब बराबर। धर्म, जाति, वर्ण, लिंग या जन्मस्थान के आधार पर भेदभाव वर्जित। सरकारी नौकरी में समान अवसर, अस्पृश्यता और उपाधियाँ वर्जित।', 'Equality before the law. No discrimination on grounds of religion, race, caste, sex or place of birth. Equal opportunity in public employment; untouchability and titles are abolished.'), L('সংবিধান, অনুচ্ছেদ ১৪–১৮', 'संविधान, अनुच्छेद 14–18', 'Constitution, Articles 14–18')],
   [L('স্বাধীনতার অধিকার', 'स्वतंत्रता का अधिकार', 'Right to Freedom'), L('বাক ও মত প্রকাশ, শান্তিপূর্ণ সমাবেশ, সংগঠন তৈরি, অবাধ চলাফেরা, বসবাস ও যেকোনো পেশা বেছে নেওয়ার স্বাধীনতা। জীবন ও ব্যক্তিস্বাধীনতার সুরক্ষাও এর অংশ।', 'वाक और अभिव्यक्ति, शांतिपूर्ण सभा, संगठन बनाने, स्वतंत्र आवागमन, निवास और कोई भी पेशा चुनने की स्वतंत्रता। जीवन और व्यक्तिगत स्वतंत्रता की सुरक्षा भी इसका हिस्सा है।', 'Freedom of speech and expression, peaceful assembly, forming associations, free movement, residence and choice of profession. Protection of life and personal liberty is part of this right.'), L('সংবিধান, অনুচ্ছেদ ১৯–২২', 'संविधान, अनुच्छेद 19–22', 'Constitution, Articles 19–22')],
   [L('শোষণের বিরুদ্ধে অধিকার', 'शोषण के विरुद्ध अधिकार', 'Right against Exploitation'), L('মানুষ কেনাবেচা ও জোরপূর্বক শ্রম (বেগার) নিষিদ্ধ। ১৪ বছরের কম বয়সী শিশুদের কারখানা, খনি বা অন্য বিপজ্জনক কাজে নিয়োগ নিষিদ্ধ।', 'मानव व्यापार और बलात् श्रम (बेगार) वर्जित। 14 वर्ष से कम उम्र के बच्चों को कारख़ाने, खदान या अन्य ख़तरनाक काम में लगाना वर्जित।', 'Prohibits human trafficking and forced labour (begar). Bans employing children under 14 in factories, mines or other hazardous work.'), L('সংবিধান, অনুচ্ছেদ ২৩–২৪', 'संविधान, अनुच्छेद 23–24', 'Constitution, Articles 23–24')],
@@ -878,8 +885,7 @@ const RIGHTS = [
   [L('সাংবিধানিক প্রতিকারের অধিকার', 'संवैधानिक उपचारों का अधिकार', 'Right to Constitutional Remedies'), L('মৌলিক অধিকার লঙ্ঘিত হলে সরাসরি সুপ্রিম কোর্ট বা হাইকোর্টে যাওয়ার অধিকার। ড. বি. আর. আম্বেদকর একে "সংবিধানের হৃদয় ও আত্মা" বলেছিলেন।', 'मौलिक अधिकार का उल्लंघन होने पर सीधे सुप्रीम कोर्ट या हाईकोर्ट जाने का अधिकार। डॉ. बी. आर. आंबेडकर ने इसे "संविधान की आत्मा और हृदय" कहा था।', 'The right to move the Supreme Court or a High Court directly if a fundamental right is violated. Dr. B. R. Ambedkar called it "the heart and soul of the Constitution".'), L('সংবিধান, অনুচ্ছেদ ৩২', 'संविधान, अनुच्छेद 32', 'Constitution, Article 32')]
 ];
 function natRgt() {
-  const li = lang === 'bn' ? 0 : lang === 'hi' ? 1 : 2;
-  return facts(RIGHTS.map((r) => fact(r[0], r[1], r[2]))) +
+  return `<div class="rgt-list">` + RIGHTS().map((r) => `<div class="rgt-card"><h4>${r[0]}</h4><p>${r[1]}</p><small>${r[2]}</small></div>`).join('') + `</div>` +
     `<p class="hint">${L('মূলত ৭টি মৌলিক অধিকার ছিল। সম্পত্তির অধিকার ১৯৭৮ সালের ৪৪তম সংবিধান সংশোধনীতে মৌলিক অধিকারের তালিকা থেকে সরিয়ে অনুচ্ছেদ ৩০০ক-তে আইনি অধিকার করা হয়। এখন ৬টি মৌলিক অধিকার আছে। স্কুল পাঠ্যবইয়ের NCERT নাগরিকশাস্ত্র অনুযায়ী সংক্ষেপ, হুবহু আইনি ভাষা নয়।', 'मूल रूप से 7 मौलिक अधिकार थे। संपत्ति के अधिकार को 1978 के 44वें संविधान संशोधन से मौलिक अधिकारों की सूची से हटाकर अनुच्छेद 300क के तहत एक विधिक (क़ानूनी) अधिकार बना दिया गया। अब 6 मौलिक अधिकार हैं। NCERT नागरिक शास्त्र की पाठ्यपुस्तकों के अनुसार संक्षेप, शब्दशः विधिक भाषा नहीं।', 'There were originally 7 Fundamental Rights. The Right to Property was removed from this list by the 44th Amendment (1978) and made a legal right under Article 300A instead. There are now 6 Fundamental Rights. Summarised from NCERT civics textbooks, not verbatim legal text.')}</p>`;
 }
 
@@ -902,7 +908,7 @@ function natSym() {
 }
 
 /* ---------- কুইজ ---------- */
-const QUIZ = [
+const QUIZ = () => [
   [L('ভারতের রাজধানী কোনটি?', 'भारत की राजधानी कौन-सी है?', "What is India's capital?"), [L('মুম্বই', 'मुंबई', 'Mumbai'), L('নয়াদিল্লি', 'नई दिल्ली', 'New Delhi'), L('কলকাতা', 'कोलकाता', 'Kolkata'), L('চেন্নাই', 'चेन्नई', 'Chennai')], 1],
   [L('ভারতের জাতীয় পশু কোনটি?', 'भारत का राष्ट्रीय पशु कौन-सा है?', "What is India's national animal?"), [L('সিংহ', 'शेर', 'Lion'), L('হাতি', 'हाथी', 'Elephant'), L('রয়্যাল বেঙ্গল টাইগার', 'रॉयल बंगाल टाइगर', 'Royal Bengal Tiger'), L('ময়ূর', 'मोर', 'Peacock')], 2],
   [L('ভারত কত সালে স্বাধীনতা পায়?', 'भारत को किस वर्ष स्वतंत्रता मिली?', 'In which year did India gain independence?'), ['1930', '1947', '1950', '1952'], 1],
@@ -916,11 +922,12 @@ const QUIZ = [
 ];
 let quizI = 0, quizScore = 0, quizPicked = -1;
 function natQuiz() {
-  if (quizI >= QUIZ.length) {
-    return `<p class="quiz-score">${L(`আপনার স্কোর: ${nf.format(quizScore)} / ${nf.format(QUIZ.length)}`, `आपका स्कोर: ${nf.format(quizScore)} / ${nf.format(QUIZ.length)}`, `Your score: ${quizScore} / ${QUIZ.length}`)}</p>` +
+  const Q = QUIZ();
+  if (quizI >= Q.length) {
+    return `<p class="quiz-score">${L(`আপনার স্কোর: ${nf.format(quizScore)} / ${nf.format(Q.length)}`, `आपका स्कोर: ${nf.format(quizScore)} / ${nf.format(Q.length)}`, `Your score: ${quizScore} / ${Q.length}`)}</p>` +
       `<button type="button" class="quiz-restart" data-quiz-restart>${L('আবার শুরু করুন', 'फिर से शुरू करें', 'Restart')}</button>`;
   }
-  const [q, opts, ans] = QUIZ[quizI];
+  const [q, opts, ans] = Q[quizI];
   const answered = quizPicked >= 0;
   const optHtml = opts.map((o, i) => {
     let cls = 'quiz-opt';
@@ -928,9 +935,9 @@ function natQuiz() {
     else if (answered && i === quizPicked) cls += ' wrong';
     return `<button type="button" class="${cls}" data-quiz-opt="${i}" ${answered ? 'disabled' : ''}>${o}</button>`;
   }).join('');
-  return `<div class="quiz-card"><p class="quiz-prog">${L(`প্রশ্ন ${nf.format(quizI + 1)} / ${nf.format(QUIZ.length)} · স্কোর ${nf.format(quizScore)}`, `प्रश्न ${nf.format(quizI + 1)} / ${nf.format(QUIZ.length)} · स्कोर ${nf.format(quizScore)}`, `Question ${quizI + 1} / ${QUIZ.length} · Score ${quizScore}`)}</p>` +
+  return `<div class="quiz-card"><p class="quiz-prog">${L(`প্রশ্ন ${nf.format(quizI + 1)} / ${nf.format(Q.length)} · স্কোর ${nf.format(quizScore)}`, `प्रश्न ${nf.format(quizI + 1)} / ${nf.format(Q.length)} · स्कोर ${nf.format(quizScore)}`, `Question ${quizI + 1} / ${Q.length} · Score ${quizScore}`)}</p>` +
     `<p class="quiz-q">${q}</p><div class="quiz-opts">${optHtml}</div>` +
-    (answered ? `<button type="button" class="quiz-next" data-quiz-next>${quizI + 1 < QUIZ.length ? L('পরের প্রশ্ন', 'अगला प्रश्न', 'Next question') : L('ফলাফল দেখুন', 'नतीजा देखें', 'See result')}</button>` : '') + `</div>`;
+    (answered ? `<button type="button" class="quiz-next" data-quiz-next>${quizI + 1 < Q.length ? L('পরের প্রশ্ন', 'अगला प्रश्न', 'Next question') : L('ফলাফল দেখুন', 'नतीजा देखें', 'See result')}</button>` : '') + `</div>`;
 }
 
 /* ---------- বায়ুদূষণ ---------- */
