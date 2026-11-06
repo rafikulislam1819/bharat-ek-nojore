@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>ভারত এক নজরে</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="theme-color" content="#B3400A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -716,7 +717,7 @@ function applyStatic() {
     'नक़्शे पर किसी राज्य या क्षेत्र को टैप करें। राजनीति, यात्रा और तुलना की जानकारी एक जगह मिलेगी। पूरे देश की अर्थव्यवस्था, सूचकांक और खेल भी हैं।',
     'Tap a state or territory on the map. Politics, travel and comparisons in one place, plus national economy, indices and sports.');
   const today = new Intl.DateTimeFormat(LOC[lang], { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date());
-  $('#asof').textContent = L('তথ্য সর্বশেষ হালনাগাদ: ৫ নভেম্বর ২০২৬', 'डेटा आख़िरी बार अपडेट: 5 नवंबर 2026', 'Data last updated: 5 November 2026') + ' · ' + L('আজ: ', 'आज: ', 'Today: ') + today;
+  $('#asof').textContent = L('তথ্য সর্বশেষ হালনাগাদ: ৬ নভেম্বর ২০২৬', 'डेटा आख़िरी बार अपडेट: 6 नवंबर 2026', 'Data last updated: 6 November 2026') + ' · ' + L('আজ: ', 'आज: ', 'Today: ') + today;
   $('#lblchoro').textContent = L('মানচিত্রে রং:', 'नक़्शे पर रंग:', 'Colour the map by:');
   $('#lblpick').textContent = L('তালিকা থেকে বাছুন', 'सूची से चुनें', 'Pick from list');
   $('#lblsearch').textContent = L('খুঁজুন', 'खोजें', 'Search');
@@ -1369,7 +1370,7 @@ function render() {
   const bodies = nat ? { gen: natGen, pol: natPol, eco: natEco, mkt: natMkt, idx: natIdx, air: natAir, saf: natSaf, rgt: natRgt, sym: natSym, hist: natHist, trv: natTrv, spt: natSpt, quiz: natQuiz, cmp: natCmp } : { gen: () => stGen(x), pol: () => stPol(x), eco: () => stEco(x), edu: () => stEdu(x), cul: () => stCul(x), saf: () => stSaf(x), trv: () => stTrv(x), cmp: () => stCmp(x) };
   const bd = $('#body');
   bd.setAttribute('aria-labelledby', 'tab-' + tab);
-  bd.innerHTML = bodies[tab]() + `<p class="hint upd">${L('এই বিভাগ শেষ যাচাই: ৫ নভেম্বর ২০২৬। ', 'यह खंड आख़िरी बार जाँचा गया: 5 नवंबर 2026। ', 'This section last checked: 5 November 2026. ')}${CAD[tab] ? L(...CAD[tab]) : ''}</p>`;
+  bd.innerHTML = bodies[tab]() + `<p class="hint upd">${L('এই বিভাগ শেষ যাচাই: ৬ নভেম্বর ২০২৬। ', 'यह खंड आख़िरी बार जाँचा गया: 6 नवंबर 2026। ', 'This section last checked: 6 November 2026. ')}${CAD[tab] ? L(...CAD[tab]) : ''}</p>`;
   if (nat && tab === 'cmp') { const a = $('#cmpA-sel'), b = $('#cmpB-sel'); if (a) a.value = cmpA; if (b) b.value = cmpB; }
   highlight();
   document.title = nat ? L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance') : R(x).n + ' | ' + L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance');
