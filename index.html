@@ -253,6 +253,21 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
 .sharebtn.copied { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .vsbox { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
 
+.badge { display: inline-flex; align-items: center; font-size: 12px; font-weight: 700; letter-spacing: .02em; padding: 2px 10px; border-radius: 999px; line-height: 1.7; white-space: nowrap; vertical-align: middle; }
+.badge-sm { font-size: 11px; padding: 1px 8px; }
+.badge-state { background: #DCEFE1; color: #1E7B3C; }
+.badge-ut { background: #DCE7F7; color: #1D5FB8; }
+.badge-fresh { background: #DCEFE1; color: #1E7B3C; margin-right: 6px; }
+.badge-est { background: #FBE8CE; color: #A1590A; margin-right: 6px; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .badge-state, :root:not([data-theme="light"]) .badge-fresh { background: #1C3A26; color: #7FDA9B; }
+  :root:not([data-theme="light"]) .badge-ut { background: #1B2D4A; color: #8FB6F0; }
+  :root:not([data-theme="light"]) .badge-est { background: #4A3215; color: #F0B868; }
+}
+:root[data-theme="dark"] .badge-state, :root[data-theme="dark"] .badge-fresh { background: #1C3A26; color: #7FDA9B; }
+:root[data-theme="dark"] .badge-ut { background: #1B2D4A; color: #8FB6F0; }
+:root[data-theme="dark"] .badge-est { background: #4A3215; color: #F0B868; }
+
 </style>
 
 </head>
@@ -947,7 +962,7 @@ function natCmp() {
   };
   return vsBlock() + `<h3 class="sub">${L('সব রাজ্যের র‍্যাংকিং', 'सभी राज्यों की रैंकिंग', 'Ranking of all states')}</h3>` +
     `<div class="seg" role="group" aria-label="${L('সাজানোর ধরন', 'क्रम का आधार', 'Sort by')}">${Object.entries(keys).map(([k, v]) => `<button data-sort="${k}" aria-pressed="${k === cmpKey}">${v[0]}</button>`).join('')}</div>` +
-    `<div class="cmp">` + list.map((x, i) => `<button class="crow" data-go="${x.id}"><span class="cr">${nf.format(i + 1)}</span><span class="cn">${R(x).n}${x.t === 'ut' ? ' <em>UT</em>' : ''}</span>${bar(scale(get(x)), R(x).n)}<span class="cv">${show(x)}</span></button>`).join('') + `</div>` +
+    `<div class="cmp">` + list.map((x, i) => `<button class="crow" data-go="${x.id}"><span class="cr">${nf.format(i + 1)}</span><span class="cn">${R(x).n}${x.t === 'ut' ? ' <span class="badge badge-ut badge-sm">UT</span>' : ''}</span>${bar(scale(get(x)), R(x).n)}<span class="cv">${show(x)}</span></button>`).join('') + `</div>` +
     `<p class="hint">${notes[cmpKey] || L('জনসংখ্যা ও আয়তন ২০১১ আদমশুমারি অনুযায়ী।', 'जनसंख्या और क्षेत्रफल 2011 की जनगणना के अनुसार।', 'Population and area per the 2011 Census.')}${cmpKey === 'd' ? L(' জনঘনত্বের দাগ বর্গমূল স্কেলে আঁকা, নইলে দিল্লি ও চণ্ডীগড় বাকি সবাইকে ঢেকে দিত।', ' घनत्व की पट्टियाँ वर्गमूल पैमाने पर बनी हैं, वरना दिल्ली और चंडीगढ़ बाक़ी सबको ढक देते।', ' Density bars use a square-root scale; otherwise Delhi and Chandigarh would dwarf everyone else.') : ''}</p>`;
 }
 
@@ -1364,14 +1379,14 @@ function render() {
   const tabs = nat ? NAT_TAB() : ST_TAB();
   if (!tabs.some((t) => t[0] === tab)) tab = 'gen';
   $('#ptitle').textContent = nat ? L('ভারত', 'भारत', 'India') : R(x).n;
-  $('#psub').textContent = nat ? L('India · সার্বভৌম প্রজাতন্ত্র', 'India · संप्रभु गणराज्य', 'Sovereign republic') : `${x.en} · ${TYPE_LABEL()[x.t]} · ${zn(x.z)} ${L('ভারত', 'भारत', 'India')}`;
+  $('#psub').innerHTML = nat ? L('India · সার্বভৌম প্রজাতন্ত্র', 'India · संप्रभु गणराज्य', 'Sovereign republic') : `${x.en} · <span class="badge ${x.t === 'ut' ? 'badge-ut' : 'badge-state'}">${TYPE_LABEL()[x.t]}</span> · ${zn(x.z)} ${L('ভারত', 'भारत', 'India')}`;
   $('#back').hidden = nat;
   $('#pick').value = cur;
   $('#tabs').innerHTML = tabs.map(([k, l]) => `<button role="tab" id="tab-${k}" data-tab="${k}" aria-selected="${k === tab}" tabindex="${k === tab ? 0 : -1}">${l}</button>`).join('');
   const bodies = nat ? { gen: natGen, pol: natPol, eco: natEco, mkt: natMkt, idx: natIdx, air: natAir, saf: natSaf, rgt: natRgt, sym: natSym, hist: natHist, trv: natTrv, spt: natSpt, quiz: natQuiz, cmp: natCmp } : { gen: () => stGen(x), pol: () => stPol(x), eco: () => stEco(x), edu: () => stEdu(x), cul: () => stCul(x), saf: () => stSaf(x), trv: () => stTrv(x), cmp: () => stCmp(x) };
   const bd = $('#body');
   bd.setAttribute('aria-labelledby', 'tab-' + tab);
-  bd.innerHTML = bodies[tab]() + `<p class="hint upd">${L('এই বিভাগ শেষ যাচাই: ৬ নভেম্বর ২০২৬। ', 'यह खंड आख़िरी बार जाँचा गया: 6 नवंबर 2026। ', 'This section last checked: 6 November 2026. ')}${CAD[tab] ? L(...CAD[tab]) : ''}</p>`;
+  bd.innerHTML = bodies[tab]() + `<p class="hint upd"><span class="badge badge-fresh">${L('হালনাগাদ', 'अद्यतन', 'Updated')}</span>${L('এই বিভাগ শেষ যাচাই: ৬ নভেম্বর ২০২৬। ', 'यह खंड आख़िरी बार जाँचा गया: 6 नवंबर 2026। ', 'This section last checked: 6 November 2026. ')}${CAD[tab] ? L(...CAD[tab]) : ''}</p>`;
   if (nat && tab === 'cmp') { const a = $('#cmpA-sel'), b = $('#cmpB-sel'); if (a) a.value = cmpA; if (b) b.value = cmpB; }
   highlight();
   document.title = nat ? L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance') : R(x).n + ' | ' + L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance');
@@ -1464,6 +1479,4 @@ labelMap();
 render();
 
 </script>
-
-</body>
 </html>
