@@ -1580,10 +1580,16 @@ function lqInit() {
   $('#lqNameGo').addEventListener('click', lqDoJoin);
   $('#lqNameInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') lqDoJoin(); });
 }
+let lqJoining = false;
 function lqDoJoin() {
+  if (lqJoining) return;
   const inp = $('#lqNameInput');
   const name = (inp.value || '').trim().slice(0, 24);
   if (!name) { inp.focus(); return; }
+  lqJoining = true;
+  const goBtn = $('#lqNameGo');
+  if (goBtn) { goBtn.disabled = true; }
+  if (inp) { inp.disabled = true; }
   lqName = name;
   try { localStorage.setItem('lq_name', name); } catch (_) {}
   fetch(LQ_DB + '/liveQuiz/players.json', {
@@ -1594,9 +1600,14 @@ function lqDoJoin() {
       lqPid = res.name;
       try { localStorage.setItem('lq_pid', lqPid); } catch (_) {}
       lqJoined = true;
-      lqRender();
     }
-  }).catch(() => {});
+    lqJoining = false;
+    lqRender();
+  }).catch(() => {
+    lqJoining = false;
+    if (goBtn) { goBtn.disabled = false; }
+    if (inp) { inp.disabled = false; }
+  });
 }
 function lqFmtWhen(ts) {
   if (!ts) return '';
