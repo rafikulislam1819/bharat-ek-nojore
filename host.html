@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<title>লাইভ কুইজ — হোস্ট প্যানেল</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hind Siliguri', sans-serif; background: #0E1820; color: #E5ECF1; margin: 0; padding: 20px 16px 60px; }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  h1 { font-size: 1.4rem; margin: 0 0 18px; }
+  h2 { font-size: 1.1rem; margin: 0 0 10px; }
+  h3 { font-size: 1rem; margin: 18px 0 8px; }
+  section { background: #15222D; border: 1px solid #2A3B49; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+  label { display: block; font-size: 13px; color: #9DB0BE; margin: 10px 0 4px; }
+  input { width: 100%; font: inherit; padding: 9px 10px; background: #0E1820; color: #E5ECF1; border: 1px solid #2A3B49; border-radius: 6px; }
+  button { font: inherit; padding: 10px 16px; border-radius: 7px; border: 0; cursor: pointer; margin: 10px 6px 0 0; }
+  .btn-main { background: #FF9D62; color: #1A0E05; font-weight: 700; }
+  .btn-danger { background: #c0392b; color: #fff; }
+  .btn-plain { background: #2A3B49; color: #E5ECF1; }
+  .hint { font-size: 12.5px; color: #9DB0BE; margin-top: 8px; }
+  #gate { display: flex; gap: 8px; }
+  #gate input { flex: 1; }
+  ul#playerList, ol#endBoard { padding-left: 0; list-style: none; margin: 8px 0; }
+  ul#playerList li, ol#endBoard li { padding: 6px 0; border-bottom: 1px solid #2A3B49; display: flex; justify-content: space-between; font-size: 14px; }
+  ul#qOpts { list-style: none; padding: 0; margin: 10px 0; }
+  ul#qOpts li { padding: 8px 10px; border: 1px solid #2A3B49; border-radius: 6px; margin-bottom: 6px; font-size: 14.5px; }
+  ul#qOpts li.right { border-color: #2e9e53; background: rgba(46,158,83,.14); font-weight: 600; }
+  ul#qOpts li.wrong { border-color: #c0392b; background: rgba(192,57,43,.14); }
+  #qStatus { font-size: 13.5px; color: #9DB0BE; }
+  .pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: #1C3A26; color: #7FDA9B; margin-bottom: 8px; }
+  .pill.live { background: #4A3215; color: #F0B868; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>লাইভ কুইজ — হোস্ট প্যানেল</h1>
+
+  <section id="gateSec">
+    <label for="pw">হোস্ট পাসওয়ার্ড</label>
+    <div id="gate">
+      <input type="password" id="pw" placeholder="পাসওয়ার্ড">
+      <button type="button" class="btn-main" id="pwGo">ঢুকুন</button>
+    </div>
+  </section>
+
+  <div id="panel" hidden>
+    <section id="createSec">
+      <h2>নতুন ইভেন্ট তৈরি করুন</h2>
+      <label for="evTitle">টাইটেল</label>
+      <input id="evTitle" value="ভারত কুইজ — লাইভ">
+      <label for="evWhen">কখন শুরু হবে (শুধু দেখানোর জন্য, আপনি যেকোনো সময় শুরু করতে পারবেন)</label>
+      <input id="evWhen" type="datetime-local">
+      <label for="evCount">কয়টা প্রশ্ন হবে (৩–৫০)</label>
+      <input id="evCount" type="number" min="3" max="50" value="15">
+      <button type="button" class="btn-main" id="evCreate">ইভেন্ট তৈরি করো</button>
+      <p class="hint">নতুন ইভেন্ট তৈরি করলে আগের সব প্লেয়ার ও স্কোর মুছে যাবে।</p>
+    </section>
+
+    <section id="liveSec" hidden>
+      <span class="pill" id="statusPill"></span>
+      <h2 id="liveTitle"></h2>
+      <p id="liveWhen" class="hint"></p>
+      <p>জয়েন করেছে: <b id="liveCount">0</b> জন</p>
+      <ul id="playerList"></ul>
+      <button type="button" class="btn-main" id="btnStart">এখনই শুরু করো</button>
+
+      <div id="qPanel" hidden>
+        <p id="qProg"></p>
+        <p id="qText" style="font-weight:600"></p>
+        <ul id="qOpts"></ul>
+        <p id="qStatus"></p>
+        <button type="button" class="btn-plain" id="btnNext">পরের প্রশ্নে যাও (ম্যানুয়াল)</button>
+        <button type="button" class="btn-danger" id="btnEnd">ইভেন্ট শেষ করো</button>
+      </div>
+
+      <div id="endPanel" hidden>
+        <h3>ফলাফল</h3>
+        <ol id="endBoard"></ol>
+        <p class="hint" id="totalJoined"></p>
+        <button type="button" class="btn-main" id="btnReset">নতুন ইভেন্টের জন্য রিসেট করো</button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+// ---- পাসওয়ার্ড এখানে বদলাতে পারো ----
+const HOST_PASSWORD = 'Rafikul@1234';
+const LQ_DB = (window.__LQ_DB_OVERRIDE) || 'https://bharat-ak-nojore-default-rtdb.firebaseio.com';
+
+const QUIZ_BN = [["ভারতের রাজধানী কোনটি?",["মুম্বই","নয়াদিল্লি","কলকাতা","চেন্নাই"],1],["ভারতের জাতীয় পশু কোনটি?",["সিংহ","হাতি","রয়্যাল বেঙ্গল টাইগার","ময়ূর"],2],["ভারত কত সালে স্বাধীনতা পায়?",["1930","1947","1950","1952"],1],["ভারতের সংবিধান কবে কার্যকর হয়?",["১৫ আগস্ট ১৯৪৭","২৬ নভেম্বর ১৯৪৯","২৬ জানুয়ারি ১৯৫০","২ অক্টোবর ১৯৫০"],2],["ভারতের প্রথম প্রধানমন্ত্রী কে ছিলেন?",["মহাত্মা গান্ধী","সর্দার প্যাটেল","জওহরলাল নেহরু","ড. রাজেন্দ্র প্রসাদ"],2],["ভারতের প্রথম রাষ্ট্রপতি কে ছিলেন?",["জওহরলাল নেহরু","ড. রাজেন্দ্র প্রসাদ","এস. রাধাকৃষ্ণন","এ. পি. জে. আবদুল কালাম"],1],["সংবিধানের অষ্টম তফসিলে কতটি ভাষা স্বীকৃত?",["15","18","22","25"],2],["বর্তমানে ভারতে কতটি রাজ্য আছে?",["27","28","29","30"],1],["বর্তমানে মৌলিক অধিকার কতটি?",["5","6","7","8"],1],["আয়তনে ভারতের বৃহত্তম রাজ্য কোনটি?",["মধ্যপ্রদেশ","মহারাষ্ট্র","রাজস্থান","উত্তরপ্রদেশ"],2],["ভারতের জাতীয় পাখি কোনটি?",["কাক","ময়ূর","চড়ুই","ঈগল"],1],["ভারতের জাতীয় ফুল কোনটি?",["গোলাপ","সূর্যমুখী","পদ্ম","গাঁদা"],2],["দেশের অভ্যন্তরে প্রবাহিত অংশ হিসেবে ভারতের দীর্ঘতম নদী কোনটি?",["যমুনা","গঙ্গা","গোদাবরী","ব্রহ্মপুত্র"],1],["ভারতের ভূখণ্ডে অবস্থিত সর্বোচ্চ পর্বতশৃঙ্গ কোনটি?",["K2","নন্দা দেবী","কাঞ্চনজঙ্ঘা","এভারেস্ট"],2],["বর্তমানে ভারতে কতটি কেন্দ্রশাসিত অঞ্চল আছে?",["6","7","8","9"],2],["মহাকাশে যাওয়া প্রথম ভারতীয় কে?",["কল্পনা চাওলা","রাকেশ শর্মা","সুনীতা উইলিয়ামস","বিক্রম সারাভাই"],1],["ভারতের মঙ্গলযান কোন বছর মঙ্গল গ্রহের কক্ষপথে পৌঁছায়?",["2013","2014","2015","2016"],1],["চন্দ্রযান-৩ চাঁদের কোন অংশে অবতরণ করে?",["উত্তর মেরু","নিরক্ষরেখা","দক্ষিণ মেরু","অন্ধকার দিক"],2],["ভারতের প্রথম নারী প্রধানমন্ত্রী কে ছিলেন?",["সনিয়া গান্ধী","প্রতিভা পাতিল","সুষমা স্বরাজ","ইন্দিরা গান্ধী"],3],["সংবিধান অনুযায়ী ভারতের \"জাতীয় ভাষা\" কোনটি?",["হিন্দি","কোনো আনুষ্ঠানিক জাতীয় ভাষা নেই","ইংরেজি","সংস্কৃত"],1],["ভারতের সরকারি ঘোষিত জাতীয় খেলা কোনটি?",["হকি","ক্রিকেট","কাবাডি","কোনোটিই আনুষ্ঠানিকভাবে ঘোষিত নয়"],3],["কাবাডিতে মাঠে এক দলে কতজন খেলোয়াড় থাকে?",["5","7","9","11"],1],["ভারতের সর্বোচ্চ বেসামরিক সম্মান কোনটি?",["পদ্মবিভূষণ","পদ্মভূষণ","ভারতরত্ন","অশোকচক্র"],2],["কোন ভারতীয় শহরকে \"ভারতের সিলিকন ভ্যালি\" বলা হয়?",["হায়দরাবাদ","বেঙ্গালুরু","পুনে","চেন্নাই"],1],["জাতীয় সংগীত \"জন গণ মন\" কে রচনা করেন?",["বঙ্কিমচন্দ্র চট্টোপাধ্যায়","রবীন্দ্রনাথ ঠাকুর","সরোজিনী নাইডু","মুহাম্মদ ইকবাল"],1],["ভারতের রাষ্ট্রীয় প্রতীকে কোন মূলমন্ত্র লেখা আছে?",["বন্দে মাতরম","জয় হিন্দ","সত্যমেব জয়তে","সত্যম শিবম সুন্দরম"],2],["আয়তনে ভারতের ক্ষুদ্রতম রাজ্য কোনটি?",["সিকিম","গোয়া","ত্রিপুরা","নাগাল্যান্ড"],1],["ভারতে GST (পণ্য ও পরিষেবা কর) কোন বছর চালু হয়?",["2015","2016","2017","2018"],2],["তাজমহল কোন শহরে অবস্থিত?",["দিল্লি","আগ্রা","জয়পুর","লখনউ"],1],["ভারতের জাতীয় গাছ কোনটি?",["বট (বটগাছ)","নিম","অশ্বত্থ","আম"],0],["ভারতের প্রথম কৃত্রিম উপগ্রহের নাম কী?",["আর্যভট্ট","ভাস্কর","রোহিণী","ইনস্যাট"],0],["ইসরো (ISRO)-র সদর দপ্তর কোথায়?",["চেন্নাই","বেঙ্গালুরু","হায়দরাবাদ","তিরুবনন্তপুরম"],1],["ভারতের কোন রাজ্যে সাক্ষরতার হার সবচেয়ে বেশি?",["কেরল","তামিলনাড়ু","মিজোরাম","গোয়া"],0],["\"জাতির জনক\" (Father of the Nation) উপাধিতে কাকে অভিহিত করা হয়?",["জওহরলাল নেহরু","সুভাষচন্দ্র বসু","মহাত্মা গান্ধী","সর্দার প্যাটেল"],2],["ভারত ছাড়ো আন্দোলন (Quit India Movement) কোন সালে শুরু হয়?",["1930","1942","1947","1919"],1],["জালিয়ানওয়ালাবাগ হত্যাকাণ্ড কোন সালে ঘটে?",["1909","1919","1929","1939"],1],["ভারতের জাতীয় পতাকার নকশা কে করেছিলেন?",["পিঙ্গালি ভেঙ্কাইয়া","ভীমরাও আম্বেদকর","জওহরলাল নেহরু","লালা হংসরাজ"],0],["অশোকচক্রে কয়টি কাঁটা (স্পোক) আছে?",["16","20","24","32"],2],["ভারতীয় মুদ্রার প্রতীক (₹) কে ডিজাইন করেছিলেন?",["ডি. উদয় কুমার","রাজা রবি বর্মা","নন্দলাল বসু","আর. কে. লক্ষ্মণ"],0],["ভারতের প্রথম নারী রাষ্ট্রপতি কে ছিলেন?",["প্রতিভা পাটিল","দ্রৌপদী মুর্মু","সুষমা স্বরাজ","সনিয়া গান্ধী"],0],["ভারতের প্রথম আইআইটি (IIT) কোনটি?",["আইআইটি বোম্বে","আইআইটি খড়গপুর","আইআইটি দিল্লি","আইআইটি মাদ্রাজ"],1],["ভারতের প্রথম নোবেল পুরস্কার বিজয়ী কে?",["সি. ভি. রমন","রবীন্দ্রনাথ ঠাকুর","মাদার টেরেসা","অমর্ত্য সেন"],1],["একটি ক্রিকেট দলে মাঠে কতজন খেলোয়াড় থাকে?",["9","10","11","12"],2],["ভারত প্রথমবার ক্রিকেট বিশ্বকাপ জেতে কোন সালে?",["1975","1983","1992","2003"],1],["দাবা (চেস) খেলার উৎপত্তি কোথায় বলে মনে করা হয়?",["চীন","ভারত","পারস্য","মিশর"],1],["ভারতে সরকারিভাবে কয়টি সময় অঞ্চল (টাইম জোন) ব্যবহৃত হয়?",["1","2","3","5"],0],["ইসরো (ISRO) কোন সালে প্রতিষ্ঠিত হয়?",["1962","1969","1972","1975"],1],["গঙ্গা নদীর মোট দৈর্ঘ্য আনুমানিক কত?",["১,৫০০ কিমি","২,০০০ কিমি","২,৫২৫ কিমি","৩,০০০ কিমি"],2],["ভারতের সর্বোচ্চ আদালত (সুপ্রিম কোর্ট) কোথায় অবস্থিত?",["মুম্বই","নয়াদিল্লি","কলকাতা","চেন্নাই"],1],["\"ভারত\" নামটি কোন প্রাচীন রাজার নাম থেকে এসেছে বলে মনে করা হয়?",["অশোক","ভরত","চন্দ্রগুপ্ত","আকবর"],1]];
+
+let root = {};
+let es = null;
+let lastQIndexSeen = -1;
+let lockHandled = false;
+let skipTimer = null, advanceTimer = null;
+const QUESTION_SECONDS = 15;
+const REVEAL_PAUSE_MS = 3500;
+
+function $(s) { return document.querySelector(s); }
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function node(path) {
+  const parts = path.split('/').filter(Boolean);
+  let n = root;
+  for (const k of parts) { if (typeof n[k] !== 'object' || n[k] === null) n[k] = {}; n = n[k]; }
+  return n;
+}
+function put(path, data) {
+  if (path === '/') { root = data || {}; return; }
+  const parts = path.split('/').filter(Boolean);
+  const last = parts.pop();
+  let n = root;
+  for (const k of parts) { if (typeof n[k] !== 'object' || n[k] === null) n[k] = {}; n = n[k]; }
+  if (data === null || data === undefined) delete n[last]; else n[last] = data;
+}
+function patch(path, data) {
+  const n = node(path);
+  Object.keys(data || {}).forEach(k => { if (data[k] === null) delete n[k]; else n[k] = data[k]; });
+}
+
+function connect() {
+  try {
+    if (es) es.close();
+    es = new EventSource(LQ_DB + '/liveQuiz.json');
+    es.addEventListener('put', e => { try { const { path, data } = JSON.parse(e.data); put(path, data); render(); } catch (_) {} });
+    es.addEventListener('patch', e => { try { const { path, data } = JSON.parse(e.data); patch(path, data); render(); } catch (_) {} });
+  } catch (_) {}
+}
+
+function fmtWhen(ts) {
+  if (!ts) return '';
+  try { return new Intl.DateTimeFormat('bn', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).format(new Date(ts)); }
+  catch (_) { return new Date(ts).toLocaleString(); }
+}
+
+function clearTimers() {
+  if (skipTimer) { clearTimeout(skipTimer); skipTimer = null; }
+  if (advanceTimer) { clearTimeout(advanceTimer); advanceTimer = null; }
+}
+
+function putJson(path, body) {
+  return fetch(LQ_DB + path, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+}
+
+function createEvent() {
+  const title = ($('#evTitle').value || '').trim() || 'লাইভ কুইজ';
+  const whenVal = $('#evWhen').value;
+  const scheduledAt = whenVal ? new Date(whenVal).getTime() : Date.now();
+  const total = Math.max(3, Math.min(50, parseInt($('#evCount').value, 10) || 15));
+  clearTimers();
+  lastQIndexSeen = -1; lockHandled = false;
+  fetch(LQ_DB + '/liveQuiz/players.json', { method: 'DELETE' })
+    .then(() => putJson('/liveQuiz/state.json', { qIndex: 0, total, lockedBy: null, lockedAnswer: null, qStartAt: Date.now() }))
+    .then(() => putJson('/liveQuiz/event.json', { title, status: 'scheduled', scheduledAt }))
+    .catch(() => {});
+}
+
+function startNow() {
+  const ev = root.event || {};
+  clearTimers();
+  lastQIndexSeen = -1; lockHandled = false;
+  putJson('/liveQuiz/state.json', { qIndex: 0, total: (root.state && root.state.total) || 15, lockedBy: null, lockedAnswer: null, qStartAt: Date.now() })
+    .then(() => putJson('/liveQuiz/event.json', { title: ev.title, scheduledAt: ev.scheduledAt, status: 'live' }))
+    .catch(() => {});
+}
+
+function advanceQuestion() {
+  clearTimers();
+  const st = root.state || {};
+  const total = st.total || 15;
+  const next = (st.qIndex || 0) + 1;
+  if (next >= total) {
+    endEvent();
+    return;
+  }
+  putJson('/liveQuiz/state.json', { qIndex: next, total, lockedBy: null, lockedAnswer: null, qStartAt: Date.now() }).catch(() => {});
+}
+
+function endEvent() {
+  clearTimers();
+  const ev = root.event || {};
+  putJson('/liveQuiz/event.json', { title: ev.title, scheduledAt: ev.scheduledAt, status: 'ended' }).catch(() => {});
+}
+
+function resetAll() {
+  clearTimers();
+  lastQIndexSeen = -1; lockHandled = false;
+  fetch(LQ_DB + '/liveQuiz.json', { method: 'DELETE' }).catch(() => {});
+}
+
+function render() {
+  const ev = root.event, st = root.state || {}, players = root.players || {};
+  const count = Object.keys(players).length;
+
+  $('#createSec').hidden = !!(ev && ev.status);
+  $('#liveSec').hidden = !(ev && ev.status);
+  if (!(ev && ev.status)) return;
+
+  $('#liveTitle').textContent = ev.title || '';
+  $('#liveCount').textContent = String(count);
+  const pill = $('#statusPill');
+  if (ev.status === 'scheduled') { pill.textContent = 'নির্ধারিত'; pill.className = 'pill'; $('#liveWhen').textContent = 'শুরু হবে: ' + fmtWhen(ev.scheduledAt); }
+  else if (ev.status === 'live') { pill.textContent = '🔴 লাইভ চলছে'; pill.className = 'pill live'; $('#liveWhen').textContent = ''; }
+  else if (ev.status === 'ended') { pill.textContent = 'শেষ হয়েছে'; pill.className = 'pill'; $('#liveWhen').textContent = ''; }
+
+  const ranked = Object.entries(players).map(([id, p]) => ({ id, ...p })).sort((a, b) => (b.score || 0) - (a.score || 0) || (a.joinedAt || 0) - (b.joinedAt || 0));
+  $('#playerList').innerHTML = ranked.map(p => `<li><span>${esc(p.name)}</span><span>স্কোর ${p.score || 0}</span></li>`).join('') || '<li>কেউ এখনো জয়েন করেনি</li>';
+
+  $('#btnStart').hidden = ev.status !== 'scheduled';
+  $('#qPanel').hidden = ev.status !== 'live';
+  $('#endPanel').hidden = ev.status !== 'ended';
+
+  if (ev.status === 'live') {
+    renderQuestionPanel(st, players);
+  } else {
+    clearTimers();
+  }
+
+  if (ev.status === 'ended') {
+    const medals = ['🥇', '🥈', '🥉'];
+    $('#endBoard').innerHTML = ranked.slice(0, 3).map((p, i) => `<li><span>${medals[i]} ${esc(p.name)}</span><span>স্কোর ${p.score || 0}</span></li>`).join('') || '<li>কেউ জয়েন করেনি</li>';
+    $('#totalJoined').textContent = `মোট জয়েন করেছিল: ${count} জন`;
+  }
+}
+
+function renderQuestionPanel(st, players) {
+  const Q = QUIZ_BN;
+  const qi = st.qIndex || 0;
+  const total = st.total || 15;
+  $('#qProg').textContent = `প্রশ্ন ${qi + 1} / ${total}`;
+
+  if (Q && Q[qi]) {
+    const [q, opts, ans] = Q[qi];
+    $('#qText').textContent = q;
+    const locked = st.lockedBy != null;
+    $('#qOpts').innerHTML = opts.map((o, i) => {
+      let cls = '';
+      if (locked && i === ans) cls = 'right';
+      else if (locked && st.lockedAnswer === i && i !== ans) cls = 'wrong';
+      return `<li class="${cls}">${o}</li>`;
+    }).join('');
+    if (locked) {
+      const who = players[st.lockedBy];
+      const correct = st.lockedAnswer === ans;
+      $('#qStatus').textContent = (who ? who.name : '?') + (correct ? ' সঠিক উত্তর দিয়েছে ✅ — পরের প্রশ্নে যাচ্ছে...' : ' ভুল উত্তর দিয়েছে ❌ — পরের প্রশ্নে যাচ্ছে...');
+    } else {
+      $('#qStatus').textContent = 'উত্তরের অপেক্ষায়...';
+    }
+  } else {
+    $('#qText').textContent = '(প্রশ্নের তালিকা এই পেজে নেই — মূল সাইট থেকে কন্ট্রোল করুন, এখানে শুধু অগ্রগতি দেখা যাচ্ছে)';
+    $('#qOpts').innerHTML = '';
+  }
+
+  // অটো-অ্যাডভান্স টাইমার
+  if (qi !== lastQIndexSeen) {
+    clearTimers();
+    lastQIndexSeen = qi;
+    lockHandled = false;
+    const startedAt = st.qStartAt || Date.now();
+    const remain = Math.max(500, QUESTION_SECONDS * 1000 - (Date.now() - startedAt));
+    skipTimer = setTimeout(() => { if (!root.state || !root.state.lockedBy) advanceQuestion(); }, remain);
+  }
+  if (st.lockedBy && !lockHandled) {
+    lockHandled = true;
+    if (skipTimer) { clearTimeout(skipTimer); skipTimer = null; }
+    advanceTimer = setTimeout(advanceQuestion, REVEAL_PAUSE_MS);
+  }
+}
+
+$('#pwGo').addEventListener('click', () => {
+  if ($('#pw').value === HOST_PASSWORD) {
+    try { localStorage.setItem('lq_host_ok', '1'); } catch (_) {}
+    $('#gateSec').hidden = true;
+    $('#panel').hidden = false;
+    init();
+  } else {
+    $('#pw').value = '';
+    $('#pw').placeholder = 'ভুল পাসওয়ার্ড, আবার চেষ্টা করো';
+  }
+});
+$('#pw').addEventListener('keydown', e => { if (e.key === 'Enter') $('#pwGo').click(); });
+
+$('#evCreate').addEventListener('click', createEvent);
+$('#btnStart').addEventListener('click', startNow);
+$('#btnNext').addEventListener('click', advanceQuestion);
+$('#btnEnd').addEventListener('click', endEvent);
+$('#btnReset').addEventListener('click', resetAll);
+
+function init() {
+  fetch(LQ_DB + '/liveQuiz.json').then(r => r.json()).then(data => { root = data || {}; render(); connect(); }).catch(() => connect());
+}
+
+try {
+  if (localStorage.getItem('lq_host_ok') === '1') {
+    $('#gateSec').hidden = true;
+    $('#panel').hidden = false;
+    init();
+  }
+} catch (_) {}
+</script>
+</body>
+</html>
