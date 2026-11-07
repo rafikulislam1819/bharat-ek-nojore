@@ -268,6 +268,34 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
 :root[data-theme="dark"] .badge-ut { background: #1B2D4A; color: #8FB6F0; }
 :root[data-theme="dark"] .badge-est { background: #4A3215; color: #F0B868; }
 
+.lq-banner { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid #D11A2A; border-radius: 8px; padding: 12px 16px; margin: 14px 0; }
+.lq-row { display: flex; align-items: center; gap: 10px 14px; flex-wrap: wrap; }
+.lq-dot { width: 10px; height: 10px; border-radius: 50%; background: #D11A2A; flex: 0 0 auto; animation: lqpulse 1.4s infinite; }
+@keyframes lqpulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+.lq-info { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.lq-info strong { font-size: 15px; }
+.lq-when, .lq-count { font-size: 13px; color: var(--muted); }
+.lq-join { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 6px; padding: 8px 18px; font-weight: 600; cursor: pointer; flex: 0 0 auto; }
+.lq-joinbox { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.lq-joinbox input { flex: 1; min-width: 140px; font: inherit; padding: 8px 10px; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; }
+.lq-joinbox button { background: var(--fg); color: var(--bg); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; }
+.lq-play { margin-top: 12px; }
+.lq-qtop { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+.lq-q { font-size: 17px; font-weight: 600; margin: 0 0 12px; }
+.lq-opts { display: grid; gap: 8px; }
+.lq-opt { text-align: left; padding: 11px 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; cursor: pointer; font: inherit; color: var(--fg); }
+.lq-opt:hover:not(:disabled) { border-color: var(--accent); }
+.lq-opt:disabled { cursor: default; opacity: .8; }
+.lq-opt.lqright { border-color: #2e9e53; background: rgba(46, 158, 83, .14); font-weight: 600; }
+.lq-opt.lqwrong { border-color: #c0392b; background: rgba(192, 57, 43, .14); }
+.lq-firstby { font-size: 13px; color: var(--muted); margin-top: 10px; }
+.lq-leader { margin-top: 4px; }
+.lq-lrow { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.lq-lrow:last-child { border-bottom: 0; }
+.lq-medal { font-size: 19px; width: 26px; text-align: center; flex: 0 0 auto; }
+.lq-lname { flex: 1; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lq-lscore { color: var(--muted); font-size: 13px; flex: 0 0 auto; }
+
 </style>
 
 </head>
@@ -285,6 +313,23 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
       <span class="asof" id="asof"></span>
     </div>
   </header>
+
+  <div class="lq-banner" id="lqBanner" hidden>
+    <div class="lq-row">
+      <span class="lq-dot" id="lqDot" hidden></span>
+      <div class="lq-info">
+        <strong id="lqTitle"></strong>
+        <span class="lq-when" id="lqWhen"></span>
+        <span class="lq-count" id="lqCount"></span>
+      </div>
+      <button type="button" class="lq-join" id="lqJoinBtn" hidden></button>
+    </div>
+    <div class="lq-joinbox" id="lqJoinbox" hidden>
+      <input type="text" id="lqNameInput" maxlength="24" autocomplete="off">
+      <button type="button" id="lqNameGo"></button>
+    </div>
+    <div class="lq-play" id="lqPlay" hidden></div>
+  </div>
 
   <div class="totd" id="totd" hidden>
     <span class="totd-lbl" id="totdlbl"></span>
@@ -1431,6 +1476,7 @@ function setLang(l) {
   lang = l; setFmt();
   try { localStorage.setItem('bharat-lang', l); } catch (_) {}
   applyStatic(); labelMap(); render();
+  if (typeof lqRender === 'function') lqRender();
 }
 
 document.addEventListener('change', (e) => {
@@ -1494,11 +1540,173 @@ $('#zreset').addEventListener('click', () => setZoom(1));
 $('#tomap').addEventListener('click', () => document.querySelector('.mapcol').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }));
 addEventListener('hashchange', () => setCur(fromHash(), true));
 
+
+/* ---------- লাইভ কুইজ ইভেন্ট ---------- */
+const LQ_DB = (typeof window !== 'undefined' && window.__LQ_DB_OVERRIDE) || 'https://bharat-ak-nojore-default-rtdb.firebaseio.com';
+let lqRoot = {}, lqES = null, lqJoined = false;
+let lqPid = (function () { try { return localStorage.getItem('lq_pid') || ''; } catch (_) { return ''; } })();
+let lqName = (function () { try { return localStorage.getItem('lq_name') || ''; } catch (_) { return ''; } })();
+
+function lqEsc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function lqNode(path) {
+  const parts = path.split('/').filter(Boolean);
+  let node = lqRoot;
+  for (const k of parts) { if (typeof node[k] !== 'object' || node[k] === null) node[k] = {}; node = node[k]; }
+  return node;
+}
+function lqPut(path, data) {
+  if (path === '/') { lqRoot = data || {}; return; }
+  const parts = path.split('/').filter(Boolean);
+  const last = parts.pop();
+  let node = lqRoot;
+  for (const k of parts) { if (typeof node[k] !== 'object' || node[k] === null) node[k] = {}; node = node[k]; }
+  if (data === null || data === undefined) delete node[last]; else node[last] = data;
+}
+function lqPatch(path, data) {
+  const node = lqNode(path);
+  Object.keys(data || {}).forEach((k) => { if (data[k] === null) delete node[k]; else node[k] = data[k]; });
+}
+function lqConnect() {
+  try {
+    if (lqES) lqES.close();
+    lqES = new EventSource(LQ_DB + '/liveQuiz.json');
+    lqES.addEventListener('put', (e) => { try { const { path, data } = JSON.parse(e.data); lqPut(path, data); lqRender(); } catch (_) {} });
+    lqES.addEventListener('patch', (e) => { try { const { path, data } = JSON.parse(e.data); lqPatch(path, data); lqRender(); } catch (_) {} });
+  } catch (_) {}
+}
+function lqInit() {
+  if (typeof EventSource === 'undefined' || !$('#lqBanner')) return;
+  lqConnect();
+  $('#lqNameGo').addEventListener('click', lqDoJoin);
+  $('#lqNameInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') lqDoJoin(); });
+}
+function lqDoJoin() {
+  const inp = $('#lqNameInput');
+  const name = (inp.value || '').trim().slice(0, 24);
+  if (!name) { inp.focus(); return; }
+  lqName = name;
+  try { localStorage.setItem('lq_name', name); } catch (_) {}
+  fetch(LQ_DB + '/liveQuiz/players.json', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, score: 0, joinedAt: Date.now() })
+  }).then((r) => r.json()).then((res) => {
+    if (res && res.name) {
+      lqPid = res.name;
+      try { localStorage.setItem('lq_pid', lqPid); } catch (_) {}
+      lqJoined = true;
+      lqRender();
+    }
+  }).catch(() => {});
+}
+function lqFmtWhen(ts) {
+  if (!ts) return '';
+  try { return new Intl.DateTimeFormat(LOC[lang], { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).format(new Date(ts)); }
+  catch (_) { return new Date(ts).toLocaleString(); }
+}
+function lqRender() {
+  const banner = $('#lqBanner');
+  if (!banner) return;
+  const ev = lqRoot.event, st = lqRoot.state, players = lqRoot.players || {};
+  const count = Object.keys(players).length;
+  if (!ev || !ev.status) { banner.hidden = true; return; }
+  banner.hidden = false;
+  if (lqPid && players[lqPid]) lqJoined = true;
+  $('#lqDot').hidden = ev.status !== 'live';
+  $('#lqTitle').textContent = ev.title || L('লাইভ কুইজ ইভেন্ট', 'लाइव क्विज़ इवेंट', 'Live quiz event');
+  $('#lqCount').textContent = L(`${nf.format(count)} জন যোগ দিয়েছে`, `${nf.format(count)} लोग शामिल हुए`, `${nf.format(count)} joined`);
+
+  if (ev.status === 'scheduled') {
+    $('#lqWhen').textContent = ev.scheduledAt ? L('শুরু হবে: ', 'शुरू होगा: ', 'Starts: ') + lqFmtWhen(ev.scheduledAt) : L('শীঘ্রই শুরু হবে', 'जल्द शुरू होगा', 'Starting soon');
+  } else if (ev.status === 'live') {
+    $('#lqWhen').textContent = L('🔴 এখনই লাইভ চলছে', '🔴 अभी लाइव चल रहा है', '🔴 Live now');
+  } else if (ev.status === 'ended') {
+    $('#lqWhen').textContent = L('ইভেন্ট শেষ হয়েছে', 'इवेंट समाप्त हो गया', 'Event has ended');
+  }
+
+  const joinBtn = $('#lqJoinBtn'), joinbox = $('#lqJoinbox');
+  if (lqJoined || ev.status === 'ended') { joinBtn.hidden = true; joinbox.hidden = true; }
+  else {
+    joinBtn.hidden = false;
+    joinBtn.textContent = L('যোগ দিন', 'जुड़ें', 'Join');
+    joinBtn.onclick = () => {
+      joinbox.hidden = false;
+      $('#lqNameInput').value = lqName;
+      $('#lqNameInput').placeholder = L('তোমার নাম লেখো', 'अपना नाम लिखें', 'Enter your name');
+      $('#lqNameGo').textContent = L('যোগ দাও', 'जुड़ें', 'Go');
+      $('#lqNameInput').focus();
+    };
+  }
+
+  const play = $('#lqPlay');
+  if (ev.status === 'ended') {
+    play.hidden = false;
+    const ranked = Object.entries(players).map(([id, p]) => ({ id, ...p })).sort((a, b) => (b.score || 0) - (a.score || 0) || (a.joinedAt || 0) - (b.joinedAt || 0));
+    const medals = ['🥇', '🥈', '🥉'];
+    if (!ranked.length) { play.innerHTML = `<p class="hint">${L('কেউ জয়েন করেনি।', 'कोई शामिल नहीं हुआ।', 'No one joined.')}</p>`; }
+    else play.innerHTML = `<div class="lq-leader">` + ranked.slice(0, 3).map((p, i) => `<div class="lq-lrow"><span class="lq-medal">${medals[i]}</span><span class="lq-lname">${lqEsc(p.name)}</span><span class="lq-lscore">${L('স্কোর', 'स्कोर', 'Score')} ${nf.format(p.score || 0)}</span></div>`).join('') + `</div>`;
+  } else if (ev.status === 'live' && lqJoined && st) {
+    play.hidden = false;
+    lqRenderQuestion(st, players);
+  } else {
+    play.hidden = true;
+  }
+}
+function lqRenderQuestion(st, players) {
+  const Q = QUIZ();
+  const qi = st.qIndex || 0;
+  const total = Math.min(st.total || Q.length, Q.length);
+  const play = $('#lqPlay');
+  if (qi >= total || qi >= Q.length) { play.innerHTML = `<p class="hint">${L('ফলাফলের অপেক্ষা করছি...', 'नतीजों का इंतज़ार...', 'Waiting for results...')}</p>`; return; }
+  const [q, opts, ans] = Q[qi];
+  const locked = st.lockedBy != null;
+  const mine = players[lqPid] || { score: 0 };
+  const optHtml = opts.map((o, i) => {
+    let cls = 'lq-opt';
+    if (locked && i === ans) cls += ' lqright';
+    else if (locked && st.lockedAnswer === i && i !== ans) cls += ' lqwrong';
+    return `<button type="button" class="${cls}" data-lq-opt="${i}" ${locked ? 'disabled' : ''}>${o}</button>`;
+  }).join('');
+  let firstLine = '';
+  if (locked) {
+    const who = players[st.lockedBy];
+    const correct = st.lockedAnswer === ans;
+    firstLine = `<p class="lq-firstby">${who ? lqEsc(who.name) : '?'} ${correct ? L('সঠিক উত্তর দিয়েছে ✅', 'ने सही उत्तर दिया ✅', 'answered correctly ✅') : L('ভুল উত্তর দিয়েছে ❌', 'ने ग़लत उत्तर दिया ❌', 'answered incorrectly ❌')}</p>`;
+  }
+  play.innerHTML = `<div class="lq-qtop"><span>${L('প্রশ্ন', 'प्रश्न', 'Question')} ${nf.format(qi + 1)} / ${nf.format(total)}</span><span>${L('তোমার স্কোর', 'तुम्हारा स्कोर', 'Your score')}: ${nf.format(mine.score || 0)}</span></div>` +
+    `<p class="lq-q">${q}</p><div class="lq-opts">${optHtml}</div>` + firstLine;
+  if (!locked) {
+    play.querySelectorAll('[data-lq-opt]').forEach((btn) => btn.addEventListener('click', () => lqAnswer(qi, +btn.dataset.lqOpt, ans)));
+  }
+}
+function lqAnswer(qi, pickIdx, ansIdx) {
+  if (!lqPid) return;
+  fetch(LQ_DB + '/liveQuiz/state.json', { headers: { 'X-Firebase-ETag': 'true' } }).then((res) => {
+    const etag = res.headers.get('ETag');
+    return res.json().then((data) => ({ etag, data }));
+  }).then(({ etag, data }) => {
+    if (!data || data.qIndex !== qi || data.lockedBy) return;
+    const body = Object.assign({}, data, { lockedBy: lqPid, lockedAnswer: pickIdx, lockedAt: Date.now() });
+    return fetch(LQ_DB + '/liveQuiz/state.json', {
+      method: 'PUT', headers: { 'Content-Type': 'application/json', 'if-match': etag }, body: JSON.stringify(body)
+    }).then((r) => {
+      if (r.status === 412) return;
+      if (pickIdx === ansIdx) {
+        const cur = (lqRoot.players && lqRoot.players[lqPid] && lqRoot.players[lqPid].score) || 0;
+        return fetch(LQ_DB + '/liveQuiz/players/' + lqPid + '.json', {
+          method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ score: cur + 10 })
+        }).catch(() => {});
+      }
+    });
+  }).catch(() => {});
+}
+
 buildMap();
 cur = fromHash();
 applyStatic();
 labelMap();
 render();
+lqInit();
 
 </script>
+
 </html>
