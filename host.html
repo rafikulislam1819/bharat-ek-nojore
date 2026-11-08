@@ -97,7 +97,7 @@ let root = {};
 let es = null;
 let lastQIndexSeen = -1;
 let lockHandled = false;
-let skipTimer = null, advanceTimer = null;
+let skipTimer = null, advanceTimer = null, autoStarting = false;
 const QUESTION_SECONDS = 15;
 const REVEAL_PAUSE_MS = 3500;
 
@@ -169,6 +169,20 @@ function startNow() {
     .catch(() => {});
 }
 
+function maybeAutoStart() {
+  const ev = root.event;
+  if (!ev || ev.status !== 'scheduled' || !ev.scheduledAt) return;
+  if (Date.now() < ev.scheduledAt) return;
+  if (autoStarting) return;
+  autoStarting = true;
+  clearTimers();
+  lastQIndexSeen = -1; lockHandled = false;
+  putJson('/liveQuiz/state.json', { qIndex: 0, total: (root.state && root.state.total) || 15, lockedBy: null, lockedAnswer: null, qStartAt: Date.now() })
+    .then(() => putJson('/liveQuiz/event.json', { title: ev.title, scheduledAt: ev.scheduledAt, status: 'live' }))
+    .catch(() => {})
+    .finally(() => { autoStarting = false; });
+}
+
 function advanceQuestion() {
   clearTimers();
   const st = root.state || {};
@@ -200,6 +214,7 @@ function render() {
   $('#createSec').hidden = !!(ev && ev.status);
   $('#liveSec').hidden = !(ev && ev.status);
   if (!(ev && ev.status)) return;
+  maybeAutoStart();
 
   $('#liveTitle').textContent = ev.title || '';
   $('#liveCount').textContent = String(count);
@@ -293,6 +308,7 @@ $('#btnReset').addEventListener('click', resetAll);
 
 function init() {
   fetch(LQ_DB + '/liveQuiz.json').then(r => r.json()).then(data => { root = data || {}; render(); connect(); }).catch(() => connect());
+  setInterval(maybeAutoStart, 2000);
 }
 
 try {
