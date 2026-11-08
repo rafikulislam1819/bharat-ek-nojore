@@ -279,6 +279,14 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
 .lq-joinbox { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
 .lq-joinbox input { flex: 1; min-width: 140px; font: inherit; padding: 8px 10px; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; }
 .lq-joinbox button { background: var(--fg); color: var(--bg); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; }
+.lq-countdown { display: flex; align-items: center; justify-content: center; gap: 0; margin: 14px 0 4px; position: relative; width: 112px; height: 112px; margin-left: auto; margin-right: auto; }
+.lq-cd-ring { width: 112px; height: 112px; transform: rotate(0deg); }
+.lq-cd-track { fill: none; stroke: var(--line); stroke-width: 9; }
+:root[data-theme="dark"] .lq-cd-track { stroke: #2A3B4D; }
+.lq-cd-sweep { fill: none; stroke: #F08A1E; stroke-width: 9; stroke-linecap: round; stroke-dasharray: 326.7; stroke-dashoffset: 326.7; transition: stroke-dashoffset .95s linear; }
+.lq-cd-mid { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+.lq-cd-time { font-variant-numeric: tabular-nums; font-size: 18px; font-weight: 700; color: var(--fg); letter-spacing: .3px; }
+.lq-cd-label { font-size: 10.5px; color: var(--muted); }
 .lq-play { margin-top: 12px; }
 .lq-qtop { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
 .lq-q { font-size: 17px; font-weight: 600; margin: 0 0 12px; }
@@ -297,9 +305,10 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
 .lq-lscore { color: var(--muted); font-size: 13px; flex: 0 0 auto; }
 
 </style>
-
 </head>
 <body>
+
+
 <div class="wrap">
   <header class="top">
     <div>
@@ -323,6 +332,16 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
         <span class="lq-count" id="lqCount"></span>
       </div>
       <button type="button" class="lq-join" id="lqJoinBtn" hidden></button>
+    </div>
+    <div class="lq-countdown" id="lqCountdown" hidden>
+      <svg viewBox="0 0 120 120" class="lq-cd-ring" aria-hidden="true">
+        <circle cx="60" cy="60" r="52" class="lq-cd-track"></circle>
+        <circle cx="60" cy="60" r="52" class="lq-cd-sweep" id="lqCdSweep" transform="rotate(-90 60 60)"></circle>
+      </svg>
+      <div class="lq-cd-mid">
+        <span class="lq-cd-time" id="lqCdTime">00:00:00</span>
+        <span class="lq-cd-label" id="lqCdLabel"></span>
+      </div>
     </div>
     <div class="lq-joinbox" id="lqJoinbox" hidden>
       <input type="text" id="lqNameInput" maxlength="24" autocomplete="off">
@@ -1546,6 +1565,7 @@ const LQ_DB = (typeof window !== 'undefined' && window.__LQ_DB_OVERRIDE) || 'htt
 let lqRoot = {}, lqES = null, lqJoined = false;
 let lqPid = (function () { try { return localStorage.getItem('lq_pid') || ''; } catch (_) { return ''; } })();
 let lqName = (function () { try { return localStorage.getItem('lq_name') || ''; } catch (_) { return ''; } })();
+let lqBoxOpen = false, lqLastEvKey = '', lqAutoStarting = false;
 
 function lqEsc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 function lqNode(path) {
@@ -1579,6 +1599,49 @@ function lqInit() {
   lqConnect();
   $('#lqNameGo').addEventListener('click', lqDoJoin);
   $('#lqNameInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') lqDoJoin(); });
+  setInterval(lqMaybeAutoStart, 2000);
+  setInterval(lqTickCountdown, 1000);
+  lqTickCountdown();
+}
+const LQ_RING_C = 326.7;
+function lqTickCountdown() {
+  const wrap = $('#lqCountdown');
+  if (!wrap) return;
+  const ev = lqRoot.event;
+  if (!ev || ev.status !== 'scheduled' || !ev.scheduledAt) { wrap.hidden = true; return; }
+  const remainMs = ev.scheduledAt - Date.now();
+  if (remainMs <= 0) { wrap.hidden = true; return; }
+  wrap.hidden = false;
+  const totalSec = Math.floor(remainMs / 1000);
+  const days = Math.floor(totalSec / 86400);
+  const hrs = Math.floor((totalSec % 86400) / 3600);
+  const mins = Math.floor((totalSec % 3600) / 60);
+  const secs = totalSec % 60;
+  const p2 = (n) => String(n).padStart(2, '0');
+  const timeEl = $('#lqCdTime');
+  if (timeEl) timeEl.textContent = days > 0 ? `${days}${L('দিন ', 'दिन ', 'd ')}${p2(hrs)}:${p2(mins)}:${p2(secs)}` : `${p2(hrs)}:${p2(mins)}:${p2(secs)}`;
+  const labelEl = $('#lqCdLabel');
+  if (labelEl) labelEl.textContent = L('শুরু হতে বাকি', 'शुरू होने में बाकी', 'until start');
+  const sweep = $('#lqCdSweep');
+  if (sweep) {
+    const frac = secs / 60;
+    sweep.style.strokeDashoffset = String(LQ_RING_C * (1 - frac));
+  }
+}
+function lqMaybeAutoStart() {
+  const ev = lqRoot.event;
+  if (!ev || ev.status !== 'scheduled' || !ev.scheduledAt) return;
+  if (Date.now() < ev.scheduledAt) return;
+  if (lqAutoStarting) return;
+  lqAutoStarting = true;
+  const total = (lqRoot.state && lqRoot.state.total) || 15;
+  fetch(LQ_DB + '/liveQuiz/state.json', {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ qIndex: 0, total, lockedBy: null, lockedAnswer: null, qStartAt: Date.now() })
+  }).then(() => fetch(LQ_DB + '/liveQuiz/event.json', {
+    method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status: 'live' })
+  })).catch(() => {}).finally(() => { lqAutoStarting = false; });
 }
 let lqJoining = false;
 function lqDoJoin() {
@@ -1621,6 +1684,8 @@ function lqRender() {
   const count = Object.keys(players).length;
   if (!ev || !ev.status) { banner.hidden = true; return; }
   banner.hidden = false;
+  lqMaybeAutoStart();
+  lqTickCountdown();
   if (lqPid && players[lqPid]) lqJoined = true;
   $('#lqDot').hidden = ev.status !== 'live';
   $('#lqTitle').textContent = ev.title || L('লাইভ কুইজ ইভেন্ট', 'लाइव क्विज़ इवेंट', 'Live quiz event');
@@ -1635,11 +1700,18 @@ function lqRender() {
   }
 
   const joinBtn = $('#lqJoinBtn'), joinbox = $('#lqJoinbox');
-  if (lqJoined || ev.status === 'ended') { joinBtn.hidden = true; joinbox.hidden = true; }
-  else {
+  const evKey = (ev.title || '') + '|' + (ev.scheduledAt || '') + '|' + (ev.createdAt || '');
+  if (evKey !== lqLastEvKey) { lqLastEvKey = evKey; lqBoxOpen = false; }
+  if (lqJoined || ev.status === 'ended') {
+    joinBtn.hidden = true;
+    joinbox.hidden = true;
+    lqBoxOpen = false;
+  } else {
     joinBtn.hidden = false;
     joinBtn.textContent = L('যোগ দিন', 'जुड़ें', 'Join');
+    joinbox.hidden = !lqBoxOpen;
     joinBtn.onclick = () => {
+      lqBoxOpen = true;
       joinbox.hidden = false;
       $('#lqNameInput').value = lqName;
       $('#lqNameInput').placeholder = L('তোমার নাম লেখো', 'अपना नाम लिखें', 'Enter your name');
@@ -1719,5 +1791,4 @@ render();
 lqInit();
 
 </script>
-
-</html>
+</body></html>
