@@ -17,6 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Hind:wght@400;500;600&family=Noto+Serif+Bengali:wght@600;700&family=Noto+Serif+Devanagari:wght@600;700&family=Noto+Serif:wght@600;700&display=swap">
 <style>
+[hidden] { display: none !important; }
 /* Layout: survey-sheet feel. Left: picture map of India with clickable regions (sticky on desktop). Right: tabbed fact panel. Phone: map first, panel below. */
 :root {
   --bg: #E9EEF2;
@@ -288,7 +289,15 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
 .lq-cd-time { font-variant-numeric: tabular-nums; font-size: 18px; font-weight: 700; color: var(--fg); letter-spacing: .3px; }
 .lq-cd-label { font-size: 10.5px; color: var(--muted); }
 .lq-play { margin-top: 12px; }
-.lq-qtop { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+.lq-qtop { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--muted); margin-bottom: 8px; gap: 10px; }
+.lq-qtop-left { display: flex; align-items: center; gap: 10px; }
+.lq-qring-wrap { position: relative; width: 36px; height: 36px; flex: 0 0 auto; }
+.lq-qring { width: 36px; height: 36px; display: block; }
+.lq-qring-track { fill: none; stroke: var(--line); stroke-width: 4; }
+:root[data-theme="dark"] .lq-qring-track { stroke: #2A3B4D; }
+.lq-qring-sweep { fill: none; stroke: #F08A1E; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 113.1; transition: stroke-dashoffset .22s linear, stroke .2s; }
+.lq-qring-wrap.lq-qring-reveal .lq-qring-sweep { stroke: #2E9E5B; }
+.lq-qring-num { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--fg); font-variant-numeric: tabular-nums; }
 .lq-q { font-size: 17px; font-weight: 600; margin: 0 0 12px; }
 .lq-opts { display: grid; gap: 8px; }
 .lq-opt { text-align: left; padding: 11px 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; cursor: pointer; font: inherit; color: var(--fg); }
@@ -1601,9 +1610,33 @@ function lqInit() {
   $('#lqNameInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') lqDoJoin(); });
   setInterval(lqMaybeAutoStart, 2000);
   setInterval(lqTickCountdown, 1000);
+  setInterval(lqTickQuestionTimer, 250);
   lqTickCountdown();
 }
 const LQ_RING_C = 326.7;
+const LQ_QUESTION_MS = 15000;
+const LQ_REVEAL_MS = 3500;
+const LQ_QRING_C = 113.1;
+function lqTickQuestionTimer() {
+  const st = lqRoot.state;
+  const numEl = $('#lqQNum'), sweepEl = $('#lqQSweep'), wrapEl = $('#lqQRingWrap');
+  if (!st || !numEl || !sweepEl || !wrapEl) return;
+  const locked = st.lockedBy != null;
+  let remain, total;
+  if (locked) {
+    const lockedAt = st.lockedAt || Date.now();
+    remain = Math.max(0, LQ_REVEAL_MS - (Date.now() - lockedAt));
+    total = LQ_REVEAL_MS;
+    wrapEl.classList.add('lq-qring-reveal');
+  } else {
+    const startedAt = st.qStartAt || Date.now();
+    remain = Math.max(0, LQ_QUESTION_MS - (Date.now() - startedAt));
+    total = LQ_QUESTION_MS;
+    wrapEl.classList.remove('lq-qring-reveal');
+  }
+  numEl.textContent = String(Math.ceil(remain / 1000));
+  sweepEl.style.strokeDashoffset = String(LQ_QRING_C * (1 - remain / total));
+}
 function lqTickCountdown() {
   const wrap = $('#lqCountdown');
   if (!wrap) return;
@@ -1755,7 +1788,22 @@ function lqRenderQuestion(st, players) {
     const correct = st.lockedAnswer === ans;
     firstLine = `<p class="lq-firstby">${who ? lqEsc(who.name) : '?'} ${correct ? L('সঠিক উত্তর দিয়েছে ✅', 'ने सही उत्तर दिया ✅', 'answered correctly ✅') : L('ভুল উত্তর দিয়েছে ❌', 'ने ग़लत उत्तर दिया ❌', 'answered incorrectly ❌')}</p>`;
   }
-  play.innerHTML = `<div class="lq-qtop"><span>${L('প্রশ্ন', 'प्रश्न', 'Question')} ${nf.format(qi + 1)} / ${nf.format(total)}</span><span>${L('তোমার স্কোর', 'तुम्हारा स्कोर', 'Your score')}: ${nf.format(mine.score || 0)}</span></div>` +
+  const revealMode = !!locked;
+  const ringC = LQ_QRING_C;
+  let ringFrac = 0, ringNum = 0;
+  if (revealMode) {
+    const lockedAt = st.lockedAt || Date.now();
+    const remain = Math.max(0, LQ_REVEAL_MS - (Date.now() - lockedAt));
+    ringFrac = remain / LQ_REVEAL_MS;
+    ringNum = Math.ceil(remain / 1000);
+  } else {
+    const startedAt = st.qStartAt || Date.now();
+    const remain = Math.max(0, LQ_QUESTION_MS - (Date.now() - startedAt));
+    ringFrac = remain / LQ_QUESTION_MS;
+    ringNum = Math.ceil(remain / 1000);
+  }
+  const ringHtml = `<div class="lq-qring-wrap${revealMode ? ' lq-qring-reveal' : ''}" id="lqQRingWrap"><svg class="lq-qring" viewBox="0 0 36 36"><circle class="lq-qring-track" cx="18" cy="18" r="18"></circle><circle class="lq-qring-sweep" id="lqQSweep" cx="18" cy="18" r="18" transform="rotate(-90 18 18)" style="stroke-dashoffset:${ringC * (1 - ringFrac)}"></circle></svg><span class="lq-qring-num" id="lqQNum">${ringNum}</span></div>`;
+  play.innerHTML = `<div class="lq-qtop"><span class="lq-qtop-left">${ringHtml}${L('প্রশ্ন', 'प्रश्न', 'Question')} ${nf.format(qi + 1)} / ${nf.format(total)}</span><span>${L('তোমার স্কোর', 'तुम्हारा स्कोर', 'Your score')}: ${nf.format(mine.score || 0)}</span></div>` +
     `<p class="lq-q">${q}</p><div class="lq-opts">${optHtml}</div>` + firstLine;
   if (!locked) {
     play.querySelectorAll('[data-lq-opt]').forEach((btn) => btn.addEventListener('click', () => lqAnswer(qi, +btn.dataset.lqOpt, ans)));
