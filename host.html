@@ -95,7 +95,7 @@ const QUIZ_BN = [["ভারতের রাজধানী কোনটি?",["
 
 let root = {};
 let es = null;
-let lastQIndexSeen = -1;
+let lastQKeySeen = '';
 let lockHandled = false;
 let skipTimer = null, advanceTimer = null, autoStarting = false;
 const QUESTION_SECONDS = 15;
@@ -153,7 +153,7 @@ function createEvent() {
   const scheduledAt = whenVal ? new Date(whenVal).getTime() : Date.now();
   const total = Math.max(3, Math.min(50, parseInt($('#evCount').value, 10) || 15));
   clearTimers();
-  lastQIndexSeen = -1; lockHandled = false;
+  lastQKeySeen = ''; lockHandled = false;
   fetch(LQ_DB + '/liveQuiz/players.json', { method: 'DELETE' })
     .then(() => putJson('/liveQuiz/state.json', { qIndex: 0, total, lockedBy: null, lockedAnswer: null, qStartAt: Date.now() }))
     .then(() => putJson('/liveQuiz/event.json', { title, status: 'scheduled', scheduledAt }))
@@ -163,7 +163,7 @@ function createEvent() {
 function startNow() {
   const ev = root.event || {};
   clearTimers();
-  lastQIndexSeen = -1; lockHandled = false;
+  lastQKeySeen = ''; lockHandled = false;
   putJson('/liveQuiz/state.json', { qIndex: 0, total: (root.state && root.state.total) || 15, lockedBy: null, lockedAnswer: null, qStartAt: Date.now() })
     .then(() => putJson('/liveQuiz/event.json', { title: ev.title, scheduledAt: ev.scheduledAt, status: 'live' }))
     .catch(() => {});
@@ -176,7 +176,7 @@ function maybeAutoStart() {
   if (autoStarting) return;
   autoStarting = true;
   clearTimers();
-  lastQIndexSeen = -1; lockHandled = false;
+  lastQKeySeen = ''; lockHandled = false;
   putJson('/liveQuiz/state.json', { qIndex: 0, total: (root.state && root.state.total) || 15, lockedBy: null, lockedAnswer: null, qStartAt: Date.now() })
     .then(() => putJson('/liveQuiz/event.json', { title: ev.title, scheduledAt: ev.scheduledAt, status: 'live' }))
     .catch(() => {})
@@ -203,7 +203,7 @@ function endEvent() {
 
 function resetAll() {
   clearTimers();
-  lastQIndexSeen = -1; lockHandled = false;
+  lastQKeySeen = ''; lockHandled = false;
   fetch(LQ_DB + '/liveQuiz.json', { method: 'DELETE' }).catch(() => {});
 }
 
@@ -272,9 +272,13 @@ function renderQuestionPanel(st, players) {
   }
 
   // অটো-অ্যাডভান্স টাইমার
-  if (qi !== lastQIndexSeen) {
+  // qi আর qStartAt দুটো মিলিয়ে কী বানানো হচ্ছে, যাতে event তৈরি/লাইভ হওয়ার সময় state.json আর event.json
+  // আলাদা আলাদা ভাবে (আগে-পরে) এসে পড়লেও টাইমার সঠিক qStartAt দিয়েই সেট হয় — নাহলে প্রথম প্রশ্নে
+  // একটা অসম্পূর্ণ/পুরনো state দিয়ে টাইমার সেট হয়ে পরে আর ঠিক হয় না।
+  const qKey = qi + ':' + (st.qStartAt || 0);
+  if (qKey !== lastQKeySeen) {
     clearTimers();
-    lastQIndexSeen = qi;
+    lastQKeySeen = qKey;
     lockHandled = false;
     const startedAt = st.qStartAt || Date.now();
     const remain = Math.max(500, QUESTION_SECONDS * 1000 - (Date.now() - startedAt));
@@ -284,6 +288,15 @@ function renderQuestionPanel(st, players) {
     lockHandled = true;
     if (skipTimer) { clearTimeout(skipTimer); skipTimer = null; }
     advanceTimer = setTimeout(advanceQuestion, REVEAL_PAUSE_MS);
+  }
+  // ওয়াচডগ: মোবাইল ব্রাউজারে ট্যাব ব্যাকগ্রাউন্ডে চলে গেলে setTimeout থ্রটল/মিস হতে পারে,
+  // তখন টাইমার না ফায়ার করলেও এখানে সময় হিসেব করে জোর করে পরের প্রশ্নে পাঠানো হয়।
+  if (st.lockedBy) {
+    const lockedAt = st.lockedAt || Date.now();
+    if (Date.now() - lockedAt > REVEAL_PAUSE_MS + 400) advanceQuestion();
+  } else {
+    const startedAt = st.qStartAt || Date.now();
+    if (Date.now() - startedAt > QUESTION_SECONDS * 1000 + 400) advanceQuestion();
   }
 }
 
@@ -309,6 +322,8 @@ $('#btnReset').addEventListener('click', resetAll);
 function init() {
   fetch(LQ_DB + '/liveQuiz.json').then(r => r.json()).then(data => { root = data || {}; render(); connect(); }).catch(() => connect());
   setInterval(maybeAutoStart, 2000);
+  setInterval(() => { if (root.event && root.event.status === 'live') render(); }, 1000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
 }
 
 try {
