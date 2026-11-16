@@ -782,6 +782,7 @@ const byId = Object.fromEntries(T.map((x) => [x.id, x]));
 let cur = 'india', tab = 'gen', cmpKey = 'pop';
 let cmpList = ['mh', 'wb'];
 const CMP_MAX = 6;
+let cabLive = null;
 
 const fact = (l, v, s) => `<div class="fact"><dt>${l}</dt><dd>${v}${s ? `<small>${s}</small>` : ''}</dd></div>`;
 const facts = (rows) => `<dl class="facts">${rows.join('')}</dl>`;
@@ -994,13 +995,12 @@ const CABINET = [
   { n: ['মনোহর লাল খট্টর', 'मनोहर लाल खट्टर', 'Manohar Lal Khattar'], p: ['housing', 'power'] },
   { n: ['এইচ. ডি. কুমারস্বামী', 'एच. डी. कुमारस्वामी', 'H. D. Kumaraswamy'], p: ['heavyind', 'steel'] },
   { n: ['পীযূষ গয়াল', 'पीयूष गोयल', 'Piyush Goyal'], p: ['commerce'] },
-  { n: ['ধর্মেন্দ্র প্রধান', 'धर्मेंद्र प्रधान', 'Dharmendra Pradhan'], p: ['education'] },
   { n: ['জিতন রাম মাঝি', 'जीतन राम मांझी', 'Jitan Ram Manjhi'], p: ['msme'] },
   { n: ['রাজীব রঞ্জন সিং (ললন সিং)', 'राजीव रंजन सिंह (ललन सिंह)', 'Rajiv Ranjan Singh (Lalan Singh)'], p: ['panchayat', 'fisheries'] },
   { n: ['সর্বানন্দ সোনোয়াল', 'सर्बानंद सोनोवाल', 'Sarbananda Sonowal'], p: ['ports'] },
   { n: ['বীরেন্দ্র কুমার', 'वीरेंद्र कुमार', 'Virendra Kumar'], p: ['socialjustice'] },
   { n: ['কিঞ্জারাপু রামমোহন নাইডু', 'किंजरापु राम मोहन नायडू', 'Kinjarapu Ram Mohan Naidu'], p: ['aviation'] },
-  { n: ['প্রহ্লাদ জোশী', 'प्रह्लाद जोशी', 'Pralhad Joshi'], p: ['consumer', 'renewenergy'] },
+  { n: ['প্রহ্লাদ জোশী', 'प्रह्लाद जोशी', 'Pralhad Joshi'], p: ['consumer', 'renewenergy', 'education'] },
   { n: ['জুয়েল ওরাম', 'जुएल ओराम', 'Jual Oram'], p: ['tribal'] },
   { n: ['গিরিরাজ সিং', 'गिरिराज सिंह', 'Giriraj Singh'], p: ['textiles'] },
   { n: ['অশ্বিনী বৈষ্ণব', 'अश्विनी वैष्णव', 'Ashwini Vaishnaw'], p: ['railways', 'infobroadcast', 'electronics'] },
@@ -1041,19 +1041,27 @@ const MOS = [
   { n: 'George Kurian', p: ['minority', 'fisheries'] }, { n: 'Pabitra Margherita', p: ['extaff', 'textiles'] },
 ];
 function cabRow(m) {
-  const name = Array.isArray(m.n) ? L(...m.n) : m.n;
-  return `<div class="cab-row"><span class="cab-name">${name}</span><span class="cab-port">${pL(m.p)}</span></div>`;
+  const name = Array.isArray(m.n) ? L(...m.n) : (m.n != null ? m.n : L(m.bn || m.en || '', m.hi || m.en || '', m.en || m.bn || ''));
+  return `<div class="cab-row"><span class="cab-name">${name}</span><span class="cab-port">${pL(m.p || [])}</span></div>`;
 }
 function natCab() {
-  return `<h3 class="sub">${L('প্রধানমন্ত্রী', 'प्रधानमंत्री', 'Prime Minister')}</h3><div class="cab-list cab-pm">${cabRow(PM_INFO)}</div>` +
-    `<h3 class="sub">${L(`মন্ত্রিপরিষদ মন্ত্রী (${nf.format(CABINET.length)})`, `कैबिनेट मंत्री (${nf.format(CABINET.length)})`, `Cabinet Ministers (${CABINET.length})`)}</h3><div class="cab-list">${CABINET.map(cabRow).join('')}</div>` +
-    `<h3 class="sub">${L(`স্বতন্ত্র দায়িত্বপ্রাপ্ত প্রতিমন্ত্রী (${nf.format(MOS_IC.length)})`, `स्वतंत्र प्रभार राज्य मंत्री (${nf.format(MOS_IC.length)})`, `Ministers of State, Independent Charge (${MOS_IC.length})`)}</h3><div class="cab-list">${MOS_IC.map(cabRow).join('')}</div>` +
-    `<h3 class="sub">${L(`প্রতিমন্ত্রী (${nf.format(MOS.length)})`, `राज्य मंत्री (${nf.format(MOS.length)})`, `Ministers of State (${MOS.length})`)}</h3><div class="cab-list">${MOS.map(cabRow).join('')}</div>` +
-    `<p class="hint">${L(
-      'সূত্র: কেন্দ্রীয় সরকার গঠনের (জুন ২০২৪) পোর্টফোলিও বণ্টন অনুযায়ী। পরবর্তী কোনো রদবদল হয়ে থাকলে তা এখানে প্রতিফলিত নাও হতে পারে — সর্বশেষ তথ্যের জন্য pmindia.gov.in দেখুন। ৩৬ জন প্রতিমন্ত্রীর নাম মূল ইংরেজি বানানেই রাখা হয়েছে।',
-      'स्रोत: केंद्र सरकार के गठन (जून 2024) के समय हुए पोर्टफोलियो बंटवारे के अनुसार। बाद में कोई फेरबदल हुआ हो तो वह यहाँ शामिल न हो सकता है — नवीनतम जानकारी के लिए pmindia.gov.in देखें। 36 राज्य मंत्रियों के नाम मूल अंग्रेज़ी वर्तनी में ही रखे गए हैं।',
-      "Source: the portfolio allocation at the government's formation (June 2024). Any later reshuffle may not be reflected here — check pmindia.gov.in for the latest. The 36 Ministers of State are listed in their original English spelling."
-    )}</p>`;
+  const live = cabLive;
+  const pm = (live && live.pm) || PM_INFO;
+  const cabinet = (live && live.cabinet) || CABINET;
+  const mosIc = (live && live.mosIc) || MOS_IC;
+  const mos = (live && live.mos) || MOS;
+  const defaultNote = L(
+    'সূত্র: কেন্দ্রীয় সরকার গঠনের (জুন ২০২৪) পোর্টফোলিও বণ্টন অনুযায়ী, ২৫ জুলাই ২০২৬-এর একটি হালনাগাদ-সহ — ধর্মেন্দ্র প্রধান শিক্ষামন্ত্রীর পদ থেকে পদত্যাগ করেন এবং প্রহ্লাদ জোশী অতিরিক্ত দায়িত্ব হিসেবে শিক্ষা মন্ত্রক গ্রহণ করেন। এর পরে আরও কোনো রদবদল হয়ে থাকলে তা এখানে প্রতিফলিত নাও হতে পারে — সর্বশেষ তথ্যের জন্য pmindia.gov.in দেখুন। ৩৬ জন প্রতিমন্ত্রীর নাম মূল ইংরেজি বানানেই রাখা হয়েছে।',
+    'स्रोत: केंद्र सरकार के गठन (जून 2024) के समय हुए पोर्टफोलियो बंटवारे के अनुसार, 25 जुलाई 2026 के एक अपडेट सहित — धर्मेंद्र प्रधान ने शिक्षा मंत्री पद से इस्तीफ़ा दिया और प्रह्लाद जोशी ने अतिरिक्त प्रभार के रूप में शिक्षा मंत्रालय संभाला। इसके बाद कोई और फेरबदल हुआ हो तो वह यहाँ शामिल न हो सकता है — नवीनतम जानकारी के लिए pmindia.gov.in देखें। 36 राज्य मंत्रियों के नाम मूल अंग्रेज़ी वर्तनी में ही रखे गए हैं।',
+    "Source: the portfolio allocation at the government's formation (June 2024), with one update as of 25 July 2026 — Dharmendra Pradhan resigned as Education Minister and Pralhad Joshi took over the Education Ministry on additional charge. Any later reshuffle may not be reflected here — check pmindia.gov.in for the latest. The 36 Ministers of State are listed in their original English spelling."
+  );
+  const note = (live && live.note) ? L(live.note.bn || live.note.en || '', live.note.hi || live.note.en || '', live.note.en || live.note.bn || '') : defaultNote;
+  const liveTag = live ? `<p class="hint">${L('🔄 এই তালিকা সরাসরি অ্যাডমিন প্যানেল থেকে হালনাগাদ করা হয়েছে।', '🔄 यह सूची सीधे एडमिन पैनल से अपडेट की गई है।', '🔄 This list was updated live from the admin panel.')}</p>` : '';
+  return `<h3 class="sub">${L('প্রধানমন্ত্রী', 'प्रधानमंत्री', 'Prime Minister')}</h3><div class="cab-list cab-pm">${cabRow(pm)}</div>` +
+    `<h3 class="sub">${L(`মন্ত্রিপরিষদ মন্ত্রী (${nf.format(cabinet.length)})`, `कैबिनेट मंत्री (${nf.format(cabinet.length)})`, `Cabinet Ministers (${cabinet.length})`)}</h3><div class="cab-list">${cabinet.map(cabRow).join('')}</div>` +
+    `<h3 class="sub">${L(`স্বতন্ত্র দায়িত্বপ্রাপ্ত প্রতিমন্ত্রী (${nf.format(mosIc.length)})`, `स्वतंत्र प्रभार राज्य मंत्री (${nf.format(mosIc.length)})`, `Ministers of State, Independent Charge (${mosIc.length})`)}</h3><div class="cab-list">${mosIc.map(cabRow).join('')}</div>` +
+    `<h3 class="sub">${L(`প্রতিমন্ত্রী (${nf.format(mos.length)})`, `राज्य मंत्री (${nf.format(mos.length)})`, `Ministers of State (${mos.length})`)}</h3><div class="cab-list">${mos.map(cabRow).join('')}</div>` +
+    liveTag + `<p class="hint">${note}</p>`;
 }
 
 const natEco = () => natEcoFacts();
@@ -1800,6 +1808,11 @@ let lqRoot = {}, lqES = null, lqJoined = false;
 let lqPid = (function () { try { return localStorage.getItem('lq_pid') || ''; } catch (_) { return ''; } })();
 let lqName = (function () { try { return localStorage.getItem('lq_name') || ''; } catch (_) { return ''; } })();
 let lqBoxOpen = false, lqLastEvKey = '', lqAutoStarting = false;
+
+/* অ্যাডমিন প্যানেল থেকে হালনাগাদ করা মন্ত্রিসভার তথ্য, থাকলে ব্যবহার হবে */
+fetch(LQ_DB + '/cabinetData.json').then((r) => r.json()).then((d) => {
+  if (d && (d.cabinet || d.pm)) { cabLive = d; if (typeof render === 'function') render(); }
+}).catch(() => {});
 
 function lqEsc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 function lqNode(path) {
