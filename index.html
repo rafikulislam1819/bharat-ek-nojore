@@ -136,6 +136,13 @@ select { flex: 1; min-width: 0; font: inherit; padding: 8px 10px; background: va
 .fact:last-child { border-bottom: 0; }
 .fact dt { color: var(--muted); font-size: 14px; }
 .fact dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; }
+.cab-list { margin: 0 0 18px; }
+.cab-row { display: grid; grid-template-columns: minmax(130px, 38%) minmax(0, 1fr); gap: 4px 14px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.cab-row:last-child { border-bottom: 0; }
+.cab-name { font-weight: 600; }
+.cab-port { color: var(--muted); }
+.cab-pm .cab-row { font-size: 17px; }
+.cab-pm .cab-name { color: var(--accent); }
 .fact dd small { display: block; font-weight: 400; color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 2px; }
 
 .idx { list-style: none; margin: 0; padding: 0; }
@@ -213,6 +220,18 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
 .quiz-exp { font-size: 14px; color: var(--muted); margin: 0 0 14px; }
 .quiz-next, .quiz-restart { background: var(--fg); color: var(--bg); border: 0; border-radius: 6px; padding: 9px 18px; font: inherit; cursor: pointer; }
 .quiz-score { font-size: 19px; font-weight: 600; margin: 0 0 10px; }
+.quiz-modebar { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.quiz-mode-btn { padding: 8px 16px; border-radius: 20px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); font: inherit; font-weight: 600; cursor: pointer; }
+.quiz-mode-btn.active { background: var(--accent); color: var(--accent-ink, #fff); border-color: var(--accent); }
+.quiz-cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; max-width: 560px; }
+.quiz-cat-card { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 16px 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; cursor: pointer; font: inherit; color: var(--fg); text-align: center; }
+.quiz-cat-card:hover { border-color: var(--accent); }
+.quiz-cat-icon { font-size: 26px; }
+.quiz-cat-label { font-weight: 700; }
+.quiz-cat-n { font-size: 12px; color: var(--muted); }
+.quiz-catbar { font-size: 14px; color: var(--muted); margin: 0 0 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.quiz-cat-back { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font: inherit; font-size: 12px; cursor: pointer; color: var(--fg); }
+.quiz-cat-back:hover { border-color: var(--accent); color: var(--accent); }
 
 .rgt-list { display: flex; flex-direction: column; gap: 4px; }
 .rgt-card { padding: 13px 0; border-bottom: 1px solid var(--line); }
@@ -223,11 +242,18 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
 
 .vspick { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
 .vspick select { flex: 1; min-width: 120px; font: inherit; padding: 8px 10px; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; }
+.vspick-item { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 150px; }
+.vspick-item select { flex: 1; }
+.vsrm { flex: 0 0 auto; width: 30px; height: 30px; line-height: 1; border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 6px; cursor: pointer; font-size: 14px; }
+.vsrm:hover { color: var(--fg); border-color: var(--accent); }
+.vsadd { flex: 0 0 auto; padding: 8px 14px; border: 1px dashed var(--accent); background: transparent; color: var(--accent); border-radius: 6px; cursor: pointer; font: inherit; font-weight: 600; white-space: nowrap; }
+.vsadd:hover { background: var(--accent); color: #fff; }
 .vsvs { font-size: 13px; color: var(--muted); font-weight: 600; }
+.vstable-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .vstable { width: 100%; border-collapse: collapse; margin-bottom: 4px; font-size: 14px; }
-.vstable th, .vstable td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; }
+.vstable th, .vstable td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
 .vstable th { color: var(--muted); font-weight: 600; font-size: 13px; }
-.vstable td:first-child { color: var(--muted); font-size: 13px; white-space: nowrap; }
+.vstable td:first-child, .vstable th:first-child { color: var(--muted); font-size: 13px; white-space: nowrap; position: sticky; left: 0; background: var(--bg); }
 .vstable td.vswin { font-weight: 700; color: var(--accent); }
 .legend { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 8px; font-size: 12.5px; color: var(--muted); }
 .legend span { display: inline-flex; align-items: center; gap: 5px; }
@@ -314,10 +340,7 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
 .lq-lscore { color: var(--muted); font-size: 13px; flex: 0 0 auto; }
 
 </style>
-</head>
-<body>
-
-
+</head><body>
 <div class="wrap">
   <header class="top">
     <div>
@@ -745,7 +768,7 @@ const KM = () => L('বর্গ কিমি', 'वर्ग किमी', 'sq
 const PKM = () => L('জন/বর্গ কিমি', 'व्यक्ति/वर्ग किमी', 'people/sq km');
 const TYPE_LABEL = () => ({ state: L('রাজ্য', 'राज्य', 'State'), ut: L('কেন্দ্রশাসিত অঞ্চল', 'केंद्रशासित प्रदेश', 'Union Territory') });
 const ST_TAB = () => [['gen', L('সাধারণ', 'सामान्य', 'General')], ['pol', L('রাজনীতি', 'राजनीति', 'Politics')], ['eco', L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy')], ['edu', L('শিক্ষা', 'शिक्षा', 'Education')], ['cul', L('সংস্কৃতি', 'संस्कृति', 'Culture')], ['saf', L('নারী নিরাপত্তা', 'महिला सुरक्षा', "Women's safety")], ['trv', L('ভ্রমণ', 'यात्रा', 'Travel')], ['cmp', L('তুলনা', 'तुलना', 'Compare')]];
-const NAT_TAB = () => [['gen', L('সাধারণ', 'सामान्य', 'General')], ['pol', L('রাজনীতি', 'राजनीति', 'Politics')], ['eco', L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy')], ['mkt', L('ডলার, সোনা, রুপো', 'डॉलर, सोना, चाँदी', 'Dollar, gold, silver')], ['idx', L('সূচক', 'सूचकांक', 'Indices')], ['air', L('দূষণ', 'प्रदूषण', 'Pollution')], ['saf', L('নারী নিরাপত্তা', 'महिला सुरक्षा', "Women's safety")], ['rgt', L('মৌলিক অধিকার', 'मौलिक अधिकार', 'Fundamental Rights')], ['sym', L('জাতীয় প্রতীক', 'राष्ट्रीय प्रतीक', 'National Symbols')], ['hist', L('ইতিহাস', 'इतिहास', 'History')], ['trv', L('ভ্রমণ', 'यात्रा', 'Travel')], ['spt', L('খেলা', 'खेल', 'Sports')], ['quiz', L('কুইজ', 'क्विज़', 'Quiz')], ['cmp', L('রাজ্য তুলনা', 'राज्यों की तुलना', 'Compare states')]];
+const NAT_TAB = () => [['gen', L('সাধারণ', 'सामान्य', 'General')], ['pol', L('রাজনীতি', 'राजनीति', 'Politics')], ['cab', L('মন্ত্রিসভা', 'मंत्रिमंडल', 'Cabinet')], ['eco', L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy')], ['mkt', L('ডলার, সোনা, রুপো', 'डॉलर, सोना, चाँदी', 'Dollar, gold, silver')], ['idx', L('সূচক', 'सूचकांक', 'Indices')], ['air', L('দূষণ', 'प्रदूषण', 'Pollution')], ['saf', L('নারী নিরাপত্তা', 'महिला सुरक्षा', "Women's safety")], ['crime', L('দুর্নীতি ও অপরাধ', 'भ्रष्टाचार और अपराध', 'Corruption & Crime')], ['rgt', L('মৌলিক অধিকার', 'मौलिक अधिकार', 'Fundamental Rights')], ['sym', L('জাতীয় প্রতীক', 'राष्ट्रीय प्रतीक', 'National Symbols')], ['hist', L('ইতিহাস', 'इतिहास', 'History')], ['trv', L('ভ্রমণ', 'यात्रा', 'Travel')], ['spt', L('খেলা', 'खेल', 'Sports')], ['quiz', L('কুইজ', 'क्विज़', 'Quiz')], ['cmp', L('রাজ্য তুলনা', 'राज्यों की तुलना', 'Compare states')]];
 const zn = (z) => ZNX[z][lang === 'bn' ? 0 : lang === 'hi' ? 1 : 2];
 const R = (x) => {
   if (lang === 'bn') return { n: x.bn, cap: x.cap, lg: x.lang, cm: x.cm, since: x.since, tour: x.tour, sh: x.sh };
@@ -756,7 +779,9 @@ const R = (x) => {
 let NAME2ID = {};
 const NAT_DENSITY_2011 = TOTAL_POP / TOTAL_AREA;
 const byId = Object.fromEntries(T.map((x) => [x.id, x]));
-let cur = 'india', tab = 'gen', cmpKey = 'pop', cmpA = 'mh', cmpB = 'wb';
+let cur = 'india', tab = 'gen', cmpKey = 'pop';
+let cmpList = ['mh', 'wb'];
+const CMP_MAX = 6;
 
 const fact = (l, v, s) => `<div class="fact"><dt>${l}</dt><dd>${v}${s ? `<small>${s}</small>` : ''}</dd></div>`;
 const facts = (rows) => `<dl class="facts">${rows.join('')}</dl>`;
@@ -930,6 +955,107 @@ const natPol = () => facts([
   fact(L('রাজ্যে ক্ষমতায়', 'राज्यों में सत्ता', 'Who governs the states'), L('২০টি রাজ্য ও ২টি কেন্দ্রশাসিত অঞ্চলে NDA, ৬টি রাজ্য ও ১টি কেন্দ্রশাসিত অঞ্চলে INDIA জোট, ২টি রাজ্যে কোনো জোট নেই', '20 राज्यों और 2 केंद्रशासित प्रदेशों में NDA, 6 राज्यों और 1 केंद्रशासित प्रदेश में INDIA गठबंधन, 2 राज्यों में कोई गठबंधन नहीं', 'NDA in 20 states and 2 union territories, the INDIA bloc in 6 states and 1 union territory, no bloc in 2 states'), L('১৫ অক্টোবর ২০২৬ পর্যন্ত', '15 अक्टूबर 2026 तक', 'As of 15 October 2026')),
   fact(L('২০২৬ সালের রাজ্য নির্বাচন', '2026 के राज्य चुनाव', '2026 state elections'), L('পশ্চিমবঙ্গ, তামিলনাডু, কেরল, অসম ও পুদুচেরি। ফল ৪ মে ২০২৬।', 'पश्चिम बंगाल, तमिलनाडु, केरल, असम और पुदुचेरी। नतीजे 4 मई 2026।', 'West Bengal, Tamil Nadu, Kerala, Assam and Puducherry. Results on 4 May 2026.'), L('পশ্চিমবঙ্গে প্রথমবার BJP সরকার (শুভেন্দু অধিকারী)। তামিলনাডুতে TVK-র সি. জোসেফ বিজয়। কেরলে কংগ্রেস-নেতৃত্বাধীন UDF-এর ভি. ডি. সতীশন। অসমে BJP-র হিমন্ত বিশ্ব শর্মা। পুদুচেরিতে AINRC-র এন. রঙ্গাস্বামী।', 'पश्चिम बंगाल में पहली बार BJP सरकार (शुभेंदु अधिकारी)। तमिलनाडु में TVK के सी. जोसेफ़ विजय। केरल में कांग्रेस-नीत UDF के वी. डी. सतीशन। असम में BJP के हिमंत बिस्वा सरमा। पुदुचेरी में AINRC के एन. रंगास्वामी।', 'First BJP government in West Bengal (Suvendu Adhikari). C. Joseph Vijay of TVK in Tamil Nadu. V. D. Satheesan of the Congress-led UDF in Kerala. Himanta Biswa Sarma of BJP in Assam. N. Rangaswamy of AINRC in Puducherry.'))
 ]);
+
+/* ---------- কেন্দ্রীয় মন্ত্রিসভা ---------- */
+const PORT_L = {
+  defence: ['প্রতিরক্ষা', 'रक्षा', 'Defence'], home: ['স্বরাষ্ট্র', 'गृह', 'Home Affairs'], coop: ['সমবায়', 'सहकारिता', 'Cooperation'],
+  roadtransport: ['সড়ক পরিবহন ও মহাসড়ক', 'सड़क परिवहन और राजमार्ग', 'Road Transport & Highways'], health: ['স্বাস্থ্য ও পরিবার কল্যাণ', 'स्वास्थ्य और परिवार कल्याण', 'Health & Family Welfare'],
+  chemfert: ['রাসায়নিক ও সার', 'रसायन और उर्वरक', 'Chemicals & Fertilizers'], agri: ['কৃষি ও কৃষক কল্যাণ', 'कृषि और किसान कल्याण', 'Agriculture & Farmers Welfare'],
+  rural: ['গ্রামীণ উন্নয়ন', 'ग्रामीण विकास', 'Rural Development'], finance: ['অর্থ', 'वित्त', 'Finance'], corp: ['কর্পোরেট বিষয়ক', 'कॉर्पोरेट मामले', 'Corporate Affairs'],
+  extaff: ['বৈদেশিক বিষয়ক', 'विदेश मामले', 'External Affairs'], housing: ['আবাসন ও নগর বিষয়ক', 'आवास और शहरी मामले', 'Housing & Urban Affairs'], power: ['বিদ্যুৎ', 'ऊर्जा', 'Power'],
+  heavyind: ['ভারী শিল্প', 'भारी उद्योग', 'Heavy Industries'], steel: ['ইস্পাত', 'इस्पात', 'Steel'], commerce: ['বাণিজ্য ও শিল্প', 'वाणिज्य और उद्योग', 'Commerce & Industry'],
+  education: ['শিক্ষা', 'शिक्षा', 'Education'], msme: ['ক্ষুদ্র, ছোট ও মাঝারি শিল্প', 'सूक्ष्म, लघु और मध्यम उद्यम', 'Micro, Small & Medium Enterprises'],
+  panchayat: ['পঞ্চায়েতি রাজ', 'पंचायती राज', 'Panchayati Raj'], fisheries: ['মৎস্য, পশুপালন ও দুগ্ধ শিল্প', 'मत्स्य पालन, पशुपालन और डेयरी', 'Fisheries, Animal Husbandry & Dairying'],
+  ports: ['বন্দর, নৌপরিবহন ও জলপথ', 'पत्तन, पोत परिवहन और जलमार्ग', 'Ports, Shipping & Waterways'], socialjustice: ['সামাজিক ন্যায়বিচার ও ক্ষমতায়ন', 'सामाजिक न्याय और अधिकारिता', 'Social Justice & Empowerment'],
+  aviation: ['অসামরিক বিমান চলাচল', 'नागरिक उड्डयन', 'Civil Aviation'], consumer: ['ভোক্তা বিষয়ক, খাদ্য ও গণবণ্টন', 'उपभोक्ता मामले, खाद्य और सार्वजनिक वितरण', 'Consumer Affairs, Food & Public Distribution'],
+  renewenergy: ['নতুন ও নবায়নযোগ্য শক্তি', 'नया और नवीकरणीय ऊर्जा', 'New & Renewable Energy'], tribal: ['জনজাতি বিষয়ক', 'जनजातीय कार्य', 'Tribal Affairs'], textiles: ['বস্ত্র', 'वस्त्र', 'Textiles'],
+  railways: ['রেল', 'रेल', 'Railways'], infobroadcast: ['তথ্য ও সম্প্রচার', 'सूचना और प्रसारण', 'Information & Broadcasting'], electronics: ['ইলেকট্রনিক্স ও তথ্যপ্রযুক্তি', 'इलेक्ट्रॉनिक्स और सूचना प्रौद्योगिकी', 'Electronics & IT'],
+  comm: ['যোগাযোগ', 'संचार', 'Communications'], doner: ['উত্তর-পূর্বাঞ্চল উন্নয়ন', 'पूर्वोत्तर क्षेत्र विकास', 'Development of North Eastern Region'],
+  environment: ['পরিবেশ, বন ও জলবায়ু পরিবর্তন', 'पर्यावरण, वन और जलवायु परिवर्तन', 'Environment, Forest & Climate Change'], culture: ['সংস্কৃতি', 'संस्कृति', 'Culture'], tourism: ['পর্যটন', 'पर्यटन', 'Tourism'],
+  wcd: ['নারী ও শিশু উন্নয়ন', 'महिला और बाल विकास', 'Women & Child Development'], parlaffairs: ['সংসদীয় বিষয়ক', 'संसदीय कार्य', 'Parliamentary Affairs'], minority: ['সংখ্যালঘু বিষয়ক', 'अल्पसंख्यक कार्य', 'Minority Affairs'],
+  petroleum: ['পেট্রোলিয়াম ও প্রাকৃতিক গ্যাস', 'पेट्रोलियम और प्राकृतिक गैस', 'Petroleum & Natural Gas'], labour: ['শ্রম ও কর্মসংস্থান', 'श्रम और रोजगार', 'Labour & Employment'],
+  youthsports: ['যুব বিষয়ক ও ক্রীড়া', 'युवा कार्य और खेल', 'Youth Affairs & Sports'], coal: ['কয়লা', 'कोयला', 'Coal'], mines: ['খনি', 'खान', 'Mines'],
+  foodproc: ['খাদ্য প্রক্রিয়াকরণ শিল্প', 'खाद्य प्रसंस्करण उद्योग', 'Food Processing Industries'], jalshakti: ['জলশক্তি', 'जल शक्ति', 'Jal Shakti'],
+  stats: ['পরিসংখ্যান ও কর্মসূচি রূপায়ণ', 'सांख्यिकी और कार्यक्रम कार्यान्वयन', 'Statistics & Programme Implementation'], planning: ['পরিকল্পনা', 'योजना', 'Planning'],
+  scitech: ['বিজ্ঞান ও প্রযুক্তি', 'विज्ञान और प्रौद्योगिकी', 'Science & Technology'], earthsci: ['আর্থ সায়েন্সেস', 'भू विज्ञान', 'Earth Sciences'], law: ['আইন ও বিচার', 'कानून और न्याय', 'Law & Justice'],
+  ayush: ['আয়ুষ', 'आयुष', 'AYUSH'], skilldev: ['দক্ষতা উন্নয়ন ও উদ্যোগ', 'कौशल विकास और उद्यमिता', 'Skill Development & Entrepreneurship'],
+  pmo: ['প্রধানমন্ত্রীর দপ্তর, কর্মী, পারমাণবিক শক্তি, মহাকাশ', 'प्रधानमंत्री कार्यालय, कार्मिक, परमाणु ऊर्जा, अंतरिक्ष', "PM's Office, Personnel, Atomic Energy, Space"],
+};
+const pL = (keys) => keys.map((k) => L(...PORT_L[k])).join(' · ');
+const PM_INFO = { n: ['নরেন্দ্র মোদী', 'नरेंद्र मोदी', 'Narendra Modi'], p: ['pmo'] };
+const CABINET = [
+  { n: ['রাজনাথ সিং', 'राजनाथ सिंह', 'Rajnath Singh'], p: ['defence'] },
+  { n: ['অমিত শাহ', 'अमित शाह', 'Amit Shah'], p: ['home', 'coop'] },
+  { n: ['নিতিন গড়করি', 'नितिन गडकरी', 'Nitin Gadkari'], p: ['roadtransport'] },
+  { n: ['জগৎ প্রকাশ নড্ডা (জে. পি. নড্ডা)', 'जगत प्रकाश नड्डा (जे. पी. नड्डा)', 'Jagat Prakash (J. P.) Nadda'], p: ['health'] },
+  { n: ['শিবরাজ সিং চৌহান', 'शिवराज सिंह चौहान', 'Shivraj Singh Chouhan'], p: ['agri'] },
+  { n: ['নির্মলা সীতারামন', 'निर्मला सीतारमण', 'Nirmala Sitharaman'], p: ['finance', 'corp'] },
+  { n: ['এস. জয়শঙ্কর', 'एस. जयशंकर', 'S. Jaishankar'], p: ['extaff'] },
+  { n: ['মনোহর লাল খট্টর', 'मनोहर लाल खट्टर', 'Manohar Lal Khattar'], p: ['housing', 'power'] },
+  { n: ['এইচ. ডি. কুমারস্বামী', 'एच. डी. कुमारस्वामी', 'H. D. Kumaraswamy'], p: ['heavyind', 'steel'] },
+  { n: ['পীযূষ গয়াল', 'पीयूष गोयल', 'Piyush Goyal'], p: ['commerce'] },
+  { n: ['ধর্মেন্দ্র প্রধান', 'धर्मेंद्र प्रधान', 'Dharmendra Pradhan'], p: ['education'] },
+  { n: ['জিতন রাম মাঝি', 'जीतन राम मांझी', 'Jitan Ram Manjhi'], p: ['msme'] },
+  { n: ['রাজীব রঞ্জন সিং (ললন সিং)', 'राजीव रंजन सिंह (ललन सिंह)', 'Rajiv Ranjan Singh (Lalan Singh)'], p: ['panchayat', 'fisheries'] },
+  { n: ['সর্বানন্দ সোনোয়াল', 'सर्बानंद सोनोवाल', 'Sarbananda Sonowal'], p: ['ports'] },
+  { n: ['বীরেন্দ্র কুমার', 'वीरेंद्र कुमार', 'Virendra Kumar'], p: ['socialjustice'] },
+  { n: ['কিঞ্জারাপু রামমোহন নাইডু', 'किंजरापु राम मोहन नायडू', 'Kinjarapu Ram Mohan Naidu'], p: ['aviation'] },
+  { n: ['প্রহ্লাদ জোশী', 'प्रह्लाद जोशी', 'Pralhad Joshi'], p: ['consumer', 'renewenergy'] },
+  { n: ['জুয়েল ওরাম', 'जुएल ओराम', 'Jual Oram'], p: ['tribal'] },
+  { n: ['গিরিরাজ সিং', 'गिरिराज सिंह', 'Giriraj Singh'], p: ['textiles'] },
+  { n: ['অশ্বিনী বৈষ্ণব', 'अश्विनी वैष्णव', 'Ashwini Vaishnaw'], p: ['railways', 'infobroadcast', 'electronics'] },
+  { n: ['জ্যোতিরাদিত্য সিন্ধিয়া', 'ज्योतिरादित्य सिंधिया', 'Jyotiraditya Scindia'], p: ['comm', 'doner'] },
+  { n: ['ভূপেন্দ্র যাদব', 'भूपेंद्र यादव', 'Bhupender Yadav'], p: ['environment'] },
+  { n: ['গজেন্দ্র সিং শেখাওয়াত', 'गजेंद्र सिंह शेखावत', 'Gajendra Singh Shekhawat'], p: ['culture', 'tourism'] },
+  { n: ['অন্নপূর্ণা দেবী', 'अन्नपूर्णा देवी', 'Annpurna Devi'], p: ['wcd'] },
+  { n: ['কিরেণ রিজিজু', 'किरेन रिजिजू', 'Kiren Rijiju'], p: ['parlaffairs', 'minority'] },
+  { n: ['হরদীপ সিং পুরী', 'हरदीप सिंह पुरी', 'Hardeep Singh Puri'], p: ['petroleum'] },
+  { n: ['মনসুখ মাণ্ডব্য', 'मनसुख मांडविया', 'Mansukh Mandaviya'], p: ['labour', 'youthsports'] },
+  { n: ['জি. কিষাণ রেড্ডি', 'जी. किशन रेड्डी', 'G. Kishan Reddy'], p: ['coal', 'mines'] },
+  { n: ['চিরাগ পাসওয়ান', 'चिराग पासवान', 'Chirag Paswan'], p: ['foodproc'] },
+  { n: ['সি. আর. পাটিল', 'सी. आर. पाटिल', 'C. R. Patil'], p: ['jalshakti'] },
+];
+const MOS_IC = [
+  { n: ['রাও ইন্দরজিৎ সিং', 'राव इंद्रजीत सिंह', 'Rao Inderjit Singh'], p: ['stats', 'planning'] },
+  { n: ['জিতেন্দ্র সিং', 'जितेंद्र सिंह', 'Jitendra Singh'], p: ['scitech', 'earthsci'] },
+  { n: ['অর্জুন রাম মেঘওয়াল', 'अर्जुन राम मेघवाल', 'Arjun Ram Meghwal'], p: ['law'] },
+  { n: ['প্রতাপরাও যাদব', 'प्रतापराव जाधव', 'Prataprao Jadhav'], p: ['ayush'] },
+  { n: ['জয়ন্ত চৌধুরী', 'जयंत चौधरी', 'Jayant Chaudhary'], p: ['skilldev'] },
+];
+const MOS = [
+  { n: 'Jitin Prasada', p: ['commerce', 'electronics'] }, { n: 'Shripad Yesso Naik', p: ['power', 'renewenergy'] },
+  { n: 'Pankaj Chaudhary', p: ['finance'] }, { n: 'Krishan Pal', p: ['coop'] }, { n: 'Ramdas Athawale', p: ['socialjustice'] },
+  { n: 'Ram Nath Thakur', p: ['agri'] }, { n: 'Nityanand Rai', p: ['home'] }, { n: 'Anupriya Patel', p: ['health', 'chemfert'] },
+  { n: 'V. Somanna', p: ['jalshakti', 'railways'] }, { n: 'Chandra Sekhar Pemmasani', p: ['rural', 'comm'] },
+  { n: 'S. P. Singh Baghel', p: ['fisheries', 'panchayat'] }, { n: 'Shobha Karandlaje', p: ['msme', 'labour'] },
+  { n: 'Kirtivardhan Singh', p: ['environment', 'extaff'] }, { n: 'B. L. Verma', p: ['consumer', 'socialjustice'] },
+  { n: 'Shantanu Thakur', p: ['ports'] }, { n: 'Suresh Gopi', p: ['petroleum', 'tourism'] },
+  { n: 'L. Murugan', p: ['infobroadcast', 'parlaffairs'] }, { n: 'Ajay Tamta', p: ['roadtransport'] },
+  { n: 'Bandi Sanjay Kumar', p: ['home'] }, { n: 'Kamlesh Paswan', p: ['rural'] }, { n: 'Bhagirath Choudhary', p: ['agri'] },
+  { n: 'Satish Chandra Dubey', p: ['coal', 'mines'] }, { n: 'Sanjay Seth', p: ['defence'] },
+  { n: 'Ravneet Singh', p: ['foodproc', 'railways'] }, { n: 'Durgadas Uikey', p: ['tribal'] },
+  { n: 'Raksha Nikhil Khadse', p: ['youthsports'] }, { n: 'Sukanta Majumdar', p: ['education', 'doner'] },
+  { n: 'Savitri Thakur', p: ['wcd'] }, { n: 'Tokhan Sahu', p: ['housing'] }, { n: 'Raj Bhushan Choudhary', p: ['jalshakti'] },
+  { n: 'Bhupathi Raju Srinivasa Varma', p: ['heavyind', 'steel'] }, { n: 'Harsh Malhotra', p: ['corp', 'roadtransport'] },
+  { n: 'Nimuben Jayantibhai Bambhaniya', p: ['consumer'] }, { n: 'Murlidhar Mohol', p: ['coop', 'aviation'] },
+  { n: 'George Kurian', p: ['minority', 'fisheries'] }, { n: 'Pabitra Margherita', p: ['extaff', 'textiles'] },
+];
+function cabRow(m) {
+  const name = Array.isArray(m.n) ? L(...m.n) : m.n;
+  return `<div class="cab-row"><span class="cab-name">${name}</span><span class="cab-port">${pL(m.p)}</span></div>`;
+}
+function natCab() {
+  return `<h3 class="sub">${L('প্রধানমন্ত্রী', 'प्रधानमंत्री', 'Prime Minister')}</h3><div class="cab-list cab-pm">${cabRow(PM_INFO)}</div>` +
+    `<h3 class="sub">${L(`মন্ত্রিপরিষদ মন্ত্রী (${nf.format(CABINET.length)})`, `कैबिनेट मंत्री (${nf.format(CABINET.length)})`, `Cabinet Ministers (${CABINET.length})`)}</h3><div class="cab-list">${CABINET.map(cabRow).join('')}</div>` +
+    `<h3 class="sub">${L(`স্বতন্ত্র দায়িত্বপ্রাপ্ত প্রতিমন্ত্রী (${nf.format(MOS_IC.length)})`, `स्वतंत्र प्रभार राज्य मंत्री (${nf.format(MOS_IC.length)})`, `Ministers of State, Independent Charge (${MOS_IC.length})`)}</h3><div class="cab-list">${MOS_IC.map(cabRow).join('')}</div>` +
+    `<h3 class="sub">${L(`প্রতিমন্ত্রী (${nf.format(MOS.length)})`, `राज्य मंत्री (${nf.format(MOS.length)})`, `Ministers of State (${MOS.length})`)}</h3><div class="cab-list">${MOS.map(cabRow).join('')}</div>` +
+    `<p class="hint">${L(
+      'সূত্র: কেন্দ্রীয় সরকার গঠনের (জুন ২০২৪) পোর্টফোলিও বণ্টন অনুযায়ী। পরবর্তী কোনো রদবদল হয়ে থাকলে তা এখানে প্রতিফলিত নাও হতে পারে — সর্বশেষ তথ্যের জন্য pmindia.gov.in দেখুন। ৩৬ জন প্রতিমন্ত্রীর নাম মূল ইংরেজি বানানেই রাখা হয়েছে।',
+      'स्रोत: केंद्र सरकार के गठन (जून 2024) के समय हुए पोर्टफोलियो बंटवारे के अनुसार। बाद में कोई फेरबदल हुआ हो तो वह यहाँ शामिल न हो सकता है — नवीनतम जानकारी के लिए pmindia.gov.in देखें। 36 राज्य मंत्रियों के नाम मूल अंग्रेज़ी वर्तनी में ही रखे गए हैं।',
+      "Source: the portfolio allocation at the government's formation (June 2024). Any later reshuffle may not be reflected here — check pmindia.gov.in for the latest. The 36 Ministers of State are listed in their original English spelling."
+    )}</p>`;
+}
+
 const natEco = () => natEcoFacts();
 const natMkt = () => rupeeBlock() + metalBlock();
 const natEcoFacts = () => facts([
@@ -1001,26 +1127,33 @@ function cmpKeys() {
   };
 }
 function vsBlock() {
-  const a = byId[cmpA], b = byId[cmpB];
   const keys = cmpKeys();
-  const opt = (x) => `<option value="${x.id}">${R(x).n}</option>`;
-  const srt = () => [...T].sort((p, q) => R(p).n.localeCompare(R(q).n, LOC[lang])).map(opt).join('');
+  const states = cmpList.map((id) => byId[id]).filter(Boolean);
+  const opt = (x, selId) => `<option value="${x.id}" ${x.id === selId ? 'selected' : ''}>${R(x).n}</option>`;
+  const srt = (selId) => [...T].sort((p, q) => R(p).n.localeCompare(R(q).n, LOC[lang])).map((x) => opt(x, selId)).join('');
   const noData = L('তথ্য নেই', 'डेटा नहीं', 'No data');
+  const pickers = cmpList.map((id, i) => `<div class="vspick-item">` +
+    `<select data-cmp-sel="${i}" aria-label="${L('রাজ্য', 'राज्य', 'State')} ${nf.format(i + 1)}">${srt(id)}</select>` +
+    (cmpList.length > 2 ? `<button type="button" class="vsrm" data-cmp-remove="${i}" aria-label="${L('সরান', 'हटाएँ', 'Remove')}">✕</button>` : '') +
+    `</div>`).join('');
+  const addBtn = cmpList.length < CMP_MAX ? `<button type="button" class="vsadd" data-cmp-add>+ ${L('রাজ্য যোগ করুন', 'राज्य जोड़ें', 'Add state')}</button>` : '';
   const rows = Object.entries(keys).map(([k, [label, get, show]]) => {
-    const va = get(a), vb = get(b);
-    const sa = va != null ? show(a) : noData, sb = vb != null ? show(b) : noData;
-    const hiA = va != null && vb != null && va > vb ? ' class="vswin"' : '';
-    const hiB = va != null && vb != null && vb > va ? ' class="vswin"' : '';
-    return `<tr><td>${label}</td><td${hiA}>${sa}</td><td${hiB}>${sb}</td></tr>`;
+    const vals = states.map((x) => get(x));
+    const numeric = vals.filter((v) => v != null);
+    const max = numeric.length > 1 ? Math.max(...numeric) : null;
+    const cells = states.map((x, i) => {
+      const v = vals[i];
+      const s = v != null ? show(x) : noData;
+      const hi = v != null && max != null && v === max ? ' class="vswin"' : '';
+      return `<td${hi}>${s}</td>`;
+    }).join('');
+    return `<tr><td>${label}</td>${cells}</tr>`;
   }).join('');
-  return `<h3 class="sub">${L('দুটো রাজ্য পাশাপাশি তুলনা', 'दो राज्यों की आमने-सामने तुलना', 'Two states side by side')}</h3>` +
-    `<div class="vspick">` +
-    `<select id="cmpA-sel" aria-label="${L('প্রথম রাজ্য', 'पहला राज्य', 'First state')}">${srt()}</select>` +
-    `<span class="vsvs">${L('বনাম', 'बनाम', 'vs')}</span>` +
-    `<select id="cmpB-sel" aria-label="${L('দ্বিতীয় রাজ্য', 'दूसरा राज्य', 'Second state')}">${srt()}</select>` +
-    `</div>` +
-    `<table class="vstable"><thead><tr><th></th><th>${R(a).n}</th><th>${R(b).n}</th></tr></thead><tbody>${rows}</tbody></table>` +
-    `<p class="hint">${L('উজ্জ্বল রঙে দেখানো সংখ্যাটি বেশি।', 'गहरे रंग में दिखाया गया आँकड़ा ज़्यादा है।', 'The highlighted figure is the higher one.')}</p>`;
+  const thead = `<tr><th></th>${states.map((x) => `<th>${R(x).n}</th>`).join('')}</tr>`;
+  return `<h3 class="sub">${L('কয়েকটি রাজ্য পাশাপাশি তুলনা', 'कई राज्यों की आमने-सामने तुलना', 'Compare several states side by side')}</h3>` +
+    `<div class="vspick">${pickers}${addBtn}</div>` +
+    `<div class="vstable-wrap"><table class="vstable"><thead>${thead}</thead><tbody>${rows}</tbody></table></div>` +
+    `<p class="hint">${L('উজ্জ্বল রঙে দেখানো সংখ্যাটি সবচেয়ে বেশি।', 'गहरे रंग में दिखाया गया आँकड़ा सबसे ज़्यादा है।', 'The highlighted figure is the highest.')}</p>`;
 }
 function natCmp() {
   const keys = cmpKeys();
@@ -1099,58 +1232,92 @@ function natHist() {
 
 /* ---------- কুইজ ---------- */
 const QUIZ = () => [
-  [L('ভারতের জাতীয় জলজ প্রাণী কোনটি?', 'भारत का राष्ट्रीय जलीय प्राणी कौन-सा है?', "What is India's national aquatic animal?"), [L('গাঙ্গেয় শুশুক (ডলফিন)', 'गंगा डॉल्फ़िन', 'Ganges River Dolphin'), L('নীল তিমি', 'नीली व्हेल', 'Blue Whale'), L('কুমির', 'मगरमच्छ', 'Crocodile'), L('ভোঁদড়', 'ऊदबिलाव', 'Otter')], 0],
-  [L('ভারতের জাতীয় ফল কোনটি?', 'भारत का राष्ट्रीय फल कौन-सा है?', "What is India's national fruit?"), [L('আম', 'आम', 'Mango'), L('কলা', 'केला', 'Banana'), L('পেয়ারা', 'अमरूद', 'Guava'), L('পেঁপে', 'पपीता', 'Papaya')], 0],
-  [L('ভারতের বৃহত্তম মরুভূমির নাম কী?', 'भारत का सबसे बड़ा रेगिस्तान कौन-सा है?', "What is India's largest desert?"), [L('থর মরুভূমি', 'थार रेगिस्तान', 'Thar Desert'), L('রণ অফ কচ্ছ', 'कच्छ का रण', 'Rann of Kutch'), L('লাদাখ মরুভূমি', 'लद्दाख रेगिस्तान', 'Ladakh Desert'), L('গোবি মরুভূমি', 'गोबी रेगिस्तान', 'Gobi Desert')], 0],
-  [L('ভারতের কোন রাজ্যের উপকূলরেখা সবচেয়ে দীর্ঘ?', 'भारत के किस राज्य की तटरेखा सबसे लंबी है?', 'Which Indian state has the longest coastline?'), [L('গুজরাট', 'गुजरात', 'Gujarat'), L('তামিলনাড়ু', 'तमिलनाडु', 'Tamil Nadu'), L('মহারাষ্ট্র', 'महाराष्ट्र', 'Maharashtra'), L('অন্ধ্রপ্রদেশ', 'आंध्र प्रदेश', 'Andhra Pradesh')], 0],
-  [L('জনসংখ্যার বিচারে ভারতের সবচেয়ে কম জনবহুল রাজ্য কোনটি?', 'जनसंख्या के हिसाब से भारत का सबसे कम आबादी वाला राज्य कौन-सा है?', "Which is India's least populous state?"), [L('সিকিম', 'सिक्किम', 'Sikkim'), L('গোয়া', 'गोवा', 'Goa'), L('মিজোরাম', 'मिज़ोरम', 'Mizoram'), L('ত্রিপুরা', 'त्रिपुरा', 'Tripura')], 0],
-  [L('"ভারতের মিসাইল ম্যান" নামে কে পরিচিত?', '"भारत के मिसाइल मैन" के नाम से कौन प्रसिद्ध हैं?', 'Who is known as the "Missile Man of India"?'), [L('এ. পি. জে. আব্দুল কালাম', 'ए. पी. जे. अब्दुल कलाम', 'A. P. J. Abdul Kalam'), L('হোমি জাহাঙ্গীর ভাবা', 'होमी जहांगीर भाभा', 'Homi J. Bhabha'), L('বিক্রম সারাভাই', 'विक्रम साराभाई', 'Vikram Sarabhai'), L('সি. ভি. রমন', 'सी. वी. रमन', 'C. V. Raman')], 0],
-  [L('ভারতনাট্যম নৃত্যশৈলীর উৎপত্তি কোন রাজ্যে?', 'भरतनाट्यम नृत्य शैली की उत्पत्ति किस राज्य में हुई?', 'The Bharatanatyam dance form originated in which state?'), [L('তামিলনাড়ু', 'तमिलनाडु', 'Tamil Nadu'), L('কেরল', 'केरल', 'Kerala'), L('অন্ধ্রপ্রদেশ', 'आंध्र प्रदेश', 'Andhra Pradesh'), L('ওড়িশা', 'ओडिशा', 'Odisha')], 0],
-  [L('ভারতের কোন শহরকে "গোলাপি শহর" বলা হয়?', 'भारत के किस शहर को "गुलाबी शहर" कहा जाता है?', 'Which Indian city is known as the "Pink City"?'), [L('জয়পুর', 'जयपुर', 'Jaipur'), L('যোধপুর', 'जोधपुर', 'Jodhpur'), L('উদয়পুর', 'उदयपुर', 'Udaipur'), L('বিকানের', 'बीकानेर', 'Bikaner')], 0],
-  [L('ভারতরত্নর পরে দ্বিতীয় সর্বোচ্চ বেসামরিক সম্মান কোনটি?', 'भारत रत्न के बाद दूसरा सर्वोच्च नागरिक सम्मान कौन-सा है?', 'What is the second-highest civilian award after Bharat Ratna?'), [L('পদ্মবিভূষণ', 'पद्म विभूषण', 'Padma Vibhushan'), L('পদ্মভূষণ', 'पद्म भूषण', 'Padma Bhushan'), L('পদ্মশ্রী', 'पद्म श्री', 'Padma Shri'), L('অশোকচক্র', 'अशोक चक्र', 'Ashoka Chakra')], 0],
-  [L('ভারতের প্রস্তাবিত প্রথম বুলেট ট্রেন প্রকল্প কোন দুই শহরকে সংযুক্ত করে?', 'भारत की प्रस्तावित पहली बुलेट ट्रेन परियोजना किन दो शहरों को जोड़ती है?', "India's first bullet train project connects which two cities?"), [L('মুম্বই–আহমেদাবাদ', 'मुंबई–अहमदाबाद', 'Mumbai–Ahmedabad'), L('দিল্লি–মুম্বই', 'दिल्ली–मुंबई', 'Delhi–Mumbai'), L('চেন্নাই–বেঙ্গালুরু', 'चेन्नई–बेंगलुरु', 'Chennai–Bengaluru'), L('কলকাতা–দিল্লি', 'कोलकाता–दिल्ली', 'Kolkata–Delhi')], 0],
-  [L('ব্যক্তিগত বিভাগে ভারতের প্রথম অলিম্পিক সোনাজয়ী কে?', 'व्यक्तिगत स्पर्धा में भारत के पहले ओलंपिक स्वर्ण पदक विजेता कौन थे?', 'Who was the first Indian to win an individual Olympic gold medal?'), [L('অভিনব বিন্দ্রা', 'अभिनव बिंद्रा', 'Abhinav Bindra'), L('মিলখা সিং', 'मिल्खा सिंह', 'Milkha Singh'), L('নীরজ চোপড়া', 'नीरज चोपड़ा', 'Neeraj Chopra'), L('ধ্যানচাঁদ', 'ध्यानचंद', 'Dhyan Chand')], 0],
-  [L('কথাকলি নৃত্যশৈলীর উৎপত্তি কোন রাজ্যে?', 'कथकली नृत्य शैली की उत्पत्ति किस राज्य में हुई?', 'The Kathakali dance form originated in which state?'), [L('কেরল', 'केरल', 'Kerala'), L('তামিলনাড়ু', 'तमिलनाडु', 'Tamil Nadu'), L('কর্ণাটক', 'कर्नाटक', 'Karnataka'), L('অন্ধ্রপ্রদেশ', 'आंध्र प्रदेश', 'Andhra Pradesh')], 0],
-  [L('কোণার্ক সূর্য মন্দির কোন রাজ্যে অবস্থিত?', 'कोणार्क सूर्य मंदिर किस राज्य में स्थित है?', 'The Konark Sun Temple is located in which state?'), [L('ওড়িশা', 'ओडिशा', 'Odisha'), L('পশ্চিমবঙ্গ', 'पश्चिम बंगाल', 'West Bengal'), L('বিহার', 'बिहार', 'Bihar'), L('ঝাড়খণ্ড', 'झारखंड', 'Jharkhand')], 0],
-  [L('লালকেল্লা (Red Fort) কে নির্মাণ করেছিলেন?', 'लाल किला किसने बनवाया था?', 'Who built the Red Fort?'), [L('শাহজাহান', 'शाहजहां', 'Shah Jahan'), L('আকবর', 'अकबर', 'Akbar'), L('হুমায়ুন', 'हुमायूं', 'Humayun'), L('আওরঙ্গজেব', 'औरंगज़ेब', 'Aurangzeb')], 0],
-  [L('কোন নদীকে "বিহারের দুঃখ" বলা হয়?', 'किस नदी को "बिहार का शोक" कहा जाता है?', 'Which river is called the "Sorrow of Bihar"?'), [L('কোশী', 'कोसी', 'Kosi'), L('শোন', 'सोन', 'Son'), L('গণ্ডক', 'गंडक', 'Gandak'), L('বাগমতী', 'बागमती', 'Bagmati')], 0],
-  [L('ভারতীয় রুপির প্রতীক (₹) আনুষ্ঠানিকভাবে গৃহীত হয় কোন সালে?', 'भारतीय रुपये का प्रतीक (₹) आधिकारिक रूप से कब अपनाया गया?', 'In which year was the Indian Rupee symbol (₹) officially adopted?'), [L('2010', '2010', '2010'), L('2008', '2008', '2008'), L('2012', '2012', '2012'), L('2015', '2015', '2015')], 0],
-  [L('ভারতের প্রথম স্বদেশী বিমানবাহী রণতরীর নাম কী?', 'भारत के पहले स्वदेशी विमानवाहक पोत का नाम क्या है?', "What is the name of India's first indigenous aircraft carrier?"), [L('আইএনএস বিক্রান্ত', 'आईएनएस विक्रांत', 'INS Vikrant'), L('আইএনএস বিরাট', 'आईएनएस विराट', 'INS Viraat'), L('আইএনএস বিক্রমাদিত্য', 'आईएनएस विक्रमादित्य', 'INS Vikramaditya'), L('আইএনএস চক্র', 'आईएनएस चक्र', 'INS Chakra')], 0],
-  [L('ভারতের সবচেয়ে বেশি চা উৎপাদনকারী রাজ্য কোনটি?', 'भारत में चाय का सबसे बड़ा उत्पादक राज्य कौन-सा है?', 'Which is the largest tea-producing state in India?'), [L('আসাম', 'असम', 'Assam'), L('পশ্চিমবঙ্গ', 'पश्चिम बंगाल', 'West Bengal'), L('কেরল', 'केरल', 'Kerala'), L('তামিলনাড়ু', 'तमिलनाडु', 'Tamil Nadu')], 0],
-  [L('"গ্রেট ইন্ডিয়ান বাস্টার্ড" পাখিটি কোন রাজ্যের রাজ্য-পাখি?', '"ग्रेट इंडियन बस्टर्ड" पक्षी किस राज्य का राजकीय पक्षी है?', 'The Great Indian Bustard is the state bird of which state?'), [L('রাজস্থান', 'राजस्थान', 'Rajasthan'), L('গুজরাট', 'गुजरात', 'Gujarat'), L('মধ্যপ্রদেশ', 'मध्य प्रदेश', 'Madhya Pradesh'), L('হরিয়ানা', 'हरियाणा', 'Haryana')], 0],
-  [L('ভারতের একমাত্র সক্রিয় আগ্নেয়গিরিটি কোথায় অবস্থিত?', 'भारत का एकमात्र सक्रिय ज्वालामुखी कहाँ स्थित है?', "Where is India's only active volcano located?"), [L('ব্যারেন দ্বীপ', 'बैरन द्वीप', 'Barren Island'), L('নারকোণ্ডম দ্বীপ', 'नारकोंडम द्वीप', 'Narcondam Island'), L('মাজুলি', 'माजुली', 'Majuli'), L('এলিফ্যান্টা দ্বীপ', 'एलीफेंटा द्वीप', 'Elephanta Island')], 0],
-  [L('নিচের কোনটিতে কুম্ভমেলা অনুষ্ঠিত হয় না?', 'निम्नलिखित में से किसमें कुंभ मेला आयोजित नहीं होता?', 'The Kumbh Mela is NOT held in which of these cities?'), [L('হরিদ্বার', 'हरिद्वार', 'Haridwar'), L('প্রয়াগরাজ', 'प्रयागराज', 'Prayagraj'), L('নাসিক', 'नासिक', 'Nashik'), L('বারাণসী', 'वाराणसी', 'Varanasi')], 3],
-  [L('পাঞ্জাবকে কী নামে ডাকা হয়?', 'पंजाब को किस नाम से जाना जाता है?', 'Punjab is known by which name?'), [L('পাঁচ নদীর দেশ', 'पाँच नदियों की भूमि', 'Land of Five Rivers'), L('সাত বোনের দেশ', 'सात बहनों की भूमि', 'Land of Seven Sisters'), L('হ্রদের শহর', 'झीलों का शहर', 'City of Lakes'), L('মন্দিরের শহর', 'मंदिरों का शहर', 'City of Temples')], 0],
-  [L('জোগ জলপ্রপাত, ভারতের অন্যতম উচ্চতম জলপ্রপাত, কোন রাজ্যে অবস্থিত?', 'जोग जलप्रपात, जो भारत के सबसे ऊंचे झरनों में से एक है, किस राज्य में स्थित है?', "Jog Falls, one of India's highest waterfalls, is located in which state?"), [L('কর্ণাটক', 'कर्नाटक', 'Karnataka'), L('কেরল', 'केरल', 'Kerala'), L('তামিলনাড়ু', 'तमिलनाडु', 'Tamil Nadu'), L('মহারাষ্ট্র', 'महाराष्ट्र', 'Maharashtra')], 0],
-  [L('সম্পূর্ণ জাতীয় সংগীত গাইতে আনুমানিক কত সময় লাগে?', 'पूरा राष्ट्रगान गाने में लगभग कितना समय लगता है?', 'About how long does it take to sing the full national anthem?'), [L('৫২ সেকেন্ড', '52 सेकंड', '52 seconds'), L('৩২ সেকেন্ড', '32 सेकंड', '32 seconds'), L('৭২ সেকেন্ড', '72 सेकंड', '72 seconds'), L('৯০ সেকেন্ড', '90 सेकंड', '90 seconds')], 0],
-  [L('ভারতের প্রাচীনতম আইআইএম (IIM) কোনটি?', 'भारत का सबसे पुराना आईआईएम (IIM) कौन-सा है?', "Which is India's oldest IIM?"), [L('আইআইএম কলকাতা', 'आईआईएम कोलकाता', 'IIM Calcutta'), L('আইআইএম আহমেদাবাদ', 'आईआईएम अहमदाबाद', 'IIM Ahmedabad'), L('আইআইএম ব্যাঙ্গালোর', 'आईआईएम बैंगलोर', 'IIM Bangalore'), L('আইআইএম লখনউ', 'आईआईएम लखनऊ', 'IIM Lucknow')], 0],
-  [L('"স্ট্যাচু অফ ইউনিটি" কার স্মরণে নির্মিত?', '"स्टैच्यू ऑफ यूनिटी" किसकी स्मृति में बनाई गई है?', 'The Statue of Unity honors whom?'), [L('সর্দার বল্লভভাই প্যাটেল', 'सरदार वल्लभभाई पटेल', 'Sardar Vallabhbhai Patel'), L('মহাত্মা গান্ধী', 'महात्मा गांधी', 'Mahatma Gandhi'), L('জওহরলাল নেহরু', 'जवाहरलाल नेहरू', 'Jawaharlal Nehru'), L('সুভাষচন্দ্র বসু', 'सुभाषचंद्र बोस', 'Subhas Chandra Bose')], 0],
-  [L('স্ট্যাচু অফ ইউনিটি কোন রাজ্যে অবস্থিত?', 'स्टैच्यू ऑफ यूनिटी किस राज्य में स्थित है?', 'In which state is the Statue of Unity located?'), [L('গুজরাট', 'गुजरात', 'Gujarat'), L('মধ্যপ্রদেশ', 'मध्य प्रदेश', 'Madhya Pradesh'), L('মহারাষ্ট্র', 'महाराष्ट्र', 'Maharashtra'), L('রাজস্থান', 'राजस्थान', 'Rajasthan')], 0],
-  [L('"বন্দে মাতরম" গানটি কে রচনা করেন?', '"वंदे मातरम" गीत किसने लिखा?', 'Who wrote the song "Vande Mataram"?'), [L('বঙ্কিমচন্দ্র চট্টোপাধ্যায়', 'बंकिमचंद्र चट्टोपाध्याय', 'Bankim Chandra Chattopadhyay'), L('রবীন্দ্রনাথ ঠাকুর', 'रवींद्रनाथ टैगोर', 'Rabindranath Tagore'), L('সরোজিনী নাইডু', 'सरोजिनी नायडू', 'Sarojini Naidu'), L('মুহাম্মদ ইকবাল', 'मुहम्मद इकबाल', 'Muhammad Iqbal')], 0],
-  [L('চন্দ্রযান-৩ সফলভাবে চাঁদে অবতরণ করে কোন সালে?', 'चंद्रयान-3 किस वर्ष चाँद पर सफलतापूर्वक उतरा?', 'In which year did Chandrayaan-3 successfully land on the Moon?'), [L('2023', '2023', '2023'), L('2021', '2021', '2021'), L('2019', '2019', '2019'), L('2024', '2024', '2024')], 0],
-  [L('কাঞ্চনজঙ্ঘা পর্বত ভারতের ও কোন দেশের সীমান্তে অবস্থিত?', 'कंचनजंघा पर्वत भारत और किस देश की सीमा पर स्थित है?', 'Mount Kanchenjunga lies on the border of India and which country?'), [L('নেপাল', 'नेपाल', 'Nepal'), L('ভুটান', 'भूटान', 'Bhutan'), L('চীন', 'चीन', 'China'), L('মিয়ানমার', 'म्यांमार', 'Myanmar')], 0],
-  [L('এক-শৃঙ্গ গণ্ডারের জন্য বিখ্যাত কাজিরাঙ্গা জাতীয় উদ্যান কোন রাজ্যে অবস্থিত?', 'एक-सींग वाले गैंडे के लिए प्रसिद्ध काज़ीरंगा राष्ट्रीय उद्यान किस राज्य में है?', 'Kaziranga National Park, famous for the one-horned rhinoceros, is in which state?'), [L('আসাম', 'असम', 'Assam'), L('পশ্চিমবঙ্গ', 'पश्चिम बंगाल', 'West Bengal'), L('ওড়িশা', 'ओडिशा', 'Odisha'), L('বিহার', 'बिहार', 'Bihar')], 0],
-  [L('রয়্যাল বেঙ্গল টাইগারের আবাসস্থল সুন্দরবন কোন রাজ্যে অবস্থিত?', 'रॉयल बंगाल टाइगर का घर सुंदरबन किस राज्य में स्थित है?', 'The Sundarbans, home to the Royal Bengal Tiger, is located in which state?'), [L('পশ্চিমবঙ্গ', 'पश्चिम बंगाल', 'West Bengal'), L('ওড়িশা', 'ओडिशा', 'Odisha'), L('আসাম', 'असम', 'Assam'), L('বিহার', 'बिहार', 'Bihar')], 0],
-  [L('ভারতের প্রথম মেট্রো রেল কোন শহরে চালু হয়?', 'भारत में पहली मेट्रो रेल किस शहर में शुरू हुई?', "In which city did India's first metro rail begin operations?"), [L('কলকাতা', 'कोलकाता', 'Kolkata'), L('দিল্লি', 'दिल्ली', 'Delhi'), L('মুম্বই', 'मुंबई', 'Mumbai'), L('চেন্নাই', 'चेन्नई', 'Chennai')], 0],
-  [L('ভারতরত্ন সম্মান প্রবর্তিত হয় কোন সালে?', 'भारत रत्न सम्मान किस वर्ष शुरू किया गया?', 'In which year was the Bharat Ratna award instituted?'), [L('1954', '1954', '1954'), L('1947', '1947', '1947'), L('1950', '1950', '1950'), L('1962', '1962', '1962')], 0],
-  [L('ইউনেস্কো হেরিটেজ খাজুরাহো মন্দির কোন রাজ্যে অবস্থিত?', 'यूनेस्को धरोहर खजुराहो मंदिर किस राज्य में स्थित हैं?', 'The UNESCO heritage Khajuraho temples are located in which state?'), [L('মধ্যপ্রদেশ', 'मध्य प्रदेश', 'Madhya Pradesh'), L('উত্তরপ্রদেশ', 'उत्तर प्रदेश', 'Uttar Pradesh'), L('রাজস্থান', 'राजस्थान', 'Rajasthan'), L('গুজরাট', 'गुजरात', 'Gujarat')], 0],
-  [L('"গেটওয়ে অফ ইন্ডিয়া" স্মৃতিসৌধটি কোন শহরে অবস্থিত?', '"गेटवे ऑफ इंडिया" स्मारक किस शहर में स्थित है?', 'In which city is the "Gateway of India" monument located?'), [L('মুম্বই', 'मुंबई', 'Mumbai'), L('চেন্নাই', 'चेन्नई', 'Chennai'), L('গোয়া', 'गोवा', 'Goa'), L('কোচি', 'कोच्चि', 'Kochi')], 0],
-  [L('ভারতের সংবিধান রচনা কমিটির চেয়ারম্যান কে ছিলেন?', 'भारत की संविधान प्रारूप समिति के अध्यक्ष कौन थे?', "Who was the chairman of India's Constitution Drafting Committee?"), [L('ড. বি. আর. আম্বেদকর', 'डॉ. बी. आर. अम्बेडकर', 'Dr. B. R. Ambedkar'), L('জওহরলাল নেহরু', 'जवाहरलाल नेहरू', 'Jawaharlal Nehru'), L('সর্দার প্যাটেল', 'सरदार पटेल', 'Sardar Patel'), L('রাজেন্দ্র প্রসাদ', 'राजेंद्र प्रसाद', 'Rajendra Prasad')], 0],
-  [L('বর্তমানে ভারতের লোকসভায় মোট সদস্য সংখ্যা কত?', 'वर्तमान में भारत की लोकसभा में कुल सदस्य संख्या कितनी है?', "What is the current total number of members in India's Lok Sabha?"), [L('543', '543', '543'), L('545', '545', '545'), L('552', '552', '552'), L('535', '535', '535')], 0],
-  [L('ভারতের রাজ্যসভার সর্বোচ্চ সদস্যসংখ্যা কত হতে পারে?', 'भारत की राज्यसभा की अधिकतम सदस्य संख्या कितनी हो सकती है?', 'What is the maximum strength the Rajya Sabha can have?'), [L('245', '245', '245'), L('250', '250', '250'), L('238', '238', '238'), L('260', '260', '260')], 0],
-  [L('পদাধিকারবলে রাজ্যসভার সভাপতি (চেয়ারম্যান) কে?', 'पदेन रूप से राज्यसभा के सभापति कौन होते हैं?', 'Who is the ex-officio Chairman of the Rajya Sabha?'), [L('উপরাষ্ট্রপতি', 'उपराष्ट्रपति', 'Vice President of India'), L('রাষ্ট্রপতি', 'राष्ट्रपति', 'President of India'), L('প্রধানমন্ত্রী', 'प्रधानमंत्री', 'Prime Minister'), L('লোকসভার স্পিকার', 'लोकसभा अध्यक्ष', 'Speaker of Lok Sabha')], 0],
-  [L('ভারতের প্রথম স্বদেশী সুপারকম্পিউটারের নাম কী?', 'भारत के पहले स्वदेशी सुपरकंप्यूटर का नाम क्या है?', "What is the name of India's first indigenous supercomputer?"), [L('পরম ৮০০০', 'परम 8000', 'PARAM 8000'), L('অনুপম', 'अनुपम', 'Anupam'), L('প্রত্যুষ', 'प्रत्युष', 'Pratyush'), L('সাগা-২২০', 'सागा-220', 'SAGA-220')], 0],
-  [L('ভারতের প্রথম রেলপথ বম্বে থেকে কোথায় পর্যন্ত চালু হয়েছিল (১৮৫৩)?', 'भारत की पहली रेल लाइन 1853 में बॉम्बे से कहाँ तक शुरू हुई थी?', "India's first railway line (1853) ran from Bombay to where?"), [L('থানে', 'ठाणे', 'Thane'), L('পুণে', 'पुणे', 'Pune'), L('সুরাট', 'सूरत', 'Surat'), L('নাসিক', 'नासिक', 'Nashik')], 0],
-  [L('ভারতের দীর্ঘতম নদী-সেতু "ভূপেন হাজারিকা সেতু" কোন রাজ্যে অবস্থিত?', 'भारत का सबसे लंबा नदी पुल "भूपेन हजारिका सेतु" किस राज्य में स्थित है?', "India's longest river bridge, the \"Bhupen Hazarika Setu,\" is located in which state?"), [L('আসাম', 'असम', 'Assam'), L('বিহার', 'बिहार', 'Bihar'), L('উত্তরপ্রদেশ', 'उत्तर प्रदेश', 'Uttar Pradesh'), L('পশ্চিমবঙ্গ', 'पश्चिम बंगाल', 'West Bengal')], 0],
-  [L('কোন হকি খেলোয়াড়কে "হকির জাদুকর" বলা হয়?', 'किस हॉकी खिलाड़ी को "हॉकी का जादूगर" कहा जाता है?', 'Which hockey player is known as the "Wizard of Hockey"?'), [L('ধ্যানচাঁদ', 'ध्यानचंद', 'Dhyan Chand'), L('বলবীর সিং', 'बलबीर सिंह', 'Balbir Singh'), L('সন্দীপ সিং', 'संदीप सिंह', 'Sandeep Singh'), L('পি. আর. শ্রীজেশ', 'पी. आर. श्रीजेश', 'P. R. Sreejesh')], 0],
-  [L('ভারতের জাতীয় ক্রীড়া দিবস কবে পালিত হয়?', 'भारत का राष्ट्रीय खेल दिवस कब मनाया जाता है?', "When is India's National Sports Day celebrated?"), [L('২৯ আগস্ট', '29 अगस्त', '29 August'), L('১৫ আগস্ট', '15 अगस्त', '15 August'), L('২ অক্টোবর', '2 अक्टूबर', '2 October'), L('১৪ নভেম্বর', '14 नवंबर', '14 November')], 0],
-  [L('ভারতের সর্বোচ্চ উচ্চতায় অবস্থিত বিমানবন্দরটি কোথায়?', 'भारत का सबसे ऊंचाई पर स्थित हवाई अड्डा कहाँ है?', "Where is India's highest-altitude airport located?"), [L('লেহ, লাদাখ', 'लेह, लद्दाख', 'Leh, Ladakh'), L('শিমলা', 'शिमला', 'Shimla'), L('গ্যাংটক', 'गंगटोक', 'Gangtok'), L('দার্জিলিং', 'दार्जिलिंग', 'Darjeeling')], 0],
-  [L('"জীবন্ত মূলের সেতু"-এর জন্য বিখ্যাত ভারতীয় রাজ্য কোনটি?', '"जीवंत जड़ पुल" के लिए प्रसिद्ध भारतीय राज्य कौन-सा है?', 'Which Indian state is famous for its "Living Root Bridges"?'), [L('মেঘালয়', 'मेघालय', 'Meghalaya'), L('মিজোরাম', 'मिज़ोरम', 'Mizoram'), L('মণিপুর', 'मणिपुर', 'Manipur'), L('নাগাল্যান্ড', 'नागालैंड', 'Nagaland')], 0],
-  [L('এভারেস্ট জয়কারী প্রথম ভারতীয় নারী কে?', 'एवरेस्ट फतह करने वाली पहली भारतीय महिला कौन थीं?', 'Who was the first Indian woman to climb Mount Everest?'), [L('বাচেন্দ্রী পাল', 'बछेंद्री पाल', 'Bachendri Pal'), L('সন্তোষ যাদব', 'संतोष यादव', 'Santosh Yadav'), L('অরুণিমা সিনহা', 'अरुणिमा सिन्हा', 'Arunima Sinha'), L('প্রেমলতা আগরওয়াল', 'प्रेमलता अग्रवाल', 'Premlata Agarwal')], 0],
-  [L('ভারতের কোন শহরকে "হ্রদের শহর" বলা হয়?', '‌भारत के किस शहर को "झीलों का शहर" कहा जाता है?', 'Which Indian city is known as the "City of Lakes"?'), [L('উদয়পুর', 'उदयपुर', 'Udaipur'), L('ভোপাল', 'भोपाल', 'Bhopal'), L('নৈনিতাল', 'नैनीताल', 'Nainital'), L('শ্রীনগর', 'श्रीनगर', 'Srinagar')], 0],
-  [L('বাঘ সংরক্ষণের জন্য ভারতে "প্রজেক্ট টাইগার" কোন সালে চালু হয়?', 'बाघ संरक्षण के लिए भारत में "प्रोजेक्ट टाइगर" किस वर्ष शुरू हुआ?', 'In which year was "Project Tiger" launched in India for tiger conservation?'), [L('1973', '1973', '1973'), L('1980', '1980', '1980'), L('1965', '1965', '1965'), L('1990', '1990', '1990')], 0]
+  [L('ভারতের জাতীয় জলজ প্রাণী কোনটি?', 'भारत का राष्ट्रीय जलीय प्राणी कौन-सा है?', "What is India's national aquatic animal?"), [L('গাঙ্গেয় শুশুক (ডলফিন)', 'गंगा डॉल्फ़िन', 'Ganges River Dolphin'), L('নীল তিমি', 'नीली व्हेल', 'Blue Whale'), L('কুমির', 'मगरमच्छ', 'Crocodile'), L('ভোঁদড়', 'ऊदबिलाव', 'Otter')], 0, 'desh'],
+  [L('ভারতের জাতীয় ফল কোনটি?', 'भारत का राष्ट्रीय फल कौन-सा है?', "What is India's national fruit?"), [L('আম', 'आम', 'Mango'), L('কলা', 'केला', 'Banana'), L('পেয়ারা', 'अमरूद', 'Guava'), L('পেঁপে', 'पपीता', 'Papaya')], 0, 'desh'],
+  [L('ভারতের বৃহত্তম মরুভূমির নাম কী?', 'भारत का सबसे बड़ा रेगिस्तान कौन-सा है?', "What is India's largest desert?"), [L('থর মরুভূমি', 'थार रेगिस्तान', 'Thar Desert'), L('রণ অফ কচ্ছ', 'कच्छ का रण', 'Rann of Kutch'), L('লাদাখ মরুভূমি', 'लद्दाख रेगिस्तान', 'Ladakh Desert'), L('গোবি মরুভূমি', 'गोबी रेगिस्तान', 'Gobi Desert')], 0, 'bhugol'],
+  [L('ভারতের কোন রাজ্যের উপকূলরেখা সবচেয়ে দীর্ঘ?', 'भारत के किस राज्य की तटरेखा सबसे लंबी है?', 'Which Indian state has the longest coastline?'), [L('গুজরাট', 'गुजरात', 'Gujarat'), L('তামিলনাড়ু', 'तमिलनाडु', 'Tamil Nadu'), L('মহারাষ্ট্র', 'महाराष्ट्र', 'Maharashtra'), L('অন্ধ্রপ্রদেশ', 'आंध्र प्रदेश', 'Andhra Pradesh')], 0, 'bhugol'],
+  [L('জনসংখ্যার বিচারে ভারতের সবচেয়ে কম জনবহুল রাজ্য কোনটি?', 'जनसंख्या के हिसाब से भारत का सबसे कम आबादी वाला राज्य कौन-सा है?', "Which is India's least populous state?"), [L('সিকিম', 'सिक्किम', 'Sikkim'), L('গোয়া', 'गोवा', 'Goa'), L('মিজোরাম', 'मिज़ोरम', 'Mizoram'), L('ত্রিপুরা', 'त्रिपुरा', 'Tripura')], 0, 'bhugol'],
+  [L('"ভারতের মিসাইল ম্যান" নামে কে পরিচিত?', '"भारत के मिसाइल मैन" के नाम से कौन प्रसिद्ध हैं?', 'Who is known as the "Missile Man of India"?'), [L('এ. পি. জে. আব্দুল কালাম', 'ए. पी. जे. अब्दुल कलाम', 'A. P. J. Abdul Kalam'), L('হোমি জাহাঙ্গীর ভাবা', 'होमी जहांगीर भाभा', 'Homi J. Bhabha'), L('বিক্রম সারাভাই', 'विक्रम साराभाई', 'Vikram Sarabhai'), L('সি. ভি. রমন', 'सी. वी. रमन', 'C. V. Raman')], 0, 'biggan'],
+  [L('ভারতনাট্যম নৃত্যশৈলীর উৎপত্তি কোন রাজ্যে?', 'भरतनाट्यम नृत्य शैली की उत्पत्ति किस राज्य में हुई?', 'The Bharatanatyam dance form originated in which state?'), [L('তামিলনাড়ু', 'तमिलनाडु', 'Tamil Nadu'), L('কেরল', 'केरल', 'Kerala'), L('অন্ধ্রপ্রদেশ', 'आंध्र प्रदेश', 'Andhra Pradesh'), L('ওড়িশা', 'ओडिशा', 'Odisha')], 0, 'sanskriti'],
+  [L('ভারতের কোন শহরকে "গোলাপি শহর" বলা হয়?', 'भारत के किस शहर को "गुलाबी शहर" कहा जाता है?', 'Which Indian city is known as the "Pink City"?'), [L('জয়পুর', 'जयपुर', 'Jaipur'), L('যোধপুর', 'जोधपुर', 'Jodhpur'), L('উদয়পুর', 'उदयपुर', 'Udaipur'), L('বিকানের', 'बीकानेर', 'Bikaner')], 0, 'bhugol'],
+  [L('ভারতরত্নর পরে দ্বিতীয় সর্বোচ্চ বেসামরিক সম্মান কোনটি?', 'भारत रत्न के बाद दूसरा सर्वोच्च नागरिक सम्मान कौन-सा है?', 'What is the second-highest civilian award after Bharat Ratna?'), [L('পদ্মবিভূষণ', 'पद्म विभूषण', 'Padma Vibhushan'), L('পদ্মভূষণ', 'पद्म भूषण', 'Padma Bhushan'), L('পদ্মশ্রী', 'पद्म श्री', 'Padma Shri'), L('অশোকচক্র', 'अशोक चक्र', 'Ashoka Chakra')], 0, 'rajniti'],
+  [L('ভারতের প্রস্তাবিত প্রথম বুলেট ট্রেন প্রকল্প কোন দুই শহরকে সংযুক্ত করে?', 'भारत की प्रस्तावित पहली बुलेट ट्रेन परियोजना किन दो शहरों को जोड़ती है?', "India's first bullet train project connects which two cities?"), [L('মুম্বই–আহমেদাবাদ', 'मुंबई–अहमदाबाद', 'Mumbai–Ahmedabad'), L('দিল্লি–মুম্বই', 'दिल्ली–मुंबई', 'Delhi–Mumbai'), L('চেন্নাই–বেঙ্গালুরু', 'चेन्नई–बेंगलुरु', 'Chennai–Bengaluru'), L('কলকাতা–দিল্লি', 'कोलकाता–दिल्ली', 'Kolkata–Delhi')], 0, 'desh'],
+  [L('ব্যক্তিগত বিভাগে ভারতের প্রথম অলিম্পিক সোনাজয়ী কে?', 'व्यक्तिगत स्पर्धा में भारत के पहले ओलंपिक स्वर्ण पदक विजेता कौन थे?', 'Who was the first Indian to win an individual Olympic gold medal?'), [L('অভিনব বিন্দ্রা', 'अभिनव बिंद्रा', 'Abhinav Bindra'), L('মিলখা সিং', 'मिल्खा सिंह', 'Milkha Singh'), L('নীরজ চোপড়া', 'नीरज चोपड़ा', 'Neeraj Chopra'), L('ধ্যানচাঁদ', 'ध्यानचंद', 'Dhyan Chand')], 0, 'sports'],
+  [L('কথাকলি নৃত্যশৈলীর উৎপত্তি কোন রাজ্যে?', 'कथकली नृत्य शैली की उत्पत्ति किस राज्य में हुई?', 'The Kathakali dance form originated in which state?'), [L('কেরল', 'केरल', 'Kerala'), L('তামিলনাড়ু', 'तमिलनाडु', 'Tamil Nadu'), L('কর্ণাটক', 'कर्नाटक', 'Karnataka'), L('অন্ধ্রপ্রদেশ', 'आंध्र प्रदेश', 'Andhra Pradesh')], 0, 'sanskriti'],
+  [L('কোণার্ক সূর্য মন্দির কোন রাজ্যে অবস্থিত?', 'कोणार्क सूर्य मंदिर किस राज्य में स्थित है?', 'The Konark Sun Temple is located in which state?'), [L('ওড়িশা', 'ओडिशा', 'Odisha'), L('পশ্চিমবঙ্গ', 'पश्चिम बंगाल', 'West Bengal'), L('বিহার', 'बिहार', 'Bihar'), L('ঝাড়খণ্ড', 'झारखंड', 'Jharkhand')], 0, 'bhugol'],
+  [L('লালকেল্লা (Red Fort) কে নির্মাণ করেছিলেন?', 'लाल किला किसने बनवाया था?', 'Who built the Red Fort?'), [L('শাহজাহান', 'शाहजहां', 'Shah Jahan'), L('আকবর', 'अकबर', 'Akbar'), L('হুমায়ুন', 'हुमायूं', 'Humayun'), L('আওরঙ্গজেব', 'औरंगज़ेब', 'Aurangzeb')], 0, 'itihas'],
+  [L('কোন নদীকে "বিহারের দুঃখ" বলা হয়?', 'किस नदी को "बिहार का शोक" कहा जाता है?', 'Which river is called the "Sorrow of Bihar"?'), [L('কোশী', 'कोसी', 'Kosi'), L('শোন', 'सोन', 'Son'), L('গণ্ডক', 'गंडक', 'Gandak'), L('বাগমতী', 'बागमती', 'Bagmati')], 0, 'bhugol'],
+  [L('ভারতীয় রুপির প্রতীক (₹) আনুষ্ঠানিকভাবে গৃহীত হয় কোন সালে?', 'भारतीय रुपये का प्रतीक (₹) आधिकारिक रूप से कब अपनाया गया?', 'In which year was the Indian Rupee symbol (₹) officially adopted?'), [L('2010', '2010', '2010'), L('2008', '2008', '2008'), L('2012', '2012', '2012'), L('2015', '2015', '2015')], 0, 'desh'],
+  [L('ভারতের প্রথম স্বদেশী বিমানবাহী রণতরীর নাম কী?', 'भारत के पहले स्वदेशी विमानवाहक पोत का नाम क्या है?', "What is the name of India's first indigenous aircraft carrier?"), [L('আইএনএস বিক্রান্ত', 'आईएनएस विक्रांत', 'INS Vikrant'), L('আইএনএস বিরাট', 'आईएनएस विराट', 'INS Viraat'), L('আইএনএস বিক্রমাদিত্য', 'आईएनएस विक्रमादित्य', 'INS Vikramaditya'), L('আইএনএস চক্র', 'आईएनएस चक्र', 'INS Chakra')], 0, 'desh'],
+  [L('ভারতের সবচেয়ে বেশি চা উৎপাদনকারী রাজ্য কোনটি?', 'भारत में चाय का सबसे बड़ा उत्पादक राज्य कौन-सा है?', 'Which is the largest tea-producing state in India?'), [L('আসাম', 'असम', 'Assam'), L('পশ্চিমবঙ্গ', 'पश्चिम बंगाल', 'West Bengal'), L('কেরল', 'केरल', 'Kerala'), L('তামিলনাড়ু', 'तमिलनाडु', 'Tamil Nadu')], 0, 'bhugol'],
+  [L('"গ্রেট ইন্ডিয়ান বাস্টার্ড" পাখিটি কোন রাজ্যের রাজ্য-পাখি?', '"ग्रेट इंडियन बस्टर्ड" पक्षी किस राज्य का राजकीय पक्षी है?', 'The Great Indian Bustard is the state bird of which state?'), [L('রাজস্থান', 'राजस्थान', 'Rajasthan'), L('গুজরাট', 'गुजरात', 'Gujarat'), L('মধ্যপ্রদেশ', 'मध्य प्रदेश', 'Madhya Pradesh'), L('হরিয়ানা', 'हरियाणा', 'Haryana')], 0, 'bhugol'],
+  [L('ভারতের একমাত্র সক্রিয় আগ্নেয়গিরিটি কোথায় অবস্থিত?', 'भारत का एकमात्र सक्रिय ज्वालामुखी कहाँ स्थित है?', "Where is India's only active volcano located?"), [L('ব্যারেন দ্বীপ', 'बैरन द्वीप', 'Barren Island'), L('নারকোণ্ডম দ্বীপ', 'नारकोंडम द्वीप', 'Narcondam Island'), L('মাজুলি', 'माजुली', 'Majuli'), L('এলিফ্যান্টা দ্বীপ', 'एलीफेंटा द्वीप', 'Elephanta Island')], 0, 'bhugol'],
+  [L('নিচের কোনটিতে কুম্ভমেলা অনুষ্ঠিত হয় না?', 'निम्नलिखित में से किसमें कुंभ मेला आयोजित नहीं होता?', 'The Kumbh Mela is NOT held in which of these cities?'), [L('হরিদ্বার', 'हरिद्वार', 'Haridwar'), L('প্রয়াগরাজ', 'प्रयागराज', 'Prayagraj'), L('নাসিক', 'नासिक', 'Nashik'), L('বারাণসী', 'वाराणसी', 'Varanasi')], 3, 'sanskriti'],
+  [L('পাঞ্জাবকে কী নামে ডাকা হয়?', 'पंजाब को किस नाम से जाना जाता है?', 'Punjab is known by which name?'), [L('পাঁচ নদীর দেশ', 'पाँच नदियों की भूमि', 'Land of Five Rivers'), L('সাত বোনের দেশ', 'सात बहनों की भूमि', 'Land of Seven Sisters'), L('হ্রদের শহর', 'झीलों का शहर', 'City of Lakes'), L('মন্দিরের শহর', 'मंदिरों का शहर', 'City of Temples')], 0, 'bhugol'],
+  [L('জোগ জলপ্রপাত, ভারতের অন্যতম উচ্চতম জলপ্রপাত, কোন রাজ্যে অবস্থিত?', 'जोग जलप्रपात, जो भारत के सबसे ऊंचे झरनों में से एक है, किस राज्य में स्थित है?', "Jog Falls, one of India's highest waterfalls, is located in which state?"), [L('কর্ণাটক', 'कर्नाटक', 'Karnataka'), L('কেরল', 'केरल', 'Kerala'), L('তামিলনাড়ু', 'तमिलनाडु', 'Tamil Nadu'), L('মহারাষ্ট্র', 'महाराष्ट्र', 'Maharashtra')], 0, 'bhugol'],
+  [L('সম্পূর্ণ জাতীয় সংগীত গাইতে আনুমানিক কত সময় লাগে?', 'पूरा राष्ट्रगान गाने में लगभग कितना समय लगता है?', 'About how long does it take to sing the full national anthem?'), [L('৫২ সেকেন্ড', '52 सेकंड', '52 seconds'), L('৩২ সেকেন্ড', '32 सेकंड', '32 seconds'), L('৭২ সেকেন্ড', '72 सेकंड', '72 seconds'), L('৯০ সেকেন্ড', '90 सेकंड', '90 seconds')], 0, 'desh'],
+  [L('ভারতের প্রাচীনতম আইআইএম (IIM) কোনটি?', 'भारत का सबसे पुराना आईआईएम (IIM) कौन-सा है?', "Which is India's oldest IIM?"), [L('আইআইএম কলকাতা', 'आईआईएम कोलकाता', 'IIM Calcutta'), L('আইআইএম আহমেদাবাদ', 'आईआईएम अहमदाबाद', 'IIM Ahmedabad'), L('আইআইএম ব্যাঙ্গালোর', 'आईआईएम बैंगलोर', 'IIM Bangalore'), L('আইআইএম লখনউ', 'आईआईएम लखनऊ', 'IIM Lucknow')], 0, 'desh'],
+  [L('"স্ট্যাচু অফ ইউনিটি" কার স্মরণে নির্মিত?', '"स्टैच्यू ऑफ यूनिटी" किसकी स्मृति में बनाई गई है?', 'The Statue of Unity honors whom?'), [L('সর্দার বল্লভভাই প্যাটেল', 'सरदार वल्लभभाई पटेल', 'Sardar Vallabhbhai Patel'), L('মহাত্মা গান্ধী', 'महात्मा गांधी', 'Mahatma Gandhi'), L('জওহরলাল নেহরু', 'जवाहरलाल नेहरू', 'Jawaharlal Nehru'), L('সুভাষচন্দ্র বসু', 'सुभाषचंद्र बोस', 'Subhas Chandra Bose')], 0, 'itihas'],
+  [L('স্ট্যাচু অফ ইউনিটি কোন রাজ্যে অবস্থিত?', 'स्टैच्यू ऑफ यूनिटी किस राज्य में स्थित है?', 'In which state is the Statue of Unity located?'), [L('গুজরাট', 'गुजरात', 'Gujarat'), L('মধ্যপ্রদেশ', 'मध्य प्रदेश', 'Madhya Pradesh'), L('মহারাষ্ট্র', 'महाराष्ट्र', 'Maharashtra'), L('রাজস্থান', 'राजस्थान', 'Rajasthan')], 0, 'bhugol'],
+  [L('"বন্দে মাতরম" গানটি কে রচনা করেন?', '"वंदे मातरम" गीत किसने लिखा?', 'Who wrote the song "Vande Mataram"?'), [L('বঙ্কিমচন্দ্র চট্টোপাধ্যায়', 'बंकिमचंद्र चट्टोपाध्याय', 'Bankim Chandra Chattopadhyay'), L('রবীন্দ্রনাথ ঠাকুর', 'रवींद्रनाथ टैगोर', 'Rabindranath Tagore'), L('সরোজিনী নাইডু', 'सरोजिनी नायडू', 'Sarojini Naidu'), L('মুহাম্মদ ইকবাল', 'मुहम्मद इकबाल', 'Muhammad Iqbal')], 0, 'itihas'],
+  [L('চন্দ্রযান-৩ সফলভাবে চাঁদে অবতরণ করে কোন সালে?', 'चंद्रयान-3 किस वर्ष चाँद पर सफलतापूर्वक उतरा?', 'In which year did Chandrayaan-3 successfully land on the Moon?'), [L('2023', '2023', '2023'), L('2021', '2021', '2021'), L('2019', '2019', '2019'), L('2024', '2024', '2024')], 0, 'biggan'],
+  [L('কাঞ্চনজঙ্ঘা পর্বত ভারতের ও কোন দেশের সীমান্তে অবস্থিত?', 'कंचनजंघा पर्वत भारत और किस देश की सीमा पर स्थित है?', 'Mount Kanchenjunga lies on the border of India and which country?'), [L('নেপাল', 'नेपाल', 'Nepal'), L('ভুটান', 'भूटान', 'Bhutan'), L('চীন', 'चीन', 'China'), L('মিয়ানমার', 'म्यांमार', 'Myanmar')], 0, 'bhugol'],
+  [L('এক-শৃঙ্গ গণ্ডারের জন্য বিখ্যাত কাজিরাঙ্গা জাতীয় উদ্যান কোন রাজ্যে অবস্থিত?', 'एक-सींग वाले गैंडे के लिए प्रसिद्ध काज़ीरंगा राष्ट्रीय उद्यान किस राज्य में है?', 'Kaziranga National Park, famous for the one-horned rhinoceros, is in which state?'), [L('আসাম', 'असम', 'Assam'), L('পশ্চিমবঙ্গ', 'पश्चिम बंगाल', 'West Bengal'), L('ওড়িশা', 'ओडिशा', 'Odisha'), L('বিহার', 'बिहार', 'Bihar')], 0, 'bhugol'],
+  [L('রয়্যাল বেঙ্গল টাইগারের আবাসস্থল সুন্দরবন কোন রাজ্যে অবস্থিত?', 'रॉयल बंगाल टाइगर का घर सुंदरबन किस राज्य में स्थित है?', 'The Sundarbans, home to the Royal Bengal Tiger, is located in which state?'), [L('পশ্চিমবঙ্গ', 'पश्चिम बंगाल', 'West Bengal'), L('ওড়িশা', 'ओडिशा', 'Odisha'), L('আসাম', 'असम', 'Assam'), L('বিহার', 'बिहार', 'Bihar')], 0, 'bhugol'],
+  [L('ভারতের প্রথম মেট্রো রেল কোন শহরে চালু হয়?', 'भारत में पहली मेट्रो रेल किस शहर में शुरू हुई?', "In which city did India's first metro rail begin operations?"), [L('কলকাতা', 'कोलकाता', 'Kolkata'), L('দিল্লি', 'दिल्ली', 'Delhi'), L('মুম্বই', 'मुंबई', 'Mumbai'), L('চেন্নাই', 'चेन्नई', 'Chennai')], 0, 'desh'],
+  [L('ভারতরত্ন সম্মান প্রবর্তিত হয় কোন সালে?', 'भारत रत्न सम्मान किस वर्ष शुरू किया गया?', 'In which year was the Bharat Ratna award instituted?'), [L('1954', '1954', '1954'), L('1947', '1947', '1947'), L('1950', '1950', '1950'), L('1962', '1962', '1962')], 0, 'rajniti'],
+  [L('ইউনেস্কো হেরিটেজ খাজুরাহো মন্দির কোন রাজ্যে অবস্থিত?', 'यूनेस्को धरोहर खजुराहो मंदिर किस राज्य में स्थित हैं?', 'The UNESCO heritage Khajuraho temples are located in which state?'), [L('মধ্যপ্রদেশ', 'मध्य प्रदेश', 'Madhya Pradesh'), L('উত্তরপ্রদেশ', 'उत्तर प्रदेश', 'Uttar Pradesh'), L('রাজস্থান', 'राजस्थान', 'Rajasthan'), L('গুজরাট', 'गुजरात', 'Gujarat')], 0, 'sanskriti'],
+  [L('"গেটওয়ে অফ ইন্ডিয়া" স্মৃতিসৌধটি কোন শহরে অবস্থিত?', '"गेटवे ऑफ इंडिया" स्मारक किस शहर में स्थित है?', 'In which city is the "Gateway of India" monument located?'), [L('মুম্বই', 'मुंबई', 'Mumbai'), L('চেন্নাই', 'चेन्नई', 'Chennai'), L('গোয়া', 'गोवा', 'Goa'), L('কোচি', 'कोच्चि', 'Kochi')], 0, 'bhugol'],
+  [L('ভারতের সংবিধান রচনা কমিটির চেয়ারম্যান কে ছিলেন?', 'भारत की संविधान प्रारूप समिति के अध्यक्ष कौन थे?', "Who was the chairman of India's Constitution Drafting Committee?"), [L('ড. বি. আর. আম্বেদকর', 'डॉ. बी. आर. अम्बेडकर', 'Dr. B. R. Ambedkar'), L('জওহরলাল নেহরু', 'जवाहरलाल नेहरू', 'Jawaharlal Nehru'), L('সর্দার প্যাটেল', 'सरदार पटेल', 'Sardar Patel'), L('রাজেন্দ্র প্রসাদ', 'राजेंद्र प्रसाद', 'Rajendra Prasad')], 0, 'rajniti'],
+  [L('বর্তমানে ভারতের লোকসভায় মোট সদস্য সংখ্যা কত?', 'वर्तमान में भारत की लोकसभा में कुल सदस्य संख्या कितनी है?', "What is the current total number of members in India's Lok Sabha?"), [L('543', '543', '543'), L('545', '545', '545'), L('552', '552', '552'), L('535', '535', '535')], 0, 'rajniti'],
+  [L('ভারতের রাজ্যসভার সর্বোচ্চ সদস্যসংখ্যা কত হতে পারে?', 'भारत की राज्यसभा की अधिकतम सदस्य संख्या कितनी हो सकती है?', 'What is the maximum strength the Rajya Sabha can have?'), [L('245', '245', '245'), L('250', '250', '250'), L('238', '238', '238'), L('260', '260', '260')], 0, 'rajniti'],
+  [L('পদাধিকারবলে রাজ্যসভার সভাপতি (চেয়ারম্যান) কে?', 'पदेन रूप से राज्यसभा के सभापति कौन होते हैं?', 'Who is the ex-officio Chairman of the Rajya Sabha?'), [L('উপরাষ্ট্রপতি', 'उपराष्ट्रपति', 'Vice President of India'), L('রাষ্ট্রপতি', 'राष्ट्रपति', 'President of India'), L('প্রধানমন্ত্রী', 'प्रधानमंत्री', 'Prime Minister'), L('লোকসভার স্পিকার', 'लोकसभा अध्यक्ष', 'Speaker of Lok Sabha')], 0, 'rajniti'],
+  [L('ভারতের প্রথম স্বদেশী সুপারকম্পিউটারের নাম কী?', 'भारत के पहले स्वदेशी सुपरकंप्यूटर का नाम क्या है?', "What is the name of India's first indigenous supercomputer?"), [L('পরম ৮০০০', 'परम 8000', 'PARAM 8000'), L('অনুপম', 'अनुपम', 'Anupam'), L('প্রত্যুষ', 'प्रत्युष', 'Pratyush'), L('সাগা-২২০', 'सागा-220', 'SAGA-220')], 0, 'biggan'],
+  [L('ভারতের প্রথম রেলপথ বম্বে থেকে কোথায় পর্যন্ত চালু হয়েছিল (১৮৫৩)?', 'भारत की पहली रेल लाइन 1853 में बॉम्बे से कहाँ तक शुरू हुई थी?', "India's first railway line (1853) ran from Bombay to where?"), [L('থানে', 'ठाणे', 'Thane'), L('পুণে', 'पुणे', 'Pune'), L('সুরাট', 'सूरत', 'Surat'), L('নাসিক', 'नासिक', 'Nashik')], 0, 'itihas'],
+  [L('ভারতের দীর্ঘতম নদী-সেতু "ভূপেন হাজারিকা সেতু" কোন রাজ্যে অবস্থিত?', 'भारत का सबसे लंबा नदी पुल "भूपेन हजारिका सेतु" किस राज्य में स्थित है?', "India's longest river bridge, the \"Bhupen Hazarika Setu,\" is located in which state?"), [L('আসাম', 'असम', 'Assam'), L('বিহার', 'बिहार', 'Bihar'), L('উত্তরপ্রদেশ', 'उत्तर प्रदेश', 'Uttar Pradesh'), L('পশ্চিমবঙ্গ', 'पश्चिम बंगाल', 'West Bengal')], 0, 'bhugol'],
+  [L('কোন হকি খেলোয়াড়কে "হকির জাদুকর" বলা হয়?', 'किस हॉकी खिलाड़ी को "हॉकी का जादूगर" कहा जाता है?', 'Which hockey player is known as the "Wizard of Hockey"?'), [L('ধ্যানচাঁদ', 'ध्यानचंद', 'Dhyan Chand'), L('বলবীর সিং', 'बलबीर सिंह', 'Balbir Singh'), L('সন্দীপ সিং', 'संदीप सिंह', 'Sandeep Singh'), L('পি. আর. শ্রীজেশ', 'पी. आर. श्रीजेश', 'P. R. Sreejesh')], 0, 'sports'],
+  [L('ভারতের জাতীয় ক্রীড়া দিবস কবে পালিত হয়?', 'भारत का राष्ट्रीय खेल दिवस कब मनाया जाता है?', "When is India's National Sports Day celebrated?"), [L('২৯ আগস্ট', '29 अगस्त', '29 August'), L('১৫ আগস্ট', '15 अगस्त', '15 August'), L('২ অক্টোবর', '2 अक्टूबर', '2 October'), L('১৪ নভেম্বর', '14 नवंबर', '14 November')], 0, 'sports'],
+  [L('ভারতের সর্বোচ্চ উচ্চতায় অবস্থিত বিমানবন্দরটি কোথায়?', 'भारत का सबसे ऊंचाई पर स्थित हवाई अड्डा कहाँ है?', "Where is India's highest-altitude airport located?"), [L('লেহ, লাদাখ', 'लेह, लद्दाख', 'Leh, Ladakh'), L('শিমলা', 'शिमला', 'Shimla'), L('গ্যাংটক', 'गंगटोक', 'Gangtok'), L('দার্জিলিং', 'दार्जिलिंग', 'Darjeeling')], 0, 'bhugol'],
+  [L('"জীবন্ত মূলের সেতু"-এর জন্য বিখ্যাত ভারতীয় রাজ্য কোনটি?', '"जीवंत जड़ पुल" के लिए प्रसिद्ध भारतीय राज्य कौन-सा है?', 'Which Indian state is famous for its "Living Root Bridges"?'), [L('মেঘালয়', 'मेघालय', 'Meghalaya'), L('মিজোরাম', 'मिज़ोरम', 'Mizoram'), L('মণিপুর', 'मणिपुर', 'Manipur'), L('নাগাল্যান্ড', 'नागालैंड', 'Nagaland')], 0, 'bhugol'],
+  [L('এভারেস্ট জয়কারী প্রথম ভারতীয় নারী কে?', 'एवरेस्ट फतह करने वाली पहली भारतीय महिला कौन थीं?', 'Who was the first Indian woman to climb Mount Everest?'), [L('বাচেন্দ্রী পাল', 'बछेंद्री पाल', 'Bachendri Pal'), L('সন্তোষ যাদব', 'संतोष यादव', 'Santosh Yadav'), L('অরুণিমা সিনহা', 'अरुणिमा सिन्हा', 'Arunima Sinha'), L('প্রেমলতা আগরওয়াল', 'प्रेमलता अग्रवाल', 'Premlata Agarwal')], 0, 'sports'],
+  [L('ভারতের কোন শহরকে "হ্রদের শহর" বলা হয়?', '‌भारत के किस शहर को "झीलों का शहर" कहा जाता है?', 'Which Indian city is known as the "City of Lakes"?'), [L('উদয়পুর', 'उदयपुर', 'Udaipur'), L('ভোপাল', 'भोपाल', 'Bhopal'), L('নৈনিতাল', 'नैनीताल', 'Nainital'), L('শ্রীনগর', 'श्रीनगर', 'Srinagar')], 0, 'bhugol'],
+  [L('বাঘ সংরক্ষণের জন্য ভারতে "প্রজেক্ট টাইগার" কোন সালে চালু হয়?', 'बाघ संरक्षण के लिए भारत में "प्रोजेक्ट टाइगर" किस वर्ष शुरू हुआ?', 'In which year was "Project Tiger" launched in India for tiger conservation?'), [L('1973', '1973', '1973'), L('1980', '1980', '1980'), L('1965', '1965', '1965'), L('1990', '1990', '1990')], 0, 'biggan'],
+  [L('পৃথিবীর বৃহত্তম দেশ (আয়তনে) কোনটি?', 'क्षेत्रफल के हिसाब से दुनिया का सबसे बड़ा देश कौन-सा है?', "What is the world's largest country by area?"), [L('রাশিয়া', 'रूस', 'Russia'), L('কানাডা', 'कनाडा', 'Canada'), L('চীন', 'चीन', 'China'), L('যুক্তরাষ্ট্র', 'संयुक्त राज्य अमेरिका', 'United States')], 0, 'bidesh'],
+  [L('জাতিসংঘের সদর দপ্তর কোথায় অবস্থিত?', 'संयुक्त राष्ट्र का मुख्यालय कहाँ स्थित है?', "Where is the United Nations headquartered?"), [L('নিউ ইয়র্ক', 'न्यूयॉर्क', 'New York'), L('জেনেভা', 'जिनेवा', 'Geneva'), L('প্যারিস', 'पेरिस', 'Paris'), L('লন্ডন', 'लंदन', 'London')], 0, 'bidesh'],
+  [L('বিশ্বের সর্বোচ্চ পর্বতশৃঙ্গ মাউন্ট এভারেস্ট কোন দুই দেশের সীমান্তে অবস্থিত?', 'दुनिया की सबसे ऊंची चोटी माउंट एवरेस्ट किन दो देशों की सीमा पर स्थित है?', "The world's highest peak, Mount Everest, lies on the border of which two countries?"), [L('নেপাল ও চীন', 'नेपाल और चीन', 'Nepal and China'), L('নেপাল ও ভারত', 'नेपाल और भारत', 'Nepal and India'), L('ভুটান ও চীন', 'भूटान और चीन', 'Bhutan and China'), L('ভারত ও চীন', 'भारत और चीन', 'India and China')], 0, 'bidesh'],
+  [L('বিশ্বের দীর্ঘতম নদী কোনটি?', 'दुनिया की सबसे लंबी नदी कौन-सी है?', "What is the world's longest river?"), [L('নীল নদ', 'नील नदी', 'Nile'), L('আমাজন', 'अमेज़न', 'Amazon'), L('ইয়াংজি', 'यांगत्ज़ी', 'Yangtze'), L('মিসিসিপি', 'मिसिसिपी', 'Mississippi')], 0, 'bidesh'],
+  [L('কোন দেশকে "উদীয়মান সূর্যের দেশ" বলা হয়?', 'किस देश को "उगते सूरज की भूमि" कहा जाता है?', 'Which country is known as the "Land of the Rising Sun"?'), [L('জাপান', 'जापान', 'Japan'), L('দক্ষিণ কোরিয়া', 'दक्षिण कोरिया', 'South Korea'), L('থাইল্যান্ড', 'थाईलैंड', 'Thailand'), L('চীন', 'चीन', 'China')], 0, 'bidesh'],
+  [L('বর্তমানে জাতিসংঘের সদস্য রাষ্ট্রের সংখ্যা কত?', 'वर्तमान में संयुक्त राष्ट्र के सदस्य देशों की संख्या कितनी है?', "How many member states does the United Nations currently have?"), [L('১৯৩', '193', '193'), L('১৮৯', '189', '189'), L('১৯৫', '195', '195'), L('২০০', '200', '200')], 0, 'bidesh']
 ];
 let quizI = 0, quizScore = 0, quizPicked = -1;
+let quizMode = 'random', quizCat = null;
+const QUIZ_CATS = {
+  desh: ['🇮🇳', L('দেশ', 'देश', 'Country')],
+  bidesh: ['🌍', L('বিদেশ', 'विदेश', 'World')],
+  rajniti: ['🏛️', L('রাজনীতি', 'राजनीति', 'Politics')],
+  biggan: ['🔬', L('বিজ্ঞান', 'विज्ञान', 'Science')],
+  bhugol: ['🗺️', L('ভূগোল', 'भूगोल', 'Geography')],
+  itihas: ['📜', L('ইতিহাস', 'इतिहास', 'History')],
+  sanskriti: ['🎭', L('সংস্কৃতি', 'संस्कृति', 'Culture')],
+  sports: ['🏅', L('ক্রীড়া', 'खेल', 'Sports')],
+};
+function quizPool() {
+  const all = QUIZ();
+  return quizMode === 'subject' && quizCat ? all.filter((item) => item[3] === quizCat) : all;
+}
+function quizModeBar() {
+  const btn = (m, label) => `<button type="button" class="quiz-mode-btn${quizMode === m ? ' active' : ''}" data-quiz-mode="${m}">${label}</button>`;
+  return `<div class="quiz-modebar">${btn('random', L('🎲 র‍্যান্ডম কুইজ', '🎲 रैंडम क्विज़', '🎲 Random Quiz'))}${btn('subject', L('📚 বিষয়ভিত্তিক কুইজ', '📚 विषयवार क्विज़', '📚 Subject-wise Quiz'))}</div>`;
+}
+function quizCatPicker() {
+  const all = QUIZ();
+  const cards = Object.entries(QUIZ_CATS).map(([k, [icon, label]]) => {
+    const n = all.filter((item) => item[3] === k).length;
+    if (!n) return '';
+    return `<button type="button" class="quiz-cat-card" data-quiz-cat="${k}"><span class="quiz-cat-icon">${icon}</span><span class="quiz-cat-label">${label}</span><span class="quiz-cat-n">${nf.format(n)} ${L('টি প্রশ্ন', 'प्रश्न', 'questions')}</span></button>`;
+  }).join('');
+  return `<p class="hint">${L('যে বিষয়ে কুইজ খেলতে চান, সেটি বেছে নিন।', 'जिस विषय पर क्विज़ खेलना चाहते हैं, उसे चुनें।', 'Choose a subject to play its quiz.')}</p><div class="quiz-cat-grid">${cards}</div>`;
+}
 function natQuiz() {
   if (typeof lqQuizBlocked !== 'undefined' && lqQuizBlocked) {
     return `<div class="quiz-card quiz-blocked"><p class="hint">${L(
@@ -1159,10 +1326,15 @@ function natQuiz() {
       "🔒 A live quiz event is starting soon or already running, so this practice quiz is temporarily disabled — so no one sees the questions in advance. It will turn back on automatically once the event ends."
     )}</p></div>`;
   }
-  const Q = QUIZ();
+  const modeBar = quizModeBar();
+  if (quizMode === 'subject' && !quizCat) {
+    return `<div class="quiz-card">${modeBar}${quizCatPicker()}</div>`;
+  }
+  const Q = quizPool();
+  const catLabel = quizMode === 'subject' && quizCat && QUIZ_CATS[quizCat] ? `<p class="quiz-catbar">${QUIZ_CATS[quizCat][0]} ${QUIZ_CATS[quizCat][1]} <button type="button" class="quiz-cat-back" data-quiz-cat-back>${L('← বিষয় বদলান', '← विषय बदलें', '← Change subject')}</button></p>` : '';
   if (quizI >= Q.length) {
-    return `<p class="quiz-score">${L(`আপনার স্কোর: ${nf.format(quizScore)} / ${nf.format(Q.length)}`, `आपका स्कोर: ${nf.format(quizScore)} / ${nf.format(Q.length)}`, `Your score: ${quizScore} / ${Q.length}`)}</p>` +
-      `<button type="button" class="quiz-restart" data-quiz-restart>${L('আবার শুরু করুন', 'फिर से शुरू करें', 'Restart')}</button>`;
+    return `<div class="quiz-card">${modeBar}${catLabel}<p class="quiz-score">${L(`আপনার স্কোর: ${nf.format(quizScore)} / ${nf.format(Q.length)}`, `आपका स्कोर: ${nf.format(quizScore)} / ${nf.format(Q.length)}`, `Your score: ${quizScore} / ${Q.length}`)}</p>` +
+      `<button type="button" class="quiz-restart" data-quiz-restart>${L('আবার শুরু করুন', 'फिर से शुरू करें', 'Restart')}</button></div>`;
   }
   const [q, opts, ans] = Q[quizI];
   const answered = quizPicked >= 0;
@@ -1172,7 +1344,7 @@ function natQuiz() {
     else if (answered && i === quizPicked) cls += ' wrong';
     return `<button type="button" class="${cls}" data-quiz-opt="${i}" ${answered ? 'disabled' : ''}>${o}</button>`;
   }).join('');
-  return `<div class="quiz-card"><p class="quiz-prog">${L(`প্রশ্ন ${nf.format(quizI + 1)} / ${nf.format(Q.length)} · স্কোর ${nf.format(quizScore)}`, `प्रश्न ${nf.format(quizI + 1)} / ${nf.format(Q.length)} · स्कोर ${nf.format(quizScore)}`, `Question ${quizI + 1} / ${Q.length} · Score ${quizScore}`)}</p>` +
+  return `<div class="quiz-card">${modeBar}${catLabel}<p class="quiz-prog">${L(`প্রশ্ন ${nf.format(quizI + 1)} / ${nf.format(Q.length)} · স্কোর ${nf.format(quizScore)}`, `प्रश्न ${nf.format(quizI + 1)} / ${nf.format(Q.length)} · स्कोर ${nf.format(quizScore)}`, `Question ${quizI + 1} / ${Q.length} · Score ${quizScore}`)}</p>` +
     `<p class="quiz-q">${q}</p><div class="quiz-opts">${optHtml}</div>` +
     (answered ? `<button type="button" class="quiz-next" data-quiz-next>${quizI + 1 < Q.length ? L('পরের প্রশ্ন', 'अगला प्रश्न', 'Next question') : L('ফলাফল দেখুন', 'नतीजा देखें', 'See result')}</button>` : '') + `</div>`;
 }
@@ -1214,6 +1386,33 @@ function natSaf() {
     `<div class="cmp">` + cmp.map(([id, v], i) => `<button class="crow" data-go="${id}"><span class="cr">${nf.format(i + 1)}</span><span class="cn">${R(byId[id]).n}</span>${bar((v / cmp[0][1]) * 100, R(byId[id]).n)}<span class="cv">${pfx(v)}</span></button>`).join('') + `</div>` +
     `<p class="hint">${L('মাত্র সাতটি রাজ্যের ২০২৩ সালের হার আমি নির্ভরযোগ্য সূত্রে পেয়েছি, বাকিগুলোর জন্য রাজ্য বেছে ২০১৮ সালের পূর্ণ সারণি দেখুন। বেশি হার মানেই বেশি অপরাধ নয়: যেখানে অভিযোগ নথিভুক্ত করা সহজ, সেখানে হার বেশি দেখাতে পারে।', 'केवल सात राज्यों की 2023 की दर मुझे भरोसेमंद स्रोत से मिली; बाक़ी के लिए राज्य चुनकर 2018 की पूरी सारणी देखें। ज़्यादा दर का मतलब ज़्यादा अपराध ही नहीं है: जहाँ शिकायत दर्ज कराना आसान है, वहाँ दर ज़्यादा दिख सकती है।', 'I found 2023 rates for only seven states from reliable sources; for the rest, pick a state to see the full 2018 table. A higher rate does not simply mean more crime: where complaints are easier to register, the rate can look higher.')}</p>`;
 }
+
+/* ---------- দুর্নীতি ও অপরাধ ---------- */
+function natCrime() {
+  const corrRows = [
+    fact(L('দুর্নীতি ধারণা সূচক (CPI) ২০২৫', 'भ्रष्टाचार धारणा सूचकांक (CPI) 2025', 'Corruption Perceptions Index (CPI) 2025'), L('স্কোর ৩৯/১০০, ১৮২টি দেশের মধ্যে ৯১তম', 'स्कोर 39/100, 182 देशों में 91वां', 'Score 39/100, ranked 91st of 182 countries'), L('Transparency International, ফেব্রুয়ারি ২০২৬ প্রকাশিত। বৈশ্বিক গড় স্কোর ৪২, এশিয়া-প্যাসিফিক অঞ্চলের গড় ৪৫ — দুটোরই নিচে ভারত', 'Transparency International, फ़रवरी 2026 में प्रकाशित। वैश्विक औसत स्कोर 42, एशिया-प्रशांत क्षेत्र का औसत 45 — भारत दोनों से नीचे', "Transparency International, published February 2026. Global average score is 42, Asia-Pacific average is 45 — India is below both")),
+    fact(L('সবচেয়ে কম দুর্নীতিগ্রস্ত দেশ', 'सबसे कम भ्रष्ट देश', 'Least corrupt countries'), L('ডেনমার্ক (৮৯), ফিনল্যান্ড (৮৮), সিঙ্গাপুর (৮৪)', 'डेनमार्क (89), फ़िनलैंड (88), सिंगापुर (84)', 'Denmark (89), Finland (88), Singapore (84)')),
+    fact(L('প্রতিবেশী দেশ, CPI ২০২৫', 'पड़ोसी देश, CPI 2025', 'Neighbours, CPI 2025'), L('পাকিস্তান ১৩৬তম, বাংলাদেশ ১৫০তম — দুটোই ভারতের চেয়ে পিছিয়ে', 'पाकिस्तान 136वां, बांग्लादेश 150वां — दोनों भारत से पीछे', 'Pakistan 136th, Bangladesh 150th — both behind India')),
+  ];
+  const crimeRows = [
+    fact(L('মোট নথিভুক্ত অপরাধ, ২০২৪', 'कुल दर्ज अपराध, 2024', 'Total registered crimes, 2024'), L('≈ ৫৮.৮৫ লক্ষ (IPC/BNS ও বিশেষ আইন মিলিয়ে)', '≈ 58.85 लाख (IPC/BNS और विशेष क़ानूनों सहित)', '≈ 58.85 lakh (under IPC/BNS and special laws combined)'), L('NCRB, Crime in India ২০২৪ (মে ২০২৬-এ প্রকাশিত)', 'NCRB, Crime in India 2024 (मई 2026 में प्रकाशित)', 'NCRB, Crime in India 2024 (published May 2026)')),
+    fact(L('অপরাধের হার (প্রতি লক্ষ জনসংখ্যায়)', 'अपराध दर (प्रति लाख जनसंख्या)', 'Crime rate (per lakh population)'), '418.9', L('২০২৩ সালের তুলনায় সামান্য বৃদ্ধি', '2023 की तुलना में थोड़ी बढ़ोतरी', 'A slight rise compared with 2023')),
+    fact(L('নারীর বিরুদ্ধে অপরাধ, ২০২৪', 'महिलाओं के विरुद्ध अपराध, 2024', 'Crimes against women, 2024'), L('≈ ৪.৪১ লক্ষ মামলা, হার ৬৪.৬/লক্ষ', '≈ 4.41 लाख मामले, दर 64.6/लाख', '≈ 4.41 lakh cases, rate 64.6 per lakh'), L('বিস্তারিত "নারী নিরাপত্তা" ট্যাবে', 'विस्तार "महिला सुरक्षा" टैब में', 'See the "Women\'s safety" tab for details')),
+    fact(L('সাইবার অপরাধ, ২০২৪', 'साइबर अपराध, 2024', 'Cybercrime, 2024'), L('≈ ১.০১ লক্ষ মামলা, আগের বছরের তুলনায় +১৭%', '≈ 1.01 लाख मामले, पिछले साल की तुलना में +17%', '≈ 1.01 lakh cases, +17% over the previous year'), L('আর্থিক প্রতারণাই সবচেয়ে বড় অংশ', 'वित्तीय धोखाधड़ी सबसे बड़ा हिस्सा', 'Financial fraud is the largest share')),
+    fact(L('সবচেয়ে বেশি মোট অপরাধ (সংখ্যায়)', 'सबसे ज़्यादा कुल अपराध (संख्या में)', 'Highest total crime count'), L('উত্তরপ্রদেশ', 'उत्तर प्रदेश', 'Uttar Pradesh'), L('জনসংখ্যা বেশি হওয়ায় মোট সংখ্যা স্বাভাবিকভাবেই বেশি — এটি হারের তুলনা নয়', 'जनसंख्या अधिक होने से कुल संख्या स्वाभाविक रूप से ज़्यादा है — यह दर की तुलना नहीं है', 'A larger population naturally means a larger total count — this is not a rate comparison')),
+    fact(L('সবচেয়ে কম অপরাধের হার', 'सबसे कम अपराध दर', 'Lowest crime rate'), L('নাগাল্যান্ড', 'नागालैंड', 'Nagaland')),
+    fact(L('সবচেয়ে বেশি সাইবার অপরাধের হার', 'सबसे ज़्यादा साइबर अपराध दर', 'Highest cybercrime rate'), L('তেলেঙ্গানা', 'तेलंगाना', 'Telangana')),
+    fact(L('সর্বোচ্চ চার্জশিট দাখিলের হার', 'सबसे अधिक आरोप-पत्र दाखिली दर', 'Best charge-sheeting rates'), L('কেরল, পুদুচেরি, পশ্চিমবঙ্গ', 'केरल, पुदुचेरी, पश्चिम बंगाल', 'Kerala, Puducherry, West Bengal'), L('অর্থাৎ পুলিশ তদন্ত শেষ করে আদালতে চার্জশিট জমা দেওয়ার অনুপাত এই তিন রাজ্যে সবচেয়ে বেশি', 'यानी पुलिस जाँच पूरी कर अदालत में आरोप-पत्र दाख़िल करने का अनुपात इन तीन राज्यों में सबसे ज़्यादा है', 'i.e. the share of investigations completed with a charge sheet filed in court is highest in these three states')),
+  ];
+  return `<h3 class="sub">${L('দুর্নীতি', 'भ्रष्टाचार', 'Corruption')}</h3>` + facts(corrRows) +
+    `<h3 class="sub">${L('অপরাধ (জাতীয় চিত্র, NCRB ২০২৪)', 'अपराध (राष्ट्रीय चित्र, NCRB 2024)', 'Crime (national picture, NCRB 2024)')}</h3>` + facts(crimeRows) +
+    `<p class="hint">${L(
+      'সূত্র: Transparency International CPI ২০২৫ (ফেব্রুয়ারি ২০২৬) এবং National Crime Records Bureau, Crime in India ২০২৪ (মে ২০২৬ প্রকাশিত)। উত্তরপ্রদেশের পরিসংখ্যান মোট সংখ্যা নিয়ে, হার নিয়ে নয় — জনসংখ্যা বেশি হলে মোট সংখ্যাও বেশি হয়। রাজ্যভিত্তিক নারী-নিরাপত্তার বিস্তারিত তথ্যের জন্য "নারী নিরাপত্তা" ট্যাব দেখুন।',
+      'स्रोत: Transparency International CPI 2025 (फ़रवरी 2026) और National Crime Records Bureau, Crime in India 2024 (मई 2026 प्रकाशित)। उत्तर प्रदेश का आँकड़ा कुल संख्या पर है, दर पर नहीं — ज़्यादा जनसंख्या से कुल संख्या भी ज़्यादा होती है। राज्यवार महिला-सुरक्षा के विस्तृत आँकड़ों के लिए "महिला सुरक्षा" टैब देखें।',
+      'Source: Transparency International CPI 2025 (February 2026) and the National Crime Records Bureau, Crime in India 2024 (published May 2026). The Uttar Pradesh figure is a total count, not a rate — a larger population naturally produces a larger total. See the "Women\'s safety" tab for state-wise women\'s-safety detail.'
+    )}</p>`;
+}
+
 function stSaf(x) {
   const rows = [];
   const a = CAW18[x.id], b = CAW23[x.id];
@@ -1485,11 +1684,10 @@ function render() {
   $('#back').hidden = nat;
   $('#pick').value = cur;
   $('#tabs').innerHTML = tabs.map(([k, l]) => `<button role="tab" id="tab-${k}" data-tab="${k}" aria-selected="${k === tab}" tabindex="${k === tab ? 0 : -1}">${l}</button>`).join('');
-  const bodies = nat ? { gen: natGen, pol: natPol, eco: natEco, mkt: natMkt, idx: natIdx, air: natAir, saf: natSaf, rgt: natRgt, sym: natSym, hist: natHist, trv: natTrv, spt: natSpt, quiz: natQuiz, cmp: natCmp } : { gen: () => stGen(x), pol: () => stPol(x), eco: () => stEco(x), edu: () => stEdu(x), cul: () => stCul(x), saf: () => stSaf(x), trv: () => stTrv(x), cmp: () => stCmp(x) };
+  const bodies = nat ? { gen: natGen, pol: natPol, cab: natCab, eco: natEco, mkt: natMkt, idx: natIdx, air: natAir, saf: natSaf, crime: natCrime, rgt: natRgt, sym: natSym, hist: natHist, trv: natTrv, spt: natSpt, quiz: natQuiz, cmp: natCmp } : { gen: () => stGen(x), pol: () => stPol(x), eco: () => stEco(x), edu: () => stEdu(x), cul: () => stCul(x), saf: () => stSaf(x), trv: () => stTrv(x), cmp: () => stCmp(x) };
   const bd = $('#body');
   bd.setAttribute('aria-labelledby', 'tab-' + tab);
   bd.innerHTML = bodies[tab]() + `<p class="hint upd"><span class="badge badge-fresh">${L('হালনাগাদ', 'अद्यतन', 'Updated')}</span>${L('এই বিভাগ শেষ যাচাই: ৬ নভেম্বর ২০২৬। ', 'यह खंड आख़िरी बार जाँचा गया: 6 नवंबर 2026। ', 'This section last checked: 6 November 2026. ')}${CAD[tab] ? L(...CAD[tab]) : ''}</p>`;
-  if (nat && tab === 'cmp') { const a = $('#cmpA-sel'), b = $('#cmpB-sel'); if (a) a.value = cmpA; if (b) b.value = cmpB; }
   highlight();
   document.title = nat ? L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance') : R(x).n + ' | ' + L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance');
 }
@@ -1517,8 +1715,7 @@ function setLang(l) {
 document.addEventListener('change', (e) => {
   if (e.target.id === 'choro-sel') { choroKey = e.target.value; applyChoro(); }
   else if (e.target.id === 'vs-sel') { vsWith = e.target.value; render(); }
-  else if (e.target.id === 'cmpA-sel') { cmpA = e.target.value; render(); }
-  else if (e.target.id === 'cmpB-sel') { cmpB = e.target.value; render(); }
+  else { const cs = e.target.closest('[data-cmp-sel]'); if (cs) { cmpList[+cs.dataset.cmpSel] = e.target.value; render(); } }
 });
 document.addEventListener('click', (e) => {
   const go = e.target.closest('[data-go]');
@@ -1530,11 +1727,32 @@ document.addEventListener('click', (e) => {
   const so = e.target.closest('[data-sort]');
   if (so) { cmpKey = so.dataset.sort; render(); }
   const qo = e.target.closest('[data-quiz-opt]');
-  if (qo) { if (quizPicked < 0) { quizPicked = +qo.dataset.quizOpt; if (quizPicked === QUIZ()[quizI][2]) quizScore++; render(); } return; }
+  if (qo) { if (quizPicked < 0) { quizPicked = +qo.dataset.quizOpt; if (quizPicked === quizPool()[quizI][2]) quizScore++; render(); } return; }
   const qn = e.target.closest('[data-quiz-next]');
   if (qn) { quizI++; quizPicked = -1; render(); return; }
   const qr = e.target.closest('[data-quiz-restart]');
   if (qr) { quizI = 0; quizScore = 0; quizPicked = -1; render(); return; }
+  const qm = e.target.closest('[data-quiz-mode]');
+  if (qm) { quizMode = qm.dataset.quizMode; quizCat = null; quizI = 0; quizScore = 0; quizPicked = -1; render(); return; }
+  const qc = e.target.closest('[data-quiz-cat]');
+  if (qc) { quizCat = qc.dataset.quizCat; quizI = 0; quizScore = 0; quizPicked = -1; render(); return; }
+  const qcb = e.target.closest('[data-quiz-cat-back]');
+  if (qcb) { quizCat = null; quizI = 0; quizScore = 0; quizPicked = -1; render(); return; }
+  const ca = e.target.closest('[data-cmp-add]');
+  if (ca) {
+    if (cmpList.length < CMP_MAX) {
+      const used = new Set(cmpList);
+      const next = T.find((x) => !used.has(x.id));
+      if (next) cmpList.push(next.id);
+      render();
+    }
+    return;
+  }
+  const cr = e.target.closest('[data-cmp-remove]');
+  if (cr) {
+    if (cmpList.length > 2) { cmpList.splice(+cr.dataset.cmpRemove, 1); render(); }
+    return;
+  }
 });
 $('#pick').addEventListener('change', (e) => { location.hash = e.target.value; });
 function trySearch(raw) {
