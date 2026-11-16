@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<title>মন্ত্রিসভা অ্যাডমিন প্যানেল</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hind Siliguri', sans-serif; background: #0E1820; color: #E5ECF1; margin: 0; padding: 20px 16px 60px; }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  h1 { font-size: 1.4rem; margin: 0 0 6px; }
+  h2 { font-size: 1.1rem; margin: 22px 0 10px; border-top: 1px solid #2A3B49; padding-top: 16px; }
+  .sub { font-size: 13px; color: #9DB0BE; margin: 0 0 18px; }
+  section { background: #15222D; border: 1px solid #2A3B49; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+  label { display: block; font-size: 12.5px; color: #9DB0BE; margin: 8px 0 3px; }
+  input[type=text], input[type=password], textarea { width: 100%; font: inherit; padding: 8px 9px; background: #0E1820; color: #E5ECF1; border: 1px solid #2A3B49; border-radius: 6px; }
+  textarea { resize: vertical; min-height: 44px; }
+  button { font: inherit; padding: 9px 15px; border-radius: 7px; border: 0; cursor: pointer; margin: 8px 6px 0 0; }
+  .btn-main { background: #FF9D62; color: #1A0E05; font-weight: 700; }
+  .btn-danger { background: #c0392b; color: #fff; }
+  .btn-plain { background: #2A3B49; color: #E5ECF1; }
+  .btn-sm { padding: 5px 10px; font-size: 13px; }
+  .hint { font-size: 12px; color: #9DB0BE; margin-top: 6px; line-height: 1.5; }
+  #gate { display: flex; gap: 8px; }
+  #gate input { flex: 1; }
+  .row { border: 1px solid #2A3B49; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; position: relative; }
+  .row .rm { position: absolute; top: 8px; right: 8px; }
+  .names { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .names.one { grid-template-columns: 1fr; }
+  .plegend { font-size: 11.5px; color: #9DB0BE; margin-top: 4px; max-height: 80px; overflow-y: auto; border: 1px dashed #2A3B49; border-radius: 6px; padding: 6px 8px; }
+  .plegend b { color: #E5ECF1; }
+  .status { font-size: 13.5px; margin-top: 10px; min-height: 18px; }
+  .status.ok { color: #7FDA9B; }
+  .status.err { color: #ff8f7a; }
+  datalist {}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>মন্ত্রিসভা অ্যাডমিন প্যানেল</h1>
+  <p class="sub">এখান থেকে পরিবর্তন করলে তা সরাসরি লাইভ সাইটে (বিনা GitHub commit-এ) দেখা যাবে — কয়েক সেকেন্ডের মধ্যে।</p>
+
+  <section id="gateSec">
+    <label for="pw">অ্যাডমিন পাসওয়ার্ড</label>
+    <div id="gate">
+      <input type="password" id="pw" placeholder="পাসওয়ার্ড">
+      <button type="button" class="btn-main" id="pwGo">ঢুকুন</button>
+    </div>
+  </section>
+
+  <div id="panel" hidden>
+    <section>
+      <div id="loadStatus" class="hint">লোড হচ্ছে...</div>
+    </section>
+
+    <section id="pmSec" hidden>
+      <h2>প্রধানমন্ত্রী</h2>
+      <div id="pmRow"></div>
+    </section>
+
+    <section id="cabSec" hidden>
+      <h2>মন্ত্রিপরিষদ মন্ত্রী (Cabinet)</h2>
+      <div id="cabRows"></div>
+      <button type="button" class="btn-plain btn-sm" data-add="cabinet">+ নতুন মন্ত্রী যোগ করো</button>
+    </section>
+
+    <section id="mosIcSec" hidden>
+      <h2>স্বতন্ত্র দায়িত্বপ্রাপ্ত প্রতিমন্ত্রী (MoS, Independent Charge)</h2>
+      <div id="mosIcRows"></div>
+      <button type="button" class="btn-plain btn-sm" data-add="mosIc">+ নতুন প্রতিমন্ত্রী যোগ করো</button>
+    </section>
+
+    <section id="mosSec" hidden>
+      <h2>প্রতিমন্ত্রী (MoS)</h2>
+      <div id="mosRows"></div>
+      <button type="button" class="btn-plain btn-sm" data-add="mos">+ নতুন প্রতিমন্ত্রী যোগ করো</button>
+    </section>
+
+    <section id="noteSec" hidden>
+      <h2>সূত্র/নোট (পাতার নিচে দেখাবে)</h2>
+      <label>বাংলা</label><textarea id="noteBn"></textarea>
+      <label>हिन्दी</label><textarea id="noteHi"></textarea>
+      <label>English</label><textarea id="noteEn"></textarea>
+    </section>
+
+    <section>
+      <button type="button" class="btn-main" id="btnSave">সেভ করো (লাইভ সাইটে প্রকাশ হবে)</button>
+      <button type="button" class="btn-danger" id="btnReset">ডিফল্ট তালিকায় ফিরে যাও</button>
+      <div id="saveStatus" class="status"></div>
+      <p class="hint">"ডিফল্ট তালিকায় ফিরে যাও" চাপলে এই পাতায় যা দেখাচ্ছে তা জুন ২০২৪-এর (+ ২৫ জুলাই ২০২৬-এর শিক্ষা মন্ত্রক বদল) মূল তালিকায় ফিরে যাবে — কিন্তু সেভ না করা পর্যন্ত লাইভ সাইটে কিছু বদলাবে না।</p>
+    </section>
+  </div>
+</div>
+
+<script>
+const ADMIN_PASSWORD = 'Rafikul@1234';
+const LQ_DB = (window.__LQ_DB_OVERRIDE) || 'https://bharat-ak-nojore-default-rtdb.firebaseio.com';
+
+const PORT_L = {
+  defence: ['প্রতিরক্ষা', 'रक्षा', 'Defence'], home: ['স্বরাষ্ট্র', 'गृह', 'Home Affairs'], coop: ['সমবায়', 'सहकारिता', 'Cooperation'],
+  roadtransport: ['সড়ক পরিবহন ও মহাসড়ক', 'सड़क परिवहन और राजमार्ग', 'Road Transport & Highways'], health: ['স্বাস্থ্য ও পরিবার কল্যাণ', 'स्वास्थ्य और परिवार कल्याण', 'Health & Family Welfare'],
+  chemfert: ['রাসায়নিক ও সার', 'रसायन और उर्वरक', 'Chemicals & Fertilizers'], agri: ['কৃষি ও কৃষক কল্যাণ', 'कृषि और किसान कल्याण', 'Agriculture & Farmers Welfare'],
+  rural: ['গ্রামীণ উন্নয়ন', 'ग्रामीण विकास', 'Rural Development'], finance: ['অর্থ', 'वित्त', 'Finance'], corp: ['কর্পোরেট বিষয়ক', 'कॉर्पोरेट मामले', 'Corporate Affairs'],
+  extaff: ['বৈদেশিক বিষয়ক', 'विदेश मामले', 'External Affairs'], housing: ['আবাসন ও নগর বিষয়ক', 'आवास और शहरी मामले', 'Housing & Urban Affairs'], power: ['বিদ্যুৎ', 'ऊर्जा', 'Power'],
+  heavyind: ['ভারী শিল্প', 'भारी उद्योग', 'Heavy Industries'], steel: ['ইস্পাত', 'इस्पात', 'Steel'], commerce: ['বাণিজ্য ও শিল্প', 'वाणिज्य और उद्योग', 'Commerce & Industry'],
+  education: ['শিক্ষা', 'शिक्षा', 'Education'], msme: ['ক্ষুদ্র, ছোট ও মাঝারি শিল্প', 'सूक्ष्म, लघु और मध्यम उद्यम', 'Micro, Small & Medium Enterprises'],
+  panchayat: ['পঞ্চায়েতি রাজ', 'पंचायती राज', 'Panchayati Raj'], fisheries: ['মৎস্য, পশুপালন ও দুগ্ধ শিল্প', 'मत्स्य पालन, पशुपालन और डेयरी', 'Fisheries, Animal Husbandry & Dairying'],
+  ports: ['বন্দর, নৌপরিবহন ও জলপথ', 'पत्तन, पोत परिवहन और जलमार्ग', 'Ports, Shipping & Waterways'], socialjustice: ['সামাজিক ন্যায়বিচার ও ক্ষমতায়ন', 'सामाजिक न्याय और अधिकारिता', 'Social Justice & Empowerment'],
+  aviation: ['অসামরিক বিমান চলাচল', 'नागरिक उड्डयन', 'Civil Aviation'], consumer: ['ভোক্তা বিষয়ক, খাদ্য ও গণবণ্টন', 'उपभोक्ता मामले, खाद्य और सार्वजनिक वितरण', 'Consumer Affairs, Food & Public Distribution'],
+  renewenergy: ['নতুন ও নবায়নযোগ্য শক্তি', 'नया और नवीकरणीय ऊर्जा', 'New & Renewable Energy'], tribal: ['জনজাতি বিষয়ক', 'जनजातीय कार्य', 'Tribal Affairs'], textiles: ['বস্ত্র', 'वस्त्र', 'Textiles'],
+  railways: ['রেল', 'रेल', 'Railways'], infobroadcast: ['তথ্য ও সম্প্রচার', 'सूचना और प्रसारण', 'Information & Broadcasting'], electronics: ['ইলেকট্রনিক্স ও তথ্যপ্রযুক্তি', 'इलेक्ट्रॉनिक्स और सूचना प्रौद्योगिकी', 'Electronics & IT'],
+  comm: ['যোগাযোগ', 'संचार', 'Communications'], doner: ['উত্তর-পূর্বাঞ্চল উন্নয়ন', 'पूर्वोत्तर क्षेत्र विकास', 'Development of North Eastern Region'],
+  environment: ['পরিবেশ, বন ও জলবায়ু পরিবর্তন', 'पर्यावरण, वन और जलवायु परिवर्तन', 'Environment, Forest & Climate Change'], culture: ['সংস্কৃতি', 'संस्कृति', 'Culture'], tourism: ['পর্যটন', 'पर्यटन', 'Tourism'],
+  wcd: ['নারী ও শিশু উন্নয়ন', 'महिला और बाल विकास', 'Women & Child Development'], parlaffairs: ['সংসদীয় বিষয়ক', 'संसदीय कार्य', 'Parliamentary Affairs'], minority: ['সংখ্যালঘু বিষয়ক', 'अल्पसंख्यक कार्य', 'Minority Affairs'],
+  petroleum: ['পেট্রোলিয়াম ও প্রাকৃতিক গ্যাস', 'पेट्रोलियम और प्राकृतिक गैस', 'Petroleum & Natural Gas'], labour: ['শ্রম ও কর্মসংস্থান', 'श्रम और रोजगार', 'Labour & Employment'],
+  youthsports: ['যুব বিষয়ক ও ক্রীড়া', 'युवा कार्य और खेल', 'Youth Affairs & Sports'], coal: ['কয়লা', 'कोयला', 'Coal'], mines: ['খনি', 'खान', 'Mines'],
+  foodproc: ['খাদ্য প্রক্রিয়াকরণ শিল্প', 'खाद्य प्रसंस्करण उद्योग', 'Food Processing Industries'], jalshakti: ['জলশক্তি', 'जल शक्ति', 'Jal Shakti'],
+  stats: ['পরিসংখ্যান ও কর্মসূচি রূপায়ণ', 'सांख्यिकी और कार्यक्रम कार्यान्वयन', 'Statistics & Programme Implementation'], planning: ['পরিকল্পনা', 'योजना', 'Planning'],
+  scitech: ['বিজ্ঞান ও প্রযুক্তি', 'विज्ञान और प्रौद्योगिकी', 'Science & Technology'], earthsci: ['আর্থ সায়েন্সেস', 'भू विज्ञान', 'Earth Sciences'], law: ['আইন ও বিচার', 'कानून और न्याय', 'Law & Justice'],
+  ayush: ['আয়ুষ', 'आयुष', 'AYUSH'], skilldev: ['দক্ষতা উন্নয়ন ও উদ্যোগ', 'कौशल विकास और उद्यमिता', 'Skill Development & Entrepreneurship'],
+  pmo: ['প্রধানমন্ত্রীর দপ্তর, কর্মী, পারমাণবিক শক্তি, মহাকাশ', 'प्रधानमंत्री कार्यालय, कार्मिक, परमाणु ऊर्जा, अंतरिक्ष', "PM's Office, Personnel, Atomic Energy, Space"],
+};
+
+// ডিফল্ট (জুন ২০২৪ গঠন + ২৫ জুলাই ২০২৬-এর শিক্ষা মন্ত্রক বদল) — Firebase-এ কিছু না থাকলে এটাই দেখানো হবে
+function defaultData() {
+  return {
+    pm: { bn: 'নরেন্দ্র মোদী', hi: 'नरेंद्र मोदी', en: 'Narendra Modi', p: ['pmo'] },
+    cabinet: [
+      { bn: 'রাজনাথ সিং', hi: 'राजनाथ सिंह', en: 'Rajnath Singh', p: ['defence'] },
+      { bn: 'অমিত শাহ', hi: 'अमित शाह', en: 'Amit Shah', p: ['home', 'coop'] },
+      { bn: 'নিতিন গড়করি', hi: 'नितिन गडकरी', en: 'Nitin Gadkari', p: ['roadtransport'] },
+      { bn: 'জগৎ প্রকাশ নড্ডা (জে. পি. নড্ডা)', hi: 'जगत प्रकाश नड्डा (जे. पी. नड्डा)', en: 'Jagat Prakash (J. P.) Nadda', p: ['health'] },
+      { bn: 'শিবরাজ সিং চৌহান', hi: 'शिवराज सिंह चौहान', en: 'Shivraj Singh Chouhan', p: ['agri'] },
+      { bn: 'নির্মলা সীতারামন', hi: 'निर्मला सीतारमण', en: 'Nirmala Sitharaman', p: ['finance', 'corp'] },
+      { bn: 'এস. জয়শঙ্কর', hi: 'एस. जयशंकर', en: 'S. Jaishankar', p: ['extaff'] },
+      { bn: 'মনোহর লাল খট্টর', hi: 'मनोहर लाल खट्टर', en: 'Manohar Lal Khattar', p: ['housing', 'power'] },
+      { bn: 'এইচ. ডি. কুমারস্বামী', hi: 'एच. डी. कुमारस्वामी', en: 'H. D. Kumaraswamy', p: ['heavyind', 'steel'] },
+      { bn: 'পীযূষ গয়াল', hi: 'पीयूष गोयल', en: 'Piyush Goyal', p: ['commerce'] },
+      { bn: 'ধর্মেন্দ্র প্রধান', hi: 'धर्मेंद्र प्रधान', en: 'Dharmendra Pradhan', p: [] },
+      { bn: 'জিতন রাম মাঝি', hi: 'जीतन राम मांझी', en: 'Jitan Ram Manjhi', p: ['msme'] },
+      { bn: 'রাজীব রঞ্জন সিং (ললন সিং)', hi: 'राजीव रंजन सिंह (ललन सिंह)', en: 'Rajiv Ranjan Singh (Lalan Singh)', p: ['panchayat', 'fisheries'] },
+      { bn: 'সর্বানন্দ সোনোয়াল', hi: 'सर्बानंद सोनोवाल', en: 'Sarbananda Sonowal', p: ['ports'] },
+      { bn: 'বীরেন্দ্র কুমার', hi: 'वीरेंद्र कुमार', en: 'Virendra Kumar', p: ['socialjustice'] },
+      { bn: 'কিঞ্জারাপু রামমোহন নাইডু', hi: 'किंजरापु राम मोहन नायडू', en: 'Kinjarapu Ram Mohan Naidu', p: ['aviation'] },
+      { bn: 'প্রহ্লাদ জোশী', hi: 'प्रह्लाद जोशी', en: 'Pralhad Joshi', p: ['consumer', 'renewenergy', 'education'] },
+      { bn: 'জুয়েল ওরাম', hi: 'जुएल ओराम', en: 'Jual Oram', p: ['tribal'] },
+      { bn: 'গিরিরাজ সিং', hi: 'गिरिराज सिंह', en: 'Giriraj Singh', p: ['textiles'] },
+      { bn: 'অশ্বিনী বৈষ্ণব', hi: 'अश्विनी वैष्णव', en: 'Ashwini Vaishnaw', p: ['railways', 'infobroadcast', 'electronics'] },
+      { bn: 'জ্যোতিরাদিত্য সিন্ধিয়া', hi: 'ज्योतिरादित्य सिंधिया', en: 'Jyotiraditya Scindia', p: ['comm', 'doner'] },
+      { bn: 'ভূপেন্দ্র যাদব', hi: 'भूपेंद्र यादव', en: 'Bhupender Yadav', p: ['environment'] },
+      { bn: 'গজেন্দ্র সিং শেখাওয়াত', hi: 'गजेंद्र सिंह शेखावत', en: 'Gajendra Singh Shekhawat', p: ['culture', 'tourism'] },
+      { bn: 'অন্নপূর্ণা দেবী', hi: 'अन्नपूर्णा देवी', en: 'Annpurna Devi', p: ['wcd'] },
+      { bn: 'কিরেণ রিজিজু', hi: 'किरेन रिजिजू', en: 'Kiren Rijiju', p: ['parlaffairs', 'minority'] },
+      { bn: 'হরদীপ সিং পুরী', hi: 'हरदीप सिंह पुरी', en: 'Hardeep Singh Puri', p: ['petroleum'] },
+      { bn: 'মনসুখ মাণ্ডব্য', hi: 'मनसुख मांडविया', en: 'Mansukh Mandaviya', p: ['labour', 'youthsports'] },
+      { bn: 'জি. কিষাণ রেড্ডি', hi: 'जी. किशन रेड्डी', en: 'G. Kishan Reddy', p: ['coal', 'mines'] },
+      { bn: 'চিরাগ পাসওয়ান', hi: 'चिराग पासवान', en: 'Chirag Paswan', p: ['foodproc'] },
+      { bn: 'সি. আর. পাটিল', hi: 'सी. आर. पाटिल', en: 'C. R. Patil', p: ['jalshakti'] },
+    ].filter((m) => m.en !== 'Dharmendra Pradhan'),
+    mosIc: [
+      { bn: 'রাও ইন্দরজিৎ সিং', hi: 'राव इंद्रजीत सिंह', en: 'Rao Inderjit Singh', p: ['stats', 'planning'] },
+      { bn: 'জিতেন্দ্র সিং', hi: 'जितेंद्र सिंह', en: 'Jitendra Singh', p: ['scitech', 'earthsci'] },
+      { bn: 'অর্জুন রাম মেঘওয়াল', hi: 'अर्जुन राम मेघवाल', en: 'Arjun Ram Meghwal', p: ['law'] },
+      { bn: 'প্রতাপরাও যাদব', hi: 'प्रतापराव जाधव', en: 'Prataprao Jadhav', p: ['ayush'] },
+      { bn: 'জয়ন্ত চৌধুরী', hi: 'जयंत चौधरी', en: 'Jayant Chaudhary', p: ['skilldev'] },
+    ],
+    mos: [
+      { en: 'Jitin Prasada', p: ['commerce', 'electronics'] }, { en: 'Shripad Yesso Naik', p: ['power', 'renewenergy'] },
+      { en: 'Pankaj Chaudhary', p: ['finance'] }, { en: 'Krishan Pal', p: ['coop'] }, { en: 'Ramdas Athawale', p: ['socialjustice'] },
+      { en: 'Ram Nath Thakur', p: ['agri'] }, { en: 'Nityanand Rai', p: ['home'] }, { en: 'Anupriya Patel', p: ['health', 'chemfert'] },
+      { en: 'V. Somanna', p: ['jalshakti', 'railways'] }, { en: 'Chandra Sekhar Pemmasani', p: ['rural', 'comm'] },
+      { en: 'S. P. Singh Baghel', p: ['fisheries', 'panchayat'] }, { en: 'Shobha Karandlaje', p: ['msme', 'labour'] },
+      { en: 'Kirtivardhan Singh', p: ['environment', 'extaff'] }, { en: 'B. L. Verma', p: ['consumer', 'socialjustice'] },
+      { en: 'Shantanu Thakur', p: ['ports'] }, { en: 'Suresh Gopi', p: ['petroleum', 'tourism'] },
+      { en: 'L. Murugan', p: ['infobroadcast', 'parlaffairs'] }, { en: 'Ajay Tamta', p: ['roadtransport'] },
+      { en: 'Bandi Sanjay Kumar', p: ['home'] }, { en: 'Kamlesh Paswan', p: ['rural'] }, { en: 'Bhagirath Choudhary', p: ['agri'] },
+      { en: 'Satish Chandra Dubey', p: ['coal', 'mines'] }, { en: 'Sanjay Seth', p: ['defence'] },
+      { en: 'Ravneet Singh', p: ['foodproc', 'railways'] }, { en: 'Durgadas Uikey', p: ['tribal'] },
+      { en: 'Raksha Nikhil Khadse', p: ['youthsports'] }, { en: 'Sukanta Majumdar', p: ['education', 'doner'] },
+      { en: 'Savitri Thakur', p: ['wcd'] }, { en: 'Tokhan Sahu', p: ['housing'] }, { en: 'Raj Bhushan Choudhary', p: ['jalshakti'] },
+      { en: 'Bhupathi Raju Srinivasa Varma', p: ['heavyind', 'steel'] }, { en: 'Harsh Malhotra', p: ['corp', 'roadtransport'] },
+      { en: 'Nimuben Jayantibhai Bambhaniya', p: ['consumer'] }, { en: 'Murlidhar Mohol', p: ['coop', 'aviation'] },
+      { en: 'George Kurian', p: ['minority', 'fisheries'] }, { en: 'Pabitra Margherita', p: ['extaff', 'textiles'] },
+    ],
+    note: {
+      bn: 'সূত্র: কেন্দ্রীয় সরকার গঠনের (জুন ২০২৪) পোর্টফোলিও বণ্টন অনুযায়ী, ২৫ জুলাই ২০২৬-এর একটি হালনাগাদ-সহ — ধর্মেন্দ্র প্রধান শিক্ষামন্ত্রীর পদ থেকে পদত্যাগ করেন এবং প্রহ্লাদ জোশী অতিরিক্ত দায়িত্ব হিসেবে শিক্ষা মন্ত্রক গ্রহণ করেন। এর পরে আরও কোনো রদবদল হয়ে থাকলে তা এখানে প্রতিফলিত নাও হতে পারে — সর্বশেষ তথ্যের জন্য pmindia.gov.in দেখুন।',
+      hi: 'स्रोत: केंद्र सरकार के गठन (जून 2024) के समय हुए पोर्टफोलियो बंटवारे के अनुसार, 25 जुलाई 2026 के एक अपडेट सहित — धर्मेंद्र प्रधान ने शिक्षा मंत्री पद से इस्तीफ़ा दिया और प्रह्लाद जोशी ने अतिरिक्त प्रभार के रूप में शिक्षा मंत्रालय संभाला। इसके बाद कोई और फेरबदल हुआ हो तो वह यहाँ शामिल न हो सकता है — नवीनतम जानकारी के लिए pmindia.gov.in देखें।',
+      en: "Source: the portfolio allocation at the government's formation (June 2024), with one update as of 25 July 2026 — Dharmendra Pradhan resigned as Education Minister and Pralhad Joshi took over the Education Ministry on additional charge. Any later reshuffle may not be reflected here — check pmindia.gov.in for the latest."
+    },
+  };
+}
+
+let DATA = null;
+const $ = (s, el) => (el || document).querySelector(s);
+const $$ = (s, el) => [...(el || document).querySelectorAll(s)];
+
+function portKeyList() {
+  return Object.keys(PORT_L).sort();
+}
+function portLabel(k) {
+  const v = PORT_L[k];
+  return v ? `${v[0]} / ${v[2]}` : k;
+}
+function legendHtml() {
+  return portKeyList().map((k) => `<div><b>${k}</b> — ${portLabel(k)}</div>`).join('');
+}
+
+function rowHtml(section, i, m, withTriLang) {
+  const names = withTriLang
+    ? `<div class="names">
+        <div><label>বাংলা নাম</label><input type="text" data-f="bn" value="${(m.bn || '').replace(/"/g, '&quot;')}"></div>
+        <div><label>हिन्दी नाम</label><input type="text" data-f="hi" value="${(m.hi || '').replace(/"/g, '&quot;')}"></div>
+        <div><label>English name</label><input type="text" data-f="en" value="${(m.en || '').replace(/"/g, '&quot;')}"></div>
+      </div>`
+    : `<div class="names one"><div><label>Name (English)</label><input type="text" data-f="en" value="${(m.en || '').replace(/"/g, '&quot;')}"></div></div>`;
+  return `<div class="row" data-section="${section}" data-i="${i}">
+      <button type="button" class="btn-danger btn-sm rm" data-rm="${section}:${i}">✕</button>
+      ${names}
+      <label>পোর্টফোলিও (কমা দিয়ে আলাদা করে key লেখো, নিচে তালিকা আছে)</label>
+      <input type="text" data-f="p" list="portKeys" value="${(m.p || []).join(', ')}">
+      <div class="hint">${(m.p || []).map(portLabel).join(' · ') || '(কোনো পোর্টফোলিও নেই)'}</div>
+    </div>`;
+}
+
+function renderAll() {
+  $('#pmRow').innerHTML = rowHtml('pm', 0, DATA.pm, true);
+  $('#cabRows').innerHTML = DATA.cabinet.map((m, i) => rowHtml('cabinet', i, m, true)).join('');
+  $('#mosIcRows').innerHTML = DATA.mosIc.map((m, i) => rowHtml('mosIc', i, m, true)).join('');
+  $('#mosRows').innerHTML = DATA.mos.map((m, i) => rowHtml('mos', i, m, false)).join('');
+  $('#noteBn').value = (DATA.note && DATA.note.bn) || '';
+  $('#noteHi').value = (DATA.note && DATA.note.hi) || '';
+  $('#noteEn').value = (DATA.note && DATA.note.en) || '';
+  ['pmSec', 'cabSec', 'mosIcSec', 'noteSec', 'mosSec'].forEach((id) => { $('#' + id).hidden = false; });
+}
+
+function readFormIntoData() {
+  const readRow = (el) => {
+    const m = {};
+    $$('input[data-f]', el).forEach((inp) => {
+      if (inp.dataset.f === 'p') m.p = inp.value.split(',').map((s) => s.trim()).filter(Boolean);
+      else m[inp.dataset.f] = inp.value.trim();
+    });
+    if (!m.p) m.p = [];
+    return m;
+  };
+  DATA.pm = readRow($('#pmRow .row'));
+  DATA.cabinet = $$('#cabRows .row').map(readRow);
+  DATA.mosIc = $$('#mosIcRows .row').map(readRow);
+  DATA.mos = $$('#mosRows .row').map(readRow);
+  DATA.note = { bn: $('#noteBn').value, hi: $('#noteHi').value, en: $('#noteEn').value };
+}
+
+document.addEventListener('click', (e) => {
+  const add = e.target.closest('[data-add]');
+  if (add) {
+    readFormIntoData();
+    const sec = add.dataset.add;
+    const blank = sec === 'mos' ? { en: '', p: [] } : { bn: '', hi: '', en: '', p: [] };
+    DATA[sec].push(blank);
+    renderAll();
+    return;
+  }
+  const rm = e.target.closest('[data-rm]');
+  if (rm) {
+    readFormIntoData();
+    const [sec, idx] = rm.dataset.rm.split(':');
+    DATA[sec].splice(+idx, 1);
+    renderAll();
+    return;
+  }
+});
+
+$('#pwGo').addEventListener('click', () => {
+  if ($('#pw').value === ADMIN_PASSWORD) {
+    $('#gateSec').hidden = true;
+    $('#panel').hidden = false;
+    loadData();
+  } else {
+    alert('পাসওয়ার্ড ভুল হয়েছে।');
+  }
+});
+$('#pw').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('#pwGo').click(); });
+
+function loadData() {
+  $('#loadStatus').textContent = 'লোড হচ্ছে...';
+  fetch(LQ_DB + '/cabinetData.json').then((r) => r.json()).then((d) => {
+    DATA = (d && (d.cabinet || d.pm)) ? d : defaultData();
+    $('#loadStatus').textContent = (d && (d.cabinet || d.pm))
+      ? 'বর্তমানে Firebase-এ থাকা সর্বশেষ তথ্য দেখানো হচ্ছে।'
+      : 'Firebase-এ এখনো কিছু সেভ করা নেই — ডিফল্ট (জুন ২০২৪ + ২৫ জুলাই ২০২৬ আপডেট) তালিকা দেখানো হচ্ছে।';
+    renderAll();
+  }).catch(() => {
+    DATA = defaultData();
+    $('#loadStatus').textContent = 'Firebase থেকে লোড করা যায়নি, তাই ডিফল্ট তালিকা দেখানো হচ্ছে। সেভ করলে এটিই আপলোড হবে।';
+    renderAll();
+  });
+}
+
+$('#btnReset').addEventListener('click', () => {
+  if (confirm('নিশ্চিত? এই পাতায় যা এখন দেখাচ্ছে তা ডিফল্ট তালিকা দিয়ে বদলে যাবে (সেভ না করা পর্যন্ত লাইভ সাইটে কিছু বদলাবে না)।')) {
+    DATA = defaultData();
+    renderAll();
+  }
+});
+
+$('#btnSave').addEventListener('click', () => {
+  readFormIntoData();
+  DATA.updatedAt = Date.now();
+  $('#saveStatus').textContent = 'সেভ হচ্ছে...';
+  $('#saveStatus').className = 'status';
+  fetch(LQ_DB + '/cabinetData.json', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(DATA) })
+    .then((r) => { if (!r.ok) throw new Error('save failed'); return r.json(); })
+    .then(() => {
+      $('#saveStatus').textContent = '✅ সেভ হয়ে গেছে — লাইভ সাইটে পরের লোডে দেখা যাবে।';
+      $('#saveStatus').className = 'status ok';
+    })
+    .catch(() => {
+      $('#saveStatus').textContent = '❌ সেভ করা যায়নি — ইন্টারনেট সংযোগ দেখো, আবার চেষ্টা করো।';
+      $('#saveStatus').className = 'status err';
+    });
+});
+
+// পোর্টফোলিও কী-গুলোর জন্য datalist, ও নিচে পুরো তালিকা
+document.write(`<datalist id="portKeys">${portKeyList().map((k) => `<option value="${k}">`).join('')}</datalist>`);
+document.addEventListener('DOMContentLoaded', () => {
+  const sec = document.createElement('section');
+  sec.innerHTML = `<h2>পোর্টফোলিও key-র তালিকা</h2><div class="plegend">${legendHtml()}</div><p class="hint">উপরের "পোর্টফোলিও" ঘরে এই key-গুলো কমা দিয়ে লেখো, যেমন: <b>home, coop</b></p>`;
+  document.querySelector('.wrap').appendChild(sec);
+});
+</script>
+</body>
+</html>
