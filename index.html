@@ -255,6 +255,18 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
 .vstable th { color: var(--muted); font-weight: 600; font-size: 13px; }
 .vstable td:first-child, .vstable th:first-child { color: var(--muted); font-size: 13px; white-space: nowrap; position: sticky; left: 0; background: var(--bg); }
 .vstable td.vswin { font-weight: 700; color: var(--accent); }
+.vstable td.vswin-lo { color: #1a9c5b; }
+.vstable tr.vsghead th { background: var(--surface); color: var(--fg); font-size: 12.5px; text-transform: uppercase; letter-spacing: .03em; padding-top: 14px; position: static; }
+.vstable tbody.vsgroup:first-of-type tr.vsghead th { padding-top: 8px; }
+.vsarrow { font-size: 10px; opacity: .75; }
+.vsarrow-hi { color: var(--accent); }
+.vsarrow-lo { color: #1a9c5b; }
+.vsstatelink { font: inherit; font-weight: 600; color: var(--fg); background: transparent; border: none; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.vsstatelink:hover { color: var(--accent); }
+.seg-wrap { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 8px; }
+.seg-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.seg-glabel { font-size: 12px; color: var(--muted); min-width: 90px; }
+.seg-group .seg { margin: 0; }
 .legend { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 8px; font-size: 12.5px; color: var(--muted); }
 .legend span { display: inline-flex; align-items: center; gap: 5px; }
 .legend i { width: 14px; height: 14px; border: 1px solid var(--line); display: inline-block; }
@@ -732,13 +744,14 @@ const MAPIMG='data:image/webp;base64,UklGRqD/AQBXRUJQVlA4WAoAAAAQAAAA/wQA1gUAQUx
 
 /* ---------- ভাষা ---------- */
 const LOC = { bn: 'bn-IN', hi: 'hi-IN', en: 'en-IN' };
-let lang = 'en', nf, nf1, nf2;
+let lang = 'en', nf, nf1, nf2, nf3;
 const L = (b, h, e) => (lang === 'bn' ? b : lang === 'hi' ? h : e);
 const dg = (s) => (lang === 'bn' ? s : String(s).replace(/[০-৯]/g, (c) => '০১২৩৪৫৬৭৮৯'.indexOf(c)));
 function setFmt() {
   nf = new Intl.NumberFormat(LOC[lang]);
   nf1 = new Intl.NumberFormat(LOC[lang], { maximumFractionDigits: 1 });
   nf2 = new Intl.NumberFormat(LOC[lang], { maximumFractionDigits: 2 });
+  nf3 = new Intl.NumberFormat(LOC[lang], { maximumFractionDigits: 3 });
 }
 function pickLang() {
   try { const s = localStorage.getItem('bharat-lang'); if (s && LOC[s]) return s; } catch (_) {}
@@ -767,7 +780,7 @@ const ofN = (rank, tot) => L(`${nf.format(tot)}টির মধ্যে ${ord(r
 const KM = () => L('বর্গ কিমি', 'वर्ग किमी', 'sq km');
 const PKM = () => L('জন/বর্গ কিমি', 'व्यक्ति/वर्ग किमी', 'people/sq km');
 const TYPE_LABEL = () => ({ state: L('রাজ্য', 'राज्य', 'State'), ut: L('কেন্দ্রশাসিত অঞ্চল', 'केंद्रशासित प्रदेश', 'Union Territory') });
-const ST_TAB = () => [['gen', L('সাধারণ', 'सामान्य', 'General')], ['pol', L('রাজনীতি', 'राजनीति', 'Politics')], ['eco', L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy')], ['edu', L('শিক্ষা', 'शिक्षा', 'Education')], ['cul', L('সংস্কৃতি', 'संस्कृति', 'Culture')], ['saf', L('নারী নিরাপত্তা', 'महिला सुरक्षा', "Women's safety")], ['trv', L('ভ্রমণ', 'यात्रा', 'Travel')], ['cmp', L('তুলনা', 'तुलना', 'Compare')]];
+const ST_TAB = () => [['gen', L('সাধারণ', 'सामान्य', 'General')], ['idx', L('সূচক', 'सूचकांक', 'Indices')], ['pol', L('রাজনীতি', 'राजनीति', 'Politics')], ['eco', L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy')], ['edu', L('শিক্ষা', 'शिक्षा', 'Education')], ['cul', L('সংস্কৃতি', 'संस्कृति', 'Culture')], ['saf', L('নারী নিরাপত্তা', 'महिला सुरक्षा', "Women's safety")], ['trv', L('ভ্রমণ', 'यात्रा', 'Travel')], ['cmp', L('তুলনা', 'तुलना', 'Compare')]];
 const NAT_TAB = () => [['gen', L('সাধারণ', 'सामान्य', 'General')], ['pol', L('রাজনীতি', 'राजनीति', 'Politics')], ['cab', L('মন্ত্রিসভা', 'मंत्रिमंडल', 'Cabinet')], ['eco', L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy')], ['mkt', L('ডলার, সোনা, রুপো', 'डॉलर, सोना, चाँदी', 'Dollar, gold, silver')], ['idx', L('সূচক', 'सूचकांक', 'Indices')], ['air', L('দূষণ', 'प्रदूषण', 'Pollution')], ['saf', L('নারী নিরাপত্তা', 'महिला सुरक्षा', "Women's safety")], ['crime', L('দুর্নীতি ও অপরাধ', 'भ्रष्टाचार और अपराध', 'Corruption & Crime')], ['rgt', L('মৌলিক অধিকার', 'मौलिक अधिकार', 'Fundamental Rights')], ['sym', L('জাতীয় প্রতীক', 'राष्ट्रीय प्रतीक', 'National Symbols')], ['hist', L('ইতিহাস', 'इतिहास', 'History')], ['trv', L('ভ্রমণ', 'यात्रा', 'Travel')], ['spt', L('খেলা', 'खेल', 'Sports')], ['quiz', L('কুইজ', 'क्विज़', 'Quiz')], ['cmp', L('রাজ্য তুলনা', 'राज्यों की तुलना', 'Compare states')]];
 const zn = (z) => ZNX[z][lang === 'bn' ? 0 : lang === 'hi' ? 1 : 2];
 const R = (x) => {
@@ -1123,17 +1136,84 @@ const natSpt = () => facts([
   fact(L('টি-টোয়েন্টি ব্যাটিং র‍্যাংকিং', 'T20 बल्लेबाज़ी रैंकिंग', 'T20I batting ranking'), L('১ম অভিষেক শর্মা, ২য় ঈশান কিষাণ', 'पहले अभिषेक शर्मा, दूसरे ईशान किशन', '1st Abhishek Sharma, 2nd Ishan Kishan'), L('মার্চ ২০২৬ পর্যন্ত', 'मार्च 2026 तक', 'As of March 2026')),
   fact(L('পুরস্কার', 'पुरस्कार', 'Prize'), L('BCCI-র ঘোষণা ১৩১ কোটি টাকা', 'BCCI की घोषणा 131 करोड़ रुपये', 'BCCI announced ₹131 crore'), L('বিশ্বকাপজয়ী দলের জন্য', 'विश्व कप विजेता टीम के लिए', 'For the World Cup-winning squad'))
 ]);
+/* বাড়তি রাজ্যভিত্তিক সূচক — আদমশুমারি ২০১১ (sexRatio, urban), SRS/NFHS-5 (lifeExp, imr, tfr), HDI (NITI Aayog/UNDP অনুমান),
+   ISFR ২০২১ (forestCover), NCRB ২০২৩ (crimeRate), রাজ্যসভার আসন (চতুর্থ তফসিল, স্থির), এবং গভর্নর/উপরাজ্যপাল (নভেম্বর ২০২৬,
+   মাঝেমধ্যে বদলায়, সর্বশেষ তথ্যের জন্য rashtrapati.gov.in বা সংশ্লিষ্ট রাজভবনের সাইট দেখুন) */
+const EXT = {
+  jk: { sexRatio: 889, urban: 27.4, districts: 20, hdi: 0.720, lifeExp: 71.8, imr: 14, tfr: 1.8, forestCover: 39.15, crimeRate: 217.0, governor: null, rsSeats: 4 },
+  la: { sexRatio: null, urban: null, districts: 2, hdi: null, lifeExp: null, imr: null, tfr: 1.6, forestCover: 1.35, crimeRate: 173.4, governor: null, rsSeats: 0 },
+  pb: { sexRatio: 895, urban: 37.5, districts: 23, hdi: 0.698, lifeExp: 66.2, imr: 16, tfr: 1.6, forestCover: 3.67, crimeRate: 227.1, governor: 'গুলাব চাঁদ কাটারিয়া', rsSeats: 7 },
+  hp: { sexRatio: 972, urban: 10.0, districts: 12, hdi: 0.715, lifeExp: 70.6, imr: 11, tfr: 1.8, forestCover: 27.73, crimeRate: 267.2, governor: 'শিব প্রতাপ শুক্ল', rsSeats: 3 },
+  uk: { sexRatio: 963, urban: 30.2, districts: 13, hdi: 0.681, lifeExp: 68.3, imr: 19, tfr: 1.9, forestCover: 45.44, crimeRate: 291.3, governor: 'গুরমিত সিং', rsSeats: 3 },
+  sk: { sexRatio: 890, urban: 25.2, districts: 6, hdi: 0.712, lifeExp: 65.9, imr: 7, tfr: 1.0, forestCover: 47.08, crimeRate: 103.9, governor: 'ওম প্রকাশ মাথুর', rsSeats: 1 },
+  ar: { sexRatio: 938, urban: 22.9, districts: 25, hdi: 0.700, lifeExp: 67.5, imr: 17, tfr: 1.5, forestCover: 79.33, crimeRate: 187.9, governor: 'কৈবল্য ত্রিবিক্রম পারনায়েক', rsSeats: 1 },
+  ch: { sexRatio: 818, urban: 97.25, districts: 1, hdi: 0.790, lifeExp: 66.5, imr: 6, tfr: 1.8, forestCover: 20.07, crimeRate: 338.9, governor: 'গুলাব চাঁদ কাটারিয়া (পাঞ্জাবের রাজ্যপাল, অতিরিক্ত দায়িত্ব)', rsSeats: 0 },
+  hr: { sexRatio: 879, urban: 34.9, districts: 22, hdi: 0.696, lifeExp: 66.0, imr: 24, tfr: 2.0, forestCover: 3.63, crimeRate: 739.2, governor: 'বান্দারু দত্তাত্রেয়', rsSeats: 5 },
+  dl: { sexRatio: 868, urban: 97.5, districts: 11, hdi: 0.816, lifeExp: 68.0, imr: 11, tfr: 1.6, forestCover: 13.15, crimeRate: 1602.0, governor: null, rsSeats: 3 },
+  up: { sexRatio: 912, urban: 22.3, districts: 75, hdi: 0.609, lifeExp: 63.0, imr: 35, tfr: 2.2, forestCover: 6.15, crimeRate: 335.3, governor: 'আনন্দীবেন প্যাটেল', rsSeats: 31 },
+  br: { sexRatio: 918, urban: 11.3, districts: 38, hdi: 0.590, lifeExp: 64.4, imr: 23, tfr: 2.7, forestCover: 7.84, crimeRate: 277.5, governor: 'আরিফ মোহাম্মদ খান', rsSeats: 16 },
+  wb: { sexRatio: 950, urban: 31.9, districts: 23, hdi: 0.635, lifeExp: 64.7, imr: 16, tfr: 1.6, forestCover: 18.96, crimeRate: 181.6, governor: 'সি. ভি. আনন্দ বোস', rsSeats: 16 },
+  as: { sexRatio: 958, urban: 14.1, districts: 35, hdi: 0.680, lifeExp: 66.1, imr: 29, tfr: 1.6, forestCover: 36.09, crimeRate: 181.3, governor: 'লক্ষ্মণ আচার্য', rsSeats: 7 },
+  nl: { sexRatio: 931, urban: 28.9, districts: 16, hdi: 0.679, lifeExp: 75.4, imr: 12, tfr: 2.0, forestCover: 73.90, crimeRate: 84.9, governor: 'লা. গণেশন', rsSeats: 1 },
+  rj: { sexRatio: 928, urban: 24.9, districts: 50, hdi: 0.652, lifeExp: 71.5, imr: 28, tfr: 2.1, forestCover: 4.87, crimeRate: 390.4, governor: 'হরিভাউ বাগদে', rsSeats: 10 },
+  mp: { sexRatio: 931, urban: 27.6, districts: 55, hdi: 0.611, lifeExp: 66.2, imr: 35, tfr: 2.1, forestCover: 25.14, crimeRate: 570.3, governor: 'মঙ্গুভাই সি. প্যাটেল', rsSeats: 11 },
+  cg: { sexRatio: 991, urban: 23.2, districts: 33, hdi: 0.650, lifeExp: 63.8, imr: 36, tfr: 1.9, forestCover: 41.21, crimeRate: 381.2, governor: 'রমেন ডেকা', rsSeats: 5 },
+  jh: { sexRatio: 948, urban: 24.1, districts: 24, hdi: 0.600, lifeExp: 64.7, imr: 27, tfr: 2.2, forestCover: 29.76, crimeRate: 161.1, governor: 'সন্তোষ গঙ্গোয়ার', rsSeats: 6 },
+  ml: { sexRatio: 989, urban: 20.1, districts: 12, hdi: 0.650, lifeExp: 68.8, imr: 31, tfr: 2.2, forestCover: 76.00, crimeRate: 105.2, governor: 'সি. এইচ. বিজয়শঙ্কর', rsSeats: 1 },
+  mn: { sexRatio: 992, urban: 30.2, districts: 16, hdi: 0.683, lifeExp: 67.6, imr: 2, tfr: null, forestCover: 74.34, crimeRate: 627.8, governor: 'অজয় কুমার ভাল্লা', rsSeats: 1 },
+  gj: { sexRatio: 919, urban: 42.6, districts: 33, hdi: 0.646, lifeExp: 67.7, imr: 19, tfr: 1.9, forestCover: 7.61, crimeRate: 806.3, governor: 'আচার্য দেবব্রত', rsSeats: 11 },
+  dd: { sexRatio: null, urban: 55.0, districts: 3, hdi: 0.674, lifeExp: 70.6, imr: 9, tfr: 1.7, forestCover: 37.83, crimeRate: 66.9, governor: 'প্রফুল খোদা প্যাটেল', rsSeats: 0 },
+  mh: { sexRatio: 929, urban: 45.2, districts: 36, hdi: 0.800, lifeExp: 69.3, imr: 13, tfr: 1.8, forestCover: 16.51, crimeRate: 470.4, governor: 'সি. পি. রাধাকৃষ্ণন', rsSeats: 19 },
+  tg: { sexRatio: 988, urban: 38.9, districts: 33, hdi: 0.660, lifeExp: 63.8, imr: 17, tfr: 1.9, forestCover: 18.93, crimeRate: 481.6, governor: 'জিষ্ণু দেব বর্মা', rsSeats: 7 },
+  od: { sexRatio: 979, urban: 16.7, districts: 30, hdi: 0.610, lifeExp: 64.2, imr: 28, tfr: 1.7, forestCover: 33.50, crimeRate: 431.2, governor: 'হরি বাবু কম্ভমপতি', rsSeats: 10 },
+  tr: { sexRatio: 960, urban: 26.2, districts: 8, hdi: 0.624, lifeExp: 66.0, imr: 12, tfr: 1.7, forestCover: 73.64, crimeRate: 120.4, governor: 'নাল্লু ইন্দ্রসেনা রেড্ডি', rsSeats: 1 },
+  mz: { sexRatio: 976, urban: 52.1, districts: 11, hdi: 0.709, lifeExp: 72.1, imr: 12, tfr: 1.6, forestCover: 84.53, crimeRate: 326.3, governor: 'ভি. কে. সিং', rsSeats: 1 },
+  ga: { sexRatio: 973, urban: 62.2, districts: 2, hdi: 0.760, lifeExp: 73.3, imr: 7, tfr: 1.6, forestCover: 60.62, crimeRate: 195.4, governor: 'পি. এস. শ্রীধরন পিল্লাই', rsSeats: 1 },
+  ka: { sexRatio: 973, urban: 38.7, districts: 31, hdi: 0.673, lifeExp: 67.3, imr: 15, tfr: 1.8, forestCover: 20.19, crimeRate: 315.8, governor: 'থাওয়ারচাঁদ গেহলৌত', rsSeats: 12 },
+  ap: { sexRatio: 993, urban: 29.6, districts: 26, hdi: 0.669, lifeExp: 63.4, imr: 18, tfr: 1.8, forestCover: 18.28, crimeRate: 346.3, governor: 'সৈয়দ আবদুল নাজির', rsSeats: 11 },
+  kl: { sexRatio: 1084, urban: 47.7, districts: 14, hdi: 0.758, lifeExp: 71.2, imr: 8, tfr: 1.8, forestCover: 27.79, crimeRate: 1631.2, governor: 'রাজেন্দ্র আর্লেকর', rsSeats: 9 },
+  tn: { sexRatio: 996, urban: 48.4, districts: 38, hdi: 0.694, lifeExp: 63.9, imr: 11, tfr: 1.7, forestCover: 20.31, crimeRate: 701.4, governor: 'আর. এন. রবি', rsSeats: 18 },
+  py: { sexRatio: 1037, urban: 68.3, districts: 4, hdi: 0.741, lifeExp: 64.6, imr: 7, tfr: 1.6, forestCover: 10.88, crimeRate: 305.5, governor: null, rsSeats: 1 },
+  an: { sexRatio: 876, urban: 35.7, districts: 3, hdi: 0.706, lifeExp: 67.1, imr: 9, tfr: 0.9, forestCover: 81.75, crimeRate: 464.8, governor: null, rsSeats: 0 },
+  ld: { sexRatio: 947, urban: 78.1, districts: 1, hdi: 0.719, lifeExp: 71.2, imr: 3, tfr: 2.2, forestCover: 90.33, crimeRate: 184.1, governor: null, rsSeats: 0 },
+};
+/* NITI Aayog জাতীয় বহুমাত্রিক দারিদ্র্য সূচক (National MPI), ২০২৩ সংস্করণ (NFHS-5 ভিত্তিক) — শুধু যে কটি রাজ্যের
+   সংখ্যা নির্ভরযোগ্য সূত্রে যাচাই করা গেছে, বাকিগুলোর জন্য এই সূচকে কিছু দেখানো হবে না */
+const MPI = { br: 33.76, jh: 28.82, up: 22.93, mp: 20.63 };
 function cmpKeys() {
   const eco = (x) => ECO[x.id];
+  const ext = (x) => EXT[x.id] || {};
+  const noData = () => L('তথ্য নেই', 'डेटा नहीं', 'No data');
+  /* polarity: 'hi' = higher figure highlighted (positive metric), 'lo' = lower figure highlighted (inverse metric), 'ne' = neutral, highest shown with no better/worse judgement */
   return {
-    pop: [L('জনসংখ্যা', 'जनसंख्या', 'Population'), (x) => x.pop, (x) => big(x.pop)],
-    area: [L('আয়তন', 'क्षेत्रफल', 'Area'), (x) => x.area, (x) => nf.format(x.area) + ' ' + KM()],
-    d: [L('জনঘনত্ব', 'जनघनत्व', 'Density'), (x) => x.d, (x) => nf.format(Math.round(x.d)) + '/' + L('বর্গ কিমি', 'वर्ग किमी', 'sq km')],
-    gsdp: ['GSDP', (x) => (eco(x) && eco(x).g) || null, (x) => (eco(x).g >= 1000 ? nf2.format(eco(x).g / 1000) + L(' লক্ষ কোটি ₹', ' लाख करोड़ ₹', ' lakh crore ₹') : nf.format(eco(x).g * 100) + L(' কোটি ₹', ' करोड़ ₹', ' crore ₹'))],
-    pc: [L('মাথাপিছু আয়', 'प्रति व्यक्ति आय', 'Per-capita income'), (x) => (eco(x) && eco(x).p24) || null, (x) => '₹' + nf.format(eco(x).p24)],
-    lit: [L('সাক্ষরতা', 'साक्षरता', 'Literacy'), (x) => (LIT[x.id] && LIT[x.id][3]) || null, (x) => nf2.format(LIT[x.id][3]) + '%']
+    pop: [L('জনসংখ্যা', 'जनसंख्या', 'Population'), (x) => x.pop, (x) => big(x.pop), 'ne'],
+    area: [L('আয়তন', 'क्षेत्रफल', 'Area'), (x) => x.area, (x) => nf.format(x.area) + ' ' + KM(), 'ne'],
+    d: [L('জনঘনত্ব', 'जनघनत्व', 'Density'), (x) => x.d, (x) => nf.format(Math.round(x.d)) + '/' + L('বর্গ কিমি', 'वर्ग किमी', 'sq km'), 'ne'],
+    lit: [L('সাক্ষরতা', 'साक्षरता', 'Literacy'), (x) => (LIT[x.id] && LIT[x.id][3]) || null, (x) => nf2.format(LIT[x.id][3]) + '%', 'hi'],
+    sexRatio: [L('লিঙ্গ অনুপাত', 'लिंगानुपात', 'Sex ratio'), (x) => ext(x).sexRatio ?? null, (x) => nf.format(ext(x).sexRatio) + L('/১০০০ পুরুষ', '/1000 पुरुष', '/1000 males'), 'hi'],
+    urban: [L('নগরায়ণের হার', 'शहरीकरण दर', 'Urbanization'), (x) => ext(x).urban ?? null, (x) => nf2.format(ext(x).urban) + '%', 'ne'],
+    districts: [L('জেলার সংখ্যা', 'ज़िलों की संख्या', 'Districts'), (x) => ext(x).districts ?? null, (x) => nf.format(ext(x).districts), 'ne'],
+    gsdp: ['GSDP', (x) => (eco(x) && eco(x).g) || null, (x) => (eco(x).g >= 1000 ? nf2.format(eco(x).g / 1000) + L(' লক্ষ কোটি ₹', ' लाख करोड़ ₹', ' lakh crore ₹') : nf.format(eco(x).g * 100) + L(' কোটি ₹', ' करोड़ ₹', ' crore ₹')), 'hi'],
+    pc: [L('মাথাপিছু আয়', 'प्रति व्यक्ति आय', 'Per-capita income'), (x) => (eco(x) && eco(x).p24) || null, (x) => '₹' + nf.format(eco(x).p24), 'hi'],
+    mpi: [L('দারিদ্র্য সূচক (MPI)', 'ग़रीबी सूचकांक (MPI)', 'Poverty (MPI)'), (x) => MPI[x.id] ?? null, (x) => nf2.format(MPI[x.id]) + '%', 'lo'],
+    hdi: ['HDI', (x) => ext(x).hdi ?? null, (x) => nf3.format(ext(x).hdi), 'hi'],
+    lifeExp: [L('আয়ুষ্কাল', 'जीवन प्रत्याशा', 'Life expectancy'), (x) => ext(x).lifeExp ?? null, (x) => nf1.format(ext(x).lifeExp) + L(' বছর', ' वर्ष', ' yrs'), 'hi'],
+    imr: [L('শিশুমৃত্যুর হার (IMR)', 'शिशु मृत्यु दर (IMR)', 'Infant mortality (IMR)'), (x) => ext(x).imr ?? null, (x) => nf.format(ext(x).imr), 'lo'],
+    tfr: [L('প্রজনন হার (TFR)', 'प्रजनन दर (TFR)', 'Fertility rate (TFR)'), (x) => ext(x).tfr ?? null, (x) => nf1.format(ext(x).tfr), 'ne'],
+    ls: [L('লোকসভা আসন', 'लोकसभा सीटें', 'Lok Sabha seats'), (x) => x.ls ?? null, (x) => nf.format(x.ls), 'ne'],
+    vs: [L('বিধানসভা আসন', 'विधानसभा सीटें', 'Assembly seats'), (x) => x.vs || null, (x) => x.vs ? nf.format(x.vs) : noData(), 'ne'],
+    rsSeats: [L('রাজ্যসভা আসন', 'राज्यसभा सीटें', 'Rajya Sabha seats'), (x) => ext(x).rsSeats ?? null, (x) => nf.format(ext(x).rsSeats), 'ne'],
+    forestCover: [L('বনভূমি', 'वन क्षेत्र', 'Forest cover'), (x) => ext(x).forestCover ?? null, (x) => nf2.format(ext(x).forestCover) + '%', 'hi'],
+    crimeRate: [L('অপরাধের হার (NCRB)', 'अपराध दर (NCRB)', 'Crime rate (NCRB)'), (x) => ext(x).crimeRate ?? null, (x) => nf1.format(ext(x).crimeRate), 'lo']
   };
 }
+const CMP_GROUPS = () => [
+  [L('জনমিতি', 'जनसांख्यिकी', 'Demographics'), ['pop', 'area', 'd', 'lit', 'sexRatio', 'urban', 'districts']],
+  [L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy'), ['gsdp', 'pc', 'mpi']],
+  [L('স্বাস্থ্য', 'स्वास्थ्य', 'Health'), ['hdi', 'lifeExp', 'imr', 'tfr']],
+  [L('শাসন ও প্রতিনিধিত্ব', 'शासन और प्रतिनिधित्व', 'Governance'), ['ls', 'vs', 'rsSeats']],
+  [L('পরিকাঠামো ও পরিবেশ', 'बुनियादी ढांचा और पर्यावरण', 'Infrastructure & Environment'), ['forestCover', 'crimeRate']]
+];
 function vsBlock() {
   const keys = cmpKeys();
   const states = cmpList.map((id) => byId[id]).filter(Boolean);
@@ -1145,23 +1225,29 @@ function vsBlock() {
     (cmpList.length > 2 ? `<button type="button" class="vsrm" data-cmp-remove="${i}" aria-label="${L('সরান', 'हटाएँ', 'Remove')}">✕</button>` : '') +
     `</div>`).join('');
   const addBtn = cmpList.length < CMP_MAX ? `<button type="button" class="vsadd" data-cmp-add>+ ${L('রাজ্য যোগ করুন', 'राज्य जोड़ें', 'Add state')}</button>` : '';
-  const rows = Object.entries(keys).map(([k, [label, get, show]]) => {
+  const rowHtml = (k) => {
+    const [label, get, show, pol] = keys[k];
     const vals = states.map((x) => get(x));
     const numeric = vals.filter((v) => v != null);
-    const max = numeric.length > 1 ? Math.max(...numeric) : null;
+    const best = numeric.length > 1 ? (pol === 'lo' ? Math.min(...numeric) : Math.max(...numeric)) : null;
     const cells = states.map((x, i) => {
       const v = vals[i];
       const s = v != null ? show(x) : noData;
-      const hi = v != null && max != null && v === max ? ' class="vswin"' : '';
-      return `<td${hi}>${s}</td>`;
+      const cls = v != null && best != null && v === best ? (pol === 'lo' ? ' class="vswin vswin-lo"' : ' class="vswin"') : '';
+      return `<td${cls}>${s}</td>`;
     }).join('');
-    return `<tr><td>${label}</td>${cells}</tr>`;
-  }).join('');
-  const thead = `<tr><th></th>${states.map((x) => `<th>${R(x).n}</th>`).join('')}</tr>`;
+    const arrow = pol === 'hi' ? ' <span class="vsarrow vsarrow-hi" title="' + L('বেশি ভালো', 'ज़्यादा बेहतर', 'higher is better') + '">▲</span>'
+      : pol === 'lo' ? ' <span class="vsarrow vsarrow-lo" title="' + L('কম ভালো', 'कम बेहतर', 'lower is better') + '">▼</span>' : '';
+    return `<tr><td>${label}${arrow}</td>${cells}</tr>`;
+  };
+  const groupsHtml = CMP_GROUPS().map(([glabel, gkeys]) =>
+    `<tbody class="vsgroup"><tr class="vsghead"><th colspan="${states.length + 1}">${glabel}</th></tr>${gkeys.map(rowHtml).join('')}</tbody>`
+  ).join('');
+  const thead = `<tr><th></th>${states.map((x) => `<th><button type="button" class="vsstatelink" data-go="${x.id}">${R(x).n}</button></th>`).join('')}</tr>`;
   return `<h3 class="sub">${L('কয়েকটি রাজ্য পাশাপাশি তুলনা', 'कई राज्यों की आमने-सामने तुलना', 'Compare several states side by side')}</h3>` +
     `<div class="vspick">${pickers}${addBtn}</div>` +
-    `<div class="vstable-wrap"><table class="vstable"><thead>${thead}</thead><tbody>${rows}</tbody></table></div>` +
-    `<p class="hint">${L('উজ্জ্বল রঙে দেখানো সংখ্যাটি সবচেয়ে বেশি।', 'गहरे रंग में दिखाया गया आँकड़ा सबसे ज़्यादा है।', 'The highlighted figure is the highest.')}</p>`;
+    `<div class="vstable-wrap"><table class="vstable"><thead>${thead}</thead>${groupsHtml}</table></div>` +
+    `<p class="hint">${L('▲ চিহ্নিত সারিতে সবচেয়ে বেশি সংখ্যাটা, ▼ চিহ্নিত সারিতে সবচেয়ে কম সংখ্যাটা উজ্জ্বল রঙে দেখানো হয়েছে — দুটোই ভালো ফলাফলের দিক নির্দেশ করে। চিহ্নহীন সারিগুলো শুধু তথ্যগত, ভালো-মন্দ বোঝায় না। রাজ্যের নামে ক্লিক করলে সেই রাজ্যের বিস্তারিত পাতা খুলবে।', '▲ चिह्नित पंक्ति में सबसे ज़्यादा संख्या, ▼ चिह्नित पंक्ति में सबसे कम संख्या हाइलाइट की गई है — दोनों बेहतर नतीजे की दिशा दिखाते हैं। बिना चिह्न वाली पंक्तियाँ केवल जानकारी के लिए हैं, अच्छे-बुरे का संकेत नहीं देतीं। राज्य के नाम पर क्लिक करने से उस राज्य का विस्तृत पेज खुलेगा।', 'In rows marked ▲ the highest figure is highlighted; in rows marked ▼ the lowest is — both point toward the better outcome. Unmarked rows are purely informational and carry no better/worse judgement. Click a state\'s name to open its detailed page.')}</p>`;
 }
 function natCmp() {
   const keys = cmpKeys();
@@ -1174,8 +1260,11 @@ function natCmp() {
     pc: L('মাথাপিছু GSDP, ২০২৪-২৫, চলতি দামে। দেশের গড় ₹২,৩৪,৮৫৯। চার অঞ্চলের তথ্য পাওয়া যায়নি।', 'प्रति व्यक्ति GSDP, 2024-25, मौजूदा क़ीमतों पर। देश का औसत ₹2,34,859। चार क्षेत्रों के आँकड़े नहीं मिले।', 'Per-capita GSDP, 2024-25, at current prices. National average ₹2,34,859. Figures for four regions were not found.'),
     lit: L('সাক্ষরতা (৭+ বছর), PLFS ২০২৪।', 'साक्षरता (7+ वर्ष), PLFS 2024।', 'Literacy (age 7+), PLFS 2024.')
   };
+  const sortGroups = CMP_GROUPS().map(([glabel, gkeys]) =>
+    `<div class="seg-group"><span class="seg-glabel">${glabel}</span><div class="seg" role="group" aria-label="${glabel}">${gkeys.map((k) => `<button data-sort="${k}" aria-pressed="${k === cmpKey}">${keys[k][0]}</button>`).join('')}</div></div>`
+  ).join('');
   return vsBlock() + `<h3 class="sub">${L('সব রাজ্যের র‍্যাংকিং', 'सभी राज्यों की रैंकिंग', 'Ranking of all states')}</h3>` +
-    `<div class="seg" role="group" aria-label="${L('সাজানোর ধরন', 'क्रम का आधार', 'Sort by')}">${Object.entries(keys).map(([k, v]) => `<button data-sort="${k}" aria-pressed="${k === cmpKey}">${v[0]}</button>`).join('')}</div>` +
+    `<div class="seg-wrap">${sortGroups}</div>` +
     `<div class="cmp">` + list.map((x, i) => `<button class="crow" data-go="${x.id}"><span class="cr">${nf.format(i + 1)}</span><span class="cn">${R(x).n}${x.t === 'ut' ? ' <span class="badge badge-ut badge-sm">UT</span>' : ''}</span>${bar(scale(get(x)), R(x).n)}<span class="cv">${show(x)}</span></button>`).join('') + `</div>` +
     `<p class="hint">${notes[cmpKey] || L('জনসংখ্যা ও আয়তন ২০১১ আদমশুমারি অনুযায়ী।', 'जनसंख्या और क्षेत्रफल 2011 की जनगणना के अनुसार।', 'Population and area per the 2011 Census.')}${cmpKey === 'd' ? L(' জনঘনত্বের দাগ বর্গমূল স্কেলে আঁকা, নইলে দিল্লি ও চণ্ডীগড় বাকি সবাইকে ঢেকে দিত।', ' घनत्व की पट्टियाँ वर्गमूल पैमाने पर बनी हैं, वरना दिल्ली और चंडीगढ़ बाक़ी सबको ढक देते।', ' Density bars use a square-root scale; otherwise Delhi and Chandigarh would dwarf everyone else.') : ''}</p>`;
 }
@@ -1580,7 +1669,41 @@ function stCmp(x) {
   const rk = (what, key) => L(`${g} মধ্যে ${what}য় ${ord(rankIn(x, key))}`, `${g} में ${what} में ${ord(rankIn(x, key))}`, `${ord(rankIn(x, key))} ${what} ${g}`);
   return stVs(x) + `<div class="cbl"><div class="cbl-h"><span>${L('দেশের জনসংখ্যার অংশ', 'देश की जनसंख्या का हिस्सा', "Share of India's population")}</span><b>${nf2.format(popShare)}%</b></div>${bar((popShare / maxPop) * 100, 'pop')}<small>${L(`${g} মধ্যে জনসংখ্যায় ${ord(rankIn(x, 'pop'))} (মোট ${nf.format(n)}টি)`, `${g} में जनसंख्या में ${ord(rankIn(x, 'pop'))} (कुल ${nf.format(n)})`, `${ord(rankIn(x, 'pop'))} by population ${g} (of ${nf.format(n)})`)}</small></div>` +
     `<div class="cbl"><div class="cbl-h"><span>${L('দেশের আয়তনের অংশ', 'देश के क्षेत्रफल का हिस्सा', "Share of India's area")}</span><b>${nf2.format(areaShare)}%</b></div>${bar((areaShare / maxArea) * 100, 'area')}<small>${L(`${g} মধ্যে আয়তনে ${ord(rankIn(x, 'area'))}`, `${g} में क्षेत्रफल में ${ord(rankIn(x, 'area'))}`, `${ord(rankIn(x, 'area'))} by area ${g}`)}</small></div>` +
-    `<div class="cbl"><div class="cbl-h"><span>${L('জনঘনত্ব', 'जनघनत्व', 'Density')}</span><b>${nf.format(Math.round(x.d))}/${L('বর্গ কিমি', 'वर्ग किमी', 'sq km')}</b></div>${bar(Math.sqrt(x.d / Math.max(...T.map((y) => y.d))) * 100, 'density')}<small>${L(`${g} মধ্যে ঘনত্বে ${ord(rankIn(x, 'd'))}। ২০১১ সালের দেশের গড়ের (${nf.format(Math.round(NAT_DENSITY_2011))}) ${nf1.format(ratio)} গুণ`, `${g} में घनत्व में ${ord(rankIn(x, 'd'))}। 2011 के देश के औसत (${nf.format(Math.round(NAT_DENSITY_2011))}) का ${nf1.format(ratio)} गुना`, `${ord(rankIn(x, 'd'))} by density ${g}. ${nf1.format(ratio)} times the 2011 national average (${nf.format(Math.round(NAT_DENSITY_2011))})`)}</small></div>`;
+    `<div class="cbl"><div class="cbl-h"><span>${L('জনঘনত্ব', 'जनघनत्व', 'Density')}</span><b>${nf.format(Math.round(x.d))}/${L('বর্গ কিমি', 'वर्ग किमी', 'sq km')}</b></div>${bar(Math.sqrt(x.d / Math.max(...T.map((y) => y.d))) * 100, 'density')}<small>${L(`${g} মধ্যে ঘনত্বে ${ord(rankIn(x, 'd'))}। ২০১১ সালের দেশের গড়ের (${nf.format(Math.round(NAT_DENSITY_2011))}) ${nf1.format(ratio)} গুণ`, `${g} में घनत्व में ${ord(rankIn(x, 'd'))}। 2011 के देश के औसत (${nf.format(Math.round(NAT_DENSITY_2011))}) का ${nf1.format(ratio)} गुना`, `${ord(rankIn(x, 'd'))} by density ${g}. ${nf1.format(ratio)} times the 2011 national average (${nf.format(Math.round(NAT_DENSITY_2011))})`)}</small></div>` +
+    `<p class="hint">${L('আরও বিস্তারিত সূচক (স্বাস্থ্য, শাসন, পরিকাঠামো) "সূচক" ট্যাবে দেখুন।', 'और विस्तृत सूचकांक (स्वास्थ्य, शासन, बुनियादी ढांचा) "सूचकांक" टैब में देखें।', 'See the "Indices" tab for more detailed metrics (health, governance, infrastructure).')}</p>`;
+}
+function stIdx(x) {
+  const e = EXT[x.id] || {};
+  const nm = R(x).n;
+  const grp = (label, rows) => rows.length ? `<h3 class="sub">${label}</h3>${facts(rows)}` : '';
+  const demo = [];
+  if (e.sexRatio != null) demo.push(fact(L('লিঙ্গ অনুপাত', 'लिंगानुपात', 'Sex ratio'), nf.format(e.sexRatio) + L('/১০০০ পুরুষ', '/1000 पुरुष', '/1000 males'), L('আদমশুমারি ২০১১', 'जनगणना 2011', 'Census 2011')));
+  if (e.urban != null) demo.push(fact(L('নগরায়ণের হার', 'शहरीकरण दर', 'Urbanization'), nf2.format(e.urban) + '%'));
+  if (e.districts != null) demo.push(fact(L('জেলার সংখ্যা', 'ज़िलों की संख्या', 'Districts'), nf.format(e.districts)));
+  const eco = [];
+  if (MPI[x.id] != null) eco.push(fact(L('বহুমাত্রিক দারিদ্র্য সূচক (MPI)', 'बहुआयामी ग़रीबी सूचकांक (MPI)', 'Multidimensional Poverty Index (MPI)'), nf2.format(MPI[x.id]) + '%', L('NITI Aayog, ২০২৩ সংস্করণ (NFHS-5 ভিত্তিক)। কম মানেই ভালো।', 'NITI Aayog, 2023 संस्करण (NFHS-5 आधारित)। कम मूल्य बेहतर है।', 'NITI Aayog, 2023 edition (based on NFHS-5). A lower value is better.')));
+  const health = [];
+  if (e.hdi != null) health.push(fact('HDI', nf3.format(e.hdi), L('বেশি মানেই ভালো (০ থেকে ১ স্কেল)', 'अधिक मूल्य बेहतर है (0 से 1 के पैमाने पर)', 'A higher value is better (scale of 0 to 1)')));
+  if (e.lifeExp != null) health.push(fact(L('আয়ুষ্কাল', 'जीवन प्रत्याशा', 'Life expectancy'), nf1.format(e.lifeExp) + L(' বছর', ' वर्ष', ' years')));
+  if (e.imr != null) health.push(fact(L('শিশুমৃত্যুর হার (IMR)', 'शिशु मृत्यु दर (IMR)', 'Infant mortality rate (IMR)'), nf.format(e.imr), L('প্রতি হাজার জীবিত জন্মে, কম মানেই ভালো', 'प्रति हज़ार जीवित जन्म पर, कम मूल्य बेहतर है', 'Per 1,000 live births; a lower value is better')));
+  if (e.tfr != null) health.push(fact(L('প্রজনন হার (TFR)', 'प्रजनन दर (TFR)', 'Total fertility rate (TFR)'), nf1.format(e.tfr), L('প্রতিস্থাপন স্তর প্রায় ২.১', 'प्रतिस्थापन स्तर लगभग 2.1', 'Replacement level is about 2.1')));
+  const gov = [];
+  if (e.governor) gov.push(fact(L('রাজ্যপাল', 'राज्यपाल', 'Governor'), e.governor));
+  gov.push(fact(L('লোকসভা আসন', 'लोकसभा सीटें', 'Lok Sabha seats'), nf.format(x.ls)));
+  gov.push(fact(L('বিধানসভা আসন', 'विधानसभा सीटें', 'Assembly seats'), x.vs ? nf.format(x.vs) : L('বিধানসভা নেই', 'विधानसभा नहीं', 'No assembly')));
+  if (e.rsSeats != null) gov.push(fact(L('রাজ্যসভা আসন', 'राज्यसभा सीटें', 'Rajya Sabha seats'), nf.format(e.rsSeats)));
+  const infra = [];
+  if (e.forestCover != null) infra.push(fact(L('বনভূমি', 'वन क्षेत्र', 'Forest cover'), nf2.format(e.forestCover) + L('% (মোট আয়তনের)', '% (कुल क्षेत्रफल का)', '% of total area'), L('ISFR ২০২৩', 'ISFR 2023', 'ISFR 2023')));
+  if (e.crimeRate != null) infra.push(fact(L('অপরাধের হার', 'अपराध दर', 'Crime rate'), nf1.format(e.crimeRate), L('প্রতি লক্ষ জনসংখ্যায়, NCRB। কম মানেই ভালো', 'प्रति लाख जनसंख्या पर, NCRB। कम मूल्य बेहतर है', 'Per lakh population, NCRB. A lower value is better')));
+  const out = grp(L('জনমিতি', 'जनसांख्यिकी', 'Demographics'), demo) + grp(L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy'), eco) + grp(L('স্বাস্থ্য ও সামাজিক সূচক', 'स्वास्थ्य और सामाजिक सूचकांक', 'Health & Social Index'), health) + grp(L('শাসন ও প্রতিনিধিত্ব', 'शासन और प्रतिनिधित्व', 'Governance & Representation'), gov) + grp(L('পরিকাঠামো ও পরিবেশ', 'बुनियादी ढांचा और पर्यावरण', 'Infrastructure & Environment'), infra);
+  const missing = [];
+  if (e.sexRatio == null) missing.push(L('লিঙ্গ অনুপাত', 'लिंगानुपात', 'sex ratio'));
+  if (e.hdi == null) missing.push('HDI');
+  if (MPI[x.id] == null) missing.push('MPI');
+  if (!e.governor) missing.push(L('রাজ্যপাল', 'राज्यपाल', 'Governor'));
+  const missNote = missing.length ? `<p class="hint">${L(`${nm}-এর জন্য এই তথ্যগুলো নির্ভরযোগ্য সূত্রে যাচাই করা যায়নি, তাই দেখানো হয়নি: `, `${nm} के लिए ये आँकड़े किसी भरोसेमंद स्रोत से सत्यापित नहीं हो सके, इसलिए नहीं दिखाए गए: `, `These could not be verified from a reliable source for ${nm}, so they are not shown: `)}${missing.join(L(', ', ', ', ', '))}।</p>` : '';
+  return (out || `<p class="hint">${L(`${nm}-এর আলাদা সূচক তথ্য আমি পাইনি।`, `${nm} के अलग सूचकांक आँकड़े नहीं मिले।`, `I did not find separate index data for ${nm}.`)}</p>`) + missNote +
+    `<p class="hint">${L('সূত্র: আদমশুমারি, RBI হ্যান্ডবুক অফ স্ট্যাটিস্টিক্স, NITI Aayog, NFHS-5, ISFR ও নির্বাচন কমিশন। বেকারত্বের হার, ঋণ-GSDP অনুপাত, জাতীয় সড়কের দৈর্ঘ্য ও স্থাপিত বিদ্যুৎক্ষমতা — এই চারটি সূচকের জন্য সব রাজ্যের নির্ভরযোগ্য, হালনাগাদ সরকারি তথ্য আমি যাচাই করতে পারিনি, তাই ভুল তথ্য দেওয়ার বদলে এই সংস্করণে বাদ রাখা হলো।', 'स्रोत: जनगणना, RBI हैंडबुक ऑफ़ स्टैटिस्टिक्स, NITI Aayog, NFHS-5, ISFR और चुनाव आयोग। बेरोज़गारी दर, ऋण-GSDP अनुपात, राष्ट्रीय राजमार्ग की लंबाई और स्थापित बिजली क्षमता — इन चार सूचकांकों के लिए सभी राज्यों के भरोसेमंद, अद्यतन सरकारी आँकड़े सत्यापित नहीं हो सके, इसलिए ग़लत आँकड़े देने के बजाय इस संस्करण में इन्हें शामिल नहीं किया गया।', 'Source: Census, RBI Handbook of Statistics, NITI Aayog, NFHS-5, ISFR and the Election Commission. For four metrics — unemployment rate, debt-to-GSDP ratio, national highway length and installed power capacity — reliable, up-to-date official data could not be verified for all states, so rather than show inaccurate figures, they have been left out of this version.')}</p>`;
 }
 
 const CAD = {
@@ -1692,7 +1815,7 @@ function render() {
   $('#back').hidden = nat;
   $('#pick').value = cur;
   $('#tabs').innerHTML = tabs.map(([k, l]) => `<button role="tab" id="tab-${k}" data-tab="${k}" aria-selected="${k === tab}" tabindex="${k === tab ? 0 : -1}">${l}</button>`).join('');
-  const bodies = nat ? { gen: natGen, pol: natPol, cab: natCab, eco: natEco, mkt: natMkt, idx: natIdx, air: natAir, saf: natSaf, crime: natCrime, rgt: natRgt, sym: natSym, hist: natHist, trv: natTrv, spt: natSpt, quiz: natQuiz, cmp: natCmp } : { gen: () => stGen(x), pol: () => stPol(x), eco: () => stEco(x), edu: () => stEdu(x), cul: () => stCul(x), saf: () => stSaf(x), trv: () => stTrv(x), cmp: () => stCmp(x) };
+  const bodies = nat ? { gen: natGen, pol: natPol, cab: natCab, eco: natEco, mkt: natMkt, idx: natIdx, air: natAir, saf: natSaf, crime: natCrime, rgt: natRgt, sym: natSym, hist: natHist, trv: natTrv, spt: natSpt, quiz: natQuiz, cmp: natCmp } : { gen: () => stGen(x), idx: () => stIdx(x), pol: () => stPol(x), eco: () => stEco(x), edu: () => stEdu(x), cul: () => stCul(x), saf: () => stSaf(x), trv: () => stTrv(x), cmp: () => stCmp(x) };
   const bd = $('#body');
   bd.setAttribute('aria-labelledby', 'tab-' + tab);
   bd.innerHTML = bodies[tab]() + `<p class="hint upd"><span class="badge badge-fresh">${L('হালনাগাদ', 'अद्यतन', 'Updated')}</span>${L('এই বিভাগ শেষ যাচাই: ৬ নভেম্বর ২০২৬। ', 'यह खंड आख़िरी बार जाँचा गया: 6 नवंबर 2026। ', 'This section last checked: 6 November 2026. ')}${CAD[tab] ? L(...CAD[tab]) : ''}</p>`;
