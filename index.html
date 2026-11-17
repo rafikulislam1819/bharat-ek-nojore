@@ -28,6 +28,7 @@
   --accent: #C2410C;
   --accent-ink: #FFFFFF;
   --positive: #0F766E;
+  --card-shadow: 0 4px 20px rgba(22, 30, 46, 0.05);
   --maphl: #C2410C;
   --sea: #CFE3F2;
   --zn: #BCD3E8;
@@ -42,12 +43,14 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #0B1120; --surface: #131C31; --fg: #F1F5F9; --muted: #94A3B8; --line: #24324A; --accent: #FB923C; --accent-ink: #1A0E05; --positive: #2DD4BF;
+    --card-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
     --zn: #26455E; --zw: #55472A; --zc: #2C4B2F; --ze: #473554; --zne: #1E504B; --zs: #5A3329;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0B1120; --surface: #131C31; --fg: #F1F5F9; --muted: #94A3B8; --line: #24324A; --accent: #FB923C; --accent-ink: #1A0E05; --positive: #2DD4BF;
+  --card-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
   --zn: #26455E; --zw: #55472A; --zc: #2C4B2F; --ze: #473554; --zne: #1E504B; --zs: #5A3329;
   color-scheme: dark;
 }
@@ -91,7 +94,7 @@ select { flex: 1; min-width: 0; font: inherit; padding: 8px 10px; background: va
 .zhint { font-size: 12.5px; color: var(--muted); }
 
 .mapwrap { position: relative; }
-.mapvp { background: #F1F4F7; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 20px rgba(17, 32, 44, 0.05); }
+.mapvp { background: #F1F4F7; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: var(--card-shadow); }
 .mapvp.zoomed { overflow: auto; max-height: min(78vh, 780px); overscroll-behavior: contain; }
 .stage { width: 100%; }
 #map { display: block; width: 100%; height: auto; user-select: none; -webkit-user-select: none; }
@@ -99,16 +102,6 @@ select { flex: 1; min-width: 0; font: inherit; padding: 8px 10px; background: va
 
 .reg { fill: var(--maphl); fill-opacity: 0; stroke: none; cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent; }
 .reg:hover { fill-opacity: .3; }
-.mapquiz-wrap { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--sea); margin: 10px 0; }
-.mapquiz-svg { display: block; width: 100%; height: auto; }
-.mqreg { fill: var(--zn); stroke: var(--surface); stroke-width: 1; cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent; transition: fill .15s; }
-.mqreg:hover { fill: var(--accent); fill-opacity: .55; }
-.mqreg.mqhot { fill: var(--zs); stroke: var(--surface); stroke-width: 1.5; }
-.mqreg.mqcorrect { fill: var(--positive) !important; }
-.mqreg.mqwrong { fill: #DC2626 !important; }
-.mq-feedback { font-weight: 700; margin: 8px 0; }
-.mq-feedback.mq-ok { color: var(--positive); }
-.mq-feedback.mq-no { color: #DC2626; }
 .reg:focus-visible { stroke: #000; stroke-width: 3px; vector-effect: non-scaling-stroke; }
 .hot { fill-opacity: .18; stroke: var(--maphl); stroke-width: 2px; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
 .hot:hover { fill-opacity: .42; }
@@ -120,7 +113,7 @@ select { flex: 1; min-width: 0; font: inherit; padding: 8px 10px; background: va
 .chip:hover { background: var(--fg); color: var(--bg); }
 .maphint { font-size: 12.5px; color: var(--muted); margin: 10px 0 0; max-width: 60ch; }
 
-.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px max(16px, 3vw) 24px; min-width: 0; scroll-margin-top: 12px; box-shadow: 0 4px 20px rgba(17, 32, 44, 0.05); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px max(16px, 3vw) 24px; min-width: 0; scroll-margin-top: 12px; box-shadow: var(--card-shadow); }
 .phead { display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between; gap: 8px 16px; }
 .phead h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 5vw, 2.25rem); line-height: 1.2; margin: 0; text-wrap: balance; }
 .phead p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
@@ -206,15 +199,12 @@ select { flex: 1; min-width: 0; font: inherit; padding: 8px 10px; background: va
 html[lang="hi"] { --font-display: 'Noto Serif Devanagari', 'Kohinoor Devanagari', 'Nirmala UI', serif; --font-body: 'Hind', 'Kohinoor Devanagari', 'Nirmala UI', system-ui, sans-serif; }
 html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hind', system-ui, -apple-system, 'Segoe UI', sans-serif; }
 .topr { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-.toprow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
-.homebtn, .themebtn { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border: 1px solid var(--fg); border-radius: 8px; background: var(--surface); color: var(--fg); cursor: pointer; font-size: 17px; line-height: 1; flex: 0 0 auto; }
-.homebtn:hover, .themebtn:hover { background: var(--bg); }
 .langs { display: inline-flex; border: 1px solid var(--fg); border-radius: 8px; overflow: hidden; }
 .langs button { background: transparent; border: 0; padding: 6px 14px; cursor: pointer; font-size: 15px; font-family: var(--font-body); }
 .langs button + button { border-left: 1px solid var(--fg); }
 .langs button[aria-pressed="true"] { background: var(--fg); color: var(--bg); font-weight: 600; }
 .langs button:not([aria-pressed="true"]):hover { background: var(--bg); }
-@media (max-width: 560px) { .topr { align-items: flex-start; } .toprow { justify-content: flex-start; } }
+@media (max-width: 560px) { .topr { align-items: flex-start; } }
 
 .choropick { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-bottom: 8px; }
 .choropick label { font-size: 13px; color: var(--muted); }
@@ -254,31 +244,88 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
 .rgt-card p { margin: 0 0 6px; line-height: 1.55; }
 .rgt-card small { display: block; color: var(--muted); font-size: 13px; }
 
-.vspick { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
-.vspick select { flex: 1; min-width: 120px; font: inherit; padding: 8px 10px; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; }
-.vspick-item { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 150px; }
-.vspick-item select { flex: 1; }
-.vsrm { flex: 0 0 auto; width: 30px; height: 30px; line-height: 1; border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 6px; cursor: pointer; font-size: 14px; }
+.vspick { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.vspick select { flex: 1; min-width: 0; font: inherit; font-size: 14px; padding: 8px 10px; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; font-weight: 600; cursor: pointer; }
+.vspick select:focus { border-color: var(--accent); outline: none; }
+.vspick-item { display: flex; align-items: center; gap: 5px; flex: 1 1 140px; min-width: 0; }
+.vspick-item select { flex: 1; min-width: 0; }
+.vsrm { flex: 0 0 auto; width: 28px; height: 28px; line-height: 1; border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 6px; cursor: pointer; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; }
 .vsrm:hover { color: var(--fg); border-color: var(--accent); }
-.vsadd { flex: 0 0 auto; padding: 8px 14px; border: 1px dashed var(--accent); background: transparent; color: var(--accent); border-radius: 6px; cursor: pointer; font: inherit; font-weight: 600; white-space: nowrap; }
-.vsadd:hover { background: var(--accent); color: #fff; }
+.vsadd { flex: 0 0 auto; padding: 7px 13px; border: 1.5px dashed var(--accent); background: color-mix(in srgb, var(--accent) 5%, transparent); color: var(--accent); border-radius: 8px; cursor: pointer; font: inherit; font-size: 13.5px; font-weight: 600; white-space: nowrap; transition: background .15s, color .15s; }
+.vsadd:hover { background: var(--accent); color: var(--accent-ink); }
 .vsvs { font-size: 13px; color: var(--muted); font-weight: 600; }
-.vstable-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-height: 70vh; overflow-y: auto; }
-.vstable { width: 100%; border-collapse: collapse; margin-bottom: 4px; font-size: 14px; }
-.vstable th, .vstable td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
-.vstable th { color: var(--muted); font-weight: 600; font-size: 13px; }
-.vstable thead th { position: sticky; top: 0; z-index: 2; background: var(--surface); box-shadow: 0 1px 0 var(--line); }
-.vstable td:first-child, .vstable th:first-child { color: var(--muted); font-size: 13px; white-space: nowrap; position: sticky; left: 0; background: var(--bg); z-index: 1; }
-.vstable thead th:first-child { z-index: 3; background: var(--surface); }
-.vstable tbody.vsgroup tr:not(.vsghead):nth-of-type(even) { background: color-mix(in srgb, var(--surface) 50%, var(--bg)); }
-.vstable tbody.vsgroup tr:not(.vsghead):nth-of-type(even) td:first-child { background: color-mix(in srgb, var(--surface) 50%, var(--bg)); }
-.vstable td.vswin { font-weight: 700; color: var(--accent); }
-.vstable td.vswin-lo { color: var(--positive); }
-.vstable tr.vsghead th { background: var(--surface); color: var(--fg); font-size: 12.5px; text-transform: uppercase; letter-spacing: .03em; padding-top: 14px; position: static; }
-.vstable tbody.vsgroup:first-of-type tr.vsghead th { padding-top: 8px; }
-.vsarrow { font-size: 10px; opacity: .75; }
+
+.vstable-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: 0 2px 10px rgba(22, 30, 46, 0.03); }
+.vstable { width: 100%; border-collapse: collapse; margin-bottom: 0; font-size: 14px; }
+.vstable[data-cols="2"] { table-layout: fixed; width: 100%; }
+.vstable th, .vstable td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; background: var(--surface); line-height: 1.35; }
+.vstable thead th { color: var(--fg); font-weight: 700; font-size: 14px; position: sticky; top: 0; z-index: 3; background: var(--surface); border-bottom: 2px solid var(--fg); padding-block: 11px; }
+.vstable td:first-child, .vstable th:first-child { color: var(--muted); font-size: 13px; font-weight: 500; position: sticky; left: 0; background: var(--surface); z-index: 2; border-right: 1px solid var(--line); }
+.vstable thead th:first-child { z-index: 4; }
+.vstable[data-cols="2"] th:first-child, .vstable[data-cols="2"] td:first-child { width: 36%; }
+.vstable[data-cols="2"] th:not(:first-child), .vstable[data-cols="2"] td:not(:first-child) { width: 32%; }
+.vstable:not([data-cols="2"]) td:first-child, .vstable:not([data-cols="2"]) th:first-child { min-width: 118px; max-width: 145px; box-shadow: 2px 0 6px rgba(0, 0, 0, 0.04); }
+.vstable:not([data-cols="2"]) th:not(:first-child), .vstable:not([data-cols="2"]) td:not(:first-child) { min-width: 115px; }
+
+.vstable tbody.vsgroup tr:not(.vsghead):nth-child(even) td { background: color-mix(in srgb, var(--fg) 2.5%, var(--surface)); }
+.vstable tbody.vsgroup tr:not(.vsghead):hover td { background: color-mix(in srgb, var(--accent) 4%, var(--surface)); }
+.vstable td.vswin { font-weight: 700; color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, var(--surface)) !important; }
+.vstable td.vswin-lo { font-weight: 700; color: var(--positive); background: color-mix(in srgb, var(--positive) 9%, var(--surface)) !important; }
+
+.vstable tr.vsghead th { background: var(--bg); color: var(--fg); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding-top: 11px; padding-bottom: 7px; border-bottom: 1px solid var(--line); }
+.vstable tr.vsghead th.vsg-sticky { position: sticky; left: 0; z-index: 2; border-right: 0; white-space: nowrap; }
+.vstable tr.vsghead th.vsg-fill { position: static; }
+.vstable tbody.vsgroup:first-of-type tr.vsghead th { padding-top: 9px; }
+.vsarrow { font-size: 10px; opacity: .9; display: inline-block; margin-left: 2px; }
 .vsarrow-hi { color: var(--accent); }
 .vsarrow-lo { color: var(--positive); }
+.vsstatelink { font: inherit; font-weight: 700; color: var(--fg); background: transparent; border: none; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; text-align: left; line-height: 1.25; }
+.vsstatelink:hover { color: var(--accent); }
+
+/* Ranking filter pills - clean wrapped pills on all screen sizes */
+.seg-wrap { display: flex; flex-direction: column; gap: 10px; margin: 12px 0 12px; }
+.seg-group { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.seg-glabel { font-size: 12.5px; font-weight: 700; color: var(--muted); min-width: 110px; }
+.seg-group .seg { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; border: 0; border-radius: 0; overflow: visible; flex: 1; }
+.seg-group .seg button { background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; }
+.seg-group .seg button + button { border-left: 1px solid var(--line); }
+.seg-group .seg button:hover { border-color: var(--accent); color: var(--accent); }
+.seg-group .seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); font-weight: 600; }
+
+@media (max-width: 640px) {
+  .vspick { gap: 6px; }
+  .vspick-item { flex: 1 1 calc(50% - 4px); }
+  .vspick select { font-size: 13px; padding: 7px 8px; }
+  .vsadd { width: 100%; text-align: center; padding: 7px 10px; font-size: 13px; }
+  .vstable th, .vstable td { padding: 8px 6px; font-size: 12.5px; word-break: break-word; }
+  .vstable thead th { font-size: 13px; padding-block: 9px; }
+  .vstable td:first-child, .vstable th:first-child { font-size: 12px; padding-left: 8px; padding-right: 5px; }
+  .vstable[data-cols="2"] th:first-child, .vstable[data-cols="2"] td:first-child { width: 35%; }
+  .vstable[data-cols="2"] th:not(:first-child), .vstable[data-cols="2"] td:not(:first-child) { width: 32.5%; }
+  .vstable:not([data-cols="2"]) td:first-child, .vstable:not([data-cols="2"]) th:first-child { min-width: 98px; max-width: 112px; }
+  .vstable:not([data-cols="2"]) th:not(:first-child), .vstable:not([data-cols="2"]) td:not(:first-child) { min-width: 96px; }
+  .vstable tr.vsghead th { font-size: 11.5px; padding-left: 8px; }
+  .seg-group { flex-direction: column; gap: 5px; }
+  .seg-glabel { min-width: 0; }
+  .seg-group .seg button { padding: 4px 10px; font-size: 12.5px; }
+}
+.top-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.nav-pill { background: var(--surface); color: var(--fg); border: 1px solid var(--fg); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; line-height: 1.3; transition: background .15s, color .15s, border-color .15s; }
+.nav-pill:hover { background: var(--fg); color: var(--bg); }
+.home-pill.is-away { border-color: var(--accent); color: var(--accent); }
+.home-pill.is-away:hover { background: var(--accent); color: var(--accent-ink); }
+.theme-pill { padding: 6px 10px; font-size: 15px; }
+.sharebtn.dl:hover { background: var(--positive); border-color: var(--positive); color: #fff; }
+.mapquiz-box { background: var(--bg); border: 1.5px solid var(--accent); border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; }
+.mapquiz-prompt { font-size: 17px; font-weight: 700; margin: 4px 0 10px; color: var(--fg); }
+.mapquiz-fb { font-size: 14.5px; font-weight: 600; padding: 8px 12px; border-radius: 8px; margin: 10px 0; }
+.mapquiz-fb.ok { background: rgba(15, 118, 110, 0.14); color: var(--positive); border: 1px solid var(--positive); }
+.mapquiz-fb.err { background: rgba(194, 65, 12, 0.14); color: var(--accent); border: 1px solid var(--accent); }
+.mapquiz-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.mapquiz-tomap { background: var(--surface); border: 1px solid var(--fg); border-radius: 6px; padding: 8px 14px; cursor: pointer; font-weight: 600; }
+.mapquiz-tomap:hover { background: var(--fg); color: var(--bg); }
+@media (min-width: 900px) { .mapquiz-tomap { display: none; } }
+
 .vsstatelink { font: inherit; font-weight: 600; color: var(--fg); background: transparent; border: none; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .vsstatelink:hover { color: var(--accent); }
 .seg-wrap { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 8px; }
@@ -307,7 +354,6 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
 .sharebtn.wa:hover { background: #25D366; border-color: #25D366; color: #08240F; }
 .sharebtn.fb:hover { background: #1877F2; border-color: #1877F2; color: #fff; }
 .sharebtn.cp:hover { background: var(--fg); color: var(--bg); }
-.sharebtn.card:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .sharebtn.copied { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .vsbox { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
 
@@ -379,9 +425,9 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
       <p id="hp"></p>
     </div>
     <div class="topr">
-      <div class="toprow">
-        <button type="button" class="homebtn" id="homeBtn" aria-label="Home"></button>
-        <button type="button" class="themebtn" id="themeBtn" aria-label="Theme"></button>
+      <div class="top-controls">
+        <button type="button" id="homeBtn" class="nav-pill home-pill"></button>
+        <button type="button" id="themeBtn" class="nav-pill theme-pill" aria-label=""></button>
         <div class="langs" id="langs" role="group" aria-label="Language / ভাষা / भाषा">
           <button type="button" data-lang="bn" lang="bn">বাংলা</button><button type="button" data-lang="hi" lang="hi">हिन्दी</button><button type="button" data-lang="en" lang="en">English</button>
         </div>
@@ -464,10 +510,10 @@ html[lang="en"] { --font-display: 'Noto Serif', Georgia, serif; --font-body: 'Hi
           <button id="tomap" type="button" class="tomap"></button>
           <button id="back" data-go="india" hidden></button>
           <div class="sharebtns">
+            <button type="button" id="shareCard" class="sharebtn dl" aria-label=""></button>
             <button type="button" id="shareWa" class="sharebtn wa" aria-label="WhatsApp">WhatsApp</button>
             <button type="button" id="shareFb" class="sharebtn fb" aria-label="Facebook">Facebook</button>
             <button type="button" id="shareCp" class="sharebtn cp" aria-label=""></button>
-            <button type="button" id="shareCard" class="sharebtn card" aria-label=""></button>
           </div>
         </div>
       </div>
@@ -819,7 +865,7 @@ const byId = Object.fromEntries(T.map((x) => [x.id, x]));
 let cur = 'india', tab = 'gen', cmpKey = 'pop';
 let cmpList = ['mh', 'wb'];
 const CMP_MAX = 6;
-let cabLive = null;
+let cabLive = null, mktLive = null;
 
 const fact = (l, v, s) => `<div class="fact"><dt>${l}</dt><dd>${v}${s ? `<small>${s}</small>` : ''}</dd></div>`;
 const facts = (rows) => `<dl class="facts">${rows.join('')}</dl>`;
@@ -869,7 +915,7 @@ function applyStatic() {
     'नक़्शे पर किसी राज्य या क्षेत्र को टैप करें। राजनीति, यात्रा और तुलना की जानकारी एक जगह मिलेगी। पूरे देश की अर्थव्यवस्था, सूचकांक और खेल भी हैं।',
     'Tap a state or territory on the map. Politics, travel and comparisons in one place, plus national economy, indices and sports.');
   const today = new Intl.DateTimeFormat(LOC[lang], { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date());
-  $('#asof').textContent = L('তথ্য সর্বশেষ হালনাগাদ: ৬ নভেম্বর ২০২৬', 'डेटा आख़िरी बार अपडेट: 6 नवंबर 2026', 'Data last updated: 6 November 2026') + ' · ' + L('আজ: ', 'आज: ', 'Today: ') + today;
+  $('#asof').textContent = L('তথ্য সর্বশেষ হালনাগাদ: ১৭ নভেম্বর ২০২৬', 'डेटा आख़िरी बार अपडेट: 17 नवंबर 2026', 'Data last updated: 17 November 2026') + ' · ' + L('আজ: ', 'आज: ', 'Today: ') + today;
   $('#lblchoro').textContent = L('মানচিত্রে রং:', 'नक़्शे पर रंग:', 'Colour the map by:');
   $('#lblpick').textContent = L('তালিকা থেকে বাছুন', 'सूची से चुनें', 'Pick from list');
   $('#lblsearch').textContent = L('খুঁজুন', 'खोजें', 'Search');
@@ -897,35 +943,12 @@ function applyStatic() {
   $('#foot3').innerHTML = L('মানচিত্র: "Map of India - states and union territories marked", Rajeshodayanchal (মালয়ালম উইকিপিডিয়া), উইকিমিডিয়া কমন্স, ', 'नक़्शा: "Map of India - states and union territories marked", Rajeshodayanchal (मलयालम विकिपीडिया), विकिमीडिया कॉमन्स, ', 'Map: "Map of India - states and union territories marked" by Rajeshodayanchal (Malayalam Wikipedia), Wikimedia Commons, ') +
     '<a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>' +
     L('। এখানে শিরোনাম মুছে ও ক্লিকযোগ্য এলাকা যোগ করে পরিবর্তন করা হয়েছে। পরিবর্তিত মানচিত্র একই লাইসেন্সে ব্যবহারযোগ্য।', '। यहाँ शीर्षक हटाकर और क्लिक-योग्य क्षेत्र जोड़कर बदलाव किया गया है। बदला हुआ नक़्शा उसी लाइसेंस के तहत उपयोग-योग्य है।', '. Modified here: title removed and clickable areas added. The modified map may be reused under the same licence.');
+  $('#homeBtn').textContent = L('🏠 হোম', '🏠 होम', '🏠 Home');
+  $('#homeBtn').setAttribute('aria-label', L('হোম পেজে ফিরে যান', 'होम पेज पर वापस जाएँ', 'Return to Home'));
+  updateThemeBtn();
   document.querySelectorAll('#langs button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
-  const homeLbl = L('🏠 হোম', '🏠 होम', '🏠 Home');
-  $('#homeBtn').textContent = '🏠';
-  $('#homeBtn').setAttribute('aria-label', homeLbl.replace('🏠 ', ''));
-  $('#homeBtn').title = homeLbl;
-  paintThemeBtn();
   renderTotd();
   setupShare();
-}
-function paintThemeBtn() {
-  const dark = curTheme() === 'dark';
-  const b = $('#themeBtn');
-  if (!b) return;
-  b.textContent = dark ? '☀️' : '🌙';
-  const lbl = dark ? L('উজ্জ্বল থিম', 'उजला थीम', 'Light theme') : L('গাঢ় থিম', 'गहरा थीम', 'Dark theme');
-  b.setAttribute('aria-label', lbl);
-  b.title = lbl;
-}
-function curTheme() {
-  const t = document.documentElement.dataset.theme;
-  if (t === 'dark' || t === 'light') return t;
-  return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
-function goHome() {
-  tab = 'gen';
-  try { history.replaceState(null, '', location.pathname + location.search); } catch (_) {}
-  setCur('india', false);
-  setZoom(1);
-  window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
 }
 
 
@@ -982,8 +1005,9 @@ function focusOn(id) {
 function highlight() {
   const g = $('#hl');
   g.innerHTML = '';
+  const targetHl = (cur === 'india' && tab === 'quiz' && quizMode === 'map' && mapQuizHighlight) ? mapQuizHighlight : cur;
   document.querySelectorAll('.reg').forEach((t) => {
-    const on = t.dataset.go === cur;
+    const on = t.dataset.go === targetHl;
     t.setAttribute('aria-pressed', String(on));
     if (!on) return;
     const c = t.cloneNode(false);
@@ -1139,10 +1163,16 @@ const natEcoFacts = () => facts([
   fact(L('মুদ্রা', 'मुद्रा', 'Currency'), L('ভারতীয় রুপি (₹)', 'भारतीय रुपया (₹)', 'Indian rupee (₹)'), L('২০২৬ সালে রুপির দাম পড়ায় GDP-র ডলার-মান কমে জাপান ও যুক্তরাজ্য ভারতের আগে উঠে গেছে', '2026 में रुपये की गिरावट से GDP का डॉलर-मूल्य घटा और जापान व ब्रिटेन भारत से आगे निकल गए', "The rupee's fall in 2026 cut the dollar value of GDP, putting Japan and the UK ahead of India"))
 ]);
 function rupeeBlock() {
-  const base = USDINR[0][1], max = USDINR[2][1];
+  const rates = USDINR.map((x) => [...x]);
   const lab = [['২০২৪ (গড়)', '2024 (औसत)', '2024 (average)'], ['২০২৫ (গড়)', '2025 (औसत)', '2025 (average)'], ['মার্চ ২০২৬ (সর্বকালের সর্বোচ্চ)', 'मार्च 2026 (अब तक का सर्वोच्च)', 'March 2026 (all-time high)'], ['৩০ অক্টোবর ২০২৬', '30 अक्टूबर 2026', '30 October 2026']];
-  const rows = USDINR.map(([, v], i) => { const l = L(...lab[i]); return `<div class="cbl"><div class="cbl-h"><span>${l}</span><b>$1 = ₹${nf2.format(v)}</b></div>${bar((v / max) * 100, l)}</div>`; }).join('');
-  const now = USDINR[3][1], lost = (1 - base / now) * 100;
+  if (mktLive && mktLive.usdinr) {
+    rates[3][1] = +mktLive.usdinr;
+    const dt = mktLive.asOf ? (typeof mktLive.asOf === 'object' ? [mktLive.asOf.bn, mktLive.asOf.hi, mktLive.asOf.en] : [mktLive.asOf, mktLive.asOf, mktLive.asOf]) : ['১৭ নভেম্বর ২০২৬', '17 नवंबर 2026', '17 November 2026'];
+    lab[3] = dt;
+  }
+  const base = rates[0][1], max = Math.max(rates[2][1], rates[3][1]);
+  const rows = rates.map(([, v], i) => { const l = L(...lab[i]); return `<div class="cbl"><div class="cbl-h"><span>${l}</span><b>$1 = ₹${nf2.format(v)}</b></div>${bar((v / max) * 100, l)}</div>`; }).join('');
+  const now = rates[3][1], lost = (1 - base / now) * 100;
   return `<h3 class="sub">${L('ডলারের তুলনায় রুপি', 'डॉलर के मुक़ाबले रुपया', 'Rupee against the dollar')}</h3>` + rows +
     `<dl class="facts">` + fact(L('২০২৪ থেকে এ পর্যন্ত', '2024 से अब तक', 'Since 2024'), L(`রুপি ডলারের তুলনায় প্রায় ${nf1.format(lost)}% দুর্বল`, `रुपया डॉलर के मुक़ाबले लगभग ${nf1.format(lost)}% कमज़ोर`, `The rupee is about ${nf1.format(lost)}% weaker against the dollar`), L(`২০২৪ সালের গড় ₹${nf2.format(base)} থেকে ₹${nf2.format(now)}। অর্থাৎ ১ ডলার কিনতে এখন ${nf1.format(now - base)} টাকা বেশি লাগে`, `2024 के औसत ₹${nf2.format(base)} से ₹${nf2.format(now)}। यानी 1 डॉलर ख़रीदने में अब ${nf1.format(now - base)} रुपये ज़्यादा लगते हैं`, `From the 2024 average of ₹${nf2.format(base)} to ₹${nf2.format(now)}. Buying 1 dollar now costs ₹${nf1.format(now - base)} more`)) +
     fact(L('১ টাকা = ', '1 रुपया = ', '₹1 = '), '$' + (1 / now).toFixed(4), L(`৩০ অক্টোবর ২০২৬-এর দরে (১ ÷ ${nf2.format(now)})`, `30 अक्टूबर 2026 की दर पर (1 ÷ ${nf2.format(now)})`, `At the 30 October 2026 rate (1 ÷ ${nf2.format(now)})`)) +
@@ -1153,13 +1183,16 @@ function rupeeBlock() {
 const GOLD = [['1 Oct', 150350], ['8 Oct', 149480], ['15 Oct', 147830], ['22 Oct', 144420], ['28 Oct', 144290]];
 const SILV = [['1 Oct', 225940], ['8 Oct', 221100], ['15 Oct', 210820], ['22 Oct', 203650], ['28 Oct', 196060]];
 function metalBlock() {
+  const g24 = (mktLive && mktLive.gold24) ? +mktLive.gold24 : 144290;
+  const g22 = (mktLive && mktLive.gold22Delhi) ? +mktLive.gold22Delhi : 132100;
+  const slv = (mktLive && mktLive.silver) ? +mktLive.silver : 196060;
   const mon = (d) => { const [n, m] = d.split(' '); return L(`${nf.format(+n)} অক্টোবর`, `${nf.format(+n)} अक्टूबर`, `${n} Oct`); };
   const series = (arr, title) => `<div class="cbl"><div class="cbl-h"><b>${title}</b></div>` + arr.map(([d, v]) => `<div class="cbl-h"><span>${mon(d)}</span><span>₹${nf.format(v)}</span></div>${bar((v / arr[0][1]) * 100, mon(d))}`).join('') + '</div>';
   return `<h3 class="sub">${L('সোনা ও রুপোর দাম', 'सोने और चाँदी के दाम', 'Gold and silver prices')}</h3>` +
     `<dl class="facts">` +
-    fact(L('সোনা (২৪ ক্যারেট)', 'सोना (24 कैरेट)', 'Gold (24 carat)'), L(`১০ গ্রাম ₹${nf.format(144290)}`, `10 ग्राम ₹${nf.format(144290)}`, `₹${nf.format(144290)} per 10 g`), L(`গ্রাম প্রতি ₹${nf.format(14429)}। এক মাসে −২.০%, এক বছরে +২০.৩%`, `प्रति ग्राम ₹${nf.format(14429)}। एक महीने में −2.0%, एक साल में +20.3%`, `₹${nf.format(14429)} per gram. −2.0% in a month, +20.3% in a year`)) +
-    fact(L('সোনা (২২ ক্যারেট, দিল্লি)', 'सोना (22 कैरेट, दिल्ली)', 'Gold (22 carat, Delhi)'), L(`১০ গ্রাম ₹${nf.format(132100)}`, `10 ग्राम ₹${nf.format(132100)}`, `₹${nf.format(132100)} per 10 g`), L('মুম্বই ও কলকাতায় ₹১,৩১,৯৫০। গয়নায় গড়ার খরচ ও ৩% GST আলাদা', 'मुंबई और कोलकाता में ₹1,31,950। गहनों में मेकिंग चार्ज और 3% GST अलग', 'Mumbai and Kolkata ₹1,31,950. Making charges and 3% GST on jewellery are extra')) +
-    fact(L('রুপো', 'चाँदी', 'Silver'), L(`কেজি ₹${nf.format(196060)}`, `किलो ₹${nf.format(196060)}`, `₹${nf.format(196060)} per kg`), L('এক মাসে −১৩.৮%, এক বছরে +৩৫.৫%', 'एक महीने में −13.8%, एक साल में +35.5%', '−13.8% in a month, +35.5% in a year')) +
+    fact(L('সোনা (২৪ ক্যারেট)', 'सोना (24 कैरेट)', 'Gold (24 carat)'), L(`১০ গ্রাম ₹${nf.format(g24)}`, `10 ग्राम ₹${nf.format(g24)}`, `₹${nf.format(g24)} per 10 g`), L(`গ্রাম প্রতি ₹${nf.format(Math.round(g24 / 10))}। এক মাসে −২.০%, এক বছরে +২০.৩%`, `प्रति ग्राम ₹${nf.format(Math.round(g24 / 10))}। एक महीने में −2.0%, एक साल में +20.3%`, `₹${nf.format(Math.round(g24 / 10))} per gram. −2.0% in a month, +20.3% in a year`)) +
+    fact(L('সোনা (২২ ক্যারেট, দিল্লি)', 'सोना (22 कैरेट, दिल्ली)', 'Gold (22 carat, Delhi)'), L(`১০ গ্রাম ₹${nf.format(g22)}`, `10 ग्राम ₹${nf.format(g22)}`, `₹${nf.format(g22)} per 10 g`), L('মুম্বই ও কলকাতায় ₹১,৩১,৯৫০। গয়নায় গড়ার খরচ ও ৩% GST আলাদা', 'मुंबई और कोलकाता में ₹1,31,950। गहनों में मेकिंग चार्ज और 3% GST अलग', 'Mumbai and Kolkata ₹1,31,950. Making charges and 3% GST on jewellery are extra')) +
+    fact(L('রুপো', 'चाँदी', 'Silver'), L(`কেজি ₹${nf.format(slv)}`, `किलो ₹${nf.format(slv)}`, `₹${nf.format(slv)} per kg`), L('এক মাসে −১৩.৮%, এক বছরে +৩৫.৫%', 'एक महीने में −13.8%, एक साल में +35.5%', '−13.8% in a month, +35.5% in a year')) +
     fact(L('আন্তর্জাতিক দাম', 'अंतरराष्ट्रीय भाव', 'International price'), L('সোনা $৪,০৬০, রুপো $৫৪.৩৮ (প্রতি আউন্স)', 'सोना $4,060, चाँदी $54.38 (प्रति औंस)', 'Gold $4,060, silver $54.38 (per ounce)'), L('২৮ অক্টোবর ২০২৬-এর বন্ধ দর', '28 अक्टूबर 2026 का बंद भाव', 'Close of 28 October 2026')) + `</dl>` +
     series(GOLD, L('অক্টোবরে ২৪ ক্যারেট সোনা (১০ গ্রাম)', 'अक्टूबर में 24 कैरेट सोना (10 ग्राम)', '24-carat gold in October (10 g)')) + series(SILV, L('অক্টোবরে রুপো (কেজি)', 'अक्टूबर में चाँदी (किलो)', 'Silver in October (per kg)')) +
     `<p class="hint">${L('সূত্র: StartupTalky (২৮ অক্টোবর ২০২৬, MCX/Comex ও Bullions.co.in-এর ভিত্তিতে), ISA Bullion (আন্তর্জাতিক দর)। ৩১ অক্টোবর বা ১ নভেম্বরের দর পাইনি, ২৮ অক্টোবরের দরই সবচেয়ে নতুন। শহরভেদে দাম সামান্য আলাদা, আর দোকানের দাম ও কর যোগ হলে বেশি। দাগগুলো ১ অক্টোবরের দামের তুলনায়। এটা বিনিয়োগের পরামর্শ নয়।', 'स्रोत: StartupTalky (28 अक्टूबर 2026, MCX/Comex और Bullions.co.in के आधार पर), ISA Bullion (अंतरराष्ट्रीय भाव)। 31 अक्टूबर या 1 नवंबर के भाव नहीं मिले, 28 अक्टूबर का भाव ही सबसे नया है। शहर के हिसाब से दाम थोड़े अलग होते हैं, और दुकान पर कर जुड़ने से ज़्यादा। पट्टियाँ 1 अक्टूबर के दाम की तुलना में हैं। यह निवेश की सलाह नहीं है।', 'Source: StartupTalky (28 October 2026, based on MCX/Comex and Bullions.co.in) and ISA Bullion (international prices). I could not find 31 October or 1 November rates, so 28 October is the latest. Prices vary slightly by city and are higher at the shop once taxes are added. Bars are relative to the 1 October price. This is not investment advice.')}</p>`;
@@ -1291,12 +1324,12 @@ function vsBlock() {
     return `<tr><td>${label}${arrow}</td>${cells}</tr>`;
   };
   const groupsHtml = CMP_GROUPS().map(([glabel, gkeys]) =>
-    `<tbody class="vsgroup"><tr class="vsghead"><th colspan="${states.length + 1}">${glabel}</th></tr>${gkeys.map(rowHtml).join('')}</tbody>`
+    `<tbody class="vsgroup"><tr class="vsghead"><th class="vsg-sticky">${glabel}</th><th class="vsg-fill" colspan="${states.length}"></th></tr>${gkeys.map(rowHtml).join('')}</tbody>`
   ).join('');
-  const thead = `<tr><th></th>${states.map((x) => `<th><button type="button" class="vsstatelink" data-go="${x.id}">${R(x).n}</button></th>`).join('')}</tr>`;
+  const thead = `<tr><th>${L('সূচক', 'सूचकांक', 'Metric')}</th>${states.map((x) => `<th><button type="button" class="vsstatelink" data-go="${x.id}">${R(x).n}</button></th>`).join('')}</tr>`;
   return `<h3 class="sub">${L('কয়েকটি রাজ্য পাশাপাশি তুলনা', 'कई राज्यों की आमने-सामने तुलना', 'Compare several states side by side')}</h3>` +
     `<div class="vspick">${pickers}${addBtn}</div>` +
-    `<div class="vstable-wrap"><table class="vstable"><thead>${thead}</thead>${groupsHtml}</table></div>` +
+    `<div class="vstable-wrap"><table class="vstable" data-cols="${states.length}"><thead>${thead}</thead>${groupsHtml}</table></div>` +
     `<p class="hint">${L('▲ চিহ্নিত সারিতে সবচেয়ে বেশি সংখ্যাটা, ▼ চিহ্নিত সারিতে সবচেয়ে কম সংখ্যাটা উজ্জ্বল রঙে দেখানো হয়েছে — দুটোই ভালো ফলাফলের দিক নির্দেশ করে। চিহ্নহীন সারিগুলো শুধু তথ্যগত, ভালো-মন্দ বোঝায় না। রাজ্যের নামে ক্লিক করলে সেই রাজ্যের বিস্তারিত পাতা খুলবে।', '▲ चिह्नित पंक्ति में सबसे ज़्यादा संख्या, ▼ चिह्नित पंक्ति में सबसे कम संख्या हाइलाइट की गई है — दोनों बेहतर नतीजे की दिशा दिखाते हैं। बिना चिह्न वाली पंक्तियाँ केवल जानकारी के लिए हैं, अच्छे-बुरे का संकेत नहीं देतीं। राज्य के नाम पर क्लिक करने से उस राज्य का विस्तृत पेज खुलेगा।', 'In rows marked ▲ the highest figure is highlighted; in rows marked ▼ the lowest is — both point toward the better outcome. Unmarked rows are purely informational and carry no better/worse judgement. Click a state\'s name to open its detailed page.')}</p>`;
 }
 function natCmp() {
@@ -1438,6 +1471,24 @@ const QUIZ = () => [
 ];
 let quizI = 0, quizScore = 0, quizPicked = -1;
 let quizMode = 'random', quizCat = null;
+let mapQuizList = [], mapQuizI = 0, mapQuizScore = 0, mapQuizGuessed = null, mapQuizHighlight = null;
+function initMapQuiz() {
+  const pool = [...T].sort(() => Math.random() - 0.5).slice(0, 10);
+  mapQuizList = pool.map((x, idx) => ({ id: x.id, askCapital: idx % 2 === 1 && !['jk', 'uk', 'ch', 'an'].includes(x.id) }));
+  mapQuizI = 0; mapQuizScore = 0; mapQuizGuessed = null; mapQuizHighlight = null;
+}
+function isMapQuizActive() {
+  return cur === 'india' && tab === 'quiz' && quizMode === 'map' && mapQuizI < mapQuizList.length && !mapQuizGuessed;
+}
+function handleMapQuizPick(pickedId) {
+  if (!isMapQuizActive()) return false;
+  const item = mapQuizList[mapQuizI];
+  mapQuizGuessed = pickedId;
+  mapQuizHighlight = item.id;
+  if (pickedId === item.id) mapQuizScore++;
+  render();
+  return true;
+}
 const QUIZ_CATS = {
   desh: ['🇮🇳', L('দেশ', 'देश', 'Country')],
   bidesh: ['🌍', L('বিদেশ', 'विदेश', 'World')],
@@ -1454,50 +1505,7 @@ function quizPool() {
 }
 function quizModeBar() {
   const btn = (m, label) => `<button type="button" class="quiz-mode-btn${quizMode === m ? ' active' : ''}" data-quiz-mode="${m}">${label}</button>`;
-  return `<div class="quiz-modebar">${btn('random', L('🎲 র‍্যান্ডম কুইজ', '🎲 रैंडम क्विज़', '🎲 Random Quiz'))}${btn('subject', L('📚 বিষয়ভিত্তিক কুইজ', '📚 विषयवार क्विज़', '📚 Subject-wise Quiz'))}${btn('map', L('🗺️ মানচিত্রে খুঁজুন', '🗺️ मानचित्र पर खोजें', '🗺️ Locate on Map'))}</div>`;
-}
-/* ---------- মানচিত্রে খুঁজুন (Map Locator Quiz) ---------- */
-const MQ_IDS = [...new Set([...Object.keys(REG), ...HOT.map((o) => o.id)])];
-const MQ_ROUNDS = 10;
-let mqTarget = null, mqPromptType = 'name', mqRound = 0, mqScore = 0, mqPicked = null, mqResult = null;
-function mqPick() {
-  const pool = MQ_IDS.filter((id) => id !== mqTarget);
-  mqTarget = pool[Math.floor(Math.random() * pool.length)];
-  mqPromptType = Math.random() < 0.5 ? 'name' : 'cap';
-  mqPicked = null; mqResult = null;
-}
-function mqRestart() { mqRound = 0; mqScore = 0; mqPick(); }
-function mapQuizSvg() {
-  const cls = (id) => {
-    let c = 'mqreg';
-    if (mqResult && id === mqTarget) c += ' mqcorrect';
-    else if (mqResult === 'wrong' && id === mqPicked) c += ' mqwrong';
-    return c;
-  };
-  let h = `<svg viewBox="0 0 1280 1495" class="mapquiz-svg" role="group" aria-label="${L('মানচিত্র কুইজ', 'मानचित्र क्विज़', 'Map quiz')}">`;
-  for (const id in REG) h += `<path class="${cls(id)}" data-mq="${id}" d="${REG[id]}" fill-rule="evenodd" tabindex="0" role="button" aria-label="${R(byId[id]).n}"/>`;
-  for (const o of HOT) h += (o.t === 'c'
-    ? `<circle class="${cls(o.id)} mqhot" data-mq="${o.id}" cx="${o.x}" cy="${o.y}" r="${o.r}" tabindex="0" role="button" aria-label="${R(byId[o.id]).n}"/>`
-    : `<rect class="${cls(o.id)} mqhot" data-mq="${o.id}" x="${o.x}" y="${o.y}" width="${o.w}" height="${o.h}" rx="12" tabindex="0" role="button" aria-label="${R(byId[o.id]).n}"/>`);
-  h += '</svg>';
-  return h;
-}
-function quizMapBlock() {
-  const modeBar = quizModeBar();
-  if (!mqTarget) mqPick();
-  if (mqRound >= MQ_ROUNDS) {
-    return `<div class="quiz-card">${modeBar}<p class="quiz-score">${L(`আপনার স্কোর: ${nf.format(mqScore)} / ${nf.format(MQ_ROUNDS)}`, `आपका स्कोर: ${nf.format(mqScore)} / ${nf.format(MQ_ROUNDS)}`, `Your score: ${mqScore} / ${MQ_ROUNDS}`)}</p>` +
-      `<button type="button" class="quiz-restart" data-mq-restart>${L('আবার শুরু করুন', 'फिर से शुरू करें', 'Restart')}</button></div>`;
-  }
-  const x = byId[mqTarget];
-  const promptTxt = mqPromptType === 'cap'
-    ? L(`মানচিত্রে এই রাজ্য/অঞ্চলটি খুঁজুন, যার রাজধানী "${R(x).cap}"`, `मानचित्र पर वह राज्य/क्षेत्र खोजें, जिसकी राजधानी "${R(x).cap}" है`, `Find the state/UT on the map whose capital is "${R(x).cap}"`)
-    : L(`মানচিত্রে "${R(x).n}" খুঁজুন`, `मानचित्र पर "${R(x).n}" खोजें`, `Find "${R(x).n}" on the map`);
-  const resultMsg = mqResult === 'correct' ? `<p class="mq-feedback mq-ok">${L('✅ ঠিক!', '✅ सही!', '✅ Correct!')}</p>`
-    : mqResult === 'wrong' ? `<p class="mq-feedback mq-no">${L(`❌ ভুল — এটা ছিল ${R(byId[mqPicked]).n}; সঠিক উত্তর সবুজে দেখানো হয়েছে।`, `❌ ग़लत — यह ${R(byId[mqPicked]).n} था; सही उत्तर हरे रंग में दिखाया गया है।`, `❌ Wrong — that was ${R(byId[mqPicked]).n}; the correct answer is shown in green.`)}</p>` : '';
-  return `<div class="quiz-card quiz-map">${modeBar}<p class="quiz-prog">${L(`রাউন্ড ${nf.format(mqRound + 1)} / ${nf.format(MQ_ROUNDS)} · স্কোর ${nf.format(mqScore)}`, `राउंड ${nf.format(mqRound + 1)} / ${nf.format(MQ_ROUNDS)} · स्कोर ${nf.format(mqScore)}`, `Round ${mqRound + 1} / ${MQ_ROUNDS} · Score ${mqScore}`)}</p>` +
-    `<p class="quiz-q">${promptTxt}</p><div class="mapquiz-wrap">${mapQuizSvg()}</div>${resultMsg}` +
-    (mqResult ? `<button type="button" class="quiz-next" data-mq-next>${mqRound + 1 < MQ_ROUNDS ? L('পরের রাউন্ড', 'अगला राउंड', 'Next round') : L('ফলাফল দেখুন', 'नतीजा देखें', 'See result')}</button>` : '') + `</div>`;
+  return `<div class="quiz-modebar">${btn('random', L('🎲 র‍্যান্ডম কুইজ', '🎲 रैंडम क्विज़', '🎲 Random Quiz'))}${btn('subject', L('📚 বিষয়ভিত্তিক কুইজ', '📚 विषयवार क्विज़', '📚 Subject-wise Quiz'))}${btn('map', L('🗺️ মানচিত্রে খুঁজুন', '🗺️ नक़्शे पर खोजें', '🗺️ Locate on Map'))}</div>`;
 }
 function quizCatPicker() {
   const all = QUIZ();
@@ -1508,6 +1516,36 @@ function quizCatPicker() {
   }).join('');
   return `<p class="hint">${L('যে বিষয়ে কুইজ খেলতে চান, সেটি বেছে নিন।', 'जिस विषय पर क्विज़ खेलना चाहते हैं, उसे चुनें।', 'Choose a subject to play its quiz.')}</p><div class="quiz-cat-grid">${cards}</div>`;
 }
+function renderMapQuiz(modeBar) {
+  if (!mapQuizList.length) initMapQuiz();
+  if (mapQuizI >= mapQuizList.length) {
+    return `<div class="quiz-card">${modeBar}<p class="quiz-score">${L(`মানচিত্র কুইজে আপনার স্কোর: ${nf.format(mapQuizScore)} / ${nf.format(mapQuizList.length)}`, `नक़्शा क्विज़ में आपका स्कोर: ${nf.format(mapQuizScore)} / ${nf.format(mapQuizList.length)}`, `Your Map Quiz score: ${mapQuizScore} / ${mapQuizList.length}`)}</p>` +
+      `<button type="button" class="quiz-restart" data-mapquiz-restart>${L('আবার খেলুন', 'फिर से खेलें', 'Play again')}</button></div>`;
+  }
+  const item = mapQuizList[mapQuizI];
+  const target = byId[item.id];
+  const tr = R(target);
+  const prompt = item.askCapital
+    ? L(`কোন রাজ্য বা অঞ্চলের রাজধানী "${tr.cap}"? মানচিত্রে ক্লিক করুন:`, `किस राज्य या क्षेत्र की राजधानी "${tr.cap}" है? नक़्शे पर क्लिक करें:`, `Which state or territory has "${tr.cap}" as its capital? Click on the map:`)
+    : L(`মানচিত্রে "${tr.n}" খুঁজে ক্লিক করুন:`, `नक़्शे पर "${tr.n}" खोजकर क्लिक करें:`, `Find "${tr.n}" on the map and click it:`);
+  let fb = '';
+  if (mapQuizGuessed) {
+    const ok = mapQuizGuessed === item.id;
+    const guessedName = R(byId[mapQuizGuessed]).n;
+    fb = ok
+      ? `<div class="mapquiz-fb ok">✅ ${L(`একদম সঠিক! এটিই ${tr.n}।`, `बिल्कुल सही! यही ${tr.n} है।`, `Spot on! That is ${tr.n}.`)}</div>`
+      : `<div class="mapquiz-fb err">❌ ${L(`ভুল হয়েছে — আপনি "${guessedName}"-এ ক্লিক করেছেন। মানচিত্রে সঠিক অবস্থান (${tr.n}) হাইলাইট করা হয়েছে।`, `ग़लत — आपने "${guessedName}" पर क्लिक किया। नक़्शे पर सही स्थान (${tr.n}) हाइलाइट किया गया है।`, `Not quite — you clicked "${guessedName}". The correct location (${tr.n}) is now highlighted on the map.`)}</div>`;
+  }
+  return `<div class="quiz-card">${modeBar}<div class="mapquiz-box">` +
+    `<p class="quiz-prog">${L(`রাউন্ড ${nf.format(mapQuizI + 1)} / ${nf.format(mapQuizList.length)} · স্কোর ${nf.format(mapQuizScore)}`, `राउंड ${nf.format(mapQuizI + 1)} / ${nf.format(mapQuizList.length)} · स्कोर ${nf.format(mapQuizScore)}`, `Round ${mapQuizI + 1} / ${mapQuizList.length} · Score ${mapQuizScore}`)}</p>` +
+    `<p class="mapquiz-prompt">${prompt}</p>` +
+    `<p class="hint" style="margin:0">${L('বাম পাশের (ফোনে ওপরের) মানচিত্রে সরাসরি ট্যাপ করুন বা ছোট অঞ্চলের চিপ বেছে নিন।', 'बाईं ओर (फ़ोन में ऊपर) नक़्शे पर सीधे टैप करें या छोटे क्षेत्र की चिप चुनें।', 'Tap directly on the map on the left (above on mobile) or pick a small territory chip.')}</p>` +
+    fb +
+    `<div class="mapquiz-actions">` +
+    `<button type="button" class="mapquiz-tomap" data-mapquiz-scroll>↑ ${L('মানচিত্রে যান', 'नक़्शे पर जाएँ', 'Go to Map')}</button>` +
+    (mapQuizGuessed ? `<button type="button" class="quiz-next" data-mapquiz-next>${mapQuizI + 1 < mapQuizList.length ? L('পরের প্রশ্ন', 'अगला प्रश्न', 'Next round') : L('ফলাফল দেখুন', 'नतीजा देखें', 'See result')}</button>` : '') +
+    `</div></div></div>`;
+}
 function natQuiz() {
   if (typeof lqQuizBlocked !== 'undefined' && lqQuizBlocked) {
     return `<div class="quiz-card quiz-blocked"><p class="hint">${L(
@@ -1517,7 +1555,7 @@ function natQuiz() {
     )}</p></div>`;
   }
   const modeBar = quizModeBar();
-  if (quizMode === 'map') return quizMapBlock();
+  if (quizMode === 'map') return renderMapQuiz(modeBar);
   if (quizMode === 'subject' && !quizCat) {
     return `<div class="quiz-card">${modeBar}${quizCatPicker()}</div>`;
   }
@@ -1684,56 +1722,51 @@ function stEdu(x) {
     (LIT_NOTE[x.id] ? `<p class="hint">${L(...LIT_NOTE[x.id])}</p>` : '') +
     `<p class="hint">${L('সাক্ষরতার হার ৭ বছর বা তার বেশি বয়সীদের। সূত্র: আদমশুমারি ২০১১ এবং NSO-র PLFS বার্ষিক প্রতিবেদন (জুলাই ২০২৩ থেকে জুন ২০২৪)।', 'साक्षरता दर 7 वर्ष या अधिक आयु वालों की है। स्रोत: जनगणना 2011 और NSO की PLFS वार्षिक रिपोर्ट (जुलाई 2023 से जून 2024)।', 'Literacy rates are for people aged 7 and above. Source: Census 2011 and the NSO PLFS annual report (July 2023 to June 2024).')}</p>`;
 }
-/* ---------- জিআই ট্যাগ ও ইউনেস্কো ঐতিহ্যস্থল (আংশিক, শুধু যাচাইকৃত) ---------- */
-const GI = {
-  jk: { gi: [['কাশ্মীরি পশমিনা', 'कश्मीरी पश्मीना', 'Kashmiri Pashmina'], ['কাশ্মীরি জাফরান', 'कश्मीरी केसर', 'Kashmiri Saffron'], ['কাশ্মীরি কাগজ-মাশি শিল্প', 'कश्मीरी पेपर माशी', 'Kashmiri Paper Mâché']], unesco: [] },
-  la: { gi: [], unesco: [] },
-  pb: { gi: [['ফুলকারি', 'फुलकारी', 'Phulkari embroidery'], ['বাসমতি চাল (একাধিক রাজ্যের সঙ্গে ভাগ করা)', 'बासमती चावल (कई राज्यों के साथ साझा)', 'Basmati rice (shared GI with other states)']], unesco: [] },
-  hp: { gi: [['কাংড়া চা', 'कांगड़ा चाय', 'Kangra Tea'], ['চাম্বা রুমাল', 'चंबा रूमाल', 'Chamba Rumal embroidery'], ['কুল্লু শাল', 'कुल्लू शॉल', 'Kullu Shawl']], unesco: [['গ্রেট হিমালয়ান ন্যাশনাল পার্ক', 'ग्रेट हिमालयन नेशनल पार्क', 'Great Himalayan National Park'], ['কালকা-শিমলা রেলওয়ে (ভারতের পার্বত্য রেলপথ)', 'कालका-शिमला रेलवे (भारत की पर्वतीय रेलवे)', 'Kalka-Shimla Railway (Mountain Railways of India)']] },
-  uk: { gi: [['বাসমতি চাল (ভাগাভাগি)', 'बासमती चावल (साझा)', 'Basmati rice (shared)']], unesco: [['নন্দা দেবী ও ফুলের উপত্যকা জাতীয় উদ্যান', 'नंदा देवी और फूलों की घाटी राष्ट्रीय उद्यान', 'Nanda Devi & Valley of Flowers National Parks']] },
-  sk: { gi: [['সিকিম লার্জ কার্ডামম', 'सिक्किम बड़ी इलायची', 'Sikkim Large Cardamom']], unesco: [['খাংচেনজংঘা জাতীয় উদ্যান', 'खांगचेंदजोंगा राष्ट्रीय उद्यान', 'Khangchendzonga National Park']] },
-  ar: { gi: [['অরুণাচলের কমলা', 'अरुणाचल ऑरेंज', 'Arunachal Orange']], unesco: [] },
-  ch: { gi: [], unesco: [] },
-  hr: { gi: [['বাসমতি চাল (ভাগাভাগি)', 'बासमती चावल (साझा)', 'Basmati rice (shared)']], unesco: [] },
-  dl: { gi: [], unesco: [['কুতুব মিনার কমপ্লেক্স', 'क़ुतुब मीनार परिसर', 'Qutb Minar and its Monuments'], ['হুমায়ুনের সমাধি', 'हुमायूँ का मक़बरा', "Humayun's Tomb"], ['লাল কেল্লা কমপ্লেক্স', 'लाल क़िला परिसर', 'Red Fort Complex']] },
-  up: { gi: [['বেনারসি শাড়ি', 'बनारसी साड़ी', 'Banarasi Sarees'], ['লখনউ চিকনকারি', 'लखनऊ चिकनकारी', 'Lucknow Chikankari']], unesco: [['তাজমহল', 'ताज महल', 'Taj Mahal'], ['আগ্রা দুর্গ', 'आगरा क़िला', 'Agra Fort'], ['ফতেপুর সিক্রি', 'फ़तेहपुर सीकरी', 'Fatehpur Sikri']] },
-  br: { gi: [['মধুবনী চিত্রকলা', 'मधुबनी पेंटिंग', 'Madhubani Painting'], ['ভাগলপুরি তসর সিল্ক', 'भागलपुरी टसर सिल्क', 'Bhagalpuri Tussar Silk']], unesco: [['মহাবোধি মন্দির, বোধগয়া', 'महाबोधि मंदिर, बोधगया', 'Mahabodhi Temple, Bodh Gaya']] },
-  wb: { gi: [['দার্জিলিং চা', 'दार्जिलिंग चाय', 'Darjeeling Tea'], ['শান্তিনিকেতনি চামড়াজাত পণ্য', 'शांतिनिकेतन चमड़ा उत्पाद', 'Shantiniketan Leather Goods'], ['নকশি কাঁথা', 'नक्शी कांथा', 'Nakshi Kantha embroidery']], unesco: [['সুন্দরবন জাতীয় উদ্যান', 'सुंदरबन राष्ट्रीय उद्यान', 'Sundarbans National Park'], ['দার্জিলিং হিমালয়ান রেলওয়ে', 'दार्जिलिंग हिमालयन रेलवे', 'Darjeeling Himalayan Railway']] },
-  as: { gi: [['মুগা সিল্ক', 'मूगा सिल्क', 'Muga Silk'], ['আসাম অর্থোডক্স চা', 'असम ऑर्थोडॉक्स चाय', 'Assam (Orthodox) Tea']], unesco: [['কাজিরাঙ্গা জাতীয় উদ্যান', 'काज़ीरंगा राष्ट्रीय उद्यान', 'Kaziranga National Park'], ['মানস বন্যপ্রাণী অভয়ারণ্য', 'मानस वन्यजीव अभयारण्य', 'Manas Wildlife Sanctuary']] },
-  nl: { gi: [['নাগা মির্চা (রাজা মরিচ)', 'नागा मिर्चा (राजा मिर्च)', 'Naga Mircha (King Chilli)']], unesco: [] },
-  rj: { gi: [['জয়পুরের ব্লু পটারি', 'जयपुर की ब्लू पॉटरी', 'Jaipur Blue Pottery'], ['বিকানেরি ভুজিয়া', 'बीकानेरी भुजिया', 'Bikaneri Bhujia']], unesco: [['জয়পুর শহর (পিঙ্ক সিটি)', 'जयपुर शहर (पिंक सिटी)', 'Jaipur City (Pink City)'], ['রাজস্থানের পাহাড়ি দুর্গসমূহ', 'राजस्थान के पहाड़ी क़िले', 'Hill Forts of Rajasthan'], ['কেওলাদেও জাতীয় উদ্যান', 'केवलादेव राष्ट्रीय उद्यान', 'Keoladeo National Park']] },
-  mp: { gi: [['চান্দেরি শাড়ি', 'चंदेरी साड़ी', 'Chanderi Sarees'], ['গোন্ড চিত্রকলা', 'गोंड पेंटिंग', 'Gond Painting']], unesco: [['খাজুরাহোর মন্দিরসমূহ', 'खजुराहो के स्मारक', 'Khajuraho Group of Monuments'], ['সাঁচির বৌদ্ধ স্মারক', 'साँची के बौद्ध स्मारक', 'Buddhist Monuments at Sanchi'], ['ভীমবেটকার শিলাশ্রয়', 'भीमबेटका शैलाश्रय', 'Rock Shelters of Bhimbetka']] },
-  cg: { gi: [['বস্তার ঢোকরা শিল্প', 'बस्तर ढोकरा शिल्प', 'Bastar Dhokra metal craft']], unesco: [] },
-  jh: { gi: [['সোহরাই-খোভার চিত্রকলা', 'सोहराई-खोवर पेंटिंग', 'Sohrai Khovar Painting']], unesco: [] },
-  ml: { gi: [['খাসি ম্যান্ডারিন', 'खासी मंदारिन', 'Khasi Mandarin orange']], unesco: [] },
-  mn: { gi: [['মণিপুরি কালো চাল (চাকহাও)', 'मणिपुरी काला चावल (चखाओ)', 'Manipuri Black Rice (Chakhao)']], unesco: [] },
-  gj: { gi: [['পাটন পাটোলা শাড়ি', 'पाटन पटोला साड़ी', 'Patan Patola sarees'], ['কচ্ছ এমব্রয়ডারি', 'कच्छ कढ़ाई', 'Kutch Embroidery']], unesco: [['রানি কি ভাব, পাটন', 'रानी की वाव, पाटन', 'Rani-ki-Vav, Patan'], ['চম্পানের-পাবাগড় প্রত্নতাত্ত্বিক উদ্যান', 'चंपानेर-पावागढ़ पुरातत्व उद्यान', 'Champaner-Pavagadh Archaeological Park'], ['আহমেদাবাদ ঐতিহাসিক শহর', 'ऐतिहासिक अहमदाबाद शहर', 'Historic City of Ahmedabad'], ['ধোলাভিরা', 'धोलावीरा', 'Dholavira']] },
-  dd: { gi: [], unesco: [] },
-  mh: { gi: [['আলফানসো আম (রত্নাগিরি-দেবগড়)', 'अल्फांसो आम (रत्नागिरि-देवगढ़)', 'Alphonso Mango (Ratnagiri-Devgad)'], ['কোলহাপুরি চপ্পল', 'कोल्हापुरी चप्पल', 'Kolhapuri Chappal'], ['পুনেরি পাগড়ি', 'पुणेरी पगड़ी', 'Puneri Pagdi']], unesco: [['অজন্তা গুহা', 'अजंता गुफाएँ', 'Ajanta Caves'], ['ইলোরা গুহা', 'एलोरा गुफाएँ', 'Ellora Caves'], ['এলিফ্যান্টা গুহা', 'एलिफेंटा गुफाएँ', 'Elephanta Caves'], ['ছত্রপতি শিবাজী টার্মিনাস, মুম্বই', 'छत्रपति शिवाजी टर्मिनस, मुंबई', 'Chhatrapati Shivaji Terminus, Mumbai'], ['মুম্বইয়ের ভিক্টোরিয়ান ও আর্ট ডেকো স্থাপত্য', 'मुंबई की विक्टोरियन और आर्ट डेको इमारतें', 'Victorian & Art Deco Ensemble of Mumbai']] },
-  tg: { gi: [['পোচমপল্লি ইকত', 'पोचमपल्ली इकत', 'Pochampally Ikat'], ['হায়দরাবাদ হালিম', 'हैदराबाद हलीम', 'Hyderabad Haleem']], unesco: [['রামাপ্পা (কাকতীয় রুদ্রেশ্বর) মন্দির', 'रामप्पा (काकतीय रुद्रेश्वर) मंदिर', 'Kakatiya Rudreshwara (Ramappa) Temple']] },
-  od: { gi: [['ওড়িশার পট্টচিত্র', 'ओडिशा पट्टचित्र', 'Odisha Pattachitra'], ['সম্বলপুরি শাড়ি', 'संबलपुरी साड़ी', 'Sambalpuri Saree']], unesco: [['কোনারক সূর্য মন্দির', 'कोणार्क सूर्य मंदिर', 'Sun Temple, Konark']] },
-  tr: { gi: [['ত্রিপুরার রানী আনারস', 'त्रिपुरा क्वीन अनानास', 'Tripura Queen Pineapple']], unesco: [] },
-  mz: { gi: [['মিজো চিলি (বার্ডস আই)', 'मिज़ो मिर्च (बर्ड्स आई)', "Mizo Chilli (Bird's eye)"]], unesco: [] },
-  ga: { gi: [['গোয়া ফেনি', 'गोवा फेनी', 'Goa Feni']], unesco: [['গোয়ার গির্জা ও কনভেন্ট', 'गोवा के गिरजाघर और कॉन्वेंट', 'Churches and Convents of Goa']] },
-  ka: { gi: [['মহীশূর সিল্ক', 'मैसूर सिल्क', 'Mysore Silk'], ['কুর্গ কমলা', 'कूर्ग ऑरेंज', 'Coorg Orange'], ['বিদরিওয়্যার', 'बिदरीवेयर', 'Bidriware']], unesco: [['হাম্পি স্মারকসমূহ', 'हम्पी के स्मारक', 'Group of Monuments at Hampi'], ['পাত্তাদাকাল স্মারকসমূহ', 'पट्टदकल के स्मारक', 'Group of Monuments at Pattadakal'], ['পশ্চিমঘাট (ভাগাভাগি)', 'पश्चिमी घाट (साझा)', 'Western Ghats (shared)']] },
-  ap: { gi: [['তিরুপতি লাড্ডু', 'तिरुपति लड्डू', 'Tirupati Laddu'], ['কোন্ডাপল্লি খেলনা', 'कोंडापल्ली खिलौने', 'Kondapalli Toys']], unesco: [] },
-  kl: { gi: [['আলেপ্পি কয়ার', 'अलेप्पी कॉयर', 'Alleppey Coir'], ['আরনমুলা কান্নাড়ি (আয়না)', 'अरनमुला कन्नडी (दर्पण)', 'Aranmula Kannadi mirror']], unesco: [['পশ্চিমঘাট (ভাগাভাগি)', 'पश्चिमी घाट (साझा)', 'Western Ghats (shared)']] },
-  tn: { gi: [['কাঞ্চিপুরম সিল্ক', 'कांचीपुरम सिल्क', 'Kancheepuram Silk'], ['তাঞ্জোর চিত্রকলা', 'तंजौर पेंटिंग', 'Tanjore Painting'], ['মাদুরাই সুঙ্গুদি শাড়ি', 'मदुरै सुंगुड़ी साड़ी', 'Madurai Sungudi sarees']], unesco: [['গ্রেট লিভিং চোল মন্দির', 'महान चोल मंदिर', 'Great Living Chola Temples'], ['মহাবলিপুরমের স্মারকসমূহ', 'महाबलीपुरम के स्मारक', 'Group of Monuments at Mahabalipuram'], ['নীলগিরি পার্বত্য রেলপথ', 'नीलगिरि पर्वतीय रेलवे', 'Nilgiri Mountain Railway']] },
-  py: { gi: [], unesco: [] },
-  an: { gi: [], unesco: [] },
-  ld: { gi: [], unesco: [] }
+
+/* ---------- GI ট্যাগ ও UNESCO বিশ্ব ঐতিহ্যবাহী স্থান ---------- */
+const GI_UNESCO = {
+  jk: { gi: ['কাশ্মীরি পশমিনা, কাশ্মীরি জাফরান, কানি শাল', 'कश्मीरी पश्मीना, कश्मीरी केसर, कानी शॉल', 'Kashmiri Pashmina, Kashmiri Saffron, Kani Shawl'], unesco: null },
+  la: { gi: ['লাদাখি রক্তসে কার্পো খুবানি, লাদাখ পশমিনা', 'लद्दाखी रक्त्से कार्पो खुबानी, लद्दाख पश्मीना', 'Ladakh Raktsey Karpo Apricot, Ladakh Pashmina'], unesco: null },
+  pb: { gi: ['ফুলকারি সূচিকর্ম, বাসমতি চাল', 'फुलकारी कढ़ाई, बासमती चावल', 'Phulkari embroidery, Basmati rice'], unesco: null },
+  hp: { gi: ['কুল্লু শাল, কাংড়া চা, চাম্বা রুমাল', 'कुल्लू शॉल, कांगड़ा चाय, चंबा रुमाल', 'Kullu Shawl, Kangra Tea, Chamba Rumal'], unesco: ['গ্রেট হিমালয়ান ন্যাশনাল পার্ক ও কালকা-শিমলা রেলওয়ে', 'ग्रेट हिमालयन नेशनल पार्क और कालका-शिमला रेलवे', 'Great Himalayan National Park & Kalka-Shimla Railway'] },
+  uk: { gi: ['তেজপাতা, আইপান শিল্প, মুন্সিয়ারি রাজমা', 'तेजपत्ता, ऐपण कला, मुनस्यारी राजमा', 'Uttarakhand Tejpatta, Aipan art, Munsiyari Rajma'], unesco: ['নন্দাদেবী ও ভ্যালি অব ফ্লাওয়ার্স জাতীয় উদ্যান', 'नंदा देवी और फूलों की घाटी राष्ट्रीय उद्यान', 'Nanda Devi and Valley of Flowers National Parks'] },
+  sk: { gi: ['বড় এলাচ, ডালে খুরসানি লঙ্কা, তেমি চা', 'बड़ी इलायची, डल्ले खुरसानी मिर्च, टेमी चाय', 'Large Cardamom, Dalle Khursani chilli, Temi Tea'], unesco: ['কাঞ্চনজঙ্ঘা জাতীয় উদ্যান (মিশ্র ঐতিহ্য)', 'कंचनजंगा राष्ट्रीय उद्यान (मिश्रित धरोहर)', 'Khangchendzonga National Park (Mixed Heritage)'] },
+  ar: { gi: ['ইদু মিশমি বস্ত্র, অরুণাচল কমলা, ইয়াক চুরপি', 'इदु मिश्मी वस्त्र, अरुणाचल संतरा, याक चुरपी', 'Idu Mishmi Textiles, Arunachal Orange, Yak Churpi'], unesco: null },
+  ch: { gi: null, unesco: ['ক্যাপিটল কমপ্লেক্স (লে করবুসিয়ের স্থাপত্য)', 'कैपिटल कॉम्प्लेक्स (ले कोर्बुज़िए की वास्तुकला)', 'The Architectural Work of Le Corbusier (Capitol Complex)'] },
+  hr: { gi: ['ফুলকারি, বাসমতি চাল', 'फुलकारी, बासमती चावल', 'Phulkari, Basmati rice'], unesco: null },
+  dl: { gi: null, unesco: ['লালকেল্লা, কুতুব মিনার ও হুমায়ুনের সমাধি', 'लाल क़िला, क़ुतुब मीनार और हुमायूँ का मक़बरा', 'Red Fort Complex, Qutb Minar and Humayun\'s Tomb'] },
+  up: { gi: ['বেনারসি শাড়ি, লখনৌ চিকনকারি, আলিগড় তালা, কালানমক চাল', 'बनारसी साड़ी, लखनवी चिकनकारी, अलीगढ़ ताले, काला नमक चावल', 'Banarasi Saree, Lucknow Chikan Craft, Aligarh Locks, Kalanamak Rice'], unesco: ['তাজমহল, আগ্রা দুর্গ ও ফতেহপুর সিক্রি', 'ताजमहल, आगरा क़िला और फ़तेहपुर सीकरी', 'Taj Mahal, Agra Fort and Fatehpur Sikri'] },
+  br: { gi: ['মধুবনী চিত্রকলা, ভাগলপুরি সিল্ক, শাহি লিচু, মাখানা', 'मधुबनी पेंटिंग, भागलपुरी सिल्क, शाही लीची, मखाना', 'Madhubani Paintings, Bhagalpuri Silk, Shahi Litchi, Mithila Makhana'], unesco: ['মহাবোধি মন্দির (বোধগয়া) ও নালন্দা মহাবিহার', 'महाबोधि मंदिर (बोधगया) और नालंदा महाविहार', 'Mahabodhi Temple Complex (Bodh Gaya) & Nalanda Mahavihara'] },
+  wb: { gi: ['দার্জিলিং চা, বাংলার রসগোল্লা, শান্তিনিকেতন চর্মশিল্প, বালুচরি শাড়ি, জয়নগরের মোয়া', 'दार्जिलिंग चाय, बांगलार रसगुल्ला, शांतिनिकेतन चमड़ा शिल्प, बालूचरी साड़ी', 'Darjeeling Tea, Banglar Rasogolla, Baluchari Saree, Joynagarer Moa'], unesco: ['সুন্দরবন জাতীয় উদ্যান, দার্জিলিং হিমালয়ান রেলওয়ে ও শান্তিনিকেতন', 'सुंदरबन राष्ट्रीय उद्यान, दार्जिलिंग हिमालयन रेलवे और शांतिनिकेतन', 'Sundarbans National Park, Darjeeling Himalayan Railway & Santiniketan'] },
+  as: { gi: ['মুগা সিল্ক, অসম চা, গামোসা, কাজি নেমু', 'मूगा सिल्क, असम चाय, गामोसा, काजी नेमु', 'Muga Silk, Assam Orthodox Tea, Gamosa, Kaji Nemu'], unesco: ['কাজিরাঙ্গা জাতীয় উদ্যান, মানস বন্যপ্রাণী অভয়ারণ্য ও চড়াইদেও মৈদাম', 'काज़ीरंगा राष्ट्रीय उद्यान, मानस वन्यजीव अभयारण्य और चराइदेव मैदाम', 'Kaziranga National Park, Manas Wildlife Sanctuary & Charaideo Moidams'] },
+  nl: { gi: ['নাগা রাজা লঙ্কা (ভূত জলোকিয়া), চাখেসাং শাল, নাগা শসা', 'नागा राजा मिर्च (भूत जोलोकिया), चाखेसांग शॉल, नागा खीरा', 'Naga Mircha (King Chilli), Chakhesang Shawl, Naga Cucumber'], unesco: null },
+  rj: { gi: ['বিকানেরি ভুজিয়া, জয়পুরি ব্লু পটারি, মাকরানা মার্বেল, কোটা ডোরিয়া', 'बीकानेरी भुजिया, जयपुरी ब्लू पॉटरी, मकराना संगमरमर, कोटा डोरिया', 'Bikaneri Bhujia, Jaipur Blue Pottery, Makrana Marble, Kota Doria'], unesco: ['জয়পুর শহর, যন্তর মন্তর, কেওলাদেও জাতীয় উদ্যান ও ৬টি পাহাড়ি দুর্গ', 'जयपुर शहर, जंतर मंतर, केवलादेव राष्ट्रीय उद्यान और 6 पहाड़ी क़िले', 'Jaipur City, Jantar Mantar, Keoladeo National Park & Hill Forts of Rajasthan'] },
+  mp: { gi: ['চান্দেরি শাড়ি, মাহেশ্বরী শাড়ি, রতলামি সেভ, বাঘ প্রিন্ট', 'चंदेरी साड़ी, माहेश्वरी साड़ी, रतलामी सेव, बाघ प्रिंट', 'Chanderi Saree, Maheshwari Saree, Ratlami Sev, Bagh Prints'], unesco: ['খাজুরাহোর মন্দির, সাঁচী স্তূপ ও ভীমবেটকা গুহাচিত্র', 'खजुराहो के मंदिर, साँची स्तूप और भीमबेटका शैलाश्रय', 'Khajuraho Group of Monuments, Sanchi Stupa & Rock Shelters of Bhimbetka'] },
+  cg: { gi: ['বস্তার ঢোকরা ও লৌহশিল্প, জিরাফুল চাল, কোসা সিল্ক', 'बस्तर ढोकरा और लौह शिल्प, जीराफूल चावल, कोसा सिल्क', 'Bastar Dhokra & Iron Craft, Jeeraphool Rice, Champa Silk'], unesco: null },
+  jh: { gi: ['সোহরাই-খোভার চিত্রকলা', 'सोहराई-खोवर पेंटिंग', 'Sohrai-Khovar Painting'], unesco: null },
+  ml: { gi: ['লাকাডং হলুদ, খাসি ম্যান্ডারিন কমলা, মেমং নারঙ্গ', 'लाकाडोंग हल्दी, खासी मंदारिन संतरा, मेमोंग नारंग', 'Lakadong Turmeric, Khasi Mandarin, Memong Narang'], unesco: null },
+  mn: { gi: ['শাপি লানফি বস্ত্র, কাচাই লেবু, সিরারখং হাথেই লঙ্কা', 'शाफी लानफी वस्त्र, कचाई नींबू, सिरारखोंग हाथेई मिर्च', 'Shaphee Lanphee textile, Kachai Lemon, Sirarakhong Hathei Chilli'], unesco: null },
+  gj: { gi: ['গির কেশর আম, পাটন পটোলা শাড়ি, কচ্ছ শাল, ভালিয়া গম', 'गिर केसर आम, पाटन पटोला साड़ी, कच्छ शॉल, भालिया गेहूँ', 'Gir Kesar Mango, Patan Patola, Kachchh Shawls, Bhalia Wheat'], unesco: ['ধোলাভিরা, রানি কি ভাব, চম্পানের-পাভাগড় ও ঐতিহাসিক আহমেদাবাদ শহর', 'धोलावीरा, रानी की वाव, चंपानेर-पावागढ़ और ऐतिहासिक अहमदाबाद शहर', 'Dholavira, Rani-ki-Vav, Champaner-Pavagadh & Historic City of Ahmedabad'] },
+  dd: { gi: null, unesco: null },
+  mh: { gi: ['আলফানসো (হাপুস) আম, কোলাপুরি চপ্পল, পৈঠানি শাড়ি, নাসিক ভ্যালি ওয়াইন, ওয়ারলি চিত্রকলা', 'अल्फ़ांसो (हापुस) आम, कोल्हापुरी चप्पल, पैठणी साड़ी, नासिक वैली वाइन, वारली चित्रकला', 'Alphonso Mango, Kolhapuri Chappal, Paithani Saree, Nashik Valley Wine, Warli Painting'], unesco: ['অজন্তা ও ইলোরা গুহা, এলিফ্যান্টা গুহা, ছত্রপতি শিবাজি টার্মিনাস ও ভিক্টোরিয়ান গথিক স্থাপত্য', 'अजंता और एलोरा की गुफाएँ, एलीफेंटा गुफाएँ, छत्रपति शिवाजी टर्मिनस और विक्टोरियन गोथिक वास्तुकला', 'Ajanta & Ellora Caves, Elephanta Caves, CSMT & Victorian Gothic Ensemble'] },
+  tg: { gi: ['পোচমপল্লি ইক্কত, হায়দরাবাদি হালিম, নির্মল খেলনা, গাদওয়াল শাড়ি', 'पोचमपल्ली इक्कत, हैदराबादी हलीम, निर्मल खिलौने, गडवाल साड़ी', 'Pochampally Ikat, Hyderabadi Haleem, Nirmal Toys, Gadwal Saree'], unesco: ['কাকতীয় রুদ্রেশ্বর (রামাপ্পা) মন্দির', 'काकतीय रुद्रेश्वर (रामप्पा) मंदिर', 'Kakatiya Rudreshwara (Ramappa) Temple'] },
+  od: { gi: ['ওড়িশা রসগোল্লা, পটচিত্র, সম্বলপুরি শাড়ি, কোটপাড় তাঁত', 'ओडिशा रसगुल्ला, पट्टचित्र, संबलपुरी साड़ी, कोटपाड़ हथकरघा', 'Odisha Rasagola, Pattachitra, Sambalpuri Bandha Saree, Kotpad Handloom'], unesco: ['কোনার্কের সূর্য মন্দির', 'कोणार्क का सूर्य मंदिर', 'Sun Temple, Konârak'] },
+  tr: { gi: ['কুইন আনারস, ত্রিপুরা রিসা বস্ত্র', 'क्वीन अनानास, त्रिपुरा रिसा वस्त्र', 'Tripura Queen Pineapple, Tripura Risa Textile'], unesco: null },
+  mz: { gi: ['পুয়ানচেই শাল, মিজো আদা, পাওনদুম বস্ত্র', 'पुआनचेई शॉल, मिज़ो अदरक, पावनदुम वस्त्र', 'Puanchei, Mizo Ginger, Pawndum'], unesco: null },
+  ga: { gi: ['ফেনি, খোলা লঙ্কা, মানকুরাদ আম, বেবিনকা', 'फेनी, खोला मिर्च, मानकुराद आम, बेबिंका', 'Feni, Khola Chilli, Mankurad Mango, Goan Bebinca'], unesco: ['ওল্ড গোয়ার গির্জা ও কনভেন্টসমূহ', 'पुराने गोवा के चर्च और कॉन्वेंट', 'Churches and Convents of Goa'] },
+  ka: { gi: ['মহীশূর সিল্ক, মহীশূর চন্দন সাবান, কুর্গ অ্যারাবিকা কফি, চান্নাপাটনা খেলনা, ধারওয়াড় পেড়া', 'मैसूर सिल्क, मैसूर चंदन साबुन, कूर्ग अरेबिका कॉफ़ी, चन्नापटना खिलौने, धारवाड़ पेड़ा', 'Mysore Silk, Mysore Sandal Soap, Coorg Arabica Coffee, Channapatna Toys, Dharwad Pedha'], unesco: ['হাম্পির স্মারকসমূহ, পট্টডাকাল, হয়সল পবিত্র মন্দিরসমূহ ও পশ্চিমঘাট পর্বতমালা', 'हम्पी के स्मारक, पट्टदकल, होयसल पवित्र मंदिर समूह और पश्चिमी घाट', 'Group of Monuments at Hampi, Pattadakal, Sacred Ensembles of the Hoysalas & Western Ghats'] },
+  ap: { gi: ['তিরুপতি লাড্ডু, শ্রীকালহস্তি কলমকারি, কোন্ডাপল্লি খেলনা, গুন্টুর সান্নাম লঙ্কা', 'तिरुपति लड्डू, श्रीकालहस्ती कलमकारी, कोंडापल्ली खिलौने, गुंटूर सन्नम मिर्च', 'Tirupati Laddu, Srikalahasti Kalamkari, Kondapalli Toys, Guntur Sannam Chilli'], unesco: null },
+  kl: { gi: ['মালাবার গোলমরিচ, আরানমুলা কান্নাডি (ধাতব আয়না), আলেপ্পি কয়ার, কাসারাগোড শাড়ি', 'मालाबार काली मिर्च, अरनमुला कन्नाडी (दर्पण), अलेप्पी कॉयर, कासरगोड साड़ी', 'Malabar Pepper, Aranmula Kannadi, Alleppey Coir, Kasaragod Saree'], unesco: ['পশ্চিমঘাট পর্বতমালা (Western Ghats)', 'पश्चिमी घाट (Western Ghats)', 'Western Ghats'] },
+  tn: { gi: ['কাঞ্চিপুরম সিল্ক, মাদুরাই মল্লি (জুঁই), তাঞ্জাভুর চিত্রকলা, পালানি পঞ্চামৃতম, দিন্দিগুল তালা', 'कांचीपुरम सिल्क, मदुरै मल्ली (चमेली), तंजावुर पेंटिंग, पलानी पंचामृतम, डिंडीगुल ताले', 'Kanchipuram Silk, Madurai Malli, Thanjavur Paintings, Palani Panchamirtham, Dindigul Locks'], unesco: ['মহাবলীপুরম স্মারকসমূহ, মহান চোল মন্দিরসমূহ ও নীলগিরি মাউন্টেন রেলওয়ে', 'महाबलीपुरम स्मारक, महान चोल मंदिर और नीलगिरि माउंटेन रेलवे', 'Group of Monuments at Mahabalipuram, Great Living Chola Temples & Nilgiri Mountain Railway'] },
+  py: { gi: ['ভিল্লিয়ানুর পোড়ামাটির কাজ, তিরুকান্নুর পাপিয়ার-মাশে শিল্প', 'विल्लियानूर टेराकोटा, तिरुकन्नूर पेपर-मैशे शिल्प', 'Villianur Terracotta Works, Thirukannur Papier-mâché Craft'], unesco: null },
+  an: { gi: ['নিকোবরি নারকেল, নিকোবরি মাদুর', 'निकोबारी नारियल, निकोबारी चटाई', 'Nicobari Coconut, Nicobari Mat'], unesco: null },
+  ld: { gi: null, unesco: null }
 };
-function giTrvBlock(x) {
-  const g = GI[x.id] || { gi: [], unesco: [] };
-  const nm = R(x).n;
-  let h = '';
-  if (g.gi.length) h += `<h3 class="sub">${L('উল্লেখযোগ্য জিআই ট্যাগযুক্ত পণ্য', 'उल्लेखनीय जीआई-टैग उत्पाद', 'Notable GI-tagged products')}</h3><ul class="places">${g.gi.map((p) => `<li>${L(...p)}</li>`).join('')}</ul>`;
-  if (g.unesco.length) h += `<h3 class="sub">${L('ইউনেস্কো বিশ্ব ঐতিহ্যস্থল', 'यूनेस्को विश्व धरोहर स्थल', 'UNESCO World Heritage Sites')}</h3><ul class="places">${g.unesco.map((p) => `<li>${L(...p)}</li>`).join('')}</ul>`;
-  if (!g.gi.length && !g.unesco.length) h += `<p class="hint">${L(`${nm}-এর জন্য আলাদা জিআই ট্যাগ বা ইউনেস্কো ঐতিহ্যস্থলের তথ্য আমি নির্ভরযোগ্যভাবে যাচাই করতে পারিনি।`, `${nm} के लिए अलग जीआई टैग या यूनेस्को धरोहर स्थल की जानकारी भरोसेमंद ढंग से सत्यापित नहीं हो सकी।`, `I could not reliably verify separate GI-tag or UNESCO heritage site information for ${nm}.`)}</p>`;
-  else h += `<p class="hint">${L('এটি একটি আংশিক তালিকা — শুধু যে তথ্য নির্ভরযোগ্যভাবে যাচাই করা গেছে তা দেখানো হয়েছে।', 'यह एक आंशिक सूची है — केवल भरोसेमंद ढंग से सत्यापित जानकारी दिखाई गई है।', 'This is a partial list — only reliably verified information is shown.')}</p>`;
-  return h;
-}
-const stTrv = (x) => `<ul class="places">${R(x).tour.map((p) => `<li>${p}</li>`).join('')}</ul><p class="hint">${L('প্রতিটি রাজ্যের তিনটি সুপরিচিত জায়গা দেওয়া হয়েছে, পূর্ণ তালিকা নয়।', 'हर राज्य के तीन जाने-पहचाने स्थान दिए गए हैं, पूरी सूची नहीं।', 'Three well-known places are given for each state, not a full list.')}</p>` + giTrvBlock(x);
+const stTrv = (x) => {
+  const gu = GI_UNESCO[x.id];
+  const unescoHtml = gu && gu.unesco ? `<h3 class="sub">${L('ইউনেস্কো বিশ্ব ঐতিহ্যবাহী স্থান (UNESCO)', 'यूनेस्को विश्व धरोहर स्थल (UNESCO)', 'UNESCO World Heritage Sites')}</h3>${facts([fact(L('স্বীকৃত ঐতিহ্য', 'मान्यता-प्राप्त धरोहर', 'Inscribed sites'), L(...gu.unesco))])}` : '';
+  return `<ul class="places">${R(x).tour.map((p) => `<li>${p}</li>`).join('')}</ul>${unescoHtml}<p class="hint">${L('প্রতিটি রাজ্যের সুপরিচিত ভ্রমণ গন্তব্য ও ইউনেস্কো স্বীকৃত ঐতিহ্য দেওয়া হয়েছে।', 'हर राज्य के जाने-पहचाने पर्यटन स्थल और यूनेस्को मान्यता-प्राप्त धरोहरें दी गई हैं।', 'Well-known destinations and UNESCO World Heritage sites for each state/UT.')}</p>`;
+};
 
 /* ---------- সংস্কৃতি: খাবার ও উৎসব ---------- */
 const CUL = {
@@ -1780,8 +1813,9 @@ function stCul(x) {
   return facts([
     fact(L('বিখ্যাত খাবার', 'प्रसिद्ध भोजन', 'Famous food'), L(...c.food)),
     fact(L('প্রধান উৎসব', 'प्रमुख त्योहार', 'Major festival'), L(...c.fest), L(...c.when)),
-    fact(L('বিখ্যাত ব্যক্তিত্ব', 'प्रसिद्ध व्यक्तित्व', 'Famous personality'), L(...c.person))
-  ]) + `<p class="hint">${L('একটি করে উদাহরণ দেওয়া হয়েছে, পূর্ণ তালিকা নয়। স্থানীয়ভাবে আরও অনেক খাবার, উৎসব ও বিখ্যাত মানুষ আছেন।', 'एक-एक उदाहरण दिया गया है, पूरी सूची नहीं। स्थानीय स्तर पर कई और व्यंजन, त्योहार और प्रसिद्ध लोग हैं।', 'One example each is given, not a full list — many more local dishes, festivals and notable people exist.')}</p>`;
+    fact(L('বিখ্যাত ব্যক্তিত্ব', 'प्रसिद्ध व्यक्तित्व', 'Famous personality'), L(...c.person)),
+    ...(GI_UNESCO[x.id] && GI_UNESCO[x.id].gi ? [fact(L('ভৌগোলিক নির্দেশক পণ্য (GI Tag)', 'भौगोलिक संकेतक उत्पाद (GI Tag)', 'Geographical Indication (GI Tags)'), L(...GI_UNESCO[x.id].gi))] : [])
+  ]) + `<p class="hint">${L('স্থানীয় খাবার, প্রধান উৎসব, বিখ্যাত ব্যক্তিত্ব এবং সরকারিভাবে স্বীকৃত GI ট্যাগ পণ্যের উদাহরণ দেওয়া হয়েছে।', 'स्थानीय भोजन, प्रमुख त्योहार, प्रसिद्ध व्यक्तित्व और आधिकारिक GI टैग उत्पादों के उदाहरण दिए गए हैं।', 'Examples of local cuisine, major festivals, notable figures and officially registered GI-tagged products.')}</p>`;
 }
 
 function stVs(x) {
@@ -1917,134 +1951,194 @@ function shareInfo() {
   return { url, text };
 }
 function setupShare() {
+  $('#shareCard').textContent = L('🖼️ কার্ড ডাউনলোড', '🖼️ कार्ड डाउनलोड', '🖼️ Download Card');
+  $('#shareCard').setAttribute('aria-label', L('তথ্য কার্ড ছবি হিসেবে ডাউনলোড করুন', 'जानकारी कार्ड इमेज के रूप में डाउनलोड करें', 'Download summary card as image'));
   $('#shareCp').textContent = L('লিংক কপি', 'लिंक कॉपी', 'Copy link');
   $('#shareCp').setAttribute('aria-label', L('লিংক কপি করুন', 'लिंक कॉपी करें', 'Copy link'));
-  $('#shareCard').textContent = L('🖼️ কার্ড ডাউনলোড', '🖼️ कार्ड डाउनलोड', '🖼️ Download Card');
-  $('#shareCard').setAttribute('aria-label', L('সারাংশ কার্ড ছবি হিসেবে ডাউনলোড করুন', 'सारांश कार्ड छवि के रूप में डाउनलोड करें', 'Download a summary card image'));
 }
-/* ---------- ডাউনলোডযোগ্য সারাংশ কার্ড (Canvas PNG) ---------- */
-function ccWrap(ctx, text, x, y, maxW, lh) {
-  const words = String(text).split(' ');
-  let line = '', ly = y;
-  for (const w of words) {
-    const test = line ? line + ' ' + w : w;
-    if (ctx.measureText(test).width > maxW && line) { ctx.fillText(line, x, ly); line = w; ly += lh; }
-    else line = test;
+function wrapCanvasText(ctx, text, x, y, maxW, lineH, maxLines = 3) {
+  const words = String(text || '').split(/\s+/);
+  let line = '', lines = 0;
+  for (let i = 0; i < words.length; i++) {
+    const test = line ? line + ' ' + words[i] : words[i];
+    if (ctx.measureText(test).width > maxW && line) {
+      ctx.fillText(line, x, y + lines * lineH);
+      line = words[i];
+      lines++;
+      if (lines >= maxLines - 1) {
+        const rest = [line, ...words.slice(i + 1)].join(' ');
+        let trimmed = rest;
+        while (ctx.measureText(trimmed + '…').width > maxW && trimmed.length > 4) trimmed = trimmed.slice(0, -1);
+        ctx.fillText(trimmed === rest ? rest : trimmed + '…', x, y + lines * lineH);
+        return lines + 1;
+      }
+    } else {
+      line = test;
+    }
   }
-  if (line) ctx.fillText(line, x, ly);
-  return ly + lh;
+  if (line) { ctx.fillText(line, x, y + lines * lineH); lines++; }
+  return lines;
 }
-function drawCardChrome(ctx, W, H, title) {
-  ctx.fillStyle = '#F7F6F2'; ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = '#C2410C'; ctx.fillRect(0, 0, W, 10);
-  ctx.fillStyle = '#161E2E';
-  ctx.font = '700 25px "Hind Siliguri", sans-serif';
-  ctx.fillText(L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance'), 48, 62);
-  ctx.strokeStyle = '#E2E8F0'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(48, 82); ctx.lineTo(W - 48, 82); ctx.stroke();
-  ctx.fillStyle = '#161E2E';
-  ctx.font = '700 40px "Hind Siliguri", sans-serif';
-  ctx.fillText(title, 48, 140);
-}
-function drawCardFooter(ctx, W, H) {
-  ctx.fillStyle = '#4B5563'; ctx.font = '400 16px "Hind Siliguri", sans-serif';
-  ctx.fillText(L('উৎস: আদমশুমারি, RBI, NITI Aayog, NFHS-5, ISFR ও নির্বাচন কমিশন · bharateknojore', 'स्रोत: जनगणना, RBI, NITI Aayog, NFHS-5, ISFR और चुनाव आयोग · bharateknojore', 'Source: Census, RBI, NITI Aayog, NFHS-5, ISFR, Election Commission · bharateknojore'), 48, H - 28);
-}
-function cardStateCanvas(x) {
-  const W = 1200, H = 630;
-  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
-  const ctx = cv.getContext('2d');
-  drawCardChrome(ctx, W, H, R(x).n);
-  ctx.font = '400 20px "Hind Siliguri", sans-serif'; ctx.fillStyle = '#4B5563';
-  ctx.fillText(`${TYPE_LABEL()[x.t]} · ${R(x).cap ? (L('রাজধানী: ', 'राजधानी: ', 'Capital: ') + R(x).cap) : ''}`, 48, 172);
-  const e = EXT[x.id] || {};
-  const eco = ECO[x.id];
-  const rows = [
-    [L('জনসংখ্যা (২০১১)', 'जनसंख्या (2011)', 'Population (2011)'), big(x.pop)],
-    [L('আয়তন', 'क्षेत्रफल', 'Area'), nf.format(x.area) + ' ' + KM()],
-    [L('সাক্ষরতা', 'साक्षरता', 'Literacy'), LIT[x.id] ? nf1.format(LIT[x.id][3]) + '%' : '—'],
-    [L('মাথাপিছু আয়', 'प्रति व्यक्ति आय', 'Per-capita income'), eco ? '₹' + nf.format(eco.p24) : '—'],
-    ['HDI', e.hdi != null ? nf3.format(e.hdi) : '—'],
-    [L('লোকসভা আসন', 'लोकसभा सीटें', 'Lok Sabha seats'), nf.format(x.ls)]
-  ];
-  let gy = 230;
-  const colW = (W - 96) / 2;
-  rows.forEach((r, i) => {
-    const cx = 48 + (i % 2) * colW, cy = gy + Math.floor(i / 2) * 110;
-    ctx.fillStyle = '#4B5563'; ctx.font = '400 18px "Hind Siliguri", sans-serif'; ctx.fillText(r[0], cx, cy);
-    ctx.fillStyle = '#C2410C'; ctx.font = '700 34px "Hind Siliguri", sans-serif'; ctx.fillText(r[1], cx, cy + 40);
-  });
-  drawCardFooter(ctx, W, H);
-  return cv;
-}
-function cardIndiaCanvas() {
-  const W = 1200, H = 560;
-  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
-  const ctx = cv.getContext('2d');
-  drawCardChrome(ctx, W, H, L('সারা ভারত', 'पूरा भारत', 'All of India'));
-  ctx.font = '400 20px "Hind Siliguri", sans-serif'; ctx.fillStyle = '#4B5563';
-  ctx.fillText(L('সার্বভৌম প্রজাতন্ত্র · ২৮টি রাজ্য ও ৮টি কেন্দ্রশাসিত অঞ্চল', 'संप्रभु गणराज्य · 28 राज्य और 8 केंद्रशासित प्रदेश', 'Sovereign republic · 28 states and 8 union territories'), 48, 172);
-  const rows = [
-    [L('জনসংখ্যা (২০১১)', 'जनसंख्या (2011)', 'Population (2011)'), big(TOTAL_POP)],
-    [L('আয়তন', 'क्षेत्रफल', 'Area'), nf.format(TOTAL_AREA) + ' ' + KM()],
-    [L('লোকসভা আসন', 'लोकसभा सीटें', 'Lok Sabha seats'), nf.format(543)],
-    [L('রাজ্যসভা আসন', 'राज्यसभा सीटें', 'Rajya Sabha seats'), nf.format(245)]
-  ];
-  let gy = 230;
-  const colW = (W - 96) / 2;
-  rows.forEach((r, i) => {
-    const cx = 48 + (i % 2) * colW, cy = gy + Math.floor(i / 2) * 110;
-    ctx.fillStyle = '#4B5563'; ctx.font = '400 18px "Hind Siliguri", sans-serif'; ctx.fillText(r[0], cx, cy);
-    ctx.fillStyle = '#C2410C'; ctx.font = '700 34px "Hind Siliguri", sans-serif'; ctx.fillText(r[1], cx, cy + 40);
-  });
-  drawCardFooter(ctx, W, H);
-  return cv;
-}
-function cardCmpCanvas() {
-  const states = cmpList.map((id) => byId[id]).filter(Boolean);
-  const W = 420 + states.length * 220, H = 560;
-  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
-  const ctx = cv.getContext('2d');
-  drawCardChrome(ctx, W, H, L('রাজ্য তুলনা', 'राज्यों की तुलना', 'Compare States'));
-  const rows = [
-    [L('জনসংখ্যা', 'जनसंख्या', 'Population'), (z) => big(z.pop)],
-    [L('আয়তন', 'क्षेत्रफल', 'Area'), (z) => nf.format(z.area) + ' ' + KM()],
-    [L('সাক্ষরতা', 'साक्षरता', 'Literacy'), (z) => LIT[z.id] ? nf1.format(LIT[z.id][3]) + '%' : '—'],
-    [L('মাথাপিছু আয়', 'प्रति व्यक्ति आय', 'Per-capita income'), (z) => ECO[z.id] ? '₹' + nf.format(ECO[z.id].p24) : '—']
-  ];
-  const labelW = 260, colW = (W - 48 - labelW) / states.length;
-  let y = 180;
-  ctx.font = '700 20px "Hind Siliguri", sans-serif'; ctx.fillStyle = '#161E2E';
-  states.forEach((s, i) => ctx.fillText(R(s).n, 48 + labelW + i * colW, y));
-  y += 30;
-  ctx.strokeStyle = '#E2E8F0'; ctx.beginPath(); ctx.moveTo(48, y); ctx.lineTo(W - 48, y); ctx.stroke();
-  y += 42;
-  rows.forEach(([label, get]) => {
-    ctx.font = '400 18px "Hind Siliguri", sans-serif'; ctx.fillStyle = '#4B5563';
-    ccWrap(ctx, label, 48, y, labelW - 16, 22);
-    states.forEach((s, i) => {
-      ctx.font = '700 22px "Hind Siliguri", sans-serif'; ctx.fillStyle = '#C2410C';
-      ctx.fillText(String(get(s)), 48 + labelW + i * colW, y);
-    });
-    y += 62;
-  });
-  drawCardFooter(ctx, W, H);
-  return cv;
-}
-function downloadCanvas(cv, filename) {
-  cv.toBlob((blob) => {
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = filename;
-    document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-  }, 'image/png');
-}
-$('#shareCard').addEventListener('click', () => {
+function downloadSummaryCard() {
+  const isDark = document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+  const bg = isDark ? '#0B1120' : '#F7F6F2';
+  const cardBg = isDark ? '#131C31' : '#FFFFFF';
+  const fg = isDark ? '#F1F5F9' : '#161E2E';
+  const muted = isDark ? '#94A3B8' : '#4B5563';
+  const line = isDark ? '#24324A' : '#E2E8F0';
+  const accent = isDark ? '#FB923C' : '#C2410C';
+  const posCol = isDark ? '#2DD4BF' : '#0F766E';
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 1080;
+  canvas.height = 1220;
+  const ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Top Saffron Accent Bar
+  ctx.fillStyle = accent;
+  ctx.fillRect(0, 0, canvas.width, 16);
+
+  // Brand Header
+  ctx.fillStyle = accent;
+  ctx.font = 'bold 28px sans-serif';
+  ctx.fillText(L('ভারত এক নজরে · INDIA AT A GLANCE', 'भारत एक नज़र में · INDIA AT A GLANCE', 'INDIA AT A GLANCE · ভারত এক নজরে'), 64, 76);
+
+  ctx.fillStyle = line;
+  ctx.fillRect(64, 100, canvas.width - 128, 2);
+
   const nat = cur === 'india';
-  const cv = (nat && tab === 'cmp') ? cardCmpCanvas() : nat ? cardIndiaCanvas() : cardStateCanvas(byId[cur]);
-  const name = (nat && tab === 'cmp') ? 'compare' : (nat ? 'india' : cur);
-  downloadCanvas(cv, `bharat-ek-nojore-${name}.png`);
-});
+  const x = byId[cur];
+
+  if (tab === 'cmp') {
+    const states = cmpList.slice(0, 4).map((id) => byId[id]).filter(Boolean);
+    ctx.fillStyle = fg;
+    ctx.font = 'bold 50px serif';
+    ctx.fillText(L('রাজ্য তুলনা (State Comparison)', 'राज्यों की तुलना (State Comparison)', 'State-by-State Comparison'), 64, 172);
+    ctx.fillStyle = muted;
+    ctx.font = '26px sans-serif';
+    ctx.fillText(states.map((s) => R(s).n).join('  vs  '), 64, 218);
+
+    const metrics = [
+      [L('জনসংখ্যা', 'जनसंख्या', 'Population'), (s) => big(s.pop)],
+      [L('আয়তন', 'क्षेत्रफल', 'Area'), (s) => nf.format(s.area) + ' ' + KM()],
+      [L('সাক্ষরতা (২০২৪)', 'साक्षरता (2024)', 'Literacy (2024)'), (s) => LIT[s.id] ? nf1.format(LIT[s.id][3]) + '%' : '—'],
+      ['GSDP', (s) => ECO[s.id] && ECO[s.id].g ? (ECO[s.id].g >= 1000 ? nf2.format(ECO[s.id].g / 1000) + 'L Cr ₹' : nf.format(ECO[s.id].g * 100) + ' Cr ₹') : '—'],
+      [L('মাথাপিছু আয়', 'प्रति व्यक्ति आय', 'Per-Capita Income'), (s) => ECO[s.id] && ECO[s.id].p24 ? '₹' + nf.format(ECO[s.id].p24) : '—'],
+      ['HDI', (s) => EXT[s.id] && EXT[s.id].hdi ? nf3.format(EXT[s.id].hdi) : '—'],
+      [L('বনভূমি', 'वन क्षेत्र', 'Forest Cover'), (s) => EXT[s.id] && EXT[s.id].forestCover ? nf1.format(EXT[s.id].forestCover) + '%' : '—'],
+      [L('লোকসভা আসন', 'लोकसभा सीटें', 'Lok Sabha Seats'), (s) => nf.format(s.ls)]
+    ];
+
+    let y = 270;
+    const colW = (canvas.width - 128 - 260) / states.length;
+    ctx.fillStyle = cardBg;
+    ctx.fillRect(64, y, canvas.width - 128, 64);
+    ctx.fillStyle = accent;
+    ctx.font = 'bold 24px sans-serif';
+    states.forEach((s, idx) => {
+      wrapCanvasText(ctx, R(s).sh, 324 + idx * colW + 12, y + 40, colW - 20, 26, 1);
+    });
+    y += 64;
+
+    metrics.forEach(([mlabel, mfn], rIdx) => {
+      ctx.fillStyle = rIdx % 2 === 0 ? bg : cardBg;
+      ctx.fillRect(64, y, canvas.width - 128, 86);
+      ctx.strokeStyle = line;
+      ctx.strokeRect(64, y, canvas.width - 128, 86);
+      ctx.fillStyle = muted;
+      ctx.font = 'bold 23px sans-serif';
+      ctx.fillText(mlabel, 80, y + 52);
+      ctx.fillStyle = fg;
+      ctx.font = 'bold 25px sans-serif';
+      states.forEach((s, idx) => {
+        wrapCanvasText(ctx, mfn(s), 324 + idx * colW + 12, y + 52, colW - 20, 26, 1);
+      });
+      y += 86;
+    });
+  } else if (nat) {
+    ctx.fillStyle = fg;
+    ctx.font = 'bold 64px serif';
+    ctx.fillText(L('ভারত (India)', 'भारत (India)', 'India'), 64, 184);
+    ctx.fillStyle = muted;
+    ctx.font = '28px sans-serif';
+    ctx.fillText(L('সার্বভৌম প্রজাতন্ত্র · ২৮টি রাজ্য ও ৮টি কেন্দ্রশাসিত অঞ্চল', 'संप्रभु गणराज्य · 28 राज्य और 8 केंद्रशासित प्रदेश', 'Sovereign Republic · 28 States & 8 Union Territories'), 64, 232);
+
+    const cards = [
+      [L('রাজধানী', 'राजधानी', 'Capital'), L('নয়াদিল্লি', 'नई दिल्ली', 'New Delhi')],
+      [L('জনসংখ্যা (২০২৬ অনুমান)', 'जनसंख्या (2026 अनुमान)', 'Population (2026 est.)'), big(POP_2026)],
+      [L('মোট আয়তন', 'कुल क्षेत्रफल', 'Total Area'), nf.format(TOTAL_AREA) + ' ' + KM()],
+      [L('নামমাত্র GDP (২০২৬)', 'नॉमिनल GDP (2026)', 'Nominal GDP (2026)'), '≈ US$ 4.06 Trillion'],
+      [L('সাক্ষরতা (PLFS ২০২৪)', 'साक्षरता (PLFS 2024)', 'Literacy (PLFS 2024)'), nf1.format(NAT_LIT[3]) + '%'],
+      [L('মুদ্রা ও সময় অঞ্চল', 'मुद्रा और समय क्षेत्र', 'Currency & Time'), 'INR (₹) · IST (UTC+5:30)']
+    ];
+    cards.forEach(([k, v], i) => {
+      const col = i % 2, row = Math.floor(i / 2);
+      const cx = 64 + col * 492, cy = 285 + row * 230;
+      ctx.fillStyle = cardBg;
+      ctx.fillRect(cx, cy, 460, 200);
+      ctx.strokeStyle = line;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(cx, cy, 460, 200);
+      ctx.fillStyle = muted;
+      ctx.font = 'bold 24px sans-serif';
+      ctx.fillText(k, cx + 28, cy + 54);
+      ctx.fillStyle = fg;
+      ctx.font = 'bold 34px sans-serif';
+      wrapCanvasText(ctx, v, cx + 28, cy + 114, 404, 42, 2);
+    });
+  } else {
+    const r = R(x), e = ECO[x.id], ext = EXT[x.id] || {};
+    ctx.fillStyle = fg;
+    ctx.font = 'bold 58px serif';
+    wrapCanvasText(ctx, r.n, 64, 178, canvas.width - 128, 64, 1);
+
+    ctx.fillStyle = accent;
+    ctx.font = 'bold 25px sans-serif';
+    ctx.fillText(`${x.en.toUpperCase()}  ·  ${TYPE_LABEL()[x.t].toUpperCase()}  ·  ${zn(x.z)}`, 64, 226);
+
+    const cards = [
+      [L('রাজধানী', 'राजधानी', 'Capital'), r.cap],
+      [L('জনসংখ্যা (২০১১)', 'जनसंख्या (2011)', 'Population (2011)'), big(x.pop)],
+      [L('আয়তন', 'क्षेत्रफल', 'Area'), nf.format(x.area) + ' ' + KM()],
+      [L('সাক্ষরতা (২০২৪)', 'साक्षरता (2024)', 'Literacy (2024)'), LIT[x.id] ? nf2.format(LIT[x.id][3]) + '%' : '—'],
+      ['GSDP', e && e.g ? (e.g >= 1000 ? nf2.format(e.g / 1000) + L(' লক্ষ কোটি ₹', ' लाख करोड़ ₹', ' Lakh Crore ₹') : nf.format(e.g * 100) + L(' কোটি ₹', ' करोड़ ₹', ' Crore ₹')) : '—'],
+      [L('মাথাপিছু আয়', 'प्रति व्यक्ति आय', 'Per-Capita Income'), e && e.p24 ? '₹' + nf.format(e.p24) : '—'],
+      [L('মুখ্যমন্ত্রী / শাসন', 'मुख्यमंत्री / शासन', 'Chief Minister / Admin'), r.cm ? `${r.cm} (${x.party})` : L('কেন্দ্রশাসিত প্রশাসন', 'केंद्रशासित प्रशासन', 'UT Administration')],
+      [L('লোকসভা / বিধানসভা', 'लोकसभा / विधानसभा', 'Lok Sabha / Assembly'), `${nf.format(x.ls)} / ${x.vs ? nf.format(x.vs) : '—'}`]
+    ];
+    cards.forEach(([k, v], i) => {
+      const col = i % 2, row = Math.floor(i / 2);
+      const cx = 64 + col * 492, cy = 268 + row * 195;
+      ctx.fillStyle = cardBg;
+      ctx.fillRect(cx, cy, 460, 170);
+      ctx.strokeStyle = line;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(cx, cy, 460, 170);
+      ctx.fillStyle = muted;
+      ctx.font = 'bold 22px sans-serif';
+      ctx.fillText(k, cx + 26, cy + 48);
+      ctx.fillStyle = (i === 3 || i === 5) ? posCol : fg;
+      ctx.font = 'bold 30px sans-serif';
+      wrapCanvasText(ctx, v, cx + 26, cy + 102, 408, 36, 2);
+    });
+  }
+
+  // Footer
+  ctx.fillStyle = line;
+  ctx.fillRect(64, 1110, canvas.width - 128, 2);
+  ctx.fillStyle = muted;
+  ctx.font = '24px sans-serif';
+  ctx.fillText(L('সূত্র: আদমশুমারি, RBI, MoSPI, NITI Aayog, নির্বাচন কমিশন · ভারত এক নজরে', 'स्रोत: जनगणना, RBI, MoSPI, NITI Aayog, चुनाव आयोग · भारत एक नज़र में', 'Sources: Census, RBI, MoSPI, NITI Aayog, ECI · India at a Glance'), 64, 1164);
+
+  const link = document.createElement('a');
+  link.download = `bharat-ek-nojore-${tab === 'cmp' ? 'compare' : cur}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+$('#shareCard').addEventListener('click', downloadSummaryCard);
 $('#shareWa').addEventListener('click', () => {
   const { text } = shareInfo();
   open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
@@ -2081,58 +2175,90 @@ function render() {
   $('#ptitle').textContent = nat ? L('ভারত', 'भारत', 'India') : R(x).n;
   $('#psub').innerHTML = nat ? L('India · সার্বভৌম প্রজাতন্ত্র', 'India · संप्रभु गणराज्य', 'Sovereign republic') : `${x.en} · <span class="badge ${x.t === 'ut' ? 'badge-ut' : 'badge-state'}">${TYPE_LABEL()[x.t]}</span> · ${zn(x.z)} ${L('ভারত', 'भारत', 'India')}`;
   $('#back').hidden = nat;
+  const hb = $('#homeBtn');
+  if (hb) {
+    const isHome = nat && tab === 'gen';
+    hb.classList.toggle('is-away', !isHome);
+    hb.setAttribute('aria-current', isHome ? 'page' : 'false');
+  }
   $('#pick').value = cur;
   $('#tabs').innerHTML = tabs.map(([k, l]) => `<button role="tab" id="tab-${k}" data-tab="${k}" aria-selected="${k === tab}" tabindex="${k === tab ? 0 : -1}">${l}</button>`).join('');
   const bodies = nat ? { gen: natGen, pol: natPol, cab: natCab, eco: natEco, mkt: natMkt, idx: natIdx, air: natAir, saf: natSaf, crime: natCrime, rgt: natRgt, sym: natSym, hist: natHist, trv: natTrv, spt: natSpt, quiz: natQuiz, cmp: natCmp } : { gen: () => stGen(x), idx: () => stIdx(x), pol: () => stPol(x), eco: () => stEco(x), edu: () => stEdu(x), cul: () => stCul(x), saf: () => stSaf(x), trv: () => stTrv(x), cmp: () => stCmp(x) };
   const bd = $('#body');
   bd.setAttribute('aria-labelledby', 'tab-' + tab);
-  bd.innerHTML = bodies[tab]() + `<p class="hint upd"><span class="badge badge-fresh">${L('হালনাগাদ', 'अद्यतन', 'Updated')}</span>${L('এই বিভাগ শেষ যাচাই: ৬ নভেম্বর ২০২৬। ', 'यह खंड आख़िरी बार जाँचा गया: 6 नवंबर 2026। ', 'This section last checked: 6 November 2026. ')}${CAD[tab] ? L(...CAD[tab]) : ''}</p>`;
+  bd.innerHTML = bodies[tab]() + `<p class="hint upd"><span class="badge badge-fresh">${L('হালনাগাদ', 'अद्यतन', 'Updated')}</span>${L('এই বিভাগ শেষ যাচাই: ১৭ নভেম্বর ২০২৬। ', 'यह खंड आख़िरी बार जाँचा गया: 17 नवंबर 2026। ', 'This section last checked: 17 November 2026. ')}${CAD[tab] ? L(...CAD[tab]) : ''}</p>`;
   highlight();
-  document.title = nat ? L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance') : R(x).n + ' | ' + L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance');
   syncHash();
-}
-function encodeHash() {
-  if (cur === 'india' && tab === 'gen') return '';
-  let h = cur;
-  if (tab === 'cmp' && cur === 'india' && cmpList.length) h += '/cmp=' + cmpList.join(',');
-  else if (tab !== 'gen') h += '/' + tab;
-  return h;
-}
-function syncHash() {
-  try {
-    const h = encodeHash();
-    const want = h ? ('#' + h) : (location.pathname + location.search);
-    if ((h ? '#' + h : '') !== location.hash) history.replaceState(null, '', want);
-  } catch (_) {}
+  document.title = nat ? L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance') : R(x).n + ' | ' + L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance');
 }
 
-function parseHash() {
-  const raw = decodeURIComponent(location.hash.slice(1));
-  const parts = raw.split('/');
-  const id = byId[parts[0]] ? parts[0] : 'india';
-  let tabWant = null, cmpWant = null;
-  if (parts[1]) {
-    if (parts[1].indexOf('cmp=') === 0) {
-      const codes = parts[1].slice(4).split(',').map((s) => s.trim()).filter((c) => byId[c]);
-      if (codes.length >= 2) cmpWant = codes.slice(0, CMP_MAX);
-      tabWant = 'cmp';
-    } else if (ST_TAB().some(([k]) => k === parts[1]) || NAT_TAB().some(([k]) => k === parts[1])) {
-      tabWant = parts[1];
-    }
-  }
-  return { id, tab: tabWant, cmp: cmpWant };
+function syncHash() {
+  try {
+    let next = '';
+    if (cur === 'india' && tab === 'cmp') next = '#cmp=' + cmpList.join(',');
+    else if (cur === 'india' && tab !== 'gen') next = '#india/' + tab;
+    else if (cur !== 'india' && tab !== 'gen') next = '#' + cur + '/' + tab;
+    else if (cur !== 'india') next = '#' + cur;
+    if (location.hash !== next) history.replaceState(null, '', next || location.pathname + location.search);
+  } catch (_) {}
 }
-function fromHash() { return parseHash().id; }
+function applyHashState() {
+  const raw = decodeURIComponent(location.hash.slice(1)).trim();
+  if (!raw || raw === 'india') { cur = 'india'; tab = 'gen'; return; }
+  if (raw.startsWith('cmp=')) {
+    const ids = raw.slice(4).split(',').map((s) => s.trim()).filter((id) => byId[id]);
+    if (ids.length >= 2) cmpList = ids.slice(0, CMP_MAX);
+    cur = 'india'; tab = 'cmp'; return;
+  }
+  const [part1, part2] = raw.split('/');
+  if (part1 === 'india') { cur = 'india'; tab = part2 || 'gen'; return; }
+  if (byId[part1]) { cur = part1; tab = part2 || 'gen'; return; }
+  cur = 'india'; tab = 'gen';
+}
+function fromHash() {
+  applyHashState();
+  return cur;
+}
 const reduce = reduceMotion;
-function setCur(id, scroll, tabWant) {
-  if (tabWant) tab = tabWant;
-  else if (id !== cur) tab = 'gen';
+function setCur(id, scroll) {
+  if (id !== cur) tab = 'gen';
   cur = id;
   render();
   if (!skipFocus) focusOn(id);
   skipFocus = false;
   if (scroll && innerWidth < 900) $('#panel').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
 }
+function goHome() {
+  cur = 'india';
+  tab = 'gen';
+  mapQuizHighlight = null;
+  setZoom(1);
+  render();
+  window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+}
+function initTheme() {
+  try {
+    const saved = localStorage.getItem('bharat-theme');
+    if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved;
+  } catch (_) {}
+}
+function updateThemeBtn() {
+  const btn = $('#themeBtn');
+  if (!btn) return;
+  const isDark = document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+  btn.textContent = isDark ? '☀️' : '🌙';
+  btn.setAttribute('aria-label', isDark ? L('লাইট মোড চালু করুন', 'लाइट मोड चालू करें', 'Switch to light mode') : L('ডার্ক মোড চালু করুন', 'डार्क मोड चालू करें', 'Switch to dark mode'));
+}
+function toggleTheme() {
+  const isDark = document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+  const next = isDark ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next;
+  try { localStorage.setItem('bharat-theme', next); } catch (_) {}
+  updateThemeBtn();
+}
+initTheme();
+$('#homeBtn').addEventListener('click', goHome);
+$('#themeBtn').addEventListener('click', toggleTheme);
 function setLang(l) {
   lang = l; setFmt();
   try { localStorage.setItem('bharat-lang', l); } catch (_) {}
@@ -2147,7 +2273,18 @@ document.addEventListener('change', (e) => {
 });
 document.addEventListener('click', (e) => {
   const go = e.target.closest('[data-go]');
-  if (go) { const id = go.dataset.go; if (go.classList.contains('reg')) skipFocus = true; if (id === cur) { render(); return; } try { location.hash = id === 'india' ? 'india' : id; } catch (_) { setCur(id, true); } return; }
+  if (go) {
+    const id = go.dataset.go;
+    if ((go.classList.contains('reg') || go.classList.contains('chip')) && handleMapQuizPick(id)) {
+      if (innerWidth < 900) $('#panel').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      return;
+    }
+    if (go.classList.contains('reg')) skipFocus = true;
+    if (id === 'india') { goHome(); return; }
+    if (id === cur) { tab = 'gen'; render(); return; }
+    setCur(id, true);
+    return;
+  }
   const tb = e.target.closest('[data-tab]');
   if (tb) { tab = tb.dataset.tab; render(); $('#tab-' + tab).focus({ preventScroll: true }); return; }
   const lg = e.target.closest('[data-lang]');
@@ -2161,16 +2298,17 @@ document.addEventListener('click', (e) => {
   const qr = e.target.closest('[data-quiz-restart]');
   if (qr) { quizI = 0; quizScore = 0; quizPicked = -1; render(); return; }
   const qm = e.target.closest('[data-quiz-mode]');
-  if (qm) { quizMode = qm.dataset.quizMode; quizCat = null; quizI = 0; quizScore = 0; quizPicked = -1; if (quizMode === 'map') mqRestart(); render(); return; }
-  const mq = e.target.closest('[data-mq]');
-  if (mq) {
-    if (!mqResult) { mqPicked = mq.dataset.mq; mqResult = mqPicked === mqTarget ? 'correct' : 'wrong'; if (mqResult === 'correct') mqScore++; render(); }
-    return;
+  if (qm) {
+    quizMode = qm.dataset.quizMode; quizCat = null; quizI = 0; quizScore = 0; quizPicked = -1;
+    if (quizMode === 'map') initMapQuiz(); else mapQuizHighlight = null;
+    render(); return;
   }
-  const mqn = e.target.closest('[data-mq-next]');
-  if (mqn) { mqRound++; mqPick(); render(); return; }
-  const mqr = e.target.closest('[data-mq-restart]');
-  if (mqr) { mqRestart(); render(); return; }
+  const mqn = e.target.closest('[data-mapquiz-next]');
+  if (mqn) { mapQuizI++; mapQuizGuessed = null; mapQuizHighlight = null; render(); return; }
+  const mqr = e.target.closest('[data-mapquiz-restart]');
+  if (mqr) { initMapQuiz(); render(); return; }
+  const mqs = e.target.closest('[data-mapquiz-scroll]');
+  if (mqs) { document.querySelector('.mapcol').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); return; }
   const qc = e.target.closest('[data-quiz-cat]');
   if (qc) { quizCat = qc.dataset.quizCat; quizI = 0; quizScore = 0; quizPicked = -1; render(); return; }
   const qcb = e.target.closest('[data-quiz-cat-back]');
@@ -2191,19 +2329,6 @@ document.addEventListener('click', (e) => {
     return;
   }
 });
-$('#homeBtn').addEventListener('click', goHome);
-$('#themeBtn').addEventListener('click', () => {
-  const next = curTheme() === 'dark' ? 'light' : 'dark';
-  document.documentElement.dataset.theme = next;
-  try { localStorage.setItem('bharat-theme', next); } catch (_) {}
-  paintThemeBtn();
-});
-(function initTheme() {
-  try {
-    const saved = localStorage.getItem('bharat-theme');
-    if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved;
-  } catch (_) {}
-})();
 $('#pick').addEventListener('change', (e) => { location.hash = e.target.value; });
 function trySearch(raw) {
   const v = raw.trim().toLowerCase();
@@ -2241,11 +2366,7 @@ $('#zin').addEventListener('click', () => setZoom(zoom * 1.6));
 $('#zout').addEventListener('click', () => setZoom(zoom / 1.6));
 $('#zreset').addEventListener('click', () => setZoom(1));
 $('#tomap').addEventListener('click', () => document.querySelector('.mapcol').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }));
-addEventListener('hashchange', () => {
-  const h = parseHash();
-  if (h.cmp) cmpList = h.cmp;
-  setCur(h.id, true, h.tab);
-});
+addEventListener('hashchange', () => { applyHashState(); render(); focusOn(cur); });
 
 
 /* ---------- লাইভ কুইজ ইভেন্ট ---------- */
@@ -2258,6 +2379,9 @@ let lqBoxOpen = false, lqLastEvKey = '', lqAutoStarting = false;
 /* অ্যাডমিন প্যানেল থেকে হালনাগাদ করা মন্ত্রিসভার তথ্য, থাকলে ব্যবহার হবে */
 fetch(LQ_DB + '/cabinetData.json').then((r) => r.json()).then((d) => {
   if (d && (d.cabinet || d.pm)) { cabLive = d; if (typeof render === 'function') render(); }
+}).catch(() => {});
+fetch(LQ_DB + '/marketData.json').then((r) => r.json()).then((d) => {
+  if (d && (d.gold24 || d.silver || d.usdinr)) { mktLive = d; if (typeof render === 'function') render(); }
 }).catch(() => {});
 
 function lqEsc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
@@ -2525,15 +2649,11 @@ function lqAnswer(qi, pickIdx, ansIdx) {
 }
 
 buildMap();
-(function bootHash() {
-  const h = parseHash();
-  cur = h.id;
-  if (h.tab) tab = h.tab;
-  if (h.cmp) cmpList = h.cmp;
-})();
+applyHashState();
 applyStatic();
 labelMap();
 render();
+if (cur !== 'india') focusOn(cur);
 lqInit();
 
 </script>
