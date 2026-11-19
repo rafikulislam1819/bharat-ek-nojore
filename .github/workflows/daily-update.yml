@@ -1,0 +1,24 @@
+name: Daily Market Rate Update
+
+on:
+  schedule:
+    - cron: '30 1 * * *'   # রোজ ভোর ৭টা IST (UTC 1:30)
+  workflow_dispatch: {}
+
+jobs:
+  update-market-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run market data update script
+        env:
+          FIREBASE_DB_URL: ${{ secrets.FIREBASE_DB_URL }}
+          FIREBASE_DB_SECRET: ${{ secrets.FIREBASE_DB_SECRET }}
+        run: node scripts/update-market-data.mjs
