@@ -1588,6 +1588,331 @@ body {
   background: linear-gradient(90deg, #6366F1, #06B6D4);
 }
 
+
+/* ===== National Symbols Continuous Miniature SVG Animations ===== */
+.sym-fact {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.sym-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sym-text dt { margin: 0; }
+.sym-text dd { margin: 0; }
+.sym-stage {
+  flex: 0 0 98px;
+  width: 98px;
+  height: 70px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--p-accent, var(--accent)) 35%, var(--line));
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--p-accent, var(--accent)) 14%, var(--surface)), color-mix(in srgb, var(--p-accent, var(--accent)) 5%, var(--bg)));
+  box-shadow: inset 0 1px 8px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sym-stage svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.sym-stage svg [class^="sym-"] {
+  transform-origin: 0px 0px;
+}
+@media (max-width: 420px) {
+  .sym-fact { gap: 10px; }
+  .sym-stage { flex: 0 0 86px; width: 86px; height: 62px; border-radius: 10px; }
+}
+
+/* 1. Waving National Flag */
+@keyframes symFlagSlice {
+  0%, 100% { transform: translateY(-2.1px); }
+  50% { transform: translateY(2.1px); }
+}
+@keyframes symSpinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.sym-fslice { animation: symFlagSlice 1.7s ease-in-out infinite; }
+.sym-chakra-spin { animation: symSpinSlow 10s linear infinite; }
+
+/* 2 & 3. Anthem & National Song */
+@keyframes symBarPulse {
+  0%, 100% { transform: scaleY(0.32); }
+  50% { transform: scaleY(1); }
+}
+@keyframes symNoteFloat {
+  0% { transform: translate(0px, 12px) scale(0.75) rotate(-8deg); opacity: 0; }
+  20% { opacity: 1; }
+  75% { opacity: 0.95; }
+  100% { transform: translate(8px, -22px) scale(1.05) rotate(10deg); opacity: 0; }
+}
+@keyframes symStringVib {
+  0%, 100% { transform: translateX(0px); }
+  25% { transform: translateX(0.9px); }
+  75% { transform: translateX(-0.9px); }
+}
+@keyframes symSoundRing {
+  0% { transform: scale(0.45); opacity: 0.85; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+.sym-eq { animation: symBarPulse 1.15s ease-in-out infinite; }
+.sym-note-1 { animation: symNoteFloat 2.8s ease-in-out infinite; }
+.sym-note-2 { animation: symNoteFloat 2.8s ease-in-out 1.4s infinite; }
+.sym-note-3 { animation: symNoteFloat 3.1s ease-in-out 0.7s infinite; }
+.sym-str { animation: symStringVib 0.22s linear infinite; }
+.sym-ring-1 { animation: symSoundRing 2.4s ease-out infinite; }
+.sym-ring-2 { animation: symSoundRing 2.4s ease-out 1.2s infinite; }
+
+/* 4. Royal Bengal Tiger: Walk In -> Sit Calmly -> Lift & Roar -> Walk Out (6.8s synchronized infinite loop) */
+@keyframes symTigMover {
+  0% { transform: translateX(-28px); opacity: 0; }
+  5% { opacity: 1; }
+  32% { transform: translateX(46px); opacity: 1; }
+  85% { transform: translateX(46px); opacity: 1; }
+  96% { transform: translateX(116px); opacity: 1; }
+  100% { transform: translateX(124px); opacity: 0; }
+}
+@keyframes symTigBody {
+  0%, 10%, 20%, 30% { transform: translateY(0px) rotate(0deg); }
+  5%, 15%, 25% { transform: translateY(-1.8px) rotate(-1deg); }
+  36% { transform: translateY(4.5px) rotate(-6deg); }
+  52% { transform: translateY(4.5px) rotate(-6deg); }
+  58% { transform: translateY(1.5px) rotate(-9deg); }
+  78% { transform: translateY(1.5px) rotate(-9deg); }
+  85% { transform: translateY(0px) rotate(0deg); }
+  90%, 96% { transform: translateY(-1.8px) rotate(0deg); }
+  93%, 100% { transform: translateY(0px) rotate(0deg); }
+}
+@keyframes symTigLegA {
+  0%, 10%, 20%, 30% { transform: rotate(22deg); }
+  5%, 15%, 25% { transform: rotate(-22deg); }
+  36%, 52% { transform: rotate(-18deg) translateY(-1px); }
+  58%, 78% { transform: rotate(-8deg); }
+  85% { transform: rotate(0deg); }
+  89%, 95% { transform: rotate(22deg); }
+  92%, 98% { transform: rotate(-22deg); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes symTigLegB {
+  0%, 10%, 20%, 30% { transform: rotate(-22deg); }
+  5%, 15%, 25% { transform: rotate(22deg); }
+  36%, 52% { transform: rotate(16deg) translateY(-1px); }
+  58%, 78% { transform: rotate(8deg); }
+  85% { transform: rotate(0deg); }
+  89%, 95% { transform: rotate(-22deg); }
+  92%, 98% { transform: rotate(22deg); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes symTigHead {
+  0%, 35% { transform: rotate(0deg); }
+  40%, 52% { transform: rotate(6deg); }
+  57% { transform: rotate(-15deg); }
+  61%, 67%, 73% { transform: rotate(-19deg); }
+  64%, 70%, 76% { transform: rotate(-13deg); }
+  83%, 100% { transform: rotate(0deg); }
+}
+@keyframes symTigJaw {
+  0%, 54% { transform: rotate(0deg); }
+  59%, 75% { transform: rotate(34deg); }
+  81%, 100% { transform: rotate(0deg); }
+}
+@keyframes symTigTail {
+  0%, 100% { transform: rotate(-10deg); }
+  25% { transform: rotate(14deg); }
+  50% { transform: rotate(-14deg); }
+  65% { transform: rotate(24deg); }
+  75% { transform: rotate(-20deg); }
+}
+@keyframes symTigRoar {
+  0%, 56% { transform: scale(0.35); opacity: 0; }
+  62% { transform: scale(0.95); opacity: 1; }
+  74% { transform: scale(1.25); opacity: 0.9; }
+  80%, 100% { transform: scale(1.45); opacity: 0; }
+}
+.sym-tig-mover { animation: symTigMover 6.8s linear infinite; }
+.sym-tig-body { animation: symTigBody 6.8s ease-in-out infinite; }
+.sym-tig-lega { animation: symTigLegA 6.8s ease-in-out infinite; }
+.sym-tig-legb { animation: symTigLegB 6.8s ease-in-out infinite; }
+.sym-tig-head { animation: symTigHead 6.8s ease-in-out infinite; }
+.sym-tig-jaw { animation: symTigJaw 6.8s ease-in-out infinite; }
+.sym-tig-tail { animation: symTigTail 2.2s ease-in-out infinite; }
+.sym-tig-roar { animation: symTigRoar 6.8s ease-out infinite; }
+
+/* 5. Peacock: Dramatic Fan-Out + Shimmer Dance (Animal Planet style, 5.4s infinite) */
+@keyframes symPeaFan {
+  0%, 12% { transform: rotate(0deg) scale(0.38); opacity: 0.35; }
+  26% { transform: rotate(var(--ang)) scale(1.02); opacity: 1; }
+  74% { transform: rotate(var(--ang)) scale(1); opacity: 1; }
+  88%, 100% { transform: rotate(0deg) scale(0.38); opacity: 0.35; }
+}
+@keyframes symPeaShimmer {
+  0%, 28%, 74%, 100% { transform: rotate(0deg); }
+  34%, 44%, 54%, 64% { transform: rotate(2.4deg); }
+  39%, 49%, 59%, 69% { transform: rotate(-2.4deg); }
+}
+@keyframes symPeaHead {
+  0%, 100% { transform: rotate(0deg) translateY(0px); }
+  30% { transform: rotate(-5deg) translateY(-1.5px); }
+  50% { transform: rotate(5deg) translateY(-1px); }
+  70% { transform: rotate(-4deg) translateY(-1.5px); }
+}
+.sym-pea-f { animation: symPeaFan 5.4s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+.sym-pea-shimmer { animation: symPeaShimmer 5.4s ease-in-out infinite; }
+.sym-pea-head { animation: symPeaHead 5.4s ease-in-out infinite; }
+
+/* 6. Lotus: Continuous Blooming & Closing on Water (5.0s infinite) */
+@keyframes symLotusPetal {
+  0%, 12% { transform: rotate(var(--closed)) scale(0.84); }
+  38%, 68% { transform: rotate(var(--open)) scale(1); }
+  90%, 100% { transform: rotate(var(--closed)) scale(0.84); }
+}
+@keyframes symLotusCore {
+  0%, 16% { transform: scale(0.35); opacity: 0.2; }
+  40%, 66% { transform: scale(1.06); opacity: 1; }
+  88%, 100% { transform: scale(0.35); opacity: 0.2; }
+}
+@keyframes symLotusBob {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-2px); }
+}
+@keyframes symSparkle {
+  0%, 30%, 75%, 100% { transform: scale(0); opacity: 0; }
+  52% { transform: scale(1.1); opacity: 1; }
+}
+.sym-lot-p { animation: symLotusPetal 5.0s ease-in-out infinite; }
+.sym-lot-core { animation: symLotusCore 5.0s ease-in-out infinite; }
+.sym-lot-bob { animation: symLotusBob 3.2s ease-in-out infinite; }
+.sym-lot-sp { animation: symSparkle 5.0s ease-in-out infinite; }
+
+/* 7. Mango: Sway on Branch -> Detach & Fall -> Soft Bounce -> Regrow (4.6s infinite) */
+@keyframes symMangoDrop {
+  0% { transform: translate(0px, 0px) rotate(-6deg) scale(1); opacity: 1; }
+  12% { transform: translate(0px, 0px) rotate(8deg) scale(1); opacity: 1; }
+  22% { transform: translate(0px, 0px) rotate(-7deg) scale(1); opacity: 1; }
+  27% { transform: translate(1px, 2px) rotate(10deg) scale(1); opacity: 1; }
+  46% { transform: translate(3px, 34px) rotate(26deg) scale(1); opacity: 1; }
+  53% { transform: translate(5px, 27px) rotate(36deg) scale(1); opacity: 1; }
+  61% { transform: translate(7px, 34px) rotate(44deg) scale(1); opacity: 1; }
+  76% { transform: translate(7px, 34px) rotate(44deg) scale(1); opacity: 1; }
+  84% { transform: translate(7px, 34px) rotate(44deg) scale(0.9); opacity: 0; }
+  86% { transform: translate(0px, 0px) rotate(0deg) scale(0.15); opacity: 0; }
+  96% { transform: translate(0px, 0px) rotate(-4deg) scale(1.04); opacity: 1; }
+  100% { transform: translate(0px, 0px) rotate(-6deg) scale(1); opacity: 1; }
+}
+@keyframes symMangoSway {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+@keyframes symLeafSway {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(7deg); }
+}
+.sym-mango-drop { animation: symMangoDrop 4.6s ease-in-out infinite; }
+.sym-mango-sway { animation: symMangoSway 2.4s ease-in-out infinite; }
+.sym-leaf-sway { animation: symLeafSway 2.6s ease-in-out infinite; }
+
+/* 8. Banyan Tree: Canopy & Hanging Roots Sway + Floating Leaves */
+@keyframes symCanopyA {
+  0%, 100% { transform: rotate(-2.5deg) translateX(-1px); }
+  50% { transform: rotate(3deg) translateX(1.5px); }
+}
+@keyframes symCanopyB {
+  0%, 100% { transform: rotate(2.5deg) translateX(1.2px); }
+  50% { transform: rotate(-2.5deg) translateX(-1.2px); }
+}
+@keyframes symRootSwing {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(8deg); }
+}
+@keyframes symLeafFall {
+  0% { transform: translate(0px, 0px) rotate(0deg); opacity: 0; }
+  15% { opacity: 0.95; }
+  50% { transform: translate(11px, 16px) rotate(45deg); opacity: 0.95; }
+  85% { opacity: 0.8; }
+  100% { transform: translate(5px, 32px) rotate(-25deg); opacity: 0; }
+}
+.sym-ban-a { animation: symCanopyA 3.4s ease-in-out infinite; }
+.sym-ban-b { animation: symCanopyB 3.9s ease-in-out infinite; }
+.sym-ban-root { animation: symRootSwing 3.1s ease-in-out infinite; }
+.sym-ban-leaf1 { animation: symLeafFall 3.8s ease-in-out infinite; }
+.sym-ban-leaf2 { animation: symLeafFall 4.2s ease-in-out 1.8s infinite; }
+
+/* 9. Ganges River Dolphin: Breach & Dive Loop + Waves + Splash (3.8s infinite) */
+@keyframes symDolphinArc {
+  0%, 10% { transform: translate(18px, 60px) rotate(-46deg) scale(0.92); opacity: 0; }
+  16% { transform: translate(24px, 44px) rotate(-38deg) scale(0.98); opacity: 1; }
+  32% { transform: translate(48px, 20px) rotate(-4deg) scale(1); opacity: 1; }
+  48% { transform: translate(72px, 44px) rotate(40deg) scale(0.98); opacity: 1; }
+  56% { transform: translate(78px, 62px) rotate(50deg) scale(0.9); opacity: 0; }
+  100% { transform: translate(18px, 60px) rotate(-46deg) scale(0.92); opacity: 0; }
+}
+@keyframes symWaveSlide {
+  0% { transform: translateX(0px); }
+  100% { transform: translateX(-24px); }
+}
+@keyframes symSplashA {
+  0%, 11% { transform: scale(0.2) translateY(4px); opacity: 0; }
+  18% { transform: scale(1.1) translateY(-3px); opacity: 1; }
+  28%, 100% { transform: scale(1.3) translateY(-6px); opacity: 0; }
+}
+@keyframes symSplashB {
+  0%, 45% { transform: scale(0.2) translateY(4px); opacity: 0; }
+  52% { transform: scale(1.15) translateY(-3px); opacity: 1; }
+  64%, 100% { transform: scale(1.35) translateY(-6px); opacity: 0; }
+}
+.sym-dol-arc { animation: symDolphinArc 3.8s ease-in-out infinite; }
+.sym-wave-1 { animation: symWaveSlide 2.6s linear infinite; }
+.sym-wave-2 { animation: symWaveSlide 3.4s linear infinite reverse; }
+.sym-splash-1 { animation: symSplashA 3.8s ease-out infinite; }
+.sym-splash-2 { animation: symSplashB 3.8s ease-out infinite; }
+
+/* 10. Sport (Hockey) */
+@keyframes symBallDribble {
+  0%, 100% { transform: translate(-14px, 0px); }
+  25% { transform: translate(0px, -6px); }
+  50% { transform: translate(14px, 0px); }
+  75% { transform: translate(0px, -3px); }
+}
+@keyframes symStickL {
+  0%, 100% { transform: rotate(-4deg); }
+  15% { transform: rotate(9deg); }
+  50% { transform: rotate(-4deg); }
+}
+@keyframes symStickR {
+  0%, 50%, 100% { transform: rotate(4deg); }
+  65% { transform: rotate(-9deg); }
+}
+.sym-ball { animation: symBallDribble 2.4s ease-in-out infinite; }
+.sym-stick-l { animation: symStickL 2.4s ease-in-out infinite; }
+.sym-stick-r { animation: symStickR 2.4s ease-in-out infinite; }
+
+/* 11. State Emblem Aura */
+@keyframes symGlowPulse {
+  0%, 100% { transform: scale(0.92); opacity: 0.35; }
+  50% { transform: scale(1.12); opacity: 0.72; }
+}
+.sym-aura { animation: symGlowPulse 3.2s ease-in-out infinite; }
+
+/* 12. National Days Fireworks */
+@keyframes symFirework {
+  0% { transform: scale(0.15); opacity: 0; }
+  25% { transform: scale(0.95); opacity: 1; }
+  65% { transform: scale(1.25); opacity: 0.75; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+.sym-fw-1 { animation: symFirework 2.4s ease-out infinite; }
+.sym-fw-2 { animation: symFirework 2.4s ease-out 0.8s infinite; }
+.sym-fw-3 { animation: symFirework 2.4s ease-out 1.6s infinite; }
+
 </style>
 </head><body>
 <div class="wrap">
@@ -2665,23 +2990,374 @@ function natRgt() {
     `<p class="hint">${L('মূলত ৭টি মৌলিক অধিকার ছিল। সম্পত্তির অধিকার ১৯৭৮ সালের ৪৪তম সংবিধান সংশোধনীতে মৌলিক অধিকারের তালিকা থেকে সরিয়ে অনুচ্ছেদ ৩০০ক-তে আইনি অধিকার করা হয়। এখন ৬টি মৌলিক অধিকার আছে। স্কুল পাঠ্যবইয়ের NCERT নাগরিকশাস্ত্র অনুযায়ী সংক্ষেপ, হুবহু আইনি ভাষা নয়।', 'मूल रूप से 7 मौलिक अधिकार थे। संपत्ति के अधिकार को 1978 के 44वें संविधान संशोधन से मौलिक अधिकारों की सूची से हटाकर अनुच्छेद 300क के तहत एक विधिक (क़ानूनी) अधिकार बना दिया गया। अब 6 मौलिक अधिकार हैं। NCERT नागरिक शास्त्र की पाठ्यपुस्तकों के अनुसार संक्षेप, शब्दशः विधिक भाषा नहीं।', 'There were originally 7 Fundamental Rights. The Right to Property was removed from this list by the 44th Amendment (1978) and made a legal right under Article 300A instead. There are now 6 Fundamental Rights. Summarised from NCERT civics textbooks, not verbatim legal text.')}</p>`;
 }
 
-/* ---------- জাতীয় প্রতীক ---------- */
+/* ---------- জাতীয় প্রতীক (সজীব অ্যানিমেশন-সহ) ---------- */
+function symSpokes(cx, cy, r) {
+  let s = '';
+  for (let i = 0; i < 24; i++) {
+    const a = (i * 15) * Math.PI / 180;
+    s += `<line x1="${cx}" y1="${cy}" x2="${(cx + r * Math.cos(a)).toFixed(2)}" y2="${(cy + r * Math.sin(a)).toFixed(2)}" stroke="#1E3A8A" stroke-width="0.6"/>`;
+  }
+  return s;
+}
+
+function symFlagSvg() {
+  const slices = 8, x0 = 20, w = 7.4, overlap = 0.6;
+  let strips = '';
+  for (let i = 0; i < slices; i++) {
+    const sx = (x0 + i * w).toFixed(1);
+    const sw = (w + overlap).toFixed(1);
+    const d = (-i * 0.19).toFixed(2);
+    strips += `<g class="sym-fslice" style="animation-delay:${d}s">` +
+      `<rect x="${sx}" y="12" width="${sw}" height="10.5" fill="#FF9933"/>` +
+      `<rect x="${sx}" y="22.5" width="${sw}" height="10.5" fill="#FFFFFF"/>` +
+      `<rect x="${sx}" y="33" width="${sw}" height="10.5" fill="#138808"/>` +
+      `</g>`;
+  }
+  return `<svg viewBox="0 0 96 68" xmlns="http://www.w3.org/2000/svg">
+    <rect x="13" y="59" width="14" height="3.5" rx="1.5" fill="#B45309"/>
+    <rect x="15.5" y="55.5" width="9" height="3.5" rx="1" fill="#D97706"/>
+    <rect x="18.6" y="10" width="2.6" height="46" rx="1.2" fill="#F59E0B"/>
+    <circle cx="19.9" cy="8.5" r="2.6" fill="#FDE047" stroke="#B45309" stroke-width="0.8"/>
+    ${strips}
+    <g class="sym-fslice" style="animation-delay:-0.72s">
+      <g transform="translate(49.5, 27.75)">
+        <g class="sym-chakra-spin">
+          <circle cx="0" cy="0" r="4.3" fill="none" stroke="#1E3A8A" stroke-width="0.9"/>
+          ${symSpokes(0, 0, 4.1)}
+          <circle cx="0" cy="0" r="0.9" fill="#1E3A8A"/>
+        </g>
+      </g>
+    </g>
+  </svg>`;
+}
+
+function symAnthemSvg() {
+  const bars = [
+    [26, 26, '#FF9933', '0s'],
+    [35, 34, '#F59E0B', '-0.3s'],
+    [44, 40, '#38BDF8', '-0.6s'],
+    [53, 32, '#10B981', '-0.9s'],
+    [62, 24, '#14B8A6', '-0.45s']
+  ];
+  const eq = bars.map(([x, h, c, d]) =>
+    `<g transform="translate(${x}, 54)"><rect class="sym-eq" x="-3" y="-${h}" width="6" height="${h}" rx="3" fill="${c}" style="animation-delay:${d}"/></g>`
+  ).join('');
+  return `<svg viewBox="0 0 96 68" xmlns="http://www.w3.org/2000/svg">
+    <line x1="16" y1="56" x2="80" y2="56" stroke="#64748B" stroke-opacity="0.4" stroke-width="1.5" stroke-linecap="round"/>
+    ${eq}
+    <g transform="translate(24, 34)"><g class="sym-note-1"><path d="M0 6V-6L9 -8V4" fill="none" stroke="#F59E0B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="-1.5" cy="6.5" r="2.6" fill="#F59E0B"/><circle cx="7.5" cy="4.5" r="2.6" fill="#F59E0B"/></g></g>
+    <g transform="translate(68, 36)"><g class="sym-note-2"><path d="M0 6V-7L7 -5" fill="none" stroke="#38BDF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="-1.5" cy="6.5" r="2.6" fill="#38BDF8"/></g></g>
+  </svg>`;
+}
+
+function symSongSvg() {
+  return `<svg viewBox="0 0 96 68" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(46, 36)">
+      <circle class="sym-ring-1" cx="0" cy="0" r="16" fill="none" stroke="#F59E0B" stroke-width="1.5"/>
+      <circle class="sym-ring-2" cx="0" cy="0" r="16" fill="none" stroke="#FB923C" stroke-width="1.2"/>
+    </g>
+    <g transform="translate(46, 40) rotate(-28)">
+      <ellipse cx="0" cy="10" rx="11.5" ry="13.5" fill="#D97706" stroke="#92400E" stroke-width="1.3"/>
+      <circle cx="0" cy="10" r="6.5" fill="#FDE68A" fill-opacity="0.35"/>
+      <rect x="-2.4" y="-24" width="4.8" height="26" rx="2" fill="#B45309"/>
+      <circle cx="-3.6" cy="-19" r="1.4" fill="#FDE047"/>
+      <circle cx="3.6" cy="-15" r="1.4" fill="#FDE047"/>
+      <line class="sym-str" x1="-1.1" y1="-22" x2="-1.1" y2="18" stroke="#FEF08A" stroke-width="0.7"/>
+      <line class="sym-str" x1="0" y1="-22" x2="0" y2="18" stroke="#FFFFFF" stroke-width="0.8" style="animation-delay:-0.08s"/>
+      <line class="sym-str" x1="1.1" y1="-22" x2="1.1" y2="18" stroke="#FEF08A" stroke-width="0.7" style="animation-delay:-0.15s"/>
+      <rect x="-4" y="16" width="8" height="2" rx="1" fill="#78350F"/>
+    </g>
+    <g transform="translate(68, 38)"><g class="sym-note-1"><path d="M0 5V-6L7 -8V3" fill="none" stroke="#FBBF24" stroke-width="1.7" stroke-linecap="round"/><circle cx="-1.3" cy="5.5" r="2.2" fill="#FBBF24"/><circle cx="5.7" cy="3.5" r="2.2" fill="#FBBF24"/></g></g>
+    <g transform="translate(22, 34)"><g class="sym-note-3"><path d="M0 5V-6L5.5 -4" fill="none" stroke="#F97316" stroke-width="1.7" stroke-linecap="round"/><circle cx="-1.3" cy="5.5" r="2.2" fill="#F97316"/></g></g>
+  </svg>`;
+}
+
+function symTigerSvg() {
+  return `<svg viewBox="0 0 96 68" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 55 Q24 51 48 55 T96 54 L96 68 L0 68 Z" fill="#15803D" fill-opacity="0.78"/>
+    <path d="M10 56 L12 49 L14 56 M14 56 L17 51 L18 56 M76 55 L78 49 L80 55 M81 55 L84 50 L85 55" stroke="#22C55E" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    <g class="sym-tig-mover">
+      <g transform="translate(0, 42)">
+        <g class="sym-tig-body">
+          <g transform="translate(-14, -2)">
+            <g class="sym-tig-tail">
+              <path d="M0 0 C-7 -1 -12 -6 -10 -12 C-9 -14 -7 -14 -6 -12" fill="none" stroke="#F97316" stroke-width="2.8" stroke-linecap="round"/>
+              <path d="M-4 -2 L-6 -4 M-8 -6 L-10 -8 M-9 -11 L-7 -12" stroke="#1E1B18" stroke-width="1.3" stroke-linecap="round"/>
+            </g>
+          </g>
+          <g transform="translate(-9, 3)"><g class="sym-tig-legb"><rect x="-2" y="0" width="4" height="11.5" rx="2" fill="#C2410C"/><ellipse cx="1" cy="11.5" rx="2.6" ry="1.4" fill="#FFF7ED"/></g></g>
+          <g transform="translate(9, 3)"><g class="sym-tig-lega"><rect x="-2" y="0" width="4" height="11.5" rx="2" fill="#C2410C"/><ellipse cx="1" cy="11.5" rx="2.6" ry="1.4" fill="#FFF7ED"/></g></g>
+          <ellipse cx="0" cy="0" rx="15" ry="7.5" fill="#F97316"/>
+          <path d="M-9 5.2 Q0 8 10 4.5 Q0 5.5 -9 5.2 Z" fill="#FFF7ED"/>
+          <path d="M-9 -6.5 L-7.5 -1 M-4.5 -7.4 L-3.5 -0.5 M0.5 -7.5 L1 -0.5 M5.5 -7 L5 -1 M9.5 -5.5 L8.5 -1" stroke="#1C1917" stroke-width="1.65" stroke-linecap="round"/>
+          <g transform="translate(-10, 4)"><g class="sym-tig-lega"><rect x="-2.2" y="0" width="4.4" height="11.5" rx="2" fill="#EA580C"/><path d="M-2 3.5 L1.5 4 M-2 7 L1.2 7.2" stroke="#1C1917" stroke-width="1.1"/><ellipse cx="1" cy="11.5" rx="2.7" ry="1.4" fill="#FFF7ED"/></g></g>
+          <g transform="translate(8, 4)"><g class="sym-tig-legb"><rect x="-2.2" y="0" width="4.4" height="11.5" rx="2" fill="#EA580C"/><path d="M-2 3.5 L1.5 4 M-2 7 L1.2 7.2" stroke="#1C1917" stroke-width="1.1"/><ellipse cx="1" cy="11.5" rx="2.7" ry="1.4" fill="#FFF7ED"/></g></g>
+          <g transform="translate(15, -4)">
+            <g class="sym-tig-head">
+              <circle cx="-3" cy="-6" r="2.6" fill="#EA580C"/><circle cx="-3" cy="-6" r="1.2" fill="#FFF7ED"/>
+              <circle cx="3" cy="-5.8" r="2.4" fill="#F97316"/>
+              <g transform="translate(2, 1.5)">
+                <g class="sym-tig-jaw">
+                  <path d="M-1 0 L7.5 0.5 Q8.5 3.5 5 4.2 L-1 3 Z" fill="#FFF7ED" stroke="#EA580C" stroke-width="0.8"/>
+                  <path d="M1.5 1.3 L6 1.5 Q5.5 3.2 2 2.8 Z" fill="#EF4444"/>
+                  <polygon points="5.5,0.6 6.4,-1 7.1,0.7" fill="#FFFFFF"/>
+                </g>
+              </g>
+              <ellipse cx="0" cy="0" rx="6.8" ry="5.8" fill="#F97316"/>
+              <path d="M3.5 -2.2 Q9.5 -2 9.2 1.2 Q7 2.2 3.5 1.8 Z" fill="#FFF7ED"/>
+              <polygon points="8.6,-0.7 9.6,0.4 7.7,0.4" fill="#1C1917"/>
+              <polygon points="6.2,1.6 7,3.3 7.7,1.5" fill="#FFFFFF"/>
+              <path d="M-4 -4 L-1.5 -2 M-4.5 -1 L-2 0 M-1 -5 L0.5 -2.8" stroke="#1C1917" stroke-width="1.2" stroke-linecap="round"/>
+              <circle cx="3.2" cy="-1.6" r="1.15" fill="#1C1917"/>
+              <circle cx="3.5" cy="-1.9" r="0.38" fill="#FFFFFF"/>
+              <g transform="translate(11.5, 0)">
+                <g class="sym-tig-roar">
+                  <path d="M0 -4 Q3.5 0 0 4" fill="none" stroke="#FACC15" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M4 -7 Q9 0 4 7" fill="none" stroke="#FB923C" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M8 -10 Q14.5 0 8 10" fill="none" stroke="#EF4444" stroke-width="1.3" stroke-linecap="round"/>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>`;
+}
+
+function symPeacockSvg() {
+  const angles = [-76, -60.8, -45.6, -30.4, -15.2, 0, 15.2, 30.4, 45.6, 60.8, 76];
+  const feathers = angles.map((a, i) => `
+    <g class="sym-pea-f" style="--ang:${a}deg; animation-delay:${(Math.abs(a) * 0.002).toFixed(3)}s">
+      <path d="M0 0 C-3.2 -12 -5.5 -26 -3.8 -34 C-2.2 -38.5 2.2 -38.5 3.8 -34 C5.5 -26 3.2 -12 0 0 Z" fill="${i % 2 === 0 ? '#0D9488' : '#10B981'}" stroke="#047857" stroke-width="0.5"/>
+      <line x1="0" y1="-2" x2="0" y2="-33" stroke="#A7F3D0" stroke-width="0.6" stroke-opacity="0.7"/>
+      <ellipse cx="0" cy="-31.5" rx="3.1" ry="4.2" fill="#FACC15"/>
+      <ellipse cx="0" cy="-31.8" rx="2.1" ry="2.9" fill="#06B6D4"/>
+      <ellipse cx="0" cy="-32.2" rx="1.2" ry="1.7" fill="#1E3A8A"/>
+      <circle cx="0.4" cy="-32.7" r="0.4" fill="#FFFFFF"/>
+    </g>`).join('');
+  return `<svg viewBox="0 0 96 68" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="48" cy="61" rx="34" ry="5" fill="#15803D" fill-opacity="0.45"/>
+    <g transform="translate(48, 51)">
+      <g class="sym-pea-shimmer">${feathers}</g>
+      <path d="M-3 5 L-4 11 M-4 11 L-6.5 11.5 M-4 11 L-2 11.5 M3 5 L4 11 M4 11 L2 11.5 M4 11 L6.5 11.5" stroke="#B45309" stroke-width="1.3" stroke-linecap="round"/>
+      <ellipse cx="0" cy="0" rx="6.8" ry="8.5" fill="#1D4ED8"/>
+      <ellipse cx="0" cy="1" rx="4.2" ry="6" fill="#2563EB"/>
+      <path d="M-5.8 -1 C-8 2 -6 6 -2 6" fill="#1E40AF"/>
+      <path d="M5.8 -1 C8 2 6 6 2 6" fill="#1E40AF"/>
+      <g transform="translate(0, -7)">
+        <g class="sym-pea-head">
+          <path d="M-2.3 2 C-2.5 -4 -2 -8 0 -10 C2 -8 2.5 -4 2.3 2 Z" fill="#1D4ED8"/>
+          <circle cx="0" cy="-10.5" r="3.6" fill="#1D4ED8"/>
+          <ellipse cx="0.8" cy="-10.5" rx="1.5" ry="1.1" fill="#FFFFFF"/>
+          <circle cx="1.1" cy="-10.5" r="0.7" fill="#0F172A"/>
+          <polygon points="3.1,-10.8 7.5,-9.6 3.1,-8.6" fill="#F59E0B"/>
+          <path d="M-0.8 -13.8 L-2.4 -18 M0 -14 L0 -19 M0.8 -13.8 L2.4 -18" stroke="#38BDF8" stroke-width="0.9" stroke-linecap="round"/>
+          <circle cx="-2.4" cy="-18.3" r="0.95" fill="#FACC15"/>
+          <circle cx="0" cy="-19.3" r="1.05" fill="#FACC15"/>
+          <circle cx="2.4" cy="-18.3" r="0.95" fill="#FACC15"/>
+        </g>
+      </g>
+    </g>
+  </svg>`;
+}
+
+function symLotusSvg() {
+  return `<svg viewBox="0 0 96 68" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 53 Q24 50 48 53 T96 53 L96 68 L0 68 Z" fill="#0284C7" fill-opacity="0.35"/>
+    <path d="M12 58 Q30 55.5 48 58 T84 58" fill="none" stroke="#7DD3FC" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.75"/>
+    <g class="sym-lot-bob">
+      <ellipse cx="48" cy="52.5" rx="27" ry="5.5" fill="#16A34A"/>
+      <path d="M48 52.5 L68 49.5 L72 52.5 Z" fill="#0284C7" fill-opacity="0.45"/>
+      <ellipse cx="48" cy="52" rx="23" ry="3.6" fill="#22C55E" fill-opacity="0.5"/>
+      <g transform="translate(48, 50)">
+        <g class="sym-lot-p" style="--closed:-9deg; --open:-60deg"><path d="M0 0 C-8 -8 -9 -22 0 -28 C9 -22 8 -8 0 0 Z" fill="#DB2777" stroke="#9D174D" stroke-width="0.6"/></g>
+        <g class="sym-lot-p" style="--closed:9deg; --open:60deg"><path d="M0 0 C-8 -8 -9 -22 0 -28 C9 -22 8 -8 0 0 Z" fill="#DB2777" stroke="#9D174D" stroke-width="0.6"/></g>
+        <g class="sym-lot-p" style="--closed:-5deg; --open:-34deg"><path d="M0 0 C-7.5 -9 -8 -23 0 -30 C8 -23 7.5 -9 0 0 Z" fill="#EC4899" stroke="#BE185D" stroke-width="0.6"/></g>
+        <g class="sym-lot-p" style="--closed:5deg; --open:34deg"><path d="M0 0 C-7.5 -9 -8 -23 0 -30 C8 -23 7.5 -9 0 0 Z" fill="#EC4899" stroke="#BE185D" stroke-width="0.6"/></g>
+        <g class="sym-lot-core">
+          <ellipse cx="0" cy="-12" rx="6.5" ry="7.5" fill="#FACC15"/>
+          <circle cx="-2.5" cy="-14" r="1" fill="#CA8A04"/>
+          <circle cx="2.5" cy="-14" r="1" fill="#CA8A04"/>
+          <circle cx="0" cy="-16" r="1.1" fill="#FEF08A"/>
+        </g>
+        <g class="sym-lot-p" style="--closed:-2deg; --open:-15deg"><path d="M0 0 C-6 -9 -6.5 -21 0 -27 C6.5 -21 6 -9 0 0 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.5"/></g>
+        <g class="sym-lot-p" style="--closed:2deg; --open:15deg"><path d="M0 0 C-6 -9 -6.5 -21 0 -27 C6.5 -21 6 -9 0 0 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.5"/></g>
+        <path d="M0 0 C-5 -8 -5 -19 0 -24 C5 -19 5 -8 0 0 Z" fill="#F9A8D4" stroke="#EC4899" stroke-width="0.5"/>
+        <g transform="translate(-14, -32)"><circle class="sym-lot-sp" cx="0" cy="0" r="1.8" fill="#FEF08A"/></g>
+        <g transform="translate(15, -30)"><circle class="sym-lot-sp" cx="0" cy="0" r="1.6" fill="#FDE047" style="animation-delay:-0.25s"/></g>
+        <g transform="translate(0, -37)"><circle class="sym-lot-sp" cx="0" cy="0" r="2" fill="#FFFFFF" style="animation-delay:-0.12s"/></g>
+      </g>
+    </g>
+  </svg>`;
+}
+
+function symMangoSvg() {
+  return `<svg viewBox="0 0 96 68" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 57 Q30 53 60 57 T96 56 L96 68 L0 68 Z" fill="#15803D" fill-opacity="0.72"/>
+    <path d="M-2 11 Q28 16 74 12" fill="none" stroke="#92400E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M36 14 Q52 10 68 5" fill="none" stroke="#78350F" stroke-width="2.2" stroke-linecap="round"/>
+    <g transform="translate(18, 13)"><g class="sym-leaf-sway"><path d="M0 0 C-7 4 -10 12 -4 16 C1 12 4 5 0 0 Z" fill="#16A34A"/></g></g>
+    <g transform="translate(42, 13)"><g class="sym-leaf-sway" style="animation-delay:-0.8s"><path d="M0 0 C6 -6 14 -6 17 -1 C12 3 5 4 0 0 Z" fill="#22C55E"/></g></g>
+    <g transform="translate(68, 12)"><g class="sym-leaf-sway" style="animation-delay:-1.3s"><path d="M0 0 C8 2 14 8 12 14 C6 11 1 6 0 0 Z" fill="#16A34A"/></g></g>
+    <g transform="translate(29, 15)">
+      <g class="sym-mango-sway">
+        <line x1="0" y1="0" x2="0" y2="5" stroke="#78350F" stroke-width="1.3"/>
+        <path d="M0 4.5 C5 4.5 7.5 9.5 6.5 14.5 C5.5 18.5 1 20 -2.5 18 C-6 16 -5.5 7.5 0 4.5 Z" fill="#F59E0B" stroke="#B45309" stroke-width="0.6"/>
+        <path d="M2 7 C4.5 9 4.5 13 3 15.5" fill="none" stroke="#FEF08A" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.7"/>
+      </g>
+    </g>
+    <g transform="translate(56, 13)">
+      <g class="sym-mango-drop">
+        <line x1="0" y1="0" x2="0" y2="4.5" stroke="#78350F" stroke-width="1.3"/>
+        <path d="M0 4 C6 4 9 9.5 7.8 15.5 C6.5 20.5 1.2 22.5 -3 20 C-7 17.5 -6.5 7.5 0 4 Z" fill="#FBBF24" stroke="#B45309" stroke-width="0.7"/>
+        <path d="M-3 7 C-5 11 -4.5 16 -1.5 18.5 C0 14 -0.5 9 -3 7 Z" fill="#EF4444" fill-opacity="0.58"/>
+        <path d="M3 7.5 C5.2 10 5.2 14 3.6 16.5" fill="none" stroke="#FEF9C3" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.85"/>
+      </g>
+    </g>
+  </svg>`;
+}
+
+function symBanyanSvg() {
+  return `<svg viewBox="0 0 96 68" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="48" cy="61" rx="38" ry="6" fill="#15803D" fill-opacity="0.55"/>
+    <path d="M43 60 C44 50 44 42 42 35 L54 35 C52 42 52 50 53 60 Z" fill="#78350F"/>
+    <path d="M45 38 Q30 33 19 30 M51 38 Q66 33 77 30" stroke="#78350F" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+    <g transform="translate(24, 32)"><line class="sym-ban-root" x1="0" y1="0" x2="0" y2="27" stroke="#92400E" stroke-width="1.5" stroke-linecap="round"/></g>
+    <g transform="translate(33, 34)"><line class="sym-ban-root" x1="0" y1="0" x2="0" y2="26" stroke="#78350F" stroke-width="1.6" stroke-linecap="round" style="animation-delay:-0.9s"/></g>
+    <g transform="translate(63, 34)"><line class="sym-ban-root" x1="0" y1="0" x2="0" y2="26" stroke="#78350F" stroke-width="1.6" stroke-linecap="round" style="animation-delay:-1.4s"/></g>
+    <g transform="translate(72, 32)"><line class="sym-ban-root" x1="0" y1="0" x2="0" y2="27" stroke="#92400E" stroke-width="1.5" stroke-linecap="round" style="animation-delay:-0.4s"/></g>
+    <g transform="translate(24, 29)"><g class="sym-ban-a"><circle cx="0" cy="0" r="12.5" fill="#15803D"/><circle cx="-6" cy="2" r="8.5" fill="#16A34A"/></g></g>
+    <g transform="translate(72, 29)"><g class="sym-ban-b"><circle cx="0" cy="0" r="12.5" fill="#15803D"/><circle cx="6" cy="2" r="8.5" fill="#16A34A"/></g></g>
+    <g transform="translate(48, 22)"><g class="sym-ban-a" style="animation-delay:-1.1s"><ellipse cx="0" cy="2" rx="22" ry="13.5" fill="#16A34A"/><circle cx="-11" cy="-2" r="10" fill="#22C55E"/><circle cx="11" cy="-1" r="10" fill="#22C55E"/><circle cx="0" cy="-6" r="11" fill="#4ADE80" fill-opacity="0.72"/></g></g>
+    <g transform="translate(28, 30)"><ellipse class="sym-ban-leaf1" cx="0" cy="0" rx="2.8" ry="1.4" fill="#4ADE80"/></g>
+    <g transform="translate(60, 28)"><ellipse class="sym-ban-leaf2" cx="0" cy="0" rx="2.6" ry="1.3" fill="#22C55E"/></g>
+  </svg>`;
+}
+
+function symDolphinSvg() {
+  return `<svg viewBox="0 0 96 68" xmlns="http://www.w3.org/2000/svg">
+    <defs><clipPath id="symDolClip"><rect x="0" y="0" width="96" height="53"/></clipPath></defs>
+    <g class="sym-wave-2">
+      <path d="M-24 46 Q-12 41 0 46 T24 46 T48 46 T72 46 T96 46 T120 46 L120 68 L-24 68 Z" fill="#0369A1" fill-opacity="0.55"/>
+    </g>
+    <g clip-path="url(#symDolClip)">
+      <g class="sym-dol-arc">
+        <path d="M-16 2 C-12 -5 -3 -7 6 -4 C11 -2.5 14 -0.5 21 0.5 C22.5 0.7 22.5 2.2 20.5 2.4 C15 2.8 11 3.5 6 4.2 C-2 5.5 -10 5 -16 2 Z" fill="#64748B" stroke="#CBD5E1" stroke-width="0.6"/>
+        <path d="M-10 3 C-3 4.8 5 4.2 12 2.4 C6 2 0 1.8 -10 3 Z" fill="#E2E8F0" fill-opacity="0.8"/>
+        <path d="M2 2.5 L-2 8 L4 4 Z" fill="#475569"/>
+        <path d="M-15 2 L-22 -2.5 L-19 2 L-22 6.5 Z" fill="#475569"/>
+        <circle cx="11.5" cy="-0.4" r="0.9" fill="#0F172A"/>
+      </g>
+    </g>
+    <g transform="translate(24, 46)">
+      <g class="sym-splash-1">
+        <circle cx="-4" cy="-3" r="1.6" fill="#E0F2FE"/>
+        <circle cx="1" cy="-6" r="2" fill="#BAE6FD"/>
+        <circle cx="5" cy="-2" r="1.4" fill="#E0F2FE"/>
+      </g>
+    </g>
+    <g transform="translate(72, 46)">
+      <g class="sym-splash-2">
+        <circle cx="-5" cy="-2" r="1.5" fill="#E0F2FE"/>
+        <circle cx="0" cy="-6" r="2.1" fill="#BAE6FD"/>
+        <circle cx="5" cy="-3" r="1.6" fill="#E0F2FE"/>
+      </g>
+    </g>
+    <g class="sym-wave-1">
+      <path d="M-24 50 Q-12 45 0 50 T24 50 T48 50 T72 50 T96 50 T120 50 L120 68 L-24 68 Z" fill="#0284C7" fill-opacity="0.88"/>
+      <path d="M-24 54 Q-12 50 0 54 T24 54 T48 54 T72 54 T96 54 T120 54" fill="none" stroke="#7DD3FC" stroke-width="1.3" stroke-opacity="0.7"/>
+    </g>
+  </svg>`;
+}
+
+function symSportSvg() {
+  return `<svg viewBox="0 0 96 68" xmlns="http://www.w3.org/2000/svg">
+    <line x1="16" y1="57" x2="80" y2="57" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-opacity="0.65"/>
+    <g transform="translate(36, 36)">
+      <g class="sym-stick-l">
+        <path d="M-12 -22 L10 14 Q14 20 20 15 Q22 13 20 11" fill="none" stroke="#F59E0B" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+    <g transform="translate(60, 36)">
+      <g class="sym-stick-r">
+        <path d="M12 -22 L-10 14 Q-14 20 -20 15 Q-22 13 -20 11" fill="none" stroke="#38BDF8" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+    <g transform="translate(48, 52)">
+      <circle class="sym-ball" cx="0" cy="0" r="4.3" fill="#FFFFFF" stroke="#E11D48" stroke-width="1.3"/>
+    </g>
+  </svg>`;
+}
+
+function symEmblemSvg() {
+  return `<svg viewBox="0 0 96 68" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(48, 30)">
+      <circle class="sym-aura" cx="0" cy="0" r="24" fill="#F59E0B" fill-opacity="0.22"/>
+    </g>
+    <g fill="#F59E0B" stroke="#92400E" stroke-width="0.6">
+      <path d="M43 38 L43 22 C43 16 45 13 48 13 C51 13 53 16 53 22 L53 38 Z"/>
+      <circle cx="48" cy="17" r="4.6" fill="#FBBF24"/>
+      <path d="M35 38 L35 24 C35 19 37 16 40 16 C42 16 43 18 43 22 L43 38 Z" fill="#D97706"/>
+      <circle cx="39" cy="19" r="3.8" fill="#F59E0B"/>
+      <path d="M53 38 L53 22 C53 18 54 16 56 16 C59 16 61 19 61 24 L61 38 Z" fill="#D97706"/>
+      <circle cx="57" cy="19" r="3.8" fill="#F59E0B"/>
+      <rect x="33" y="38" width="30" height="8" rx="1.5" fill="#B45309"/>
+      <path d="M35 46 Q48 53 61 46 L59 54 L37 54 Z" fill="#D97706"/>
+      <rect x="31" y="54" width="34" height="3.5" rx="1.5" fill="#92400E"/>
+    </g>
+    <g transform="translate(48, 42)">
+      <g class="sym-chakra-spin">
+        <circle cx="0" cy="0" r="3.2" fill="#FEF08A" stroke="#1E3A8A" stroke-width="0.7"/>
+        ${symSpokes(0, 0, 2.9)}
+      </g>
+    </g>
+  </svg>`;
+}
+
+function symDaysSvg() {
+  const burst = (c) => `
+    <g stroke="${c}" stroke-width="1.5" stroke-linecap="round">
+      <line x1="0" y1="-3" x2="0" y2="-9"/><line x1="0" y1="3" x2="0" y2="9"/>
+      <line x1="-3" y1="0" x2="-9" y2="0"/><line x1="3" y1="0" x2="9" y2="0"/>
+      <line x1="-2.2" y1="-2.2" x2="-6.5" y2="-6.5"/><line x1="2.2" y1="-2.2" x2="6.5" y2="-6.5"/>
+      <line x1="-2.2" y1="2.2" x2="-6.5" y2="6.5"/><line x1="2.2" y1="2.2" x2="6.5" y2="6.5"/>
+    </g>`;
+  return `<svg viewBox="0 0 96 68" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(24, 20)"><g class="sym-fw-1">${burst('#FF9933')}</g></g>
+    <g transform="translate(48, 15)"><g class="sym-fw-2">${burst('#38BDF8')}</g></g>
+    <g transform="translate(72, 22)"><g class="sym-fw-3">${burst('#22C55E')}</g></g>
+    <g fill="#D97706" stroke="#92400E" stroke-width="0.6">
+      <rect x="33" y="34" width="30" height="4" rx="1"/>
+      <rect x="35" y="38" width="26" height="22"/>
+      <path d="M42 60 L42 48 C42 43 54 43 54 48 L54 60 Z" fill="#0F172A" fill-opacity="0.55"/>
+      <rect x="28" y="60" width="40" height="3" rx="1" fill="#92400E"/>
+    </g>
+    <rect x="35" y="38" width="26" height="1.8" fill="#FF9933"/>
+    <rect x="35" y="39.8" width="26" height="1.6" fill="#FFFFFF"/>
+    <rect x="35" y="41.4" width="26" height="1.8" fill="#138808"/>
+  </svg>`;
+}
+
+const symFact = (l, v, anim, s) => `<div class="fact sym-fact"><div class="sym-text"><dt>${l}</dt><dd>${v}${s ? `<small>${s}</small>` : ''}</dd></div><div class="sym-stage" aria-hidden="true">${anim}</div></div>`;
+
 function natSym() {
   return facts([
-    fact(L('জাতীয় পতাকা', 'राष्ट्रीय ध्वज', 'National flag'), L('তিরঙ্গা — কমলা, সাদা, সবুজ, মাঝে ২৪ দাগের অশোকচক্র', 'तिरंगा — केसरिया, सफ़ेद, हरा, बीच में 24 तीलियों का अशोक चक्र', 'The Tiranga — saffron, white and green, with the 24-spoke Ashoka Chakra at the centre'), L('গৃহীত ২২ জুলাই ১৯৪৭', 'अपनाया गया 22 जुलाई 1947', 'Adopted 22 July 1947')),
-    fact(L('জাতীয় সংগীত', 'राष्ट्रगान', 'National anthem'), L('জন গণ মন', 'जन गण मन', 'Jana Gana Mana'), L('রবীন্দ্রনাথ ঠাকুর রচিত, গৃহীত ২৪ জানুয়ারি ১৯৫০', 'रबींद्रनाथ टैगोर द्वारा रचित, अपनाया गया 24 जनवरी 1950', "Written by Rabindranath Tagore, adopted 24 January 1950")),
-    fact(L('জাতীয় সংগীত (গীত)', 'राष्ट्रीय गीत', 'National song'), L('বন্দে মাতরম', 'वंदे मातरम्', 'Vande Mataram'), L('বঙ্কিমচন্দ্র চট্টোপাধ্যায় রচিত', 'बंकिमचंद्र चट्टोपाध्याय द्वारा रचित', 'Written by Bankim Chandra Chattopadhyay')),
-    fact(L('জাতীয় পশু', 'राष्ट्रीय पशु', 'National animal'), L('রয়্যাল বেঙ্গল টাইগার', 'रॉयल बंगाल टाइगर', 'Royal Bengal Tiger')),
-    fact(L('জাতীয় পাখি', 'राष्ट्रीय पक्षी', 'National bird'), L('ময়ূর', 'मोर', 'Peacock')),
-    fact(L('জাতীয় ফুল', 'राष्ट्रीय पुष्प', 'National flower'), L('পদ্ম', 'कमल', 'Lotus')),
-    fact(L('জাতীয় ফল', 'राष्ट्रीय फल', 'National fruit'), L('আম', 'आम', 'Mango')),
-    fact(L('জাতীয় গাছ', 'राष्ट्रीय वृक्ष', 'National tree'), L('বট', 'बरगद', 'Banyan')),
-    fact(L('জাতীয় জলজ প্রাণী', 'राष्ट्रीय जलीय जीव', 'National aquatic animal'), L('গাঙ্গেয় শুশুক (রিভার ডলফিন)', 'गंगा की डॉल्फ़िन (रिवर डॉल्फ़िन)', 'Ganges river dolphin')),
-    fact(L('জাতীয় খেলা', 'राष्ट्रीय खेल', 'National sport'), L('কোনো সরকারি ঘোষণা নেই', 'कोई आधिकारिक घोषणा नहीं', 'No official designation'), L('প্রচলিত ধারণায় হকি বলা হয়, কিন্তু সরকার ২০১২ সালে তথ্যের অধিকার আইনের জবাবে জানায় যে কোনো খেলাকে আনুষ্ঠানিকভাবে জাতীয় খেলা ঘোষণা করা হয়নি', 'आम धारणा में हॉकी को राष्ट्रीय खेल माना जाता है, पर सरकार ने 2012 में RTI के जवाब में कहा कि किसी भी खेल को आधिकारिक रूप से राष्ट्रीय खेल घोषित नहीं किया गया है', 'Hockey is popularly called the national sport, but the government stated in a 2012 RTI reply that no sport has been officially designated as such')),
-    fact(L('রাষ্ট্রীয় প্রতীক', 'राजचिह्न', 'State emblem'), L('সারনাথের অশোকস্তম্ভের সিংহশীর্ষ', 'सारनाथ के अशोक स्तंभ का सिंह-शीर्ष', 'The Lion Capital of Ashoka at Sarnath'), L('মূলমন্ত্র "সত্যমেব জয়তে" (মুণ্ডক উপনিষদ থেকে), গৃহীত ২৬ জানুয়ারি ১৯৫০', 'आदर्श वाक्य "सत्यमेव जयते" (मुंडक उपनिषद से), अपनाया गया 26 जनवरी 1950', 'Motto "Satyameva Jayate" (from the Mundaka Upanishad), adopted 26 January 1950')),
-    fact(L('জাতীয় দিবস', 'राष्ट्रीय दिवस', 'National days'), L('প্রজাতন্ত্র দিবস ২৬ জানুয়ারি, স্বাধীনতা দিবস ১৫ আগস্ট, গান্ধী জয়ন্তী ২ অক্টোবর', 'गणतंत्र दिवस 26 जनवरी, स्वतंत्रता दिवस 15 अगस्त, गांधी जयंती 2 अक्टूबर', 'Republic Day 26 January, Independence Day 15 August, Gandhi Jayanti 2 October'))
+    symFact(L('জাতীয় পতাকা', 'राष्ट्रीय ध्वज', 'National flag'), L('তিরঙ্গা — কমলা, সাদা, সবুজ, মাঝে ২৪ দাগের অশোকচক্র', 'तिरंगा — केसरिया, सफ़ेद, हरा, बीच में 24 तीलियों का अशोक चक्र', 'The Tiranga — saffron, white and green, with the 24-spoke Ashoka Chakra at the centre'), symFlagSvg(), L('গৃহীত ২২ জুলাই ১৯৪৭', 'अपनाया गया 22 जुलाई 1947', 'Adopted 22 July 1947')),
+    symFact(L('জাতীয় সংগীত', 'राष्ट्रगान', 'National anthem'), L('জন গণ মন', 'जन गण मन', 'Jana Gana Mana'), symAnthemSvg(), L('রবীন্দ্রনাথ ঠাকুর রচিত, গৃহীত ২৪ জানুয়ারি ১৯৫০', 'रबींद्रनाथ टैगोर द्वारा रचित, अपनाया गया 24 जनवरी 1950', "Written by Rabindranath Tagore, adopted 24 January 1950")),
+    symFact(L('জাতীয় সংগীত (গীত)', 'राष्ट्रीय गीत', 'National song'), L('বন্দে মাতরম', 'वंदे मातरम्', 'Vande Mataram'), symSongSvg(), L('বঙ্কিমচন্দ্র চট্টোপাধ্যায় রচিত', 'बंकिमचंद्र चट्टोपाध्याय द्वारा रचित', 'Written by Bankim Chandra Chattopadhyay')),
+    symFact(L('জাতীয় পশু', 'राष्ट्रीय पशु', 'National animal'), L('রয়্যাল বেঙ্গল টাইগার', 'रॉयल बंगाल टाइगर', 'Royal Bengal Tiger'), symTigerSvg()),
+    symFact(L('জাতীয় পাখি', 'राष्ट्रीय पक्षी', 'National bird'), L('ময়ূর', 'मोर', 'Peacock'), symPeacockSvg()),
+    symFact(L('জাতীয় ফুল', 'राष्ट्रीय पुष्प', 'National flower'), L('পদ্ম', 'कमल', 'Lotus'), symLotusSvg()),
+    symFact(L('জাতীয় ফল', 'राष्ट्रीय फल', 'National fruit'), L('আম', 'आम', 'Mango'), symMangoSvg()),
+    symFact(L('জাতীয় গাছ', 'राष्ट्रीय वृक्ष', 'National tree'), L('বট', 'बरगद', 'Banyan'), symBanyanSvg()),
+    symFact(L('জাতীয় জলজ প্রাণী', 'राष्ट्रीय जलीय जीव', 'National aquatic animal'), L('গাঙ্গেয় শুশুক (রিভার ডলফিন)', 'गंगा की डॉल्फ़िन (रिवर डॉल्फ़िन)', 'Ganges river dolphin'), symDolphinSvg()),
+    symFact(L('জাতীয় খেলা', 'राष्ट्रीय खेल', 'National sport'), L('কোনো সরকারি ঘোষণা নেই', 'कोई आधिकारिक घोषणा नहीं', 'No official designation'), symSportSvg(), L('প্রচলিত ধারণায় হকি বলা হয়, কিন্তু সরকার ২০১২ সালে তথ্যের অধিকার আইনের জবাবে জানায় যে কোনো খেলাকে আনুষ্ঠানিকভাবে জাতীয় খেলা ঘোষণা করা হয়নি', 'आम धारणा में हॉकी को राष्ट्रीय खेल माना जाता है, पर सरकार ने 2012 में RTI के जवाब में कहा कि किसी भी खेल को आधिकारिक रूप से राष्ट्रीय खेल घोषित नहीं किया गया है', 'Hockey is popularly called the national sport, but the government stated in a 2012 RTI reply that no sport has been officially designated as such')),
+    symFact(L('রাষ্ট্রীয় প্রতীক', 'राजचिह्न', 'State emblem'), L('সারনাথের অশোকস্তম্ভের সিংহশীর্ষ', 'सारनाथ के अशोक स्तंभ का सिंह-शीर्ष', 'The Lion Capital of Ashoka at Sarnath'), symEmblemSvg(), L('মূলমন্ত্র "সত্যমেব জয়তে" (মুণ্ডক উপনিষদ থেকে), গৃহীত ২৬ জানুয়ারি ১৯৫০', 'आदर्श वाक्य "सत्यमेव जयते" (मुंडक उपनिषद से), अपनाया गया 26 जनवरी 1950', 'Motto "Satyameva Jayate" (from the Mundaka Upanishad), adopted 26 January 1950')),
+    symFact(L('জাতীয় দিবস', 'राष्ट्रीय दिवस', 'National days'), L('প্রজাতন্ত্র দিবস ২৬ জানুয়ারি, স্বাধীনতা দিবস ১৫ আগস্ট, গান্ধী জয়ন্তী ২ অক্টোবর', 'गणतंत्र दिवस 26 जनवरी, स्वतंत्रता दिवस 15 अगस्त, गांधी जयंती 2 अक्टूबर', 'Republic Day 26 January, Independence Day 15 August, Gandhi Jayanti 2 October'), symDaysSvg())
   ]);
 }
+
 
 /* ---------- ইতিহাসের টাইমলাইন ---------- */
 const HIST = () => [
