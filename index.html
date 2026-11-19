@@ -1913,6 +1913,829 @@ body {
 .sym-fw-2 { animation: symFirework 2.4s ease-out 0.8s infinite; }
 .sym-fw-3 { animation: symFirework 2.4s ease-out 1.6s infinite; }
 
+
+/* ===== Pro Indices, State Indices, Compare Duel & Fundamental Rights UI ===== */
+
+/* --- National Indices Pro --- */
+.idx-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.idx-kpi {
+  --ik: #2563EB;
+  background: color-mix(in srgb, var(--ik) 8%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--ik) 28%, var(--line));
+  border-top: 3px solid var(--ik);
+  border-radius: 10px;
+  padding: 9px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.idx-kpi b {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.15;
+  color: var(--ik);
+}
+.idx-kpi span {
+  font-size: 11.8px;
+  color: var(--muted);
+  font-weight: 600;
+}
+.idx-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.idx-fbtn {
+  --fc: var(--accent);
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .15s ease;
+}
+.idx-fbtn:hover {
+  border-color: var(--fc);
+  color: var(--fc);
+}
+.idx-fbtn.active {
+  background: var(--fc);
+  border-color: var(--fc);
+  color: #FFFFFF;
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--fc) 32%, transparent);
+}
+.idx-fbtn .idx-fcnt {
+  font-size: 11px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 16%, transparent);
+}
+.idx li.idx-card {
+  --ic: #0284C7;
+  background: color-mix(in srgb, var(--ic) 5.5%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--ic) 26%, var(--line));
+  border-left: 4px solid var(--ic);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.idx-head-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+.idx-cat-pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 8px;
+  border-radius: 999px;
+  color: var(--ic);
+  background: color-mix(in srgb, var(--ic) 14%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--ic) 32%, transparent);
+}
+.idx-score-pill {
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 1px 8px;
+  border-radius: 999px;
+  color: var(--fg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.idx-trend {
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 1px 8px;
+  border-radius: 999px;
+}
+.idx-trend.up {
+  background: rgba(16, 185, 129, 0.16);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.36);
+}
+.idx-trend.down {
+  background: rgba(239, 68, 68, 0.15);
+  color: #DC2626;
+  border: 1px solid rgba(239, 68, 68, 0.36);
+}
+.idx-trend.flat {
+  background: color-mix(in srgb, var(--muted) 14%, var(--surface));
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+:root[data-theme="dark"] .idx-trend.up { color: #34D399; }
+:root[data-theme="dark"] .idx-trend.down { color: #F87171; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .idx-trend.up { color: #34D399; }
+  :root:not([data-theme="light"]) .idx-trend.down { color: #F87171; }
+}
+.idx li.idx-card .idx-v {
+  background: color-mix(in srgb, var(--ic) 14%, var(--surface));
+  color: var(--ic);
+  border-color: color-mix(in srgb, var(--ic) 34%, transparent);
+}
+.idx-track-pro {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+  margin: 9px 0 4px;
+  padding-top: 11px;
+}
+.idx-track-pro::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 3px;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #10B981 0%, #F59E0B 50%, #EF4444 100%);
+  opacity: 0.78;
+}
+.idx-track-pro b {
+  position: absolute;
+  top: -1px;
+  width: 13px; height: 13px;
+  margin-left: -6.5px;
+  border-radius: 50%;
+  background: var(--ic);
+  border: 2.5px solid var(--surface);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ic) 35%, transparent);
+}
+.idx-peers {
+  margin-top: 7px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px dashed color-mix(in srgb, var(--ic) 35%, var(--line));
+  font-size: 12.2px;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+.idx-peers strong { color: var(--fg); font-weight: 700; }
+
+/* --- State Indices Pro --- */
+.stidx-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+  margin-bottom: 16px;
+}
+.stidx-kpi {
+  --sk: #2563EB;
+  background: color-mix(in srgb, var(--sk) 8%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--sk) 30%, var(--line));
+  border-top: 3.5px solid var(--sk);
+  border-radius: 12px;
+  padding: 11px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.stidx-kpi-lbl {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--sk);
+  letter-spacing: 0.01em;
+}
+.stidx-kpi-val {
+  font-family: var(--font-display);
+  font-size: 1.32rem;
+  font-weight: 800;
+  color: var(--fg);
+  line-height: 1.15;
+}
+.stidx-kpi-sub {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+.stidx-bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 85%, transparent);
+  overflow: hidden;
+  margin-top: 2px;
+}
+.stidx-bar i {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--sk), color-mix(in srgb, var(--sk) 68%, #FFFFFF));
+}
+.sdg-pill {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 1px 7px;
+  border-radius: 999px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+.sdg-fr { background: rgba(16, 185, 129, 0.16); color: #059669; }
+.sdg-pf { background: rgba(245, 158, 11, 0.18); color: #B45309; }
+:root[data-theme="dark"] .sdg-fr { color: #34D399; }
+:root[data-theme="dark"] .sdg-pf { color: #FBBF24; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sdg-fr { color: #34D399; }
+  :root:not([data-theme="light"]) .sdg-pf { color: #FBBF24; }
+}
+.stidx-sec {
+  --sc: #2563EB;
+  background: color-mix(in srgb, var(--sc) 4%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--sc) 22%, var(--line));
+  border-radius: 13px;
+  padding: 13px 14px;
+  margin-bottom: 14px;
+}
+.stidx-sec-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 1.06rem;
+  font-weight: 700;
+  color: var(--sc);
+  margin: 0 0 10px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid color-mix(in srgb, var(--sc) 20%, var(--line));
+}
+.stidx-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+.stidx-item {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-left: 3.5px solid var(--sc);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.stidx-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.stidx-item-lbl {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.stidx-item-val {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--fg);
+  text-align: right;
+}
+.stidx-item small {
+  font-size: 11.8px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* --- National & State Compare Pro --- */
+.cmp-presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.cmp-presets-lbl {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+}
+.cmp-preset-btn {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 11px;
+  font-size: 12.2px;
+  font-weight: 600;
+  color: var(--fg);
+  cursor: pointer;
+  transition: all .15s;
+}
+.cmp-preset-btn:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg));
+  color: var(--accent);
+}
+.cmp-scoreboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+  margin-bottom: 13px;
+}
+.cmp-sc-card {
+  --col: #3B82F6;
+  background: color-mix(in srgb, var(--col) 9%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--col) 35%, var(--line));
+  border-top: 3.5px solid var(--col);
+  border-radius: 11px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cmp-sc-name {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--fg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+.cmp-sc-wins {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--col);
+  line-height: 1.15;
+}
+.cmp-sc-sub {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.vspick-item {
+  --col: #3B82F6;
+  background: color-mix(in srgb, var(--col) 7%, var(--bg));
+  border: 1.5px solid color-mix(in srgb, var(--col) 40%, var(--line));
+  border-radius: 9px;
+  padding: 3px 4px 3px 8px;
+}
+.vspick-item::before {
+  content: "";
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--col);
+  flex: 0 0 auto;
+}
+.vspick-item select {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 5px 6px !important;
+}
+.vstable thead th.vs-col-head {
+  border-top: 3.5px solid var(--col, var(--accent));
+  background: color-mix(in srgb, var(--col, var(--accent)) 8%, var(--surface));
+}
+.vstable tr.vsghead th {
+  background: color-mix(in srgb, var(--gc, var(--accent)) 10%, var(--bg));
+  color: var(--gc, var(--fg));
+  border-left: 3.5px solid var(--gc, var(--accent));
+}
+.vstable tr.vsghead th.vsg-fill {
+  border-left: 0;
+}
+.vstable td.vswin {
+  font-weight: 800;
+  color: var(--col, var(--accent));
+  background: color-mix(in srgb, var(--col, var(--accent)) 13%, var(--surface)) !important;
+}
+.vstable td.vswin-lo {
+  font-weight: 800;
+  color: #059669;
+  background: rgba(16, 185, 129, 0.13) !important;
+}
+:root[data-theme="dark"] .vstable td.vswin-lo { color: #34D399; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .vstable td.vswin-lo { color: #34D399; }
+}
+.cmp-rank-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.cmp-dir-btn {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--fg);
+}
+.cmp-dir-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.crow.crow-top1 { background: rgba(245, 158, 11, 0.10); }
+.crow.crow-top2 { background: rgba(148, 163, 184, 0.10); }
+.crow.crow-top3 { background: rgba(217, 119, 6, 0.08); }
+.crow .meter i {
+  background: linear-gradient(90deg, var(--rc, #3B82F6), color-mix(in srgb, var(--rc, #06B6D4) 65%, #FFFFFF));
+}
+
+/* --- Inside-State Compare Pro (Standing Grid + Head-to-Head Duel) --- */
+.stcmp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  margin-bottom: 16px;
+}
+.stcmp-card {
+  --cc: #6366F1;
+  background: color-mix(in srgb, var(--cc) 7.5%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--cc) 28%, var(--line));
+  border-top: 3.5px solid var(--cc);
+  border-radius: 12px;
+  padding: 11px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.stcmp-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+.stcmp-lbl {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--cc);
+}
+.stcmp-rk {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cc) 16%, var(--surface));
+  color: var(--cc);
+  white-space: nowrap;
+}
+.stcmp-val {
+  font-family: var(--font-display);
+  font-size: 1.22rem;
+  font-weight: 800;
+  color: var(--fg);
+  line-height: 1.2;
+}
+.stcmp-sub {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+.duel-box {
+  background: var(--bg);
+  border: 1.5px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+  border-radius: 14px;
+  padding: 14px 15px;
+  margin-bottom: 16px;
+}
+.duel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin-bottom: 10px;
+}
+.duel-me {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 9px;
+  background: rgba(59, 130, 246, 0.14);
+  border: 1.5px solid rgba(59, 130, 246, 0.45);
+  color: var(--fg);
+  font-weight: 800;
+  font-size: 14px;
+}
+.duel-vs-pill {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 12.5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.duel-sel-wrap {
+  flex: 1 1 170px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1.5px solid rgba(16, 185, 129, 0.45);
+  border-radius: 9px;
+  padding: 2px 6px 2px 10px;
+}
+.duel-sel-wrap select {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-weight: 700;
+  padding: 5px 4px !important;
+}
+.duel-quick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.duel-qbtn {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg);
+  cursor: pointer;
+}
+.duel-qbtn:hover, .duel-qbtn.active {
+  border-color: #10B981;
+  background: rgba(16, 185, 129, 0.14);
+  color: #059669;
+}
+:root[data-theme="dark"] .duel-qbtn:hover, :root[data-theme="dark"] .duel-qbtn.active { color: #34D399; }
+.duel-score {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.duel-score-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.duel-score-bar {
+  display: flex;
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--line);
+  gap: 2px;
+}
+.duel-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.duel-row {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 11px;
+}
+.duel-row-lbl {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.duel-row-vals {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+}
+.duel-side {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.duel-side.left { text-align: left; }
+.duel-side.right { text-align: right; }
+.duel-val-txt {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--fg);
+}
+.duel-val-txt.win-l { color: #2563EB; font-weight: 800; }
+.duel-val-txt.win-r { color: #059669; font-weight: 800; }
+:root[data-theme="dark"] .duel-val-txt.win-l { color: #60A5FA; }
+:root[data-theme="dark"] .duel-val-txt.win-r { color: #34D399; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .duel-val-txt.win-l { color: #60A5FA; }
+  :root:not([data-theme="light"]) .duel-val-txt.win-r { color: #34D399; }
+}
+.duel-mini-track {
+  height: 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 85%, transparent);
+  overflow: hidden;
+  display: flex;
+}
+.duel-side.left .duel-mini-track { justify-content: flex-end; }
+.duel-side.right .duel-mini-track { justify-content: flex-start; }
+.duel-mini-fill-l {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #60A5FA, #2563EB);
+}
+.duel-mini-fill-r {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #059669, #34D399);
+}
+
+/* --- Fundamental Rights Pro Cards + Custom SVG Symbols --- */
+.rgt-hero {
+  background: linear-gradient(135deg, color-mix(in srgb, #2563EB 10%, var(--bg)), color-mix(in srgb, #F59E0B 8%, var(--surface)));
+  border: 1px solid color-mix(in srgb, #2563EB 28%, var(--line));
+  border-top: 4px solid transparent;
+  border-image: linear-gradient(90deg, #FF9933 0%, #2563EB 50%, #138808 100%) 1;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.rgt-hero-txt h3 {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--fg);
+}
+.rgt-hero-txt p {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.rgt-hero-badge {
+  flex: 0 0 auto;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1.5px solid color-mix(in srgb, #2563EB 40%, var(--line));
+  color: #2563EB;
+  text-align: center;
+  white-space: nowrap;
+}
+:root[data-theme="dark"] .rgt-hero-badge { color: #60A5FA; }
+.rgt-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.rgt-pro-card {
+  --rc: #2563EB;
+  background: color-mix(in srgb, var(--rc) 6.5%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--rc) 30%, var(--line));
+  border-left: 4.5px solid var(--rc);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: transform .15s ease, box-shadow .16s ease, border-color .16s ease;
+}
+.rgt-pro-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--rc);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--rc) 16%, transparent);
+}
+.rgt-icon-box {
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--rc) 22%, var(--surface)), color-mix(in srgb, var(--rc) 8%, var(--bg)));
+  border: 1.5px solid color-mix(in srgb, var(--rc) 38%, var(--line));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--rc) 16%, transparent);
+}
+.rgt-icon-box svg {
+  width: 48px;
+  height: 48px;
+  display: block;
+}
+.rgt-pro-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.rgt-pro-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 10px;
+  margin-bottom: 6px;
+}
+.rgt-pro-top h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--rc);
+}
+.rgt-art-pill {
+  font-size: 11.8px;
+  font-weight: 800;
+  padding: 2px 10px;
+  border-radius: 999px;
+  color: var(--rc);
+  background: color-mix(in srgb, var(--rc) 14%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--rc) 36%, transparent);
+  white-space: nowrap;
+}
+.rgt-pro-body p {
+  margin: 0 0 8px;
+  font-size: 14.2px;
+  line-height: 1.55;
+  color: var(--fg);
+}
+.rgt-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.rgt-chip {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--rc) 28%, var(--line));
+  color: var(--muted);
+}
+.rgt-note-box {
+  background: color-mix(in srgb, #F59E0B 8%, var(--bg));
+  border: 1px solid color-mix(in srgb, #F59E0B 35%, var(--line));
+  border-left: 4px solid #F59E0B;
+  border-radius: 11px;
+  padding: 12px 14px;
+  font-size: 13.2px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.rgt-note-box strong { color: var(--fg); }
+
+@media (max-width: 639px) {
+  .idx-summary, .stidx-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .stidx-grid, .stcmp-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rgt-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .rgt-pro-card {
+    gap: 11px;
+    padding: 12px;
+  }
+  .rgt-icon-box {
+    flex: 0 0 54px;
+    width: 54px;
+    height: 54px;
+  }
+  .rgt-icon-box svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
 </style>
 </head><body>
 <div class="wrap">
@@ -2112,37 +2935,104 @@ const TOTAL_AREA = 3287263;     // বর্গ কিমি
 const POP_2026 = 1476625576;    // UN WPP 2024, মধ্য-২০২৬
 
 const INDICES = [
-  { rank: 84, tot: 199,
-    l: ['হেনলি পাসপোর্ট সূচক', 'हेनली पासपोर्ट सूचकांक', 'Henley Passport Index'],
-    s: ['Henley & Partners, অক্টোবর ২০২৬ সংস্করণ', 'Henley & Partners, अक्टूबर 2026 संस्करण', 'Henley & Partners, October 2026 edition'],
-    n: ['ভিসা ছাড়া বা আগমনে ভিসায় ৫৫টি গন্তব্য। বছরের মধ্যে র‍্যাংক ৮০ (জানুয়ারি), ৭৫ (ফেব্রুয়ারি), ৮১ (জুলাই) হয়ে ঘুরেছে।', 'वीज़ा-मुक्त या आगमन पर वीज़ा के साथ 55 गंतव्य। साल के दौरान रैंक 80 (जनवरी), 75 (फ़रवरी), 81 (जुलाई) रही है।', '55 destinations visa-free or with visa on arrival. The rank has moved during the year: 80 (January), 75 (February), 81 (July).'] },
-  { rank: 127, tot: 163,
-    l: ['বৈশ্বিক শান্তি সূচক ২০২৬ (Global Peace Index)', 'वैश्विक शांति सूचकांक 2026 (Global Peace Index)', 'Global Peace Index 2026'],
-    s: ['Institute for Economics & Peace, জুন ২০২৬', 'Institute for Economics & Peace, जून 2026', 'Institute for Economics & Peace, June 2026'],
-    n: ['আগের বছর ছিল ১১৫তম, এক বছরে ১২ ধাপ নেমেছে। প্রতিবেশীদের মধ্যে ভুটান ১৬তম, শ্রীলঙ্কা ৬৭তম, নেপাল ১১১তম, বাংলাদেশ ১১৭তম, পাকিস্তান ১৫২তম। শীর্ষে আইসল্যান্ড, নিউজিল্যান্ড ও সুইজারল্যান্ড।', 'पिछले साल 115वां था, एक साल में 12 पायदान नीचे। पड़ोसियों में भूटान 16वां, श्रीलंका 67वां, नेपाल 111वां, बांग्लादेश 117वां, पाकिस्तान 152वां। शीर्ष पर आइसलैंड, न्यूज़ीलैंड और स्विट्ज़रलैंड।', 'It was 115th the year before, a fall of 12 places in a year. Among neighbours: Bhutan 16th, Sri Lanka 67th, Nepal 111th, Bangladesh 117th, Pakistan 152nd. Iceland, New Zealand and Switzerland are at the top.'] },
-  { rank: 100, tot: 122,
-    l: ['বৈশ্বিক ক্ষুধা সূচক ২০২৬', 'वैश्विक भुखमरी सूचकांक 2026', 'Global Hunger Index 2026'],
+  { cat: 'human', rank: 130, tot: 193, delta: 3, score: '0.685',
+    l: ['মানব উন্নয়ন সূচক (HDI)', 'मानव विकास सूचकांक (HDI)', 'Human Development Index (HDI)'],
+    s: ['UNDP, ২০২৫ প্রতিবেদন', 'UNDP, 2025 रिपोर्ट', 'UNDP, 2025 report'],
+    n: ['মধ্যম মানব উন্নয়ন শ্রেণিতে ভারত। ২০২৪ প্রতিবেদনে ছিল ১৩৩তম — ৩ ধাপ উন্নতি। আয়ুষ্কাল, শিক্ষাবর্ষ ও মাথাপিছু আয়ের ওপর ভিত্তি করে তৈরি।', 'मध्यम मानव विकास श्रेणी में भारत। 2024 की रिपोर्ट में 133वां था — 3 पायदान सुधार। जीवन प्रत्याशा, शिक्षा और प्रति व्यक्ति आय पर आधारित।', 'India is in the Medium Human Development group, up 3 places from 133rd. Based on life expectancy, schooling and GNI per capita.'],
+    p: ['শীর্ষ: আইসল্যান্ড (০.৯৭২) · প্রতিবেশী: শ্রীলঙ্কা ৭৮, চীন ৭৫, ভুটান ১২৫, বাংলাদেশ ১৩০, নেপাল ১৪৫, পাকিস্তান ১৬৮', 'शीर्ष: आइसलैंड (0.972) · पड़ोसी: श्रीलंका 78, चीन 75, भूटान 125, बांग्लादेश 130, नेपाल 145, पाकिस्तान 168', 'Top: Iceland (0.972) · Neighbours: Sri Lanka 78, China 75, Bhutan 125, Bangladesh 130, Nepal 145, Pakistan 168'] },
+  { cat: 'human', rank: 118, tot: 147, delta: 8, score: '4.39/10',
+    l: ['বিশ্ব সুখ সূচক (World Happiness Report)', 'विश्व प्रसन्नता रिपोर्ट (World Happiness Report)', 'World Happiness Report'],
+    s: ['Oxford Wellbeing Research Centre ও UN SDSN, মার্চ ২০২৫', 'ऑक्सफ़ोर्ड वेलबीइंग रिसर्च सेंटर व UN SDSN, मार्च 2025', 'Oxford Wellbeing Research Centre & UN SDSN, March 2025'],
+    n: ['আগের বছর ছিল ১২৬তম — এক বছরে ৮ ধাপ উন্নতি। সামাজিক সহায়তা, স্বাস্থ্যকর আয়ুষ্কাল, স্বাধীনতা ও উদারতার ভিত্তিতে মূল্যায়ন।', 'पिछले साल 126वां था — एक साल में 8 पायदान सुधार। सामाजिक सहयोग, स्वस्थ जीवन, स्वतंत्रता और उदारता के आधार पर आकलन।', 'Up 8 places from 126th the previous year. Measures life evaluation, social support, healthy life expectancy and freedom.'],
+    p: ['শীর্ষ: ফিনল্যান্ড (টানা অষ্টম বছর) · প্রতিবেশী: চীন ৬৮, নেপাল ৯২, পাকিস্তান ১০৯, শ্রীলঙ্কা ১৩৩, বাংলাদেশ ১৩৪', 'शीर्ष: फ़िनलैंड (लगातार 8वां साल) · पड़ोसी: चीन 68, नेपाल 92, पाकिस्तान 109, श्रीलंका 133, बांग्लादेश 134', 'Top: Finland (8th year running) · Neighbours: China 68, Nepal 92, Pakistan 109, Sri Lanka 133, Bangladesh 134'] },
+  { cat: 'human', rank: 100, tot: 122, delta: 2, score: '24.1',
+    l: ['বৈশ্বিক ক্ষুধা সূচক ২০২৬ (Global Hunger Index)', 'वैश्विक भुखमरी सूचकांक 2026 (Global Hunger Index)', 'Global Hunger Index 2026'],
     s: ['Concern Worldwide ও Welthungerhilfe, অক্টোবর ২০২৬', 'Concern Worldwide और Welthungerhilfe, अक्टूबर 2026', 'Concern Worldwide and Welthungerhilfe, October 2026'],
-    n: ['স্কোর ২৪.১, শ্রেণি "গুরুতর"। ২০২৫ সালে ছিল ১০২তম (১২৩টির মধ্যে)। ভারত সরকার এই সূচকের পদ্ধতি নিয়ে আপত্তি জানিয়েছে, প্রকাশকেরা নিজেদের পদ্ধতির পক্ষে যুক্তি দিয়েছে।', 'स्कोर 24.1, श्रेणी "गंभीर"। 2025 में 123 में से 102वां था। भारत सरकार ने इस सूचकांक की पद्धति पर आपत्ति जताई है; प्रकाशकों ने अपनी पद्धति का बचाव किया है।', 'Score 24.1, category "serious". It was 102nd of 123 in 2025. The Indian government has objected to the index methodology; the publishers have defended their method.'] },
-  { rank: 130, tot: 193,
-    l: ['মানব উন্নয়ন সূচক', 'मानव विकास सूचकांक', 'Human Development Index'],
-    s: ['UNDP, ২০২৫ প্রতিবেদন', 'UNDP, 2025 रिपोर्ट', 'UNDP, 2025 report'], n: ['', '', ''] },
-  { rank: 157, tot: 180,
-    l: ['বিশ্ব সংবাদমাধ্যম স্বাধীনতা সূচক ২০২৬', 'विश्व प्रेस स्वतंत्रता सूचकांक 2026', 'World Press Freedom Index 2026'],
-    s: ['Reporters Without Borders, ৩০ এপ্রিল ২০২৬', 'Reporters Without Borders, 30 अप्रैल 2026', 'Reporters Without Borders, 30 April 2026'],
-    n: ['২০২৫ সালে ছিল ১৫১তম।', '2025 में 151वां था।', 'It was 151st in 2025.'] },
-  { rank: 131, tot: 145,
-    l: ['বৈশ্বিক লিঙ্গ-বৈষম্য সূচক ২০২৬', 'वैश्विक लैंगिक अंतराल सूचकांक 2026', 'Global Gender Gap Index 2026'],
-    s: ['বিশ্ব অর্থনৈতিক ফোরাম, ১৬ সেপ্টেম্বর ২০২৬', 'विश्व आर्थिक मंच, 16 सितंबर 2026', 'World Economic Forum, 16 September 2026'],
-    n: ['গত বছরের মতোই ১৩১তম। শীর্ষে আইসল্যান্ড।', 'पिछले साल जितना ही 131वां। शीर्ष पर आइसलैंड।', 'Unchanged at 131st from the previous year. Iceland remains at the top.'] },
-  { rank: 23, tot: 64,
-    l: ['জলবায়ু পরিবর্তন পারফরম্যান্স সূচক ২০২৬', 'जलवायु परिवर्तन प्रदर्शन सूचकांक 2026', 'Climate Change Performance Index 2026'],
-    s: ['Germanwatch, NewClimate Institute ও Climate Action Network, COP30-তে প্রকাশিত (নভেম্বর ২০২৫)', 'Germanwatch, NewClimate Institute और Climate Action Network, COP30 में जारी (नवंबर 2025)', 'Germanwatch, NewClimate Institute and Climate Action Network, released at COP30 (November 2025)'],
-    n: ['৬৩টি দেশ ও ইইউ মূল্যায়ন করা হয়। ২০২৫ সালে ছিল ১০ম, এক ধাপেই ১৩ ঘর নেমেছে — কয়লা-নির্ভরতা ও জলবায়ু দ্বন্দ্বকে প্রধান বাধা বলা হয়েছে।', '63 देशों और ईयू का मूल्यांकन किया गया। 2025 में 10वां था, एक ही बार में 13 पायदान नीचे — कोयले पर निर्भरता और जलवायु संघर्ष को मुख्य बाधा बताया गया।', '63 countries and the EU were assessed. It was 10th in 2025, a drop of 13 places in one edition — coal dependence and climate conflicts were cited as major barriers.'] },
-  { rank: 4, tot: 0,
-    l: ['গ্লোবাল ফায়ারপাওয়ার সূচক ২০২৫', 'ग्लोबल फ़ायरपावर सूचकांक 2025', 'Global Firepower Index 2025'],
-    s: ['Global Firepower', 'Global Firepower', 'Global Firepower'],
-    n: ['মার্কিন যুক্তরাষ্ট্র, রাশিয়া ও চীনের পরে।', 'अमेरिका, रूस और चीन के बाद।', 'After the United States, Russia and China.'] }
+    n: ['শ্রেণি "গুরুতর" (Serious)। ২০২৫ সালে ছিল ১০২তম (১২৩টির মধ্যে)। ভারত সরকার এই সূচকের পদ্ধতি নিয়ে আপত্তি জানিয়েছে, প্রকাশকেরা নিজেদের পদ্ধতির পক্ষে যুক্তি দিয়েছে।', 'श्रेणी "गंभीर" (Serious)। 2025 में 123 में से 102वां था। भारत सरकार ने इस सूचकांक की पद्धति पर आपत्ति जताई है; प्रकाशकों ने अपनी पद्धति का बचाव किया है।', 'Category "Serious". Up 2 places from 102nd of 123 in 2025. The Indian government has objected to the methodology; publishers defend their framework.'],
+    p: ['প্রতিবেশী: শ্রীলঙ্কা, নেপাল ও বাংলাদেশ ভারতের আগে · পাকিস্তান পিছিয়ে', 'पड़ोसी: श्रीलंका, नेपाल और बांग्लादेश भारत से आगे · पाकिस्तान पीछे', 'Neighbours: Sri Lanka, Nepal & Bangladesh ahead · Pakistan behind'] },
+  { cat: 'human', rank: 131, tot: 145, delta: 0, score: '64.4%',
+    l: ['বৈশ্বিক লিঙ্গ-বৈষম্য সূচক ২০২৬ (Gender Gap)', 'वैश्विक लैंगिक अंतराल सूचकांक 2026 (Gender Gap)', 'Global Gender Gap Index 2026'],
+    s: ['বিশ্ব অর্থনৈতিক ফোরাম (WEF), ১৬ সেপ্টেম্বর ২০২৬', 'विश्व आर्थिक मंच (WEF), 16 सितंबर 2026', 'World Economic Forum (WEF), 16 September 2026'],
+    n: ['গত বছরের মতোই ১৩১তম স্থানে অপরিবর্তিত। শিক্ষার সুযোগে ভারত ভালো করলেও অর্থনৈতিক অংশগ্রহণ ও স্বাস্থ্য সূচকে পিছিয়ে।', 'पिछले साल जितना ही 131वें स्थान पर अपरिवर्तित। शिक्षा में भारत का प्रदर्शन बेहतर है, पर आर्थिक भागीदारी में सुधार की गुंजाइश है।', 'Unchanged at 131st from the previous edition. Strong in educational attainment, lagging in economic participation.'],
+    p: ['শীর্ষ: আইসল্যান্ড (১ম) · প্রতিবেশী: বাংলাদেশ ও নেপাল এগিয়ে · পাকিস্তান ১৪৫তম', 'शीर्ष: आइसलैंड (पहला) · पड़ोसी: बांग्लादेश और नेपाल आगे · पाकिस्तान 145वां', 'Top: Iceland (1st) · Neighbours: Bangladesh & Nepal ahead · Pakistan 145th'] },
+
+  { cat: 'econ', rank: 38, tot: 139, delta: 1, score: '38.3',
+    l: ['বৈশ্বিক উদ্ভাবন সূচক (Global Innovation Index)', 'वैश्विक नवाचार सूचकांक (Global Innovation Index)', 'Global Innovation Index (GII)'],
+    s: ['WIPO (বিশ্ব মেধাস্বত্ব সংস্থা), ২০২৫ সংস্করণ', 'WIPO (विश्व बौद्धिक संपदा संगठन), 2025 संस्करण', 'World Intellectual Property Organization (WIPO), 2025 edition'],
+    n: ['২০১৫ সালে ৮১তম থেকে উঠে ৩৮তম! মধ্য ও দক্ষিণ এশিয়া অঞ্চলে ভারত ১ম এবং নিম্ন-মধ্যম আয়ের দেশগুলোর মধ্যেও ১ম। বেঙ্গালুরু, দিল্লি, মুম্বই ও চেন্নাই বিশ্বের শীর্ষ ১০০ বিজ্ঞান-প্রযুক্তি ক্লাস্টারে।', '2015 में 81वें से चढ़कर 38वां! मध्य और दक्षिण एशिया में भारत पहला और निम्न-मध्यम आय वाले देशों में भी शीर्ष पर। बेंगलुरु, दिल्ली, मुंबई और चेन्नई शीर्ष 100 टेक क्लस्टर में।', 'Climbed from 81st (2015) to 38th! Ranked 1st in Central & Southern Asia and 1st among lower-middle-income economies.'],
+    p: ['শীর্ষ: সুইজারল্যান্ড (১ম), সুইডেন, যুক্তরাষ্ট্র · প্রতিবেশী: চীন ১০, শ্রীলঙ্কা ৯৩, পাকিস্তান ৯৯', 'शीर्ष: स्विट्ज़रलैंड (पहला), स्वीडन, अमेरिका · पड़ोसी: चीन 10, श्रीलंका 93, पाकिस्तान 99', 'Top: Switzerland (1st), Sweden, USA · Neighbours: China 10, Sri Lanka 93, Pakistan 99'] },
+  { cat: 'econ', rank: 1, tot: 0, delta: 9, badge: 'Tier 1', score: '98.49/100',
+    l: ['বৈশ্বিক সাইবার নিরাপত্তা সূচক (Cybersecurity Index)', 'वैश्विक साइबर सुरक्षा सूचकांक (Cybersecurity Index)', 'Global Cybersecurity Index (ITU)'],
+    s: ['আন্তর্জাতিক টেলিযোগাযোগ ইউনিয়ন (ITU), ৫ম সংস্করণ (২০২৪)', 'अंतर्राष्ट्रीय दूरसंचार संघ (ITU), 5वां संस्करण (2024)', 'International Telecommunication Union (ITU), 5th edition (2024)'],
+    n: ['ভারত সর্বোচ্চ "Tier 1 (Role-modelling)" মর্যাদা অর্জন করেছে — ১০০-র মধ্যে ৯৮.৪৯ স্কোর। আইনি কাঠামো ও কারিগরি প্রস্তুতিতে পূর্ণ নম্বর পেয়েছে।', 'भारत ने सर्वोच्च "Tier 1 (Role-modelling)" दर्जा हासिल किया — 100 में 98.49 स्कोर। क़ानूनी ढाँचे और तकनीकी तैयारी में पूरे अंक।', 'India achieved top "Tier 1 (Role-modelling)" status with 98.49/100, scoring full marks in legal and technical cybersecurity pillars.'],
+    p: ['Tier 1 গ্রুপে বিশ্বের ৪৬টি শীর্ষ দেশ · দক্ষিণ এশিয়ায় ভারত সর্বোচ্চ স্কোরধারী', 'Tier 1 समूह में दुनिया के 46 शीर्ष देश · दक्षिण एशिया में भारत शीर्ष पर', '46 countries in Tier 1 globally · Highest score in South Asia'] },
+  { cat: 'econ', rank: 38, tot: 139, delta: 6, score: '3.4/5',
+    l: ['লজিস্টিকস পারফরম্যান্স সূচক (LPI)', 'लॉजिस्टिक्स परफ़ॉर्मेंस सूचकांक (LPI)', 'Logistics Performance Index (LPI)'],
+    s: ['বিশ্বব্যাংক (World Bank), ২০২৩ প্রতিবেদন', 'विश्व बैंक (World Bank), 2023 रिपोर्ट', 'World Bank, 2023 report'],
+    n: ['২০১৮ সালের ৪৪তম স্থান থেকে ৬ ধাপ উন্নতি। বন্দর আধুনিকীকরণ, ফাস্ট্যাগ, পিএম গতি শক্তি ও ডিজিটাল কাস্টমসের ফলে আন্তর্জাতিক চালানে ২২তম স্থানে উঠেছে ভারত।', '2018 के 44वें स्थान से 6 पायदान सुधार। बंदरगाह आधुनिकीकरण, फ़ास्टैग और पीएम गति शक्ति के चलते अंतरराष्ट्रीय शिपमेंट में 22वां स्थान।', 'Up 6 places from 44th (2018). Port turnaround gains, PM Gati Shakti and digital customs lifted international shipments to 22nd.'],
+    p: ['শীর্ষ: সিঙ্গাপুর (১ম), ফিনল্যান্ড · প্রতিবেশী: চীন ১৯, শ্রীলঙ্কা ৭৩, বাংলাদেশ ৮৮', 'शीर्ष: सिंगापुर (पहला), फ़िनलैंड · पड़ोसी: चीन 19, श्रीलंका 73, बांग्लादेश 88', 'Top: Singapore (1st), Finland · Neighbours: China 19, Sri Lanka 73, Bangladesh 88'] },
+  { cat: 'econ', rank: 41, tot: 69, delta: -2, score: '61.5',
+    l: ['বিশ্ব প্রতিযোগিতা সূচক (IMD Competitiveness)', 'विश्व प्रतिस्पर्धात्मकता सूचकांक (IMD Competitiveness)', 'IMD World Competitiveness Ranking'],
+    s: ['IMD বিজনেস স্কুল, জুন ২০২৫', 'IMD बिज़नेस स्कूल, जून 2025', 'IMD Business School, June 2025'],
+    n: ['৬৯টি প্রধান অর্থনীতির মধ্যে ভারতের অবস্থান ৪১তম (আগের বছর ৩৯তম)। অর্থনৈতিক পারফরম্যান্স ও কর্পোরেট দক্ষতায় শক্তিশালী হলেও পরিকাঠামোয় আরও উন্নতির সুযোগ আছে।', '69 प्रमुख अर्थव्यवस्थाओं में भारत 41वें स्थान पर (पिछले साल 39वां)। आर्थिक प्रदर्शन में मज़बूत, पर बुनियादी ढाँचे में सुधार की गुंजाइश।', '41st among 69 major economies (39th previously). Strong in economic performance and business efficiency; infrastructure lags behind.'],
+    p: ['শীর্ষ: সুইজারল্যান্ড (১ম), সিঙ্গাপুর, হংকং · প্রতিবেশী: চীন ১৬তম', 'शीर्ष: स्विट्ज़रलैंड (पहला), सिंगापुर, हांगकांग · पड़ोसी: चीन 16वां', 'Top: Switzerland (1st), Singapore, Hong Kong · Neighbour: China 16th'] },
+  { cat: 'econ', rank: 49, tot: 133, delta: 11, score: '53.6',
+    l: ['নেটওয়ার্ক রেডিনেস সূচক (Network Readiness)', 'नेटवर्क रेडीनेस सूचकांक (Network Readiness)', 'Network Readiness Index (NRI)'],
+    s: ['Portulans Institute, ২০২৪ প্রতিবেদন', 'Portulans Institute, 2024 रिपोर्ट', 'Portulans Institute, 2024 report'],
+    n: ['আগের বছরের ৬০তম স্থান থেকে এক লাফে ১১ ধাপ উন্নতি! এআই গবেষণা প্রকাশনা, মোবাইল ব্রডব্যান্ড ও ডিজিটাল পেমেন্টে (UPI) ভারত বিশ্বের অগ্রণী দেশগুলোর একটি।', 'पिछले साल के 60वें स्थान से सीधे 11 पायदान की छलांग! AI शोध, मोबाइल ब्रॉडबैंड और डिजिटल भुगतान (UPI) में भारत अग्रणी देशों में।', 'Jumped 11 places from 60th! India leads globally in AI talent/publications, mobile broadband affordability and UPI digital rails.'],
+    p: ['শীর্ষ: যুক্তরাষ্ট্র (১ম), সিঙ্গাপুর, ফিনল্যান্ড · প্রতিবেশী: চীন ১৭, শ্রীলঙ্কা ৮৮, বাংলাদেশ ৯৩', 'शीर्ष: अमेरिका (पहला), सिंगापुर, फ़िनलैंड · पड़ोसी: चीन 17, श्रीलंका 88, बांग्लादेश 93', 'Top: USA (1st), Singapore, Finland · Neighbours: China 17, Sri Lanka 88, Bangladesh 93'] },
+  { cat: 'econ', rank: 84, tot: 199, delta: -3, score: '55 dest.',
+    l: ['হেনলি পাসপোর্ট সূচক ২০২৬ (Henley Passport)', 'हेनली पासपोर्ट सूचकांक 2026 (Henley Passport)', 'Henley Passport Index 2026'],
+    s: ['Henley & Partners, অক্টোবর ২০২৬ সংস্করণ', 'Henley & Partners, अक्टूबर 2026 संस्करण', 'Henley & Partners, October 2026 edition'],
+    n: ['ভিসা ছাড়া বা আগমনে ভিসায় ৫৫টি গন্তব্য। ২০২৬ সালের মধ্যে র‍্যাংক ৮০ (জানুয়ারি), ৭৫ (ফেব্রুয়ারি), ৮১ (জুলাই) হয়ে অক্টোবরে ৮৪তম।', 'वीज़ा-मुक्त या आगमन पर वीज़ा के साथ 55 गंतव्य। 2026 के दौरान रैंक 80 (जनवरी), 75 (फ़रवरी), 81 (जुलाई) से अक्टूबर में 84वां।', '55 destinations visa-free or visa on arrival. Moved from 80 (Jan), 75 (Feb), 81 (Jul) to 84th in October 2026.'],
+    p: ['শীর্ষ: সিঙ্গাপুর (১ম) · প্রতিবেশী: চীন ৬০, ভুটান ৮৭, শ্রীলঙ্কা ৯৩, বাংলাদেশ ৯৭, পাকিস্তান ১০১', 'शीर्ष: सिंगापुर (पहला) · पड़ोसी: चीन 60, भूटान 87, श्रीलंका 93, बांग्लादेश 97, पाकिस्तान 101', 'Top: Singapore (1st) · Neighbours: China 60, Bhutan 87, Sri Lanka 93, Bangladesh 97, Pakistan 101'] },
+
+  { cat: 'gov', rank: 4, tot: 145, delta: 0, score: '0.1184',
+    l: ['গ্লোবাল ফায়ারপাওয়ার সূচক ২০২৫ (সামরিক শক্তি)', 'ग्लोबल फ़ायरपावर सूचकांक 2025 (सैन्य शक्ति)', 'Global Firepower Index 2025 (Military)'],
+    s: ['Global Firepower, ২০২৫', 'Global Firepower, 2025', 'Global Firepower, 2025'],
+    n: ['মার্কিন যুক্তরাষ্ট্র, রাশিয়া ও চীনের পরেই বিশ্বের চতুর্থ বৃহত্তম সামরিক শক্তি ভারত। সক্রিয় সেনা, বিমানবহর, নৌবাহিনী ও প্রতিরক্ষা বাজেটের ভিত্তিতে নির্ধারিত।', 'अमेरिका, रूस और चीन के बाद भारत दुनिया की चौथी सबसे बड़ी सैन्य शक्ति। सक्रिय सैनिक, वायुसेना, नौसेना और रक्षा बजट पर आधारित।', '4th strongest military power globally, right after the US, Russia and China. Assessed on active forces, air/naval fleet and budget.'],
+    p: ['শীর্ষ ৩: যুক্তরাষ্ট্র (১ম), রাশিয়া (২য়), চীন (৩য়) · প্রতিবেশী: পাকিস্তান ১২, বাংলাদেশ ৩৫', 'शीर्ष 3: अमेरिका (पहला), रूस (दूसरा), चीन (तीसरा) · पड़ोसी: पाकिस्तान 12, बांग्लादेश 35', 'Top 3: USA (1st), Russia (2nd), China (3rd) · Neighbours: Pakistan 12, Bangladesh 35'] },
+  { cat: 'gov', rank: 41, tot: 167, delta: 0, score: '7.29/10',
+    l: ['গণতন্ত্র সূচক (EIU Democracy Index)', 'लोकतंत्र सूचकांक (EIU Democracy Index)', 'EIU Democracy Index'],
+    s: ['Economist Intelligence Unit (EIU), ২০২৪ প্রতিবেদন', 'Economist Intelligence Unit (EIU), 2024 रिपोर्ट', 'Economist Intelligence Unit (EIU), 2024 report'],
+    n: ['"ত্রুটিপূর্ণ গণতন্ত্র" (Flawed Democracy) শ্রেণিতে ভারত। নির্বাচনী প্রক্রিয়া ও বহুদলীয় ব্যবস্থায় উচ্চ স্কোর (৮.৬৭), রাজনৈতিক সংস্কৃতিতে মাঝারি স্কোর।', '"त्रुटिपूर्ण लोकतंत्र" (Flawed Democracy) श्रेणी में भारत। चुनावी प्रक्रिया में उच्च स्कोर (8.67), राजनीतिक संस्कृति में मध्यम स्कोर।', 'Categorised as a "Flawed Democracy". High score in electoral process & pluralism (8.67), moderate in civil liberties & political culture.'],
+    p: ['শীর্ষ: নরওয়ে (৯.৮১) · প্রতিবেশী: শ্রীলঙ্কা ৬৭, ভুটান ৭৯, নেপাল ৯৬, বাংলাদেশ ১০০, পাকিস্তান ১২৪', 'शीर्ष: नॉर्वे (9.81) · पड़ोसी: श्रीलंका 67, भूटान 79, नेपाल 96, बांग्लादेश 100, पाकिस्तान 124', 'Top: Norway (9.81) · Neighbours: Sri Lanka 67, Bhutan 79, Nepal 96, Bangladesh 100, Pakistan 124'] },
+  { cat: 'gov', rank: 79, tot: 142, delta: 0, score: '0.49/1',
+    l: ['আইনের শাসন সূচক (WJP Rule of Law)', 'क़ानून का शासन सूचकांक (WJP Rule of Law)', 'WJP Rule of Law Index'],
+    s: ['World Justice Project (WJP), ২০২৪ সংস্করণ', 'World Justice Project (WJP), 2024 संस्करण', 'World Justice Project (WJP), 2024 edition'],
+    n: ['দক্ষিণ এশিয়ার ৬টি দেশের মধ্যে ভারত ৩য় (নেপাল ও শ্রীলঙ্কার পরে)। সরকারি ক্ষমতার সীমা, উন্মুক্ত সরকার ও নিয়ন্ত্রক প্রয়োগে তুলনামূলক ভালো অবস্থান।', 'दक्षिण एशिया के 6 देशों में भारत तीसरे स्थान पर (नेपाल व श्रीलंका के बाद)। खुली सरकार और नियामक प्रवर्तन में अपेक्षाकृत बेहतर।', 'Ranked 3rd of 6 in South Asia (behind Nepal & Sri Lanka). Relatively stronger in open government and constraints on power.'],
+    p: ['শীর্ষ: ডেনমার্ক (০.৯০) · প্রতিবেশী: নেপাল ৬৯, শ্রীলঙ্কা ৭৫, বাংলাদেশ ১২৭, পাকিস্তান ১২৯', 'शीर्ष: डेनमार्क (0.90) · पड़ोसी: नेपाल 69, श्रीलंका 75, बांग्लादेश 127, पाकिस्तान 129', 'Top: Denmark (0.90) · Neighbours: Nepal 69, Sri Lanka 75, Bangladesh 127, Pakistan 129'] },
+  { cat: 'gov', rank: 91, tot: 182, delta: 5, score: '39/100',
+    l: ['দুর্নীতি ধারণা সূচক ২০২৫ (CPI)', 'भ्रष्टाचार धारणा सूचकांक 2025 (CPI)', 'Corruption Perceptions Index (CPI) 2025'],
+    s: ['Transparency International, ফেব্রুয়ারি ২০২৬ প্রকাশিত', 'Transparency International, फ़रवरी 2026 में प्रकाशित', 'Transparency International, published February 2026'],
+    n: ['আগের বছরের ৯৬তম থেকে ৫ ধাপ উন্নতি (স্কোর ৩৯/১০০)। তবে বৈশ্বিক গড় (৪২) ও এশিয়া-প্যাসিফিক গড়ের (৪৫) চেয়ে এখনো নিচে।', 'पिछले साल के 96वें स्थान से 5 पायदान सुधार (स्कोर 39/100)। हालांकि वैश्विक औसत (42) और एशिया-प्रशांत औसत (45) से अभी नीचे।', 'Improved 5 places from 96th (score 39/100), though still below the global (42) and Asia-Pacific (45) averages.'],
+    p: ['শীর্ষ (সবচেয়ে কম দুর্নীতি): ডেনমার্ক (৮৯), ফিনল্যান্ড · প্রতিবেশী: চীন ৭৬, পাকিস্তান ১৩৬, বাংলাদেশ ১৫০', 'शीर्ष (सबसे कम भ्रष्टाचार): डेनमार्क (89), फ़िनलैंड · पड़ोसी: चीन 76, पाकिस्तान 136, बांग्लादेश 150', 'Least corrupt: Denmark (89), Finland · Neighbours: China 76, Pakistan 136, Bangladesh 150'] },
+  { cat: 'gov', rank: 127, tot: 163, delta: -12,
+    l: ['বৈশ্বিক শান্তি সূচক ২০২৬ (Global Peace Index)', 'वैश्विक शांति सूचकांक 2026 (Global Peace Index)', 'Global Peace Index 2026'],
+    s: ['Institute for Economics & Peace (IEP), জুন ২০২৬', 'Institute for Economics & Peace (IEP), जून 2026', 'Institute for Economics & Peace (IEP), June 2026'],
+    n: ['আগের বছর ছিল ১১৫তম, এক বছরে ১২ ধাপ নেমেছে। অভ্যন্তরীণ নিরাপত্তা, চলমান সংঘাত ও সামরিকীকরণের ২৩টি মানদণ্ডে তৈরি।', 'पिछले साल 115वां था, एक साल में 12 पायदान नीचे। आंतरिक सुरक्षा, संघर्ष और सैन्यीकरण के 23 मानकों पर आधारित।', 'Fell 12 places from 115th in the previous year. Assessed on 23 indicators of safety, ongoing conflict and militarisation.'],
+    p: ['শীর্ষ: আইসল্যান্ড (১ম), নিউজিল্যান্ড · প্রতিবেশী: ভুটান ১৬, শ্রীলঙ্কা ৬৭, নেপাল ১১১, বাংলাদেশ ১১৭, পাকিস্তান ১৫২', 'शीर्ष: आइसलैंड (पहला), न्यूज़ीलैंड · पड़ोसी: भूटान 16, श्रीलंका 67, नेपाल 111, बांग्लादेश 117, पाकिस्तान 152', 'Top: Iceland (1st), New Zealand · Neighbours: Bhutan 16, Sri Lanka 67, Nepal 111, Bangladesh 117, Pakistan 152'] },
+  { cat: 'gov', rank: 14, tot: 163, delta: 0, score: '6.41/10', inv: true,
+    l: ['বৈশ্বিক সন্ত্রাসবাদ সূচক (Global Terrorism Index)', 'वैश्विक आतंकवाद सूचकांक (Global Terrorism Index)', 'Global Terrorism Index (GTI)'],
+    s: ['Institute for Economics & Peace (IEP), মার্চ ২০২৫', 'Institute for Economics & Peace (IEP), मार्च 2025', 'Institute for Economics & Peace (IEP), March 2025'],
+    n: ['এখানে ১ম মানে সবচেয়ে বেশি প্রভাবিত দেশ। বিগত এক দশকে ভারতে সন্ত্রাসবাদী হামলার সংখ্যা উল্লেখযোগ্যভাবে কমেছে।', 'यहाँ पहला स्थान सबसे अधिक प्रभावित देश को दर्शाता है। पिछले एक दशक में भारत में आतंकी घटनाओं में उल्लेखनीय कमी आई है।', 'Note: 1st indicates the most-impacted country. India has recorded a steady long-term decline in terrorism incidents over the past decade.'],
+    p: ['সবচেয়ে প্রভাবিত: বুরকিনা ফাসো (১ম), পাকিস্তান (২য়) · প্রতিবেশী: বাংলাদেশ ৩৫, শ্রীলঙ্কা ৬২', 'सबसे प्रभावित: बुर्किना फ़ासो (पहला), पाकिस्तान (दूसरा) · पड़ोसी: बांग्लादेश 35, श्रीलंका 62', 'Most impacted: Burkina Faso (1st), Pakistan (2nd) · Neighbours: Bangladesh 35, Sri Lanka 62'] },
+  { cat: 'gov', rank: 157, tot: 180, delta: -6,
+    l: ['বিশ্ব সংবাদমাধ্যম স্বাধীনতা সূচক ২০২৬ (Press Freedom)', 'विश्व प्रेस स्वतंत्रता सूचकांक 2026 (Press Freedom)', 'World Press Freedom Index 2026'],
+    s: ['Reporters Without Borders (RSF), ৩০ এপ্রিল ২০২৬', 'Reporters Without Borders (RSF), 30 अप्रैल 2026', 'Reporters Without Borders (RSF), 30 April 2026'],
+    n: ['২০২৫ সালে ছিল ১৫১তম — ৬ ধাপ নেমেছে। মিডিয়া মালিকানা কেন্দ্রীকরণ, সাংবাদিকদের নিরাপত্তা ও আইনি চাপকে মূল কারণ দেখানো হয়েছে।', '2025 में 151वां था — 6 पायदान की गिरावट। मीडिया स्वामित्व, पत्रकारों की सुरक्षा और क़ानूनी दबाव को मुख्य कारण बताया गया।', 'Down 6 places from 151st in 2025. Cites media ownership concentration, journalist safety and legal pressures.'],
+    p: ['শীর্ষ: নরওয়ে (১ম) · প্রতিবেশী: নেপাল, শ্রীলঙ্কা ও ভুটান এগিয়ে · চীন ১৭৮তম', 'शीर्ष: नॉर्वे (पहला) · पड़ोसी: नेपाल, श्रीलंका और भूटान आगे · चीन 178वां', 'Top: Norway (1st) · Neighbours: Nepal, Sri Lanka & Bhutan ahead · China 178th'] },
+
+  { cat: 'env', rank: 23, tot: 64, delta: -13,
+    l: ['জলবায়ু পরিবর্তন পারফরম্যান্স সূচক ২০২৬ (CCPI)', 'जलवायु परिवर्तन प्रदर्शन सूचकांक 2026 (CCPI)', 'Climate Change Performance Index 2026 (CCPI)'],
+    s: ['Germanwatch ও NewClimate Institute, COP30 (নভেম্বর ২০২৫)', 'Germanwatch और NewClimate Institute, COP30 (नवंबर 2025)', 'Germanwatch & NewClimate Institute, COP30 (November 2025)'],
+    n: ['৬৩টি দেশ ও ইইউ মূল্যায়ন করা হয়। ২০২৫ সালে ছিল ১০ম, এক ধাপেই ১৩ ঘর নেমেছে — কয়লা-নির্ভরতা ও জলবায়ু দ্বন্দ্বকে প্রধান বাধা বলা হয়েছে। মাথাপিছু কার্বন নিঃসরণে ভারত এখনো ভালো অবস্থানে।', '63 देशों और ईयू का मूल्यांकन किया गया। 2025 में 10वां था, एक ही बार में 13 पायदान नीचे — कोयले पर निर्भरता को मुख्य बाधा बताया गया।', '63 countries and the EU assessed. Fell 13 places from 10th in 2025 due to coal dependence, though per-capita emissions remain low.'],
+    p: ['শীর্ষ ৩ স্থান শূন্য রাখা হয়েছে (ডেনমার্ক ৪র্থ) · প্রতিবেশী: চীন ৫৪, পাকিস্তান ৩২', 'शीर्ष 3 स्थान रिक्त रखे गए (डेनमार्क चौथा) · पड़ोसी: चीन 54, पाकिस्तान 32', 'Top 3 left vacant (Denmark 4th) · Neighbours: China 54, Pakistan 32'] },
+  { cat: 'env', rank: 176, tot: 180, delta: 4, score: '27.6/100',
+    l: ['পরিবেশ পারফরম্যান্স সূচক (EPI)', 'पर्यावरण प्रदर्शन सूचकांक (EPI)', 'Environmental Performance Index (EPI)'],
+    s: ['Yale ও Columbia বিশ্ববিদ্যালয়, জুন ২০২৪', 'येल और कोलंबिया विश्वविद्यालय, जून 2024', 'Yale & Columbia Universities, June 2024'],
+    n: ['২০২২ সালে ১৮০তম স্থান থেকে ৪ ধাপ উন্নতি (স্কোর ২৭.৬)। বায়ুমান ও কয়লা-নির্ভরতা দুর্বল দিক হলেও জীববৈচিত্র্য ও জলবায়ু নীতিতে উন্নতি হয়েছে। ভারত সরকার এই সূচকের পদ্ধতির সমালোচনা করেছে।', '2022 के 180वें स्थान से 4 पायदान सुधार (स्कोर 27.6)। वायु गुणवत्ता चुनौती है, पर जैव विविधता में सुधार। भारत सरकार ने पद्धति पर सवाल उठाए हैं।', 'Up 4 places from 180th (2022), score 27.6. Air quality drags score down; India has criticised the weighting methodology.'],
+    p: ['শীর্ষ: এস্তোনিয়া (৭৫.৩), লুক্সেমবার্গ · প্রতিবেশী: ভুটান ৬৯, শ্রীলঙ্কা ১২৭, চীন ১৫৪, বাংলাদেশ ১৭৫, পাকিস্তান ১৭৯', 'शीर्ष: एस्टोनिया (75.3), लक्ज़मबर्ग · पड़ोसी: भूटान 69, श्रीलंका 127, चीन 154, बांग्लादेश 175, पाकिस्तान 179', 'Top: Estonia (75.3), Luxembourg · Neighbours: Bhutan 69, Sri Lanka 127, China 154, Bangladesh 175, Pakistan 179'] }
 ];
 
 /* বহুভাষিক নাম/তথ্য: id -> [নাম, রাজধানী, ভাষা, মুখ্যমন্ত্রী, কার্যকাল, [ভ্রমণ×৩]] */
@@ -2458,6 +3348,8 @@ const CH = () => ({
   d: [L('জনঘনত্ব (২০১১)', 'जनघनत्व (2011)', 'Density (2011)'), (x) => x.d, (v) => nf.format(Math.round(v))],
   lit: [L('সাক্ষরতা (২০২৪)', 'साक्षरता (2024)', 'Literacy (2024)'), (x) => (LIT[x.id] ? LIT[x.id][3] : null), (v) => nf1.format(v) + '%'],
   pc: [L('মাথাপিছু GSDP (২০২৪-২৫)', 'प्रति व्यक्ति GSDP (2024-25)', 'GSDP per capita (2024-25)'), (x) => (ECO[x.id] ? ECO[x.id].p24 : null), (v) => '₹' + big(v)],
+  sdg: [L('SDG উন্নয়ন স্কোর (২০২৩-২৪)', 'SDG विकास स्कोर (2023-24)', 'SDG India Score (2023-24)'), (x) => (ST_IDX[x.id] ? ST_IDX[x.id].sdg : null), (v) => nf.format(v)],
+  mpi: [L('বহুমাত্রিক দারিদ্র্য (MPI)', 'बहुआयामी ग़रीबी (MPI)', 'Poverty Rate (MPI)'), (x) => (MPI[x.id] != null ? MPI[x.id] : null), (v) => nf1.format(v) + '%'],
   caw: [L('নারীর বিরুদ্ধে অপরাধের হার (২০১৮)', 'महिलाओं के विरुद्ध अपराध दर (2018)', 'Crime rate against women (2018)'), (x) => (CAW18[x.id] != null ? CAW18[x.id] : null), (v) => nf1.format(v)]
 });
 function applyChoro() {
@@ -2820,14 +3712,53 @@ function metalBlock() {
     `<p class="hint">${L(`সূত্র: ভারতীয় খুচরো বুলিয়ন বাজার দর (GoodReturns/Groww) ও আন্তর্জাতিক স্পট ফিড (${dtLbl} হালনাগাদ)। শহরভেদে দাম সামান্য আলাদা হয় এবং গয়নার ক্ষেত্রে মেকিং চার্জ ও ৩% GST যোগ হয়। এটি বিনিয়োগের পরামর্শ নয়।`, `स्रोत: भारतीय खुदरा बुलियन दरें (GoodReturns/Groww) व अंतरराष्ट्रीय स्पॉट फ़ीड (${dtLbl} अपडेट)। शहर के हिसाब से दाम थोड़े अलग होते हैं और गहनों पर मेकिंग चार्ज व 3% GST जुड़ता है। यह निवेश की सलाह नहीं है।`, `Source: Indian retail bullion rates (GoodReturns/Groww) & live international spot feeds (updated ${dtLbl}). Prices vary slightly by city; jewellery purchases add making charges and 3% GST. Not investment advice.`)}</p>`;
 }
 
+let idxCat = 'all';
 function natIdx() {
-  const li = (k) => (lang === 'bn' ? 0 : lang === 'hi' ? 1 : 2);
-  return `<ul class="idx">` + INDICES.map((i) => {
-    const l = i.l[li()], s = i.s[li()], n = i.n[li()];
-    const track = i.tot ? `<div class="track" role="img" aria-label="${ofN(i.rank, i.tot)}"><span>${ord(1)}</span><b style="left:${((i.rank - 1) / (i.tot - 1)) * 100}%"></b><span>${ord(i.tot)}</span></div>` : '';
-    return `<li><div class="idx-top"><span class="idx-l">${l}</span><span class="idx-v">${ord(i.rank)}${i.tot ? `<em> / ${nf.format(i.tot)}</em>` : ''}</span></div>${track}<small>${s}${n ? '. ' + n : ''}</small></li>`;
-  }).join('') + '</ul>';
+  const li = () => (lang === 'bn' ? 0 : lang === 'hi' ? 1 : 2);
+  const CATS = {
+    all:   { c: '#C2410C', ico: '🌐', l: ['সব সূচক', 'सभी सूचकांक', 'All Indices'] },
+    human: { c: '#2563EB', ico: '👥', l: ['মানব উন্নয়ন', 'मानव विकास', 'Human Dev'] },
+    econ:  { c: '#059669', ico: '💼', l: ['অর্থনীতি ও প্রযুক্তি', 'अर्थव्यवस्था व टेक', 'Economy & Tech'] },
+    gov:   { c: '#7C3AED', ico: '⚖️', l: ['গণতন্ত্র ও নিরাপত্তা', 'लोकतंत्र व सुरक्षा', 'Governance & Security'] },
+    env:   { c: '#0D9488', ico: '🌿', l: ['পরিবেশ ও জলবায়ু', 'पर्यावरण व जलवायु', 'Environment'] }
+  };
+  const improved = INDICES.filter((i) => i.delta > 0).length;
+  const top50 = INDICES.filter((i) => (!i.inv && i.rank <= 50)).length;
+  const kpiHtml = `<div class="idx-summary">` +
+    `<div class="idx-kpi" style="--ik:#2563EB"><b>${nf.format(INDICES.length)}</b><span>${L('মোট বৈশ্বিক সূচক', 'कुल वैश्विक सूचकांक', 'Global Indices')}</span></div>` +
+    `<div class="idx-kpi" style="--ik:#059669"><b>${nf.format(top50)}</b><span>${L('শীর্ষ ৫০-এ ভারত', 'शीर्ष 50 में भारत', 'India in Top 50')}</span></div>` +
+    `<div class="idx-kpi" style="--ik:#0D9488"><b>▲ ${nf.format(improved)}</b><span>${L('র‍্যাংক উন্নতি', 'रैंक में सुधार', 'Rank Improved')}</span></div>` +
+    `<div class="idx-kpi" style="--ik:#7C3AED"><b>${L('৪র্থ', 'चौथा', '4th')}</b><span>${L('সামরিক শক্তি ও টিয়ার-১ সাইবার', 'सैन्य शक्ति व टियर-1 साइबर', 'Military & Tier-1 Cyber')}</span></div>` +
+    `</div>`;
+  const filterHtml = `<div class="idx-filters" role="group" aria-label="${L('সূচক বিভাগ', 'सूचकांक श्रेणी', 'Index category')}">` +
+    Object.entries(CATS).map(([k, v]) => {
+      const cnt = k === 'all' ? INDICES.length : INDICES.filter((i) => i.cat === k).length;
+      return `<button type="button" class="idx-fbtn${idxCat === k ? ' active' : ''}" data-idx-cat="${k}" style="--fc:${v.c}">${v.ico} ${v.l[li()]} <span class="idx-fcnt">${nf.format(cnt)}</span></button>`;
+    }).join('') + `</div>`;
+  const list = idxCat === 'all' ? INDICES : INDICES.filter((i) => i.cat === idxCat);
+  const items = list.map((i) => {
+    const cInfo = CATS[i.cat] || CATS.human;
+    const l = i.l[li()], s = i.s[li()], n = i.n[li()], p = i.p ? i.p[li()] : '';
+    const rankStr = i.badge ? i.badge : ord(i.rank);
+    const trendHtml = i.delta > 0
+      ? `<span class="idx-trend up">▲ +${nf.format(i.delta)}</span>`
+      : i.delta < 0
+        ? `<span class="idx-trend down">▼ ${nf.format(i.delta)}</span>`
+        : `<span class="idx-trend flat">• ${L('অপরিবর্তিত', 'स्थिर', 'Unchanged')}</span>`;
+    const scoreHtml = i.score ? `<span class="idx-score-pill">${L('স্কোর', 'स्कोर', 'Score')}: ${dg(i.score)}</span>` : '';
+    let track = '';
+    if (i.tot) {
+      const posPct = i.inv ? (100 - ((i.rank - 1) / (i.tot - 1)) * 100) : ((i.rank - 1) / (i.tot - 1)) * 100;
+      const leftLbl = i.inv ? L('কম প্রভাবিত', 'कम प्रभावित', 'Low impact') : ord(1);
+      const rightLbl = i.inv ? L('সর্বাধিক প্রভাবিত (১ম)', 'सर्वाधिक प्रभावित (1st)', 'Most impacted (1st)') : ord(i.tot);
+      track = `<div class="idx-track-pro" role="img" aria-label="${ofN(i.rank, i.tot)}"><span>${leftLbl}</span><b style="left:${Math.max(2, Math.min(98, posPct)).toFixed(1)}%"></b><span>${rightLbl}</span></div>`;
+    }
+    const peerHtml = p ? `<div class="idx-peers"><strong>🌍 ${L('তুলনা:', 'तुलना:', 'Benchmark:')}</strong> <span>${p}</span></div>` : '';
+    return `<li class="idx-card" style="--ic:${cInfo.c}"><div class="idx-head-meta"><span class="idx-cat-pill">${cInfo.ico} ${cInfo.l[li()]}</span>${trendHtml}${scoreHtml}</div><div class="idx-top"><span class="idx-l">${l}</span><span class="idx-v">${rankStr}${i.tot ? `<em> / ${nf.format(i.tot)}</em>` : ''}</span></div>${track}<small>${s}${n ? ' — ' + n : ''}</small>${peerHtml}</li>`;
+  }).join('');
+  return kpiHtml + filterHtml + `<ul class="idx">${items}</ul>`;
 }
+
 const natTrv = () => facts([
   fact(L('জনপ্রিয় গন্তব্য', 'लोकप्रिय गंतव्य', 'Popular destinations'), L('তাজমহল (আগ্রা), জয়পুর ও উদয়পুর, কেরলের ব্যাকওয়াটার, গোয়া, বারাণসী, লাদাখ, দার্জিলিং, আন্দামান', 'ताजमहल (आगरा), जयपुर और उदयपुर, केरल के बैकवॉटर, गोवा, वाराणसी, लद्दाख, दार्जिलिंग, अंडमान', 'Taj Mahal (Agra), Jaipur and Udaipur, the Kerala backwaters, Goa, Varanasi, Ladakh, Darjeeling, the Andamans')),
   fact(L('ঘোরার ভালো সময়', 'घूमने का अच्छा समय', 'Best time to visit'), L('অক্টোবর থেকে মার্চ', 'अक्टूबर से मार्च', 'October to March'), L('সাধারণভাবে। পাহাড় ও সমুদ্র অঞ্চলে মরসুম আলাদা', 'आमतौर पर। पहाड़ी और तटीय इलाक़ों में मौसम अलग होता है', 'In general. Hill and coastal regions have their own seasons')),
@@ -2885,52 +3816,149 @@ const EXT = {
 };
 /* NITI Aayog জাতীয় বহুমাত্রিক দারিদ্র্য সূচক (National MPI), ২০২৩ সংস্করণ (NFHS-5 ভিত্তিক) — শুধু যে কটি রাজ্যের
    সংখ্যা নির্ভরযোগ্য সূত্রে যাচাই করা গেছে, বাকিগুলোর জন্য এই সূচকে কিছু দেখানো হবে না */
-const MPI = { br: 33.76, jh: 28.82, up: 22.93, mp: 20.63 };
+const MPI = {
+  kl: 0.55, ga: 0.84, py: 0.85, ld: 1.11, tn: 2.20, an: 2.30, sk: 2.60, dl: 3.43, ch: 3.52,
+  la: 3.53, pb: 4.75, jk: 4.80, hp: 4.93, mz: 5.30, tg: 5.88, ap: 6.06, hr: 7.07, ka: 7.58,
+  mh: 7.81, mn: 8.10, dd: 9.21, uk: 9.67, gj: 11.66, wb: 11.89, tr: 13.11, ar: 13.76, rj: 15.31,
+  nl: 15.43, od: 15.68, cg: 16.37, as: 19.35, mp: 20.63, up: 22.93, ml: 27.79, jh: 28.82, br: 33.76
+};
+
+/* রাজ্যভিত্তিক সরকারি সূচক (সকল ৩৬ রাজ্য ও কেন্দ্রশাসিত অঞ্চল):
+   sdg: NITI Aayog SDG India Index 2023-24 (0-100; India avg 71)
+   unemp: PLFS 2023-24 বেকারত্বের হার (%, 15+ বছর; India avg 3.2%)
+   flfpr: PLFS 2023-24 নারী শ্রমশক্তি অংশগ্রহণ (%, 15+ বছর; India avg 41.7%)
+   health: NITI Aayog State Health Index 4th Round (0-100)
+   epi: NITI Aayog Export Preparedness Index 2022 (0-100)
+   net: TRAI টেলিডেনসিটি / ডিজিটাল সংযোগ (প্রতি ১০০ জনে, ২০২৪-২৫)
+   clean: স্বচ্ছ সর্বেক্ষণ উল্লেখযোগ্য পরিচ্ছন্ন শহর [bn, hi, en] */
+const ST_IDX = {
+  jk: { sdg: 74, unemp: 6.1, flfpr: 44.3, health: 47.7, epi: 39.2, net: 86.2, clean: ['শ্রীনগর ও জম্মু', 'श्रीनगर और जम्मू', 'Srinagar & Jammu'] },
+  la: { sdg: 70, unemp: 5.5, flfpr: 57.6, health: null, epi: 22.8, net: 78.5, clean: ['লেহ', 'लेह', 'Leh'] },
+  pb: { sdg: 76, unemp: 5.5, flfpr: 32.1, health: 58.1, epi: 58.9, net: 114.6, clean: ['নওয়াঁশহর ও চণ্ডীগড় সংলগ্ন অঞ্চল', 'नवांशहर व मोहाली', 'Nawanshahr & Mohali'] },
+  hp: { sdg: 77, unemp: 5.2, flfpr: 68.4, health: 63.2, epi: 43.7, net: 121.3, clean: ['শিমলা ও ধর্মশালা', 'शिमला और धर्मशाला', 'Shimla & Dharamshala'] },
+  uk: { sdg: 79, unemp: 4.3, flfpr: 48.2, health: 44.2, epi: 59.1, net: 88.4, clean: ['দেরাদুন ও ঋষিকেশ (সেরা গঙ্গা শহর)', 'देहरादून और ऋषिकेश (श्रेष्ठ गंगा शहर)', 'Dehradun & Rishikesh (Best Ganga Town)'] },
+  sk: { sdg: 76, unemp: 1.5, flfpr: 66.8, health: 55.5, epi: 34.1, net: 97.2, clean: ['গ্যাংটক', 'गंगटोक', 'Gangtok'] },
+  ar: { sdg: 65, unemp: 5.3, flfpr: 53.7, health: 53.9, epi: 24.5, net: 74.8, clean: ['ইটানগর ও পাসিঘাট', 'ईटानगर और पासीघाट', 'Itanagar & Pasighat'] },
+  ch: { sdg: 77, unemp: 4.1, flfpr: 27.6, health: 62.5, epi: 37.4, net: 116.2, clean: ['চণ্ডীগড় (সফাইমিত্র সুরক্ষিত শহর)', 'चंडीगढ़ (सफ़ाईमित्र सुरक्षित शहर)', 'Chandigarh (SafaiMitra Surakshit Shehar)'] },
+  hr: { sdg: 72, unemp: 3.4, flfpr: 28.4, health: 49.3, epi: 63.7, net: 91.5, clean: ['রোহতক ও কার্নাল', 'रोहतक और करनाल', 'Rohtak & Karnal'] },
+  dl: { sdg: 72, unemp: 2.1, flfpr: 19.6, health: 49.8, epi: 48.2, net: 268.4, clean: ['নয়াদিল্লি (NDMC)', 'नई दिल्ली (NDMC)', 'New Delhi (NDMC)'] },
+  up: { sdg: 67, unemp: 3.0, flfpr: 35.1, health: 30.6, epi: 61.2, net: 69.2, clean: ['বারাণসী ও প্রয়াগরাজ (শীর্ষ গঙ্গা শহর)', 'वाराणसी और प्रयागराज (शीर्ष गंगा शहर)', 'Varanasi & Prayagraj (Top Ganga Towns)'] },
+  br: { sdg: 57, unemp: 3.0, flfpr: 23.4, health: 31.0, epi: 41.1, net: 56.8, clean: ['সুপৌল ও পাটনা', 'सुपौल और पटना', 'Supaul & Patna'] },
+  wb: { sdg: 70, unemp: 2.5, flfpr: 36.2, health: null, epi: 54.5, net: 84.3, clean: ['কলকাতা ও নিউ টাউন', 'कोलकाता और न्यू टाउन', 'Kolkata & New Town'] },
+  as: { sdg: 65, unemp: 3.9, flfpr: 28.5, health: 47.7, epi: 36.7, net: 71.4, clean: ['গুয়াহাটি ও যোরহাট', 'गुवाहाटी और जोरहाट', 'Guwahati & Jorhat'] },
+  nl: { sdg: 63, unemp: 7.1, flfpr: 60.2, health: 27.0, epi: 23.1, net: 76.1, clean: ['কোহিমা ও মোকোকচুং', 'कोहिमा और मोकोकचुंग', 'Kohima & Mokokchung'] },
+  rj: { sdg: 67, unemp: 4.2, flfpr: 49.3, health: 41.3, epi: 52.6, net: 81.9, clean: ['জয়পুর ও উদয়পুর', 'जयपुर और उदयपुर', 'Jaipur & Udaipur'] },
+  mp: { sdg: 67, unemp: 0.9, flfpr: 47.8, health: 36.7, epi: 56.6, net: 69.5, clean: ['ইন্দোর (ভারতের ১ম) ও ভোপাল', 'इंदौर (भारत में प्रथम) और भोपाल', 'Indore (India #1) & Bhopal'] },
+  cg: { sdg: 67, unemp: 2.5, flfpr: 57.2, health: 50.7, epi: 47.1, net: 68.3, clean: ['রায়পুর ও অম্বিকাপুর (স্বচ্ছ রাজ্য ৩য়)', 'रायपुर और अंबिकापुर (स्वच्छ राज्य 3रा)', 'Raipur & Ambikapur (3rd Cleanest State)'] },
+  jh: { sdg: 62, unemp: 1.3, flfpr: 50.1, health: 47.5, epi: 46.7, net: 63.1, clean: ['জামশেদপুর (স্বচ্ছ শিল্প শহর)', 'जमशेदपुर (स्वच्छ औद्योगिक शहर)', 'Jamshedpur (Cleanest Industrial City)'] },
+  ml: { sdg: 63, unemp: 6.0, flfpr: 58.6, health: 43.1, epi: 27.6, net: 72.4, clean: ['শিলং ও মাওলিননং', 'शिलांग और मावलिननॉन्ग', 'Shillong & Mawlynnong'] },
+  mn: { sdg: 72, unemp: 5.4, flfpr: 40.9, health: 43.3, epi: 22.9, net: 74.2, clean: ['ইম্ফল', 'इंफाल', 'Imphal'] },
+  gj: { sdg: 73, unemp: 1.1, flfpr: 43.9, health: 63.6, epi: 73.2, net: 92.8, clean: ['সুরাট (ভারতের ১ম যৌথ) ও গান্ধীনগর', 'सूरत (भारत में प्रथम संयुक्त) और गांधीनगर', 'Surat (Joint India #1) & Gandhinagar'] },
+  dd: { sdg: 69, unemp: 2.6, flfpr: 32.8, health: 66.2, epi: 41.9, net: 91.0, clean: ['দমন ও সিলভাসা', 'दमन और सिलवासा', 'Daman & Silvassa'] },
+  mh: { sdg: 73, unemp: 3.3, flfpr: 45.2, health: 69.1, epi: 78.2, net: 105.4, clean: ['নভি মুম্বই (৩য়) ও সাসওয়াদ (স্বচ্ছ রাজ্য ১ম)', 'नवी मुंबई (तीसरा) व सासवड (स्वच्छ राज्य 1ला)', 'Navi Mumbai (#3) & Saswad (1st Cleanest State)'] },
+  tg: { sdg: 74, unemp: 4.5, flfpr: 47.4, health: 69.9, epi: 61.4, net: 106.8, clean: ['হায়দরাবাদ ও সিদ্দিপেট', 'हैदराबाद और सिद्दीपेट', 'Hyderabad & Siddipet'] },
+  od: { sdg: 66, unemp: 3.1, flfpr: 44.6, health: 44.3, epi: 53.3, net: 76.5, clean: ['ভুবনেশ্বর ও বেরহামপুর', 'भुवनेश्वर और बरहामपुर', 'Bhubaneswar & Berhampur'] },
+  tr: { sdg: 71, unemp: 1.9, flfpr: 33.4, health: 60.2, epi: 34.4, net: 75.3, clean: ['আগরতলা', 'अगरतला', 'Agartala'] },
+  mz: { sdg: 72, unemp: 2.4, flfpr: 44.5, health: 75.8, epi: 21.8, net: 84.1, clean: ['আইজল (উত্তর-পূর্বের শীর্ষ)', 'आइज़ोल (पूर्वोत्तर में शीर्ष)', 'Aizawl (Top in Northeast)'] },
+  ga: { sdg: 77, unemp: 8.7, flfpr: 36.1, health: 53.7, epi: 51.6, net: 152.3, clean: ['পানাজি', 'पणजी', 'Panaji'] },
+  ka: { sdg: 75, unemp: 2.7, flfpr: 38.9, health: 57.9, epi: 76.4, net: 104.2, clean: ['মহীশূর ও বেঙ্গালুরু', 'मैसूरु और बेंगलुरु', 'Mysuru & Bengaluru'] },
+  ap: { sdg: 74, unemp: 4.1, flfpr: 45.6, health: 69.9, epi: 59.3, net: 86.7, clean: ['বিশাখাপত্তনম (৪র্থ) ও বিজয়ওয়াড়া', 'विशाखापत्तनम (चौथा) और विजयवाड़ा', 'Visakhapatnam (#4) & Vijayawada'] },
+  kl: { sdg: 79, unemp: 7.2, flfpr: 38.2, health: 82.2, epi: 56.1, net: 124.8, clean: ['কোচি ও তিরুবনন্তপুরম', 'कोच्चि और तिरुवनंतपुरम', 'Kochi & Thiruvananthapuram'] },
+  tn: { sdg: 78, unemp: 3.5, flfpr: 45.1, health: 72.4, epi: 80.9, net: 104.9, clean: ['চেন্নাই ও তিরুচিরাপল্লী', 'चेन्नई और तिरुचिरापल्ली', 'Chennai & Tiruchirappalli'] },
+  py: { sdg: 74, unemp: 5.7, flfpr: 36.4, health: 50.4, epi: 44.2, net: 112.4, clean: ['পুদুচেরি', 'पुदुचेरी', 'Puducherry'] },
+  an: { sdg: 71, unemp: 7.8, flfpr: 39.2, health: 44.7, epi: 25.1, net: 95.4, clean: ['শ্রী বিজয়পুরম (পোর্ট ব্লেয়ার)', 'श्री विजयपुरम (पोर्ट ब्लेयर)', 'Sri Vijaya Puram (Port Blair)'] },
+  ld: { sdg: 73, unemp: 11.1, flfpr: 30.4, health: 51.9, epi: 15.8, net: 98.1, clean: ['কাভারাত্তি', 'कवरत्ती', 'Kavaratti'] }
+};
+
+const CMP_COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6', '#EC4899', '#06B6D4'];
+let cmpDir = 'best';
+
 function cmpKeys() {
   const eco = (x) => ECO[x.id];
   const ext = (x) => EXT[x.id] || {};
+  const si = (x) => ST_IDX[x.id] || {};
   const noData = () => L('তথ্য নেই', 'डेटा नहीं', 'No data');
-  /* polarity: 'hi' = higher figure highlighted (positive metric), 'lo' = lower figure highlighted (inverse metric), 'ne' = neutral, highest shown with no better/worse judgement */
+  /* polarity: 'hi' = higher better, 'lo' = lower better, 'ne' = neutral */
   return {
     pop: [L('জনসংখ্যা', 'जनसंख्या', 'Population'), (x) => x.pop, (x) => big(x.pop), 'ne'],
     area: [L('আয়তন', 'क्षेत्रफल', 'Area'), (x) => x.area, (x) => nf.format(x.area) + ' ' + KM(), 'ne'],
     d: [L('জনঘনত্ব', 'जनघनत्व', 'Density'), (x) => x.d, (x) => nf.format(Math.round(x.d)) + '/' + L('বর্গ কিমি', 'वर्ग किमी', 'sq km'), 'ne'],
-    lit: [L('সাক্ষরতা', 'साक्षरता', 'Literacy'), (x) => (LIT[x.id] && LIT[x.id][3]) || null, (x) => nf2.format(LIT[x.id][3]) + '%', 'hi'],
-    sexRatio: [L('লিঙ্গ অনুপাত', 'लिंगानुपात', 'Sex ratio'), (x) => ext(x).sexRatio ?? null, (x) => nf.format(ext(x).sexRatio) + L('/১০০০ পুরুষ', '/1000 पुरुष', '/1000 males'), 'hi'],
-    urban: [L('নগরায়ণের হার', 'शहरीकरण दर', 'Urbanization'), (x) => ext(x).urban ?? null, (x) => nf2.format(ext(x).urban) + '%', 'ne'],
+    lit: [L('সাক্ষরতা (২০২৪)', 'साक्षरता (2024)', 'Literacy (2024)'), (x) => (LIT[x.id] && LIT[x.id][3]) || null, (x) => nf1.format(LIT[x.id][3]) + '%', 'hi'],
+    sexRatio: [L('লিঙ্গ অনুপাত', 'लिंगानुपात', 'Sex ratio'), (x) => ext(x).sexRatio ?? null, (x) => nf.format(ext(x).sexRatio) + L('/১০০০', '/1000', '/1000'), 'hi'],
+    urban: [L('নগরায়ণের হার', 'शहरीकरण दर', 'Urbanization'), (x) => ext(x).urban ?? null, (x) => nf1.format(ext(x).urban) + '%', 'ne'],
     districts: [L('জেলার সংখ্যা', 'ज़िलों की संख्या', 'Districts'), (x) => ext(x).districts ?? null, (x) => nf.format(ext(x).districts), 'ne'],
-    gsdp: ['GSDP', (x) => (eco(x) && eco(x).g) || null, (x) => (eco(x).g >= 1000 ? nf2.format(eco(x).g / 1000) + L(' লক্ষ কোটি ₹', ' लाख करोड़ ₹', ' lakh crore ₹') : nf.format(eco(x).g * 100) + L(' কোটি ₹', ' करोड़ ₹', ' crore ₹')), 'hi'],
+    gsdp: ['GSDP', (x) => (eco(x) && eco(x).g) || null, (x) => (eco(x).g >= 1000 ? nf2.format(eco(x).g / 1000) + L(' লক্ষ কোটি ₹', ' लाख करोड़ ₹', ' L Cr ₹') : nf.format(eco(x).g * 100) + L(' কোটি ₹', ' करोड़ ₹', ' Cr ₹')), 'hi'],
     pc: [L('মাথাপিছু আয়', 'प्रति व्यक्ति आय', 'Per-capita income'), (x) => (eco(x) && eco(x).p24) || null, (x) => '₹' + nf.format(eco(x).p24), 'hi'],
     mpi: [L('দারিদ্র্য সূচক (MPI)', 'ग़रीबी सूचकांक (MPI)', 'Poverty (MPI)'), (x) => MPI[x.id] ?? null, (x) => nf2.format(MPI[x.id]) + '%', 'lo'],
+    unemp: [L('বেকারত্বের হার', 'बेरोज़गारी दर', 'Unemployment'), (x) => si(x).unemp ?? null, (x) => nf1.format(si(x).unemp) + '%', 'lo'],
+    flfpr: [L('নারী শ্রমশক্তি (LFPR)', 'महिला श्रम भागीदारी', 'Female LFPR'), (x) => si(x).flfpr ?? null, (x) => nf1.format(si(x).flfpr) + '%', 'hi'],
+    sdg: [L('SDG উন্নয়ন স্কোর', 'SDG विकास स्कोर', 'SDG India Score'), (x) => si(x).sdg ?? null, (x) => nf.format(si(x).sdg) + '/100', 'hi'],
     hdi: ['HDI', (x) => ext(x).hdi ?? null, (x) => nf3.format(ext(x).hdi), 'hi'],
     lifeExp: [L('আয়ুষ্কাল', 'जीवन प्रत्याशा', 'Life expectancy'), (x) => ext(x).lifeExp ?? null, (x) => nf1.format(ext(x).lifeExp) + L(' বছর', ' वर्ष', ' yrs'), 'hi'],
-    imr: [L('শিশুমৃত্যুর হার (IMR)', 'शिशु मृत्यु दर (IMR)', 'Infant mortality (IMR)'), (x) => ext(x).imr ?? null, (x) => nf.format(ext(x).imr), 'lo'],
+    imr: [L('শিশুমৃত্যু (IMR)', 'शिशु मृत्यु (IMR)', 'Infant mortality (IMR)'), (x) => ext(x).imr ?? null, (x) => nf.format(ext(x).imr), 'lo'],
     tfr: [L('প্রজনন হার (TFR)', 'प्रजनन दर (TFR)', 'Fertility rate (TFR)'), (x) => ext(x).tfr ?? null, (x) => nf1.format(ext(x).tfr), 'ne'],
     ls: [L('লোকসভা আসন', 'लोकसभा सीटें', 'Lok Sabha seats'), (x) => x.ls ?? null, (x) => nf.format(x.ls), 'ne'],
     vs: [L('বিধানসভা আসন', 'विधानसभा सीटें', 'Assembly seats'), (x) => x.vs || null, (x) => x.vs ? nf.format(x.vs) : noData(), 'ne'],
     rsSeats: [L('রাজ্যসভা আসন', 'राज्यसभा सीटें', 'Rajya Sabha seats'), (x) => ext(x).rsSeats ?? null, (x) => nf.format(ext(x).rsSeats), 'ne'],
+    epi: [L('রপ্তানি প্রস্তুতি (EPI)', 'निर्यात तत्परता (EPI)', 'Export Preparedness'), (x) => si(x).epi ?? null, (x) => nf1.format(si(x).epi), 'hi'],
+    net: [L('টেলিডেনসিটি', 'टेलीडेंसिटी', 'Teledensity'), (x) => si(x).net ?? null, (x) => nf1.format(si(x).net) + '%', 'hi'],
     forestCover: [L('বনভূমি', 'वन क्षेत्र', 'Forest cover'), (x) => ext(x).forestCover ?? null, (x) => nf2.format(ext(x).forestCover) + '%', 'hi'],
     crimeRate: [L('অপরাধের হার (NCRB)', 'अपराध दर (NCRB)', 'Crime rate (NCRB)'), (x) => ext(x).crimeRate ?? null, (x) => nf1.format(ext(x).crimeRate), 'lo']
   };
 }
 const CMP_GROUPS = () => [
-  [L('জনমিতি', 'जनसांख्यिकी', 'Demographics'), ['pop', 'area', 'd', 'lit', 'sexRatio', 'urban', 'districts']],
-  [L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy'), ['gsdp', 'pc', 'mpi']],
-  [L('স্বাস্থ্য', 'स्वास्थ्य', 'Health'), ['hdi', 'lifeExp', 'imr', 'tfr']],
-  [L('শাসন ও প্রতিনিধিত্ব', 'शासन और प्रतिनिधित्व', 'Governance'), ['ls', 'vs', 'rsSeats']],
-  [L('পরিকাঠামো ও পরিবেশ', 'बुनियादी ढांचा और पर्यावरण', 'Infrastructure & Environment'), ['forestCover', 'crimeRate']]
+  [L('জনমিতি', 'जनसांख्यिकी', 'Demographics'), ['pop', 'area', 'd', 'lit', 'sexRatio', 'urban', 'districts'], '#2563EB'],
+  [L('অর্থনীতি ও কর্মসংস্থান', 'अर्थव्यवस्था और रोज़गार', 'Economy & Jobs'), ['gsdp', 'pc', 'mpi', 'unemp', 'flfpr'], '#059669'],
+  [L('স্বাস্থ্য ও SDG সূচক', 'स्वास्थ्य और SDG सूचकांक', 'Health & SDG'), ['sdg', 'hdi', 'lifeExp', 'imr', 'tfr'], '#EC4899'],
+  [L('শাসন ও প্রতিনিধিত্ব', 'शासन और प्रतिनिधित्व', 'Governance'), ['ls', 'vs', 'rsSeats'], '#7C3AED'],
+  [L('রপ্তানি, ডিজিটাল ও পরিবেশ', 'निर्यात, डिजिटल व पर्यावरण', 'Export, Digital & Environment'), ['epi', 'net', 'forestCover', 'crimeRate'], '#0D9488']
 ];
+
 function vsBlock() {
   const keys = cmpKeys();
   const states = cmpList.map((id) => byId[id]).filter(Boolean);
   const opt = (x, selId) => `<option value="${x.id}" ${x.id === selId ? 'selected' : ''}>${R(x).n}</option>`;
   const srt = (selId) => [...T].sort((p, q) => R(p).n.localeCompare(R(q).n, LOC[lang])).map((x) => opt(x, selId)).join('');
   const noData = L('তথ্য নেই', 'डेटा नहीं', 'No data');
-  const pickers = cmpList.map((id, i) => `<div class="vspick-item">` +
+
+  const presets = [
+    ['wb,mh', L('পশ্চিমবঙ্গ vs মহারাষ্ট্র', 'प. बंगाल vs महाराष्ट्र', 'WB vs Maharashtra')],
+    ['kl,tn', L('কেরল vs তামিলনাডু', 'केरल vs तमिलनाडु', 'Kerala vs Tamil Nadu')],
+    ['up,br', L('উত্তর প্রদেশ vs বিহার', 'उ.प्र. vs बिहार', 'UP vs Bihar')],
+    ['gj,ka', L('গুজরাত vs কর্ণাটক', 'गुजरात vs कर्नाटक', 'Gujarat vs Karnataka')],
+    ['mh,tn,gj,ka', L('শীর্ষ ৪ অর্থনীতি', 'शीर्ष 4 अर्थव्यवस्था', 'Top 4 Economies')]
+  ];
+  const presetHtml = `<div class="cmp-presets"><span class="cmp-presets-lbl">⚡ ${L('দ্রুত তুলনা:', 'त्वरित तुलना:', 'Quick compare:')}</span>` +
+    presets.map(([ids, lbl]) => `<button type="button" class="cmp-preset-btn" data-cmp-preset="${ids}">${lbl}</button>`).join('') + `</div>`;
+
+  const pickers = cmpList.map((id, i) => `<div class="vspick-item" style="--col:${CMP_COLORS[i % CMP_COLORS.length]}">` +
     `<select data-cmp-sel="${i}" aria-label="${L('রাজ্য', 'राज्य', 'State')} ${nf.format(i + 1)}">${srt(id)}</select>` +
     (cmpList.length > 2 ? `<button type="button" class="vsrm" data-cmp-remove="${i}" aria-label="${L('সরান', 'हटाएँ', 'Remove')}">✕</button>` : '') +
     `</div>`).join('');
   const addBtn = cmpList.length < CMP_MAX ? `<button type="button" class="vsadd" data-cmp-add>+ ${L('রাজ্য যোগ করুন', 'राज्य जोड़ें', 'Add state')}</button>` : '';
+
+  // Compute Head-to-Head Lead Counts across all scored (hi/lo) metrics
+  const winCounts = states.map(() => 0);
+  let totalScored = 0;
+  Object.values(keys).forEach(([, get, , pol]) => {
+    if (pol !== 'hi' && pol !== 'lo') return;
+    const vals = states.map((x) => get(x));
+    const num = vals.filter((v) => v != null);
+    if (num.length < 2) return;
+    const best = pol === 'lo' ? Math.min(...num) : Math.max(...num);
+    const winners = vals.map((v, idx) => (v === best ? idx : -1)).filter((idx) => idx >= 0);
+    if (winners.length < states.length) {
+      totalScored++;
+      winners.forEach((idx) => winCounts[idx]++);
+    }
+  });
+  const topWins = Math.max(...winCounts);
+  const scoreboardHtml = `<div class="cmp-scoreboard">` + states.map((x, i) => {
+    const col = CMP_COLORS[i % CMP_COLORS.length];
+    const crown = winCounts[i] === topWins && topWins > 0 ? '🏆' : '';
+    return `<div class="cmp-sc-card" style="--col:${col}"><div class="cmp-sc-name"><span>${R(x).sh || R(x).n}</span><span>${crown}</span></div><div class="cmp-sc-wins">${nf.format(winCounts[i])}/${nf.format(totalScored)}</div><div class="cmp-sc-sub">${L('সূচকে এগিয়ে', 'सूचकांकों में आगे', 'metrics led')}</div></div>`;
+  }).join('') + `</div>`;
+
   const rowHtml = (k) => {
     const [label, get, show, pol] = keys[k];
     const vals = states.map((x) => get(x));
@@ -2939,56 +3967,176 @@ function vsBlock() {
     const cells = states.map((x, i) => {
       const v = vals[i];
       const s = v != null ? show(x) : noData;
-      const cls = v != null && best != null && v === best ? (pol === 'lo' ? ' class="vswin vswin-lo"' : ' class="vswin"') : '';
-      return `<td${cls}>${s}</td>`;
+      const isWin = v != null && best != null && v === best && pol !== 'ne';
+      const col = CMP_COLORS[i % CMP_COLORS.length];
+      const cls = isWin ? (pol === 'lo' ? ' class="vswin vswin-lo"' : ` class="vswin" style="--col:${col}"`) : '';
+      return `<td${cls}>${isWin ? '★ ' : ''}${s}</td>`;
     }).join('');
     const arrow = pol === 'hi' ? ' <span class="vsarrow vsarrow-hi" title="' + L('বেশি ভালো', 'ज़्यादा बेहतर', 'higher is better') + '">▲</span>'
       : pol === 'lo' ? ' <span class="vsarrow vsarrow-lo" title="' + L('কম ভালো', 'कम बेहतर', 'lower is better') + '">▼</span>' : '';
     return `<tr><td>${label}${arrow}</td>${cells}</tr>`;
   };
-  const groupsHtml = CMP_GROUPS().map(([glabel, gkeys]) =>
-    `<tbody class="vsgroup"><tr class="vsghead"><th class="vsg-sticky">${glabel}</th><th class="vsg-fill" colspan="${states.length}"></th></tr>${gkeys.map(rowHtml).join('')}</tbody>`
+  const groupsHtml = CMP_GROUPS().map(([glabel, gkeys, gcol]) =>
+    `<tbody class="vsgroup"><tr class="vsghead" style="--gc:${gcol}"><th class="vsg-sticky">${glabel}</th><th class="vsg-fill" colspan="${states.length}"></th></tr>${gkeys.map(rowHtml).join('')}</tbody>`
   ).join('');
-  const thead = `<tr><th>${L('সূচক', 'सूचकांक', 'Metric')}</th>${states.map((x) => `<th><button type="button" class="vsstatelink" data-go="${x.id}">${R(x).n}</button></th>`).join('')}</tr>`;
-  return `<h3 class="sub">${L('কয়েকটি রাজ্য পাশাপাশি তুলনা', 'कई राज्यों की आमने-सामने तुलना', 'Compare several states side by side')}</h3>` +
+  const thead = `<tr><th>${L('সূচক', 'सूचकांक', 'Metric')}</th>${states.map((x, i) => `<th class="vs-col-head" style="--col:${CMP_COLORS[i % CMP_COLORS.length]}"><button type="button" class="vsstatelink" data-go="${x.id}">${R(x).n}</button></th>`).join('')}</tr>`;
+  return `<h3 class="sub">⚔️ ${L('কয়েকটি রাজ্য পাশাপাশি তুলনা', 'कई राज्यों की आमने-सामने तुलना', 'Compare several states side by side')}</h3>` +
+    presetHtml +
     `<div class="vspick">${pickers}${addBtn}</div>` +
+    scoreboardHtml +
     `<div class="vstable-wrap"><table class="vstable" data-cols="${states.length}"><thead>${thead}</thead>${groupsHtml}</table></div>` +
-    `<p class="hint">${L('▲ চিহ্নিত সারিতে সবচেয়ে বেশি সংখ্যাটা, ▼ চিহ্নিত সারিতে সবচেয়ে কম সংখ্যাটা উজ্জ্বল রঙে দেখানো হয়েছে — দুটোই ভালো ফলাফলের দিক নির্দেশ করে। চিহ্নহীন সারিগুলো শুধু তথ্যগত, ভালো-মন্দ বোঝায় না। রাজ্যের নামে ক্লিক করলে সেই রাজ্যের বিস্তারিত পাতা খুলবে।', '▲ चिह्नित पंक्ति में सबसे ज़्यादा संख्या, ▼ चिह्नित पंक्ति में सबसे कम संख्या हाइलाइट की गई है — दोनों बेहतर नतीजे की दिशा दिखाते हैं। बिना चिह्न वाली पंक्तियाँ केवल जानकारी के लिए हैं, अच्छे-बुरे का संकेत नहीं देतीं। राज्य के नाम पर क्लिक करने से उस राज्य का विस्तृत पेज खुलेगा।', 'In rows marked ▲ the highest figure is highlighted; in rows marked ▼ the lowest is — both point toward the better outcome. Unmarked rows are purely informational and carry no better/worse judgement. Click a state\'s name to open its detailed page.')}</p>`;
+    `<p class="hint">${L('★ ও রঙিন ঘরে সেরা ফলাফল দেখানো হয়েছে — ▲ মানে বেশি ভালো, ▼ মানে কম ভালো। রাজ্যের নামে ক্লিক করলে সেই রাজ্যের বিস্তারিত পাতা খুলবে।', '★ और रंगीन खाने में बेहतर नतीजा दिखाया गया है — ▲ मतलब ज़्यादा बेहतर, ▼ मतलब कम बेहतर। राज्य के नाम पर क्लिक करके विस्तृत पेज खोलें।', '★ highlights the leading state in each row — ▲ higher is better, ▼ lower is better. Click any state name to open its full page.')}</p>`;
 }
+
 function natCmp() {
   const keys = cmpKeys();
-  const [, get, show] = keys[cmpKey];
-  const list = T.filter((x) => get(x) != null).sort((a, b) => get(b) - get(a));
-  const max = get(list[0]);
+  const [label, get, show, pol] = keys[cmpKey];
+  const asc = (pol === 'lo' && cmpDir === 'best') || (pol !== 'lo' && cmpDir === 'rev');
+  const list = T.filter((x) => get(x) != null).sort((a, b) => asc ? get(a) - get(b) : get(b) - get(a));
+  const max = Math.max(...list.map((x) => get(x)));
   const scale = (v) => (cmpKey === 'd' ? Math.sqrt(v / max) : v / max) * 100;
+  const barColor = pol === 'lo' ? '#0D9488' : pol === 'hi' ? '#2563EB' : '#6366F1';
   const notes = {
-    gsdp: L('GSDP চলতি দামে, ২০২৪-২৫ (দিল্লি, জম্মু-কাশ্মীর ও ত্রিপুরার ক্ষেত্রে ২০২৩-২৪)। সব অঞ্চলের তথ্য পাওয়া যায়নি, তাই তালিকা ছোট।', 'GSDP मौजूदा क़ीमतों पर, 2024-25 (दिल्ली, जम्मू-कश्मीर और त्रिपुरा के लिए 2023-24)। सभी क्षेत्रों के आँकड़े नहीं मिले, इसलिए सूची छोटी है।', 'GSDP at current prices, 2024-25 (2023-24 for Delhi, Jammu & Kashmir and Tripura). Figures for some regions were not found, so the list is shorter.'),
-    pc: L('মাথাপিছু GSDP, ২০২৪-২৫, চলতি দামে। দেশের গড় ₹২,৩৪,৮৫৯। চার অঞ্চলের তথ্য পাওয়া যায়নি।', 'प्रति व्यक्ति GSDP, 2024-25, मौजूदा क़ीमतों पर। देश का औसत ₹2,34,859। चार क्षेत्रों के आँकड़े नहीं मिले।', 'Per-capita GSDP, 2024-25, at current prices. National average ₹2,34,859. Figures for four regions were not found.'),
-    lit: L('সাক্ষরতা (৭+ বছর), PLFS ২০২৪।', 'साक्षरता (7+ वर्ष), PLFS 2024।', 'Literacy (age 7+), PLFS 2024.')
+    gsdp: L('GSDP চলতি দামে, ২০২৪-২৫ (দিল্লি, জম্মু-কাশ্মীর ও ত্রিপুরার ক্ষেত্রে ২০২৩-২৪)।', 'GSDP मौजूदा क़ीमतों पर, 2024-25 (दिल्ली, जम्मू-कश्मीर व त्रिपुरा के लिए 2023-24)।', 'GSDP at current prices, 2024-25 (2023-24 for Delhi, J&K and Tripura).'),
+    pc: L('মাথাপিছু GSDP, ২০২৪-২৫। দেশের গড় ₹২,৩৪,৮৫৯।', 'प्रति व्यक्ति GSDP, 2024-25। देश का औसत ₹2,34,859।', 'Per-capita GSDP, 2024-25. National average ₹2,34,859.'),
+    lit: L('সাক্ষরতা (৭+ বছর), PLFS ২০২৪। দেশের গড় ৮০.৯%।', 'साक्षरता (7+ वर्ष), PLFS 2024। देश का औसत 80.9%।', 'Literacy (age 7+), PLFS 2024. National average 80.9%.'),
+    sdg: L('NITI Aayog SDG India Index ২০২৩-২৪ (০–১০০ স্কেল)। ভারতের স্কোর ৭১।', 'NITI Aayog SDG India Index 2023-24 (0–100 पैमाना)। भारत का स्कोर 71।', 'NITI Aayog SDG India Index 2023-24 (0–100 scale). India score: 71.'),
+    mpi: L('NITI Aayog National MPI ২০২৩ (NFHS-5 ভিত্তিক)। কম মানেই কম দারিদ্র্য।', 'NITI Aayog National MPI 2023 (NFHS-5 आधारित)। कम मान का अर्थ कम ग़रीबी।', 'NITI Aayog National MPI 2023 (NFHS-5). Lower value means less poverty.'),
+    unemp: L('PLFS ২০২৩-২৪ (১৫+ বছর)। ভারতের গড় ৩.২%। কম মানেই ভালো।', 'PLFS 2023-24 (15+ वर्ष)। भारत का औसत 3.2%। कम मान बेहतर।', 'PLFS 2023-24 (age 15+). India average 3.2%. Lower is better.'),
+    flfpr: L('PLFS ২০২৩-২৪ নারী শ্রমশক্তি অংশগ্রহণ (১৫+ বছর)। ভারতের গড় ৪১.৭%।', 'PLFS 2023-24 महिला श्रम भागीदारी (15+ वर्ष)। भारत का औसत 41.7%।', 'PLFS 2023-24 Female LFPR (age 15+). India average 41.7%.')
   };
-  const sortGroups = CMP_GROUPS().map(([glabel, gkeys]) =>
-    `<div class="seg-group"><span class="seg-glabel">${glabel}</span><div class="seg" role="group" aria-label="${glabel}">${gkeys.map((k) => `<button data-sort="${k}" aria-pressed="${k === cmpKey}">${keys[k][0]}</button>`).join('')}</div></div>`
+  const sortGroups = CMP_GROUPS().map(([glabel, gkeys, gcol]) =>
+    `<div class="seg-group"><span class="seg-glabel" style="color:${gcol}">${glabel}</span><div class="seg" role="group" aria-label="${glabel}">${gkeys.map((k) => `<button data-sort="${k}" aria-pressed="${k === cmpKey}">${keys[k][0]}</button>`).join('')}</div></div>`
   ).join('');
-  return vsBlock() + `<h3 class="sub">${L('সব রাজ্যের র‍্যাংকিং', 'सभी राज्यों की रैंकिंग', 'Ranking of all states')}</h3>` +
+  const dirLbl = asc ? L('↑ কম থেকে বেশি', '↑ कम से ज़्यादा', '↑ Low to High') : L('↓ বেশি থেকে কম', '↓ ज़्यादा से कम', '↓ High to Low');
+  const medal = (i) => i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : nf.format(i + 1);
+  return vsBlock() +
+    `<div class="cmp-rank-bar"><h3 class="sub" style="margin:18px 0 0;flex:1">🏆 ${L('সব রাজ্যের র‍্যাংকিং', 'सभी राज्यों की रैंकिंग', 'All-State Ranking')} — ${label}</h3><button type="button" class="cmp-dir-btn" data-sort-dir>${dirLbl}</button></div>` +
     `<div class="seg-wrap">${sortGroups}</div>` +
-    `<div class="cmp">` + list.map((x, i) => `<button class="crow" data-go="${x.id}"><span class="cr">${nf.format(i + 1)}</span><span class="cn">${R(x).n}${x.t === 'ut' ? ' <span class="badge badge-ut badge-sm">UT</span>' : ''}</span>${bar(scale(get(x)), R(x).n)}<span class="cv">${show(x)}</span></button>`).join('') + `</div>` +
-    `<p class="hint">${notes[cmpKey] || L('জনসংখ্যা ও আয়তন ২০১১ আদমশুমারি অনুযায়ী।', 'जनसंख्या और क्षेत्रफल 2011 की जनगणना के अनुसार।', 'Population and area per the 2011 Census.')}${cmpKey === 'd' ? L(' জনঘনত্বের দাগ বর্গমূল স্কেলে আঁকা, নইলে দিল্লি ও চণ্ডীগড় বাকি সবাইকে ঢেকে দিত।', ' घनत्व की पट्टियाँ वर्गमूल पैमाने पर बनी हैं, वरना दिल्ली और चंडीगढ़ बाक़ी सबको ढक देते।', ' Density bars use a square-root scale; otherwise Delhi and Chandigarh would dwarf everyone else.') : ''}</p>`;
+    `<div class="cmp" style="--rc:${barColor}">` + list.map((x, i) => `<button class="crow${i < 3 ? ' crow-top' + (i + 1) : ''}" data-go="${x.id}"><span class="cr">${medal(i)}</span><span class="cn">${R(x).n}${x.t === 'ut' ? ' <span class="badge badge-ut badge-sm">UT</span>' : ''}</span>${bar(scale(get(x)), R(x).n)}<span class="cv">${show(x)}</span></button>`).join('') + `</div>` +
+    `<p class="hint">${notes[cmpKey] || L('জনসংখ্যা ও আয়তন ২০১১ আদমশুমারি অনুযায়ী।', 'जनसंख्या और क्षेत्रफल 2011 की जनगणना के अनुसार।', 'Population and area per the 2011 Census.')}${cmpKey === 'd' ? L(' জনঘনত্বের দাগ বর্গমূল স্কেলে আঁকা।', ' घनत्व की पट्टियाँ वर्गमूल पैमाने पर बनी हैं।', ' Density bars use a square-root scale.') : ''}</p>`;
 }
 
 
-/* ---------- মৌলিক অধিকার ---------- */
+/* ---------- মৌলিক অধিকার (প্রফেশনাল কালার-কোডেড ও প্রতীক-সহ) ---------- */
+function rgtSvg(kind) {
+  if (kind === 'eq') return `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <rect x="29" y="16" width="6" height="34" rx="2" fill="#2563EB"/>
+    <rect x="18" y="48" width="28" height="5" rx="2.5" fill="#1D4ED8"/>
+    <circle cx="32" cy="14" r="4" fill="#60A5FA" stroke="#1D4ED8" stroke-width="1.5"/>
+    <line x1="12" y1="21" x2="52" y2="21" stroke="#1E40AF" stroke-width="3" stroke-linecap="round"/>
+    <path d="M14 21 L8 35 L20 35 Z" fill="none" stroke="#3B82F6" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M6 35 Q14 43 22 35 Z" fill="#60A5FA" stroke="#1D4ED8" stroke-width="1.3"/>
+    <path d="M50 21 L44 35 L56 35 Z" fill="none" stroke="#3B82F6" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M42 35 Q50 43 58 35 Z" fill="#60A5FA" stroke="#1D4ED8" stroke-width="1.3"/>
+  </svg>`;
+  if (kind === 'free') return `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="44" cy="18" r="7" fill="#FDE047" fill-opacity="0.7"/>
+    <path d="M12 42 C18 28 28 24 38 26 C42 22 47 21 52 24 C48 27 47 30 48 33 C42 38 32 44 18 46 C15 47 11 45 12 42 Z" fill="#0D9488"/>
+    <path d="M22 31 C16 20 18 11 26 14 C31 16 33 23 34 28 Z" fill="#2DD4BF"/>
+    <path d="M28 31 C25 22 29 14 35 18 C38 20 38 26 37 29 Z" fill="#14B8A6"/>
+    <polygon points="50,24 57,26 50,28" fill="#F59E0B"/>
+    <circle cx="47.5" cy="25.2" r="1.2" fill="#0F172A"/>
+    <path d="M10 51 Q32 45 54 51" fill="none" stroke="#5EEAD4" stroke-width="2" stroke-linecap="round"/>
+  </svg>`;
+  if (kind === 'exp') return `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <path d="M32 8 L52 16 V32 C52 44 43 52 32 56 C21 52 12 44 12 32 V16 Z" fill="#E11D48" fill-opacity="0.16" stroke="#E11D48" stroke-width="2.6" stroke-linejoin="round"/>
+    <rect x="19" y="28" width="11" height="7" rx="3.5" fill="none" stroke="#BE123C" stroke-width="2.6" transform="rotate(-20 24 31)"/>
+    <rect x="34" y="29" width="11" height="7" rx="3.5" fill="none" stroke="#BE123C" stroke-width="2.6" transform="rotate(20 39 32)"/>
+    <path d="M31 20 L33 25 M31 44 L33 39 M28 24 L25 21 M37 23 L40 20" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+  </svg>`;
+  if (kind === 'rel') return `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <path d="M32 10 C37 18 39 24 32 30 C25 24 27 18 32 10 Z" fill="#F59E0B"/>
+    <path d="M32 16 C35 21 35 25 32 28 C29 25 29 21 32 16 Z" fill="#FEF08A"/>
+    <line x1="32" y1="5" x2="32" y2="8" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+    <line x1="20" y1="13" x2="23" y2="16" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+    <line x1="44" y1="13" x2="41" y2="16" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+    <path d="M12 34 Q32 42 52 34 C50 46 42 52 32 52 C22 52 14 46 12 34 Z" fill="#D97706" stroke="#92400E" stroke-width="1.6"/>
+    <path d="M18 38 Q32 44 46 38" fill="none" stroke="#FDE68A" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>`;
+  if (kind === 'cul') return `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 22 C18 19 26 20 32 25 C38 20 46 19 54 22 V48 C46 45 38 46 32 51 C26 46 18 45 10 48 Z" fill="#7C3AED" fill-opacity="0.18" stroke="#7C3AED" stroke-width="2.4" stroke-linejoin="round"/>
+    <line x1="32" y1="25" x2="32" y2="51" stroke="#6D28D9" stroke-width="2.2"/>
+    <line x1="16" y1="30" x2="26" y2="31" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
+    <line x1="16" y1="37" x2="26" y2="38" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
+    <line x1="38" y1="31" x2="48" y2="30" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
+    <line x1="38" y1="38" x2="48" y2="37" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
+    <polygon points="32,8 34.4,13 40,13.6 35.8,17.2 37,22.5 32,19.6 27,22.5 28.2,17.2 24,13.6 29.6,13" fill="#F59E0B"/>
+  </svg>`;
+  return `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 26 C20 15 44 15 44 26 Z" fill="#059669"/>
+    <line x1="32" y1="10" x2="32" y2="17" stroke="#047857" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="32" cy="9" r="2.2" fill="#F59E0B"/>
+    <rect x="14" y="26" width="36" height="4.5" rx="1.5" fill="#047857"/>
+    <rect x="18" y="31" width="4.5" height="17" rx="1" fill="#10B981"/>
+    <rect x="26" y="31" width="4.5" height="17" rx="1" fill="#10B981"/>
+    <rect x="33.5" y="31" width="4.5" height="17" rx="1" fill="#10B981"/>
+    <rect x="41.5" y="31" width="4.5" height="17" rx="1" fill="#10B981"/>
+    <rect x="12" y="48" width="40" height="5" rx="2" fill="#065F46"/>
+  </svg>`;
+}
+
 const RIGHTS = () => [
-  [L('সমতার অধিকার', 'समता का अधिकार', 'Right to Equality'), L('আইনের চোখে সবাই সমান। ধর্ম, জাতি, বর্ণ, লিঙ্গ বা জন্মস্থানের ভিত্তিতে বৈষম্য নিষিদ্ধ। সরকারি চাকরিতে সমান সুযোগ, অস্পৃশ্যতা ও উপাধি নিষিদ্ধ।', 'कानून की नज़र में सब बराबर। धर्म, जाति, वर्ण, लिंग या जन्मस्थान के आधार पर भेदभाव वर्जित। सरकारी नौकरी में समान अवसर, अस्पृश्यता और उपाधियाँ वर्जित।', 'Equality before the law. No discrimination on grounds of religion, race, caste, sex or place of birth. Equal opportunity in public employment; untouchability and titles are abolished.'), L('সংবিধান, অনুচ্ছেদ ১৪–১৮', 'संविधान, अनुच्छेद 14–18', 'Constitution, Articles 14–18')],
-  [L('স্বাধীনতার অধিকার', 'स्वतंत्रता का अधिकार', 'Right to Freedom'), L('বাক ও মত প্রকাশ, শান্তিপূর্ণ সমাবেশ, সংগঠন তৈরি, অবাধ চলাফেরা, বসবাস ও যেকোনো পেশা বেছে নেওয়ার স্বাধীনতা। জীবন ও ব্যক্তিস্বাধীনতার সুরক্ষাও এর অংশ।', 'वाक और अभिव्यक्ति, शांतिपूर्ण सभा, संगठन बनाने, स्वतंत्र आवागमन, निवास और कोई भी पेशा चुनने की स्वतंत्रता। जीवन और व्यक्तिगत स्वतंत्रता की सुरक्षा भी इसका हिस्सा है।', 'Freedom of speech and expression, peaceful assembly, forming associations, free movement, residence and choice of profession. Protection of life and personal liberty is part of this right.'), L('সংবিধান, অনুচ্ছেদ ১৯–২২', 'संविधान, अनुच्छेद 19–22', 'Constitution, Articles 19–22')],
-  [L('শোষণের বিরুদ্ধে অধিকার', 'शोषण के विरुद्ध अधिकार', 'Right against Exploitation'), L('মানুষ কেনাবেচা ও জোরপূর্বক শ্রম (বেগার) নিষিদ্ধ। ১৪ বছরের কম বয়সী শিশুদের কারখানা, খনি বা অন্য বিপজ্জনক কাজে নিয়োগ নিষিদ্ধ।', 'मानव व्यापार और बलात् श्रम (बेगार) वर्जित। 14 वर्ष से कम उम्र के बच्चों को कारख़ाने, खदान या अन्य ख़तरनाक काम में लगाना वर्जित।', 'Prohibits human trafficking and forced labour (begar). Bans employing children under 14 in factories, mines or other hazardous work.'), L('সংবিধান, অনুচ্ছেদ ২৩–২৪', 'संविधान, अनुच्छेद 23–24', 'Constitution, Articles 23–24')],
-  [L('ধর্মীয় স্বাধীনতার অধিকার', 'धार्मिक स्वतंत्रता का अधिकार', 'Right to Freedom of Religion'), L('যেকোনো ধর্ম গ্রহণ, পালন ও প্রচারের স্বাধীনতা। ভারত কোনো রাষ্ট্রধর্ম মানে না, রাষ্ট্র সব ধর্মের প্রতি সমান দৃষ্টিভঙ্গি রাখে।', 'किसी भी धर्म को मानने, आचरण करने और प्रचार करने की स्वतंत्रता। भारत का कोई राजधर्म नहीं है, राज्य सभी धर्मों के प्रति समान दृष्टिकोण रखता है।', 'Freedom to profess, practise and propagate any religion. India has no state religion; the state treats all religions equally.'), L('সংবিধান, অনুচ্ছেদ ২৫–২৮', 'संविधान, अनुच्छेद 25–28', 'Constitution, Articles 25–28')],
-  [L('সাংস্কৃতিক ও শিক্ষাগত অধিকার', 'सांस्कृतिक और शैक्षणिक अधिकार', 'Cultural and Educational Rights'), L('সংখ্যালঘু সম্প্রদায়ের নিজস্ব ভাষা, লিপি ও সংস্কৃতি সংরক্ষণের অধিকার, এবং নিজস্ব শিক্ষাপ্রতিষ্ঠান প্রতিষ্ঠা ও পরিচালনার অধিকার।', 'अल्पसंख्यक समुदायों को अपनी भाषा, लिपि और संस्कृति सुरक्षित रखने का अधिकार, और अपनी शिक्षण संस्थाएँ स्थापित व संचालित करने का अधिकार।', 'Minorities have the right to conserve their own language, script and culture, and to establish and administer their own educational institutions.'), L('সংবিধান, অনুচ্ছেদ ২৯–৩০', 'संविधान, अनुच्छेद 29–30', 'Constitution, Articles 29–30')],
-  [L('সাংবিধানিক প্রতিকারের অধিকার', 'संवैधानिक उपचारों का अधिकार', 'Right to Constitutional Remedies'), L('মৌলিক অধিকার লঙ্ঘিত হলে সরাসরি সুপ্রিম কোর্ট বা হাইকোর্টে যাওয়ার অধিকার। ড. বি. আর. আম্বেদকর একে "সংবিধানের হৃদয় ও আত্মা" বলেছিলেন।', 'मौलिक अधिकार का उल्लंघन होने पर सीधे सुप्रीम कोर्ट या हाईकोर्ट जाने का अधिकार। डॉ. बी. आर. आंबेडकर ने इसे "संविधान की आत्मा और हृदय" कहा था।', 'The right to move the Supreme Court or a High Court directly if a fundamental right is violated. Dr. B. R. Ambedkar called it "the heart and soul of the Constitution".'), L('সংবিধান, অনুচ্ছেদ ৩২', 'संविधान, अनुच्छेद 32', 'Constitution, Article 32')]
+  {
+    k: 'eq', col: '#2563EB',
+    t: L('সমতার অধিকার', 'समता का अधिकार', 'Right to Equality'),
+    d: L('আইনের চোখে সবাই সমান। ধর্ম, জাতি, বর্ণ, লিঙ্গ বা জন্মস্থানের ভিত্তিতে বৈষম্য নিষিদ্ধ। সরকারি চাকরিতে সমান সুযোগ, অস্পৃশ্যতা ও উপাধি নিষিদ্ধ।', 'कानून की नज़र में सब बराबर। धर्म, जाति, वर्ण, लिंग या जन्मस्थान के आधार पर भेदभाव वर्जित। सरकारी नौकरी में समान अवसर, अस्पृश्यता और उपाधियाँ वर्जित।', 'Equality before the law. No discrimination on grounds of religion, race, caste, sex or place of birth. Equal opportunity in public employment; untouchability and titles are abolished.'),
+    a: L('অনুচ্ছেদ ১৪–১৮', 'अनुच्छेद 14–18', 'Articles 14–18'),
+    tags: [L('অনু. ১৪: আইনের সমতা', 'अनु. 14: विधि के समक्ष समता', 'Art. 14: Equal Law'), L('অনু. ১৭: অস্পৃশ্যতা বিলোপ', 'अनु. 17: अस्पृश्यता उन्मूलन', 'Art. 17: No Untouchability'), L('অনু. ১৮: উপাধি বিলোপ', 'अनु. 18: उपाधियों का अंत', 'Art. 18: No Titles')]
+  },
+  {
+    k: 'free', col: '#0D9488',
+    t: L('স্বাধীনতার অধিকার', 'स्वतंत्रता का अधिकार', 'Right to Freedom'),
+    d: L('বাক ও মত প্রকাশ, শান্তিপূর্ণ সমাবেশ, সংগঠন তৈরি, অবাধ চলাফেরা, বসবাস ও যেকোনো পেশা বেছে নেওয়ার স্বাধীনতা। জীবন ও ব্যক্তিস্বাধীনতা এবং ৬–১৪ বছর বয়সী শিশুদের অবৈতনিক শিক্ষার অধিকারও এর অংশ।', 'वाक और अभिव्यक्ति, शांतिपूर्ण सभा, संगठन, स्वतंत्र आवागमन, निवास व पेशा चुनने की स्वतंत्रता। जीवन, व्यक्तिगत स्वतंत्रता और 6–14 वर्ष के बच्चों की निःशुल्क शिक्षा भी इसका हिस्सा है।', 'Freedom of speech, peaceful assembly, associations, free movement, residence and profession. Also includes protection of life & liberty and free education for ages 6–14.'),
+    a: L('অনুচ্ছেদ ১৯–২২', 'अनुच्छेद 19–22', 'Articles 19–22'),
+    tags: [L('অনু. ১৯: ৬টি স্বাধীনতা', 'अनु. 19: 6 स्वतंत्रताएँ', 'Art. 19: 6 Freedoms'), L('অনু. ২১: জীবন ও স্বাধীনতা', 'अनु. 21: जीवन व स्वतंत्रता', 'Art. 21: Life & Liberty'), L('অনু. ২১ক: শিক্ষার অধিকার', 'अनु. 21क: शिक्षा का अधिकार', 'Art. 21A: Right to Education')]
+  },
+  {
+    k: 'exp', col: '#E11D48',
+    t: L('শোষণের বিরুদ্ধে অধিকার', 'शोषण के विरुद्ध अधिकार', 'Right against Exploitation'),
+    d: L('মানুষ কেনাবেচা ও জোরপূর্বক শ্রম (বেগার) সম্পূর্ণ নিষিদ্ধ। ১৪ বছরের কম বয়সী শিশুদের কারখানা, খনি বা অন্য বিপজ্জনক কাজে নিয়োগ করা দণ্ডনীয় অপরাধ।', 'मानव व्यापार और बलात् श्रम (बेगार) पूरी तरह वर्जित। 14 वर्ष से कम उम्र के बच्चों को कारख़ाने, खदान या अन्य ख़तरनाक काम में लगाना दंडनीय अपराध है।', 'Strictly prohibits human trafficking and forced labour (begar). Employing children under 14 in factories, mines or hazardous work is banned.'),
+    a: L('অনুচ্ছেদ ২৩–২৪', 'अनुच्छेद 23–24', 'Articles 23–24'),
+    tags: [L('অনু. ২৩: মানবপাচার ও বেগার নিষিদ্ধ', 'अनु. 23: मानव व्यापार निषेध', 'Art. 23: No Forced Labour'), L('অনু. ২৪: শিশুশ্রম নিষিদ্ধ (<১৪ বছর)', 'अनु. 24: बाल श्रम निषेध (<14 वर्ष)', 'Art. 24: Child Labour Ban')]
+  },
+  {
+    k: 'rel', col: '#D97706',
+    t: L('ধর্মীয় স্বাধীনতার অধিকার', 'धार्मिक स्वतंत्रता का अधिकार', 'Right to Freedom of Religion'),
+    d: L('বিবেক অনুযায়ী যেকোনো ধর্ম গ্রহণ, পালন ও প্রচারের স্বাধীনতা। ভারত ধর্মনিরপেক্ষ রাষ্ট্র — কোনো রাষ্ট্রধর্ম নেই এবং রাষ্ট্র সব ধর্মের প্রতি সমান দৃষ্টিভঙ্গি রাখে।', 'अंतःकरण से किसी भी धर्म को मानने, आचरण और प्रचार करने की स्वतंत्रता। भारत धर्मनिरपेक्ष राष्ट्र है — कोई राजधर्म नहीं है और राज्य सभी धर्मों को समान मानता है।', 'Freedom of conscience to profess, practise and propagate any religion. India is a secular state with no official religion, treating all faiths equally.'),
+    a: L('অনুচ্ছেদ ২৫–২৮', 'अनुच्छेद 25–28', 'Articles 25–28'),
+    tags: [L('অনু. ২৫: ধর্ম পালনের স্বাধীনতা', 'अनु. 25: धर्म पालन स्वतंत्रता', 'Art. 25: Freedom of Faith'), L('অনু. ২৭: ধর্মীয় কর নিষিদ্ধ', 'अनु. 27: धार्मिक कर निषेध', 'Art. 27: No Religious Tax')]
+  },
+  {
+    k: 'cul', col: '#7C3AED',
+    t: L('সাংস্কৃতিক ও শিক্ষাগত অধিকার', 'सांस्कृतिक और शैक्षणिक अधिकार', 'Cultural & Educational Rights'),
+    d: L('ভারতের ভাষাগত ও ধর্মীয় সংখ্যালঘু সম্প্রদায়ের নিজস্ব ভাষা, লিপি ও সংস্কৃতি সংরক্ষণের অধিকার এবং নিজেদের পছন্দমতো শিক্ষাপ্রতিষ্ঠান প্রতিষ্ঠা ও পরিচালনার অধিকার।', 'भारत के भाषायी व धार्मिक अल्पसंख्यक समुदायों को अपनी भाषा, लिपि व संस्कृति सुरक्षित रखने और अपनी शिक्षण संस्थाएँ स्थापित व संचालित करने का अधिकार।', 'Protects linguistic and religious minorities to conserve their distinct language, script and culture, and to establish and administer educational institutions.'),
+    a: L('অনুচ্ছেদ ২৯–৩০', 'अनुच्छेद 29–30', 'Articles 29–30'),
+    tags: [L('অনু. ২৯: ভাষা ও সংস্কৃতি সুরক্ষা', 'अनु. 29: भाषा व संस्कृति रक्षा', 'Art. 29: Script & Culture'), L('অনু. ৩০: সংখ্যালঘু শিক্ষাপ্রতিষ্ঠান', 'अनु. 30: अल्पसंख्यक संस्थान', 'Art. 30: Minority Institutions')]
+  },
+  {
+    k: 'rem', col: '#059669',
+    t: L('সাংবিধানিক প্রতিকারের অধিকার', 'संवैधानिक उपचारों का अधिकार', 'Right to Constitutional Remedies'),
+    d: L('মৌলিক অধিকার লঙ্ঘিত হলে সরাসরি সুপ্রিম কোর্ট (অনু. ৩২) বা হাইকোর্টে (অনু. ২২৬) যাওয়ার অধিকার। ড. বি. আর. আম্বেদকর একে "সংবিধানের হৃদয় ও আত্মা" বলেছিলেন।', 'मौलिक अधिकार का उल्लंघन होने पर सीधे सुप्रीम कोर्ट (अनु. 32) या हाईकोर्ट (अनु. 226) जाने का अधिकार। डॉ. बी. आर. आंबेडकर ने इसे "संविधान का हृदय और आत्मा" कहा था।', 'Right to approach the Supreme Court (Art. 32) or High Court (Art. 226) directly to enforce rights. Dr. B. R. Ambedkar called it the "heart and soul of the Constitution".'),
+    a: L('অনুচ্ছেদ ৩২', 'अनुच्छेद 32', 'Article 32'),
+    tags: ['Habeas Corpus', 'Mandamus', 'Prohibition', 'Certiorari', 'Quo Warranto']
+  }
 ];
+
 function natRgt() {
-  return `<div class="rgt-list">` + RIGHTS().map((r) => `<div class="rgt-card"><h4>${r[0]}</h4><p>${r[1]}</p><small>${r[2]}</small></div>`).join('') + `</div>` +
-    `<p class="hint">${L('মূলত ৭টি মৌলিক অধিকার ছিল। সম্পত্তির অধিকার ১৯৭৮ সালের ৪৪তম সংবিধান সংশোধনীতে মৌলিক অধিকারের তালিকা থেকে সরিয়ে অনুচ্ছেদ ৩০০ক-তে আইনি অধিকার করা হয়। এখন ৬টি মৌলিক অধিকার আছে। স্কুল পাঠ্যবইয়ের NCERT নাগরিকশাস্ত্র অনুযায়ী সংক্ষেপ, হুবহু আইনি ভাষা নয়।', 'मूल रूप से 7 मौलिक अधिकार थे। संपत्ति के अधिकार को 1978 के 44वें संविधान संशोधन से मौलिक अधिकारों की सूची से हटाकर अनुच्छेद 300क के तहत एक विधिक (क़ानूनी) अधिकार बना दिया गया। अब 6 मौलिक अधिकार हैं। NCERT नागरिक शास्त्र की पाठ्यपुस्तकों के अनुसार संक्षेप, शब्दशः विधिक भाषा नहीं।', 'There were originally 7 Fundamental Rights. The Right to Property was removed from this list by the 44th Amendment (1978) and made a legal right under Article 300A instead. There are now 6 Fundamental Rights. Summarised from NCERT civics textbooks, not verbatim legal text.')}</p>`;
+  const hero = `<div class="rgt-hero"><div class="rgt-hero-txt"><h3>📜 ${L('ভারতের সংবিধানের ৬টি মৌলিক অধিকার', 'भारत के संविधान के 6 मौलिक अधिकार', '6 Fundamental Rights of the Indian Constitution')}</h3><p>${L('সংবিধানের তৃতীয় অংশে (Part III) দেশের প্রতিটি নাগরিকের মর্যাদা, স্বাধীনতা ও ন্যায়বিচার সুরক্ষিত করা হয়েছে — আদালতের মাধ্যমে এগুলো বলবৎযোগ্য।', 'संविधान के भाग III में हर नागरिक की गरिमा, स्वतंत्रता और न्याय की गारंटी दी गई है — ये न्यायालय द्वारा प्रवर्तनीय हैं।', 'Enshrined in Part III of the Constitution to guarantee dignity, liberty and justice for every citizen — directly enforceable by courts.')}</p></div><div class="rgt-hero-badge">${L('অংশ ৩ · অনু. ১২–৩৫', 'भाग III · अनु. 12–35', 'Part III · Art. 12–35')}</div></div>`;
+  const cards = `<div class="rgt-grid">` + RIGHTS().map((r) =>
+    `<article class="rgt-pro-card" style="--rc:${r.col}">` +
+      `<div class="rgt-icon-box" aria-hidden="true">${rgtSvg(r.k)}</div>` +
+      `<div class="rgt-pro-body">` +
+        `<div class="rgt-pro-top"><h4>${r.t}</h4><span class="rgt-art-pill">${r.a}</span></div>` +
+        `<p>${r.d}</p>` +
+        `<div class="rgt-chips">${r.tags.map((tg) => `<span class="rgt-chip">${tg}</span>`).join('')}</div>` +
+      `</div>` +
+    `</article>`
+  ).join('') + `</div>`;
+  const note = `<div class="rgt-note-box"><strong>🏛️ ${L('সম্পত্তির অধিকার (৪৪তম সংশোধনী, ১৯৭৮):', 'संपत्ति का अधिकार (44वां संशोधन, 1978):', 'Right to Property (44th Amendment, 1978):')}</strong> ${L('মূল সংবিধানে ৭টি মৌলিক অধিকার ছিল। ১৯৭৮ সালে সম্পত্তির অধিকারকে মৌলিক অধিকারের তালিকা থেকে সরিয়ে অনুচ্ছেদ ৩০০ক-তে সাধারণ আইনি অধিকার করা হয়। বর্তমানে ৬টি মৌলিক অধিকার বলবৎ আছে। (সূত্র: NCERT নাগরিকশাস্ত্র অনুযায়ী সংক্ষিপ্তসার)।', 'मूल संविधान में 7 मौलिक अधिकार थे। 1978 में संपत्ति के अधिकार को हटाकर अनुच्छेद 300क के तहत विधिक अधिकार बना दिया गया। अब 6 मौलिक अधिकार हैं। (स्रोत: NCERT नागरिक शास्त्र)।', 'There were originally 7 Fundamental Rights. In 1978 the Right to Property was moved to Article 300A as a legal right. 6 Fundamental Rights remain today. (Summarised from NCERT civics).')}</div>`;
+  return hero + cards + note;
 }
+
 
 /* ---------- জাতীয় প্রতীক (সজীব অ্যানিমেশন-সহ) ---------- */
 function symSpokes(cx, cy, r) {
@@ -4012,70 +5160,164 @@ function stCul(x) {
   ]) + `<p class="hint">${L('স্থানীয় খাবার, প্রধান উৎসব, বিখ্যাত ব্যক্তিত্ব এবং সরকারিভাবে স্বীকৃত GI ট্যাগ পণ্যের উদাহরণ দেওয়া হয়েছে।', 'स्थानीय भोजन, प्रमुख त्योहार, प्रसिद्ध व्यक्तित्व और आधिकारिक GI टैग उत्पादों के उदाहरण दिए गए हैं।', 'Examples of local cuisine, major festivals, notable figures and officially registered GI-tagged products.')}</p>`;
 }
 
-function stVs(x) {
-  const opts = T.filter((y) => y.id !== x.id).sort((a, b) => R(a).n.localeCompare(R(b).n, LOC[lang])).map((y) => `<option value="${y.id}"${y.id === vsWith ? ' selected' : ''}>${R(y).n}</option>`).join('');
-  let h = `<div class="vsbox"><label for="vs-sel" class="hint" style="margin:0 8px 0 0">${L('অন্য রাজ্যের সঙ্গে তুলনা:', 'किसी और राज्य से तुलना:', 'Compare with another state:')}</label><select id="vs-sel" data-vs style="max-width:240px"><option value="">—</option>${opts}</select>`;
-  if (vsWith && vsWith !== x.id && byId[vsWith]) {
-    const y = byId[vsWith], dash = '—';
-    const rows = [
-      [L('জনসংখ্যা (২০১১)', 'जनसंख्या (2011)', 'Population (2011)'), (z) => big(z.pop)],
-      [L('আয়তন', 'क्षेत्रफल', 'Area'), (z) => nf.format(z.area) + ' ' + KM()],
-      [L('জনঘনত্ব', 'जनघनत्व', 'Density'), (z) => nf.format(Math.round(z.d)) + '/' + L('বর্গ কিমি', 'वर्ग किमी', 'sq km')],
-      [L('লোকসভা আসন', 'लोकसभा सीटें', 'Lok Sabha seats'), (z) => nf.format(z.ls)],
-      [L('মাথাপিছু GSDP', 'प्रति व्यक्ति GSDP', 'GSDP per capita'), (z) => (ECO[z.id] ? '₹' + nf.format(ECO[z.id].p24) : dash)],
-      [L('সাক্ষরতা (২০২৪)', 'साक्षरता (2024)', 'Literacy (2024)'), (z) => (LIT[z.id] ? nf1.format(LIT[z.id][3]) + '%' : dash)],
-      [L('নারী সাক্ষরতা (২০২৪)', 'महिला साक्षरता (2024)', 'Female literacy (2024)'), (z) => (LIT[z.id] ? nf1.format(LIT[z.id][5]) + '%' : dash)],
-      [L('নারীর বিরুদ্ধে অপরাধ (২০১৮, প্রতি লক্ষ)', 'महिलाओं के विरुद्ध अपराध (2018, प्रति लाख)', 'Crimes against women (2018, per lakh)'), (z) => (CAW18[z.id] != null ? nf1.format(CAW18[z.id]) : dash)],
-      [L('রাজধানী', 'राजधानी', 'Capital'), (z) => R(z).cap]
-    ];
-    h += `<div style="overflow-x:auto"><table class="vs"><thead><tr><th></th><th>${R(x).n}</th><th>${R(y).n}</th></tr></thead><tbody>${rows.map(([l, f]) => `<tr><th>${l}</th><td>${f(x)}</td><td>${f(y)}</td></tr>`).join('')}</tbody></table></div>`;
-  }
-  return h + '</div>';
+function rankMetric(x, getter, asc = false) {
+  const vals = T.filter((y) => y.t === x.t && getter(y) != null).sort((a, b) => asc ? getter(a) - getter(b) : getter(b) - getter(a));
+  const idx = vals.findIndex((y) => y.id === x.id);
+  return idx >= 0 ? [idx + 1, vals.length] : null;
 }
+
+function stVs(x) {
+  const smartRivals = ['mh', 'wb', 'tn', 'kl', 'gj', 'up', 'ka', 'dl'].filter((id) => id !== x.id && byId[id]);
+  if (!vsWith || vsWith === x.id || !byId[vsWith]) vsWith = smartRivals[0];
+  const y = byId[vsWith];
+  const opts = T.filter((z) => z.id !== x.id).sort((a, b) => R(a).n.localeCompare(R(b).n, LOC[lang])).map((z) => `<option value="${z.id}"${z.id === vsWith ? ' selected' : ''}>${R(z).n}</option>`).join('');
+  const quickChips = smartRivals.slice(0, 5).map((id) => `<button type="button" class="duel-qbtn${id === vsWith ? ' active' : ''}" data-vs-quick="${id}">${R(byId[id]).sh || R(byId[id]).n}</button>`).join('');
+
+  const ext = (z) => EXT[z.id] || {};
+  const si = (z) => ST_IDX[z.id] || {};
+  const dash = '—';
+  const metrics = [
+    [L('জনসংখ্যা (২০১১)', 'जनसंख्या (2011)', 'Population (2011)'), (z) => z.pop, (z) => big(z.pop), 'ne'],
+    [L('আয়তন', 'क्षेत्रफल', 'Area'), (z) => z.area, (z) => nf.format(z.area) + ' ' + KM(), 'ne'],
+    [L('জনঘনত্ব', 'जनघनत्व', 'Density'), (z) => z.d, (z) => nf.format(Math.round(z.d)) + '/' + L('বর্গ কিমি', 'वर्ग किमी', 'sq km'), 'ne'],
+    [L('সাক্ষরতা (২০২৪)', 'साक्षरता (2024)', 'Literacy (2024)'), (z) => LIT[z.id] ? LIT[z.id][3] : null, (z) => nf1.format(LIT[z.id][3]) + '%', 'hi'],
+    [L('নারী সাক্ষরতা (২০২৪)', 'महिला साक्षरता (2024)', 'Female literacy (2024)'), (z) => LIT[z.id] ? LIT[z.id][5] : null, (z) => nf1.format(LIT[z.id][5]) + '%', 'hi'],
+    [L('মাথাপিছু GSDP', 'प्रति व्यक्ति GSDP', 'Per-capita GSDP'), (z) => ECO[z.id] ? ECO[z.id].p24 : null, (z) => '₹' + nf.format(ECO[z.id].p24), 'hi'],
+    ['GSDP', (z) => ECO[z.id] ? ECO[z.id].g : null, (z) => ECO[z.id].g >= 1000 ? nf2.format(ECO[z.id].g / 1000) + L(' লক্ষ কোটি ₹', ' लाख करोड़ ₹', ' L Cr ₹') : nf.format(ECO[z.id].g * 100) + L(' কোটি ₹', ' करोड़ ₹', ' Cr ₹'), 'hi'],
+    [L('SDG উন্নয়ন স্কোর', 'SDG विकास स्कोर', 'SDG India Score'), (z) => si(z).sdg ?? null, (z) => nf.format(si(z).sdg) + '/100', 'hi'],
+    ['HDI', (z) => ext(z).hdi ?? null, (z) => nf3.format(ext(z).hdi), 'hi'],
+    [L('দারিদ্র্য সূচক (MPI)', 'ग़रीबी सूचकांक (MPI)', 'Poverty (MPI)'), (z) => MPI[z.id] ?? null, (z) => nf2.format(MPI[z.id]) + '%', 'lo'],
+    [L('বেকারত্বের হার', 'बेरोज़गारी दर', 'Unemployment Rate'), (z) => si(z).unemp ?? null, (z) => nf1.format(si(z).unemp) + '%', 'lo'],
+    [L('নারী শ্রমশক্তি (LFPR)', 'महिला श्रम भागीदारी', 'Female LFPR'), (z) => si(z).flfpr ?? null, (z) => nf1.format(si(z).flfpr) + '%', 'hi'],
+    [L('আয়ুষ্কাল', 'जीवन प्रत्याशा', 'Life Expectancy'), (z) => ext(z).lifeExp ?? null, (z) => nf1.format(ext(z).lifeExp) + L(' বছর', ' वर्ष', ' yrs'), 'hi'],
+    [L('বনভূমি', 'वन क्षेत्र', 'Forest Cover'), (z) => ext(z).forestCover ?? null, (z) => nf1.format(ext(z).forestCover) + '%', 'hi'],
+    [L('লোকসভা আসন', 'लोकसभा सीटें', 'Lok Sabha Seats'), (z) => z.ls, (z) => nf.format(z.ls), 'ne']
+  ];
+
+  let winsL = 0, winsR = 0;
+  const rowsHtml = metrics.map(([lbl, get, fmt, pol]) => {
+    const vl = get(x), vr = get(y);
+    const sl = vl != null ? fmt(x) : dash, sr = vr != null ? fmt(y) : dash;
+    let wL = false, wR = false;
+    if (vl != null && vr != null && vl !== vr && (pol === 'hi' || pol === 'lo')) {
+      wL = pol === 'hi' ? vl > vr : vl < vr;
+      wR = !wL;
+      if (wL) winsL++; else winsR++;
+    }
+    const maxV = Math.max(vl || 0, vr || 0, 0.0001);
+    const pL = vl != null ? Math.max(6, Math.round((vl / maxV) * 100)) : 0;
+    const pR = vr != null ? Math.max(6, Math.round((vr / maxV) * 100)) : 0;
+    const arrow = pol === 'hi' ? ' ▲' : pol === 'lo' ? ' ▼' : '';
+    return `<div class="duel-row"><div class="duel-row-lbl">${lbl}${arrow}</div><div class="duel-row-vals">` +
+      `<div class="duel-side left"><span class="duel-val-txt${wL ? ' win-l' : ''}">${wL ? '★ ' : ''}${sl}</span><div class="duel-mini-track"><div class="duel-mini-fill-l" style="width:${pL}%"></div></div></div>` +
+      `<div class="duel-side right"><span class="duel-val-txt${wR ? ' win-r' : ''}">${sr}${wR ? ' ★' : ''}</span><div class="duel-mini-track"><div class="duel-mini-fill-r" style="width:${pR}%"></div></div></div>` +
+      `</div></div>`;
+  }).join('');
+
+  const totW = Math.max(1, winsL + winsR);
+  const pctL = Math.round((winsL / totW) * 100), pctR = 100 - pctL;
+
+  return `<div class="duel-box">` +
+    `<div class="duel-head">` +
+      `<span class="duel-me">🔵 ${R(x).n}</span>` +
+      `<span class="duel-vs-pill">VS</span>` +
+      `<div class="duel-sel-wrap"><span>🟢</span><select id="vs-sel" data-vs aria-label="${L('অন্য রাজ্য বাছুন', 'दूसरा राज्य चुनें', 'Pick another state')}">${opts}</select></div>` +
+    `</div>` +
+    `<div class="duel-quick"><span class="cmp-presets-lbl">⚡ ${L('দ্রুত বাছুন:', 'त्वरित चुनें:', 'Quick pick:')}</span>${quickChips}</div>` +
+    `<div class="duel-score">` +
+      `<div class="duel-score-top"><span style="color:#2563EB">${R(x).sh || R(x).n}: ${nf.format(winsL)} ${winsL > winsR ? '🏆' : ''}</span><span style="font-size:11.5px;color:var(--muted)">${L('মূল সূচকে এগিয়ে', 'मुख्य सूचकांकों में आगे', 'key metrics led')}</span><span style="color:#059669">${winsR > winsL ? '🏆 ' : ''}${R(y).sh || R(y).n}: ${nf.format(winsR)}</span></div>` +
+      `<div class="duel-score-bar"><div style="width:${pctL}%;background:#3B82F6"></div><div style="width:${pctR}%;background:#10B981"></div></div>` +
+    `</div>` +
+    `<div class="duel-rows">${rowsHtml}</div>` +
+  `</div>`;
+}
+
 function stCmp(x) {
-  const g = x.t === 'state' ? L('রাজ্যগুলির', 'राज्यों', 'among states') : L('কেন্দ্রশাসিত অঞ্চলগুলির', 'केंद्रशासित प्रदेशों', 'among union territories');
+  const g = x.t === 'state' ? L('রাজ্যগুলির', 'राज्यों', 'states') : L('কেন্দ্রশাসিত অঞ্চলগুলির', 'केंद्रशासित प्रदेशों', 'UTs');
   const n = groupSize(x), popShare = (x.pop / TOTAL_POP) * 100, areaShare = (x.area / TOTAL_AREA) * 100;
   const maxPop = Math.max(...T.map((y) => y.pop / TOTAL_POP * 100)), maxArea = Math.max(...T.map((y) => y.area / TOTAL_AREA * 100));
   const ratio = x.d / NAT_DENSITY_2011;
-  const rk = (what, key) => L(`${g} মধ্যে ${what}য় ${ord(rankIn(x, key))}`, `${g} में ${what} में ${ord(rankIn(x, key))}`, `${ord(rankIn(x, key))} ${what} ${g}`);
-  return stVs(x) + `<div class="cbl cbl-colored" style="--cc:#6366F1"><div class="cbl-h"><span>${L('দেশের জনসংখ্যার অংশ', 'देश की जनसंख्या का हिस्सा', "Share of India's population")}</span><b>${nf2.format(popShare)}%</b></div>${bar((popShare / maxPop) * 100, 'pop')}<small>${L(`${g} মধ্যে জনসংখ্যায় ${ord(rankIn(x, 'pop'))} (মোট ${nf.format(n)}টি)`, `${g} में जनसंख्या में ${ord(rankIn(x, 'pop'))} (कुल ${nf.format(n)})`, `${ord(rankIn(x, 'pop'))} by population ${g} (of ${nf.format(n)})`)}</small></div>` +
-    `<div class="cbl cbl-colored" style="--cc:#10B981"><div class="cbl-h"><span>${L('দেশের আয়তনের অংশ', 'देश के क्षेत्रफल का हिस्सा', "Share of India's area")}</span><b>${nf2.format(areaShare)}%</b></div>${bar((areaShare / maxArea) * 100, 'area')}<small>${L(`${g} মধ্যে আয়তনে ${ord(rankIn(x, 'area'))}`, `${g} में क्षेत्रफल में ${ord(rankIn(x, 'area'))}`, `${ord(rankIn(x, 'area'))} by area ${g}`)}</small></div>` +
-    `<div class="cbl cbl-colored" style="--cc:#A855F7"><div class="cbl-h"><span>${L('জনঘনত্ব', 'जनघनत्व', 'Density')}</span><b>${nf.format(Math.round(x.d))}/${L('বর্গ কিমি', 'वर्ग किमी', 'sq km')}</b></div>${bar(Math.sqrt(x.d / Math.max(...T.map((y) => y.d))) * 100, 'density')}<small>${L(`${g} মধ্যে ঘনত্বে ${ord(rankIn(x, 'd'))}। ২০১১ সালের দেশের গড়ের (${nf.format(Math.round(NAT_DENSITY_2011))}) ${nf1.format(ratio)} গুণ`, `${g} में घनत्व में ${ord(rankIn(x, 'd'))}। 2011 के देश के औसत (${nf.format(Math.round(NAT_DENSITY_2011))}) का ${nf1.format(ratio)} गुना`, `${ord(rankIn(x, 'd'))} by density ${g}. ${nf1.format(ratio)} times the 2011 national average (${nf.format(Math.round(NAT_DENSITY_2011))})`)}</small></div>` +
-    `<p class="hint">${L('আরও বিস্তারিত সূচক (স্বাস্থ্য, শাসন, পরিকাঠামো) "সূচক" ট্যাবে দেখুন।', 'और विस्तृत सूचकांक (स्वास्थ्य, शासन, बुनियादी ढांचा) "सूचकांक" टैब में देखें।', 'See the "Indices" tab for more detailed metrics (health, governance, infrastructure).')}</p>`;
+  const litVal = LIT[x.id] ? LIT[x.id][3] : null;
+  const litRk = rankMetric(x, (z) => LIT[z.id] ? LIT[z.id][3] : null);
+  const pcVal = ECO[x.id] ? ECO[x.id].p24 : null;
+  const pcRk = rankMetric(x, (z) => ECO[z.id] ? ECO[z.id].p24 : null);
+  const sdgVal = ST_IDX[x.id] ? ST_IDX[x.id].sdg : null;
+  const sdgRk = rankMetric(x, (z) => ST_IDX[z.id] ? ST_IDX[z.id].sdg : null);
+
+  const standCards = `<h3 class="sub">📊 ${L('জাতীয় প্রেক্ষাপটে অবস্থান', 'राष्ट्रीय परिप्रेक्ष्य में स्थिति', 'National Standing Overview')}</h3>` +
+    `<div class="stcmp-grid">` +
+      `<div class="stcmp-card" style="--cc:#6366F1"><div class="stcmp-top"><span class="stcmp-lbl">${L('জনসংখ্যার অংশ', 'जनसंख्या हिस्सा', 'Population Share')}</span><span class="stcmp-rk">#${nf.format(rankIn(x, 'pop'))}/${nf.format(n)}</span></div><div class="stcmp-val">${nf2.format(popShare)}%</div>${bar((popShare / maxPop) * 100, 'pop')}<div class="stcmp-sub">${big(x.pop)} · ${g} ${L('মধ্যে', 'में', 'among')}</div></div>` +
+      `<div class="stcmp-card" style="--cc:#10B981"><div class="stcmp-top"><span class="stcmp-lbl">${L('আয়তনের অংশ', 'क्षेत्रफल हिस्सा', 'Area Share')}</span><span class="stcmp-rk">#${nf.format(rankIn(x, 'area'))}/${nf.format(n)}</span></div><div class="stcmp-val">${nf2.format(areaShare)}%</div>${bar((areaShare / maxArea) * 100, 'area')}<div class="stcmp-sub">${nf.format(x.area)} ${KM()}</div></div>` +
+      `<div class="stcmp-card" style="--cc:#A855F7"><div class="stcmp-top"><span class="stcmp-lbl">${L('জনঘনত্ব', 'जनघनत्व', 'Density')}</span><span class="stcmp-rk">#${nf.format(rankIn(x, 'd'))}/${nf.format(n)}</span></div><div class="stcmp-val">${nf.format(Math.round(x.d))}</div>${bar(Math.sqrt(x.d / Math.max(...T.map((y) => y.d))) * 100, 'density')}<div class="stcmp-sub">${L(`ভারতের গড়ের ${nf1.format(ratio)} গুণ`, `भारत औसत का ${nf1.format(ratio)} गुना`, `${nf1.format(ratio)}× national avg`)}</div></div>` +
+      (litVal != null ? `<div class="stcmp-card" style="--cc:#0EA5E9"><div class="stcmp-top"><span class="stcmp-lbl">${L('সাক্ষরতা (২০২৪)', 'साक्षरता (2024)', 'Literacy (2024)')}</span><span class="stcmp-rk">${litRk ? `#${nf.format(litRk[0])}/${nf.format(litRk[1])}` : ''}</span></div><div class="stcmp-val">${nf1.format(litVal)}%</div>${bar(litVal, 'lit')}<div class="stcmp-sub">${L('ভারতের গড় ৮০.৯%', 'भारत औसत 80.9%', 'India avg: 80.9%')}</div></div>` : '') +
+      (pcVal != null ? `<div class="stcmp-card" style="--cc:#F59E0B"><div class="stcmp-top"><span class="stcmp-lbl">${L('মাথাপিছু আয়', 'प्रति व्यक्ति आय', 'Per-Capita GSDP')}</span><span class="stcmp-rk">${pcRk ? `#${nf.format(pcRk[0])}/${nf.format(pcRk[1])}` : ''}</span></div><div class="stcmp-val">₹${big(pcVal)}</div>${bar(Math.min(100, (pcVal / 850000) * 100), 'pc')}<div class="stcmp-sub">${L('ভারতের গড় ₹২.৩৫ লক্ষ', 'भारत औसत ₹2.35 लाख', 'India avg: ₹2.35 L')}</div></div>` : '') +
+      (sdgVal != null ? `<div class="stcmp-card" style="--cc:#14B8A6"><div class="stcmp-top"><span class="stcmp-lbl">${L('SDG স্কোর', 'SDG स्कोर', 'SDG Score')}</span><span class="stcmp-rk">${sdgRk ? `#${nf.format(sdgRk[0])}/${nf.format(sdgRk[1])}` : ''}</span></div><div class="stcmp-val">${nf.format(sdgVal)}/100</div>${bar(sdgVal, 'sdg')}<div class="stcmp-sub">${L('NITI Aayog ২০২৩-২৪ (গড় ৭১)', 'NITI Aayog 2023-24 (औसत 71)', 'NITI Aayog 2023-24 (Avg 71)')}</div></div>` : '') +
+    `</div>`;
+
+  return standCards +
+    `<h3 class="sub">⚔️ ${L('অন্য রাজ্যের সাথে মুখোমুখি তুলনা', 'अन्य राज्य से आमने-सामने तुलना', 'Head-to-Head State Comparison')}</h3>` +
+    stVs(x) +
+    `<p class="hint">${L('★ চিহ্নিত মানটি তুলনায় এগিয়ে — ▲ বেশি ভালো, ▼ কম ভালো। আরও সূচক দেখতে "সূচক" ট্যাব দেখুন।', '★ चिह्नित मान तुलना में बेहतर है — ▲ ज़्यादा बेहतर, ▼ कम बेहतर। अधिक विवरण के लिए "सूचकांक" टैब देखें।', '★ indicates the leading figure — ▲ higher is better, ▼ lower is better. Check the "Indices" tab for full state metrics.')}</p>`;
 }
+
 function stIdx(x) {
   const e = EXT[x.id] || {};
+  const si = ST_IDX[x.id] || {};
+  const mpi = MPI[x.id];
   const nm = R(x).n;
-  const grp = (label, rows) => rows.length ? `<h3 class="sub">${label}</h3>${facts(rows)}` : '';
+  const sdgCat = si.sdg != null
+    ? (si.sdg >= 65
+      ? `<span class="sdg-pill sdg-fr">${L('ফ্রন্ট রানার', 'फ़्रंट रनर', 'Front Runner')}</span>`
+      : `<span class="sdg-pill sdg-pf">${L('পারফর্মার', 'परफ़ॉर्मर', 'Performer')}</span>`)
+    : '';
+  const kpiHtml = `<div class="stidx-kpis">` +
+    `<div class="stidx-kpi" style="--sk:#10B981"><span class="stidx-kpi-lbl">${L('SDG ইন্ডিয়া স্কোর', 'SDG इंडिया स्कोर', 'SDG India Score')}</span><div class="stidx-kpi-val">${si.sdg != null ? nf.format(si.sdg) + '/100' : '—'}${sdgCat}</div><div class="stidx-bar"><i style="width:${si.sdg || 0}%"></i></div><span class="stidx-kpi-sub">${L('ভারতের গড় ৭১ (NITI Aayog)', 'भारत औसत 71 (NITI Aayog)', 'India avg: 71 (NITI Aayog)')}</span></div>` +
+    `<div class="stidx-kpi" style="--sk:#2563EB"><span class="stidx-kpi-lbl">${L('মানব উন্নয়ন (HDI)', 'मानव विकास (HDI)', 'Human Dev (HDI)')}</span><div class="stidx-kpi-val">${e.hdi != null ? nf3.format(e.hdi) : '—'}</div><div class="stidx-bar"><i style="width:${e.hdi ? Math.round(e.hdi * 100) : 0}%"></i></div><span class="stidx-kpi-sub">${L('০ থেকে ১ স্কেল (বেশি ভালো)', '0 से 1 पैमाना (अधिक बेहतर)', '0 to 1 scale (higher better)')}</span></div>` +
+    `<div class="stidx-kpi" style="--sk:#F59E0B"><span class="stidx-kpi-lbl">${L('বহুমাত্রিক দারিদ্র্য (MPI)', 'बहुआयामी ग़रीबी (MPI)', 'Poverty (MPI)')}</span><div class="stidx-kpi-val">${mpi != null ? nf2.format(mpi) + '%' : '—'}</div><div class="stidx-bar"><i style="width:${mpi != null ? Math.min(100, Math.round(mpi * 2.5)) : 0}%"></i></div><span class="stidx-kpi-sub">${L('কম মানেই ভালো (NFHS-5)', 'कम मान बेहतर (NFHS-5)', 'Lower is better (NFHS-5)')}</span></div>` +
+    `<div class="stidx-kpi" style="--sk:#7C3AED"><span class="stidx-kpi-lbl">${L('বেকারত্বের হার', 'बेरोज़गारी दर', 'Unemployment')}</span><div class="stidx-kpi-val">${si.unemp != null ? nf1.format(si.unemp) + '%' : '—'}</div><div class="stidx-bar"><i style="width:${si.unemp != null ? Math.min(100, Math.round(si.unemp * 8)) : 0}%"></i></div><span class="stidx-kpi-sub">${L('ভারতের গড় ৩.২% (PLFS)', 'भारत औसत 3.2% (PLFS)', 'India avg: 3.2% (PLFS)')}</span></div>` +
+  `</div>`;
+
+  const card = (lbl, val, sub, pct) => `<div class="stidx-item"><div class="stidx-item-top"><span class="stidx-item-lbl">${lbl}</span><span class="stidx-item-val">${val}</span></div>${pct != null ? `<div class="stidx-bar"><i style="width:${Math.max(3, Math.min(100, pct))}%"></i></div>` : ''}${sub ? `<small>${sub}</small>` : ''}</div>`;
+  const sec = (ico, title, col, items) => items.length ? `<div class="stidx-sec" style="--sc:${col}"><h3 class="stidx-sec-head">${ico} ${title}</h3><div class="stidx-grid">${items.join('')}</div></div>` : '';
+
   const demo = [];
-  if (e.sexRatio != null) demo.push(fact(L('লিঙ্গ অনুপাত', 'लिंगानुपात', 'Sex ratio'), nf.format(e.sexRatio) + L('/১০০০ পুরুষ', '/1000 पुरुष', '/1000 males'), L('আদমশুমারি ২০১১', 'जनगणना 2011', 'Census 2011')));
-  if (e.urban != null) demo.push(fact(L('নগরায়ণের হার', 'शहरीकरण दर', 'Urbanization'), nf2.format(e.urban) + '%'));
-  if (e.districts != null) demo.push(fact(L('জেলার সংখ্যা', 'ज़िलों की संख्या', 'Districts'), nf.format(e.districts)));
-  const eco = [];
-  if (MPI[x.id] != null) eco.push(fact(L('বহুমাত্রিক দারিদ্র্য সূচক (MPI)', 'बहुआयामी ग़रीबी सूचकांक (MPI)', 'Multidimensional Poverty Index (MPI)'), nf2.format(MPI[x.id]) + '%', L('NITI Aayog, ২০২৩ সংস্করণ (NFHS-5 ভিত্তিক)। কম মানেই ভালো।', 'NITI Aayog, 2023 संस्करण (NFHS-5 आधारित)। कम मूल्य बेहतर है।', 'NITI Aayog, 2023 edition (based on NFHS-5). A lower value is better.')));
+  if (e.sexRatio != null) demo.push(card(L('লিঙ্গ অনুপাত', 'लिंगानुपात', 'Sex Ratio'), nf.format(e.sexRatio) + L('/১০০০', '/1000', '/1000'), L('প্রতি ১,০০০ পুরুষে নারী (আদমশুমারি ২০১১)', 'प्रति 1,000 पुरुष पर महिलाएँ (2011)', 'Females per 1,000 males (Census 2011)'), Math.min(100, (e.sexRatio / 1100) * 100)));
+  if (e.urban != null) demo.push(card(L('নগরায়ণের হার', 'शहरीकरण दर', 'Urbanization'), nf1.format(e.urban) + '%', L('শহরাঞ্চলে বসবাসকারী জনসংখ্যা', 'शहरी क्षेत्रों में रहने वाली आबादी', 'Share living in urban areas'), e.urban));
+  if (e.districts != null) demo.push(card(L('জেলার সংখ্যা', 'ज़िलों की संख्या', 'Districts'), nf.format(e.districts), L('প্রশাসনিক জেলা', 'प्रशासनिक ज़िले', 'Administrative districts')));
+
+  const econ = [];
+  if (mpi != null) econ.push(card(L('বহুমাত্রিক দারিদ্র্য (MPI)', 'बहुआयामी ग़रीबी (MPI)', 'Multidimensional Poverty'), nf2.format(mpi) + '%', L('NITI Aayog ২০২৩ (কম মানেই ভালো)', 'NITI Aayog 2023 (कम मान बेहतर)', 'NITI Aayog 2023 (lower is better)'), Math.min(100, mpi * 2.5)));
+  if (si.unemp != null) econ.push(card(L('বেকারত্বের হার (PLFS)', 'बेरोज़गारी दर (PLFS)', 'Unemployment Rate'), nf1.format(si.unemp) + '%', L('১৫+ বছর, PLFS ২০২৩-২৪ (দেশের গড় ৩.২%)', '15+ वर्ष, PLFS 2023-24 (भारत औसत 3.2%)', 'Age 15+, PLFS 2023-24 (India avg 3.2%)'), Math.min(100, si.unemp * 8)));
+  if (si.flfpr != null) econ.push(card(L('নারী শ্রমশক্তি অংশগ্রহণ', 'महिला श्रम भागीदारी (LFPR)', 'Female LFPR'), nf1.format(si.flfpr) + '%', L('১৫+ বছর, PLFS ২০২৩-২৪ (দেশের গড় ৪১.৭%)', '15+ वर्ष, PLFS 2023-24 (भारत औसत 41.7%)', 'Age 15+, PLFS 2023-24 (India avg 41.7%)'), si.flfpr));
+  if (si.epi != null) econ.push(card(L('রপ্তানি প্রস্তুতি সূচক (EPI)', 'निर्यात तत्परता सूचकांक (EPI)', 'Export Preparedness (EPI)'), nf1.format(si.epi) + '/100', L('NITI Aayog রপ্তানি সক্ষমতা স্কোর', 'NITI Aayog निर्यात क्षमता स्कोर', 'NITI Aayog export ecosystem score'), si.epi));
+
   const health = [];
-  if (e.hdi != null) health.push(fact('HDI', nf3.format(e.hdi), L('বেশি মানেই ভালো (০ থেকে ১ স্কেল)', 'अधिक मूल्य बेहतर है (0 से 1 के पैमाने पर)', 'A higher value is better (scale of 0 to 1)')));
-  if (e.lifeExp != null) health.push(fact(L('আয়ুষ্কাল', 'जीवन प्रत्याशा', 'Life expectancy'), nf1.format(e.lifeExp) + L(' বছর', ' वर्ष', ' years')));
-  if (e.imr != null) health.push(fact(L('শিশুমৃত্যুর হার (IMR)', 'शिशु मृत्यु दर (IMR)', 'Infant mortality rate (IMR)'), nf.format(e.imr), L('প্রতি হাজার জীবিত জন্মে, কম মানেই ভালো', 'प्रति हज़ार जीवित जन्म पर, कम मूल्य बेहतर है', 'Per 1,000 live births; a lower value is better')));
-  if (e.tfr != null) health.push(fact(L('প্রজনন হার (TFR)', 'प्रजनन दर (TFR)', 'Total fertility rate (TFR)'), nf1.format(e.tfr), L('প্রতিস্থাপন স্তর প্রায় ২.১', 'प्रतिस्थापन स्तर लगभग 2.1', 'Replacement level is about 2.1')));
+  if (si.health != null) health.push(card(L('NITI স্বাস্থ্য সূচক', 'NITI स्वास्थ्य सूचकांक', 'NITI State Health Index'), nf1.format(si.health) + '/100', L('৪র্থ রাউন্ড সামগ্রিক স্বাস্থ্য স্কোর', 'चौथा दौर समग्र स्वास्थ्य स्कोर', '4th Round composite health score'), si.health));
+  if (e.lifeExp != null) health.push(card(L('আয়ুষ্কাল', 'जीवन प्रत्याशा', 'Life Expectancy'), nf1.format(e.lifeExp) + L(' বছর', ' वर्ष', ' yrs'), L('জন্মের সময় গড় আয়ু', 'जन्म के समय औसत आयु', 'Average life expectancy at birth'), Math.min(100, (e.lifeExp / 80) * 100)));
+  if (e.imr != null) health.push(card(L('শিশুমৃত্যুর হার (IMR)', 'शिशु मृत्यु दर (IMR)', 'Infant Mortality (IMR)'), nf.format(e.imr), L('প্রতি হাজার জীবিত জন্মে (কম ভালো)', 'प्रति हज़ार जीवित जन्म पर (कम बेहतर)', 'Per 1,000 live births (lower better)'), Math.min(100, e.imr * 2.5)));
+  if (e.tfr != null) health.push(card(L('প্রজনন হার (TFR)', 'प्रजनन दर (TFR)', 'Total Fertility Rate'), nf1.format(e.tfr), L('প্রতিস্থাপন স্তর প্রায় ২.১', 'प्रतिस्थापन स्तर लगभग 2.1', 'Replacement level is ~2.1'), Math.min(100, (e.tfr / 3.5) * 100)));
+
   const gov = [];
-  if (e.governor) gov.push(fact(L('রাজ্যপাল', 'राज्यपाल', 'Governor'), e.governor));
-  gov.push(fact(L('লোকসভা আসন', 'लोकसभा सीटें', 'Lok Sabha seats'), nf.format(x.ls)));
-  gov.push(fact(L('বিধানসভা আসন', 'विधानसभा सीटें', 'Assembly seats'), x.vs ? nf.format(x.vs) : L('বিধানসভা নেই', 'विधानसभा नहीं', 'No assembly')));
-  if (e.rsSeats != null) gov.push(fact(L('রাজ্যসভা আসন', 'राज्यसभा सीटें', 'Rajya Sabha seats'), nf.format(e.rsSeats)));
+  if (e.governor) gov.push(card(L('রাজ্যপাল / উপ-রাজ্যপাল', 'राज्यपाल / उपराज्यपाल', 'Governor / Administrator'), e.governor));
+  gov.push(card(L('লোকসভা আসন', 'लोकसभा सीटें', 'Lok Sabha Seats'), nf.format(x.ls)));
+  gov.push(card(L('বিধানসভা আসন', 'विधानसभा सीटें', 'Assembly Seats'), x.vs ? nf.format(x.vs) : L('বিধানসভা নেই', 'विधानसभा नहीं', 'No Assembly')));
+  if (e.rsSeats != null) gov.push(card(L('রাজ্যসভা আসন', 'राज्यसभा सीटें', 'Rajya Sabha Seats'), nf.format(e.rsSeats)));
+
   const infra = [];
-  if (e.forestCover != null) infra.push(fact(L('বনভূমি', 'वन क्षेत्र', 'Forest cover'), nf2.format(e.forestCover) + L('% (মোট আয়তনের)', '% (कुल क्षेत्रफल का)', '% of total area'), L('ISFR ২০২৩', 'ISFR 2023', 'ISFR 2023')));
-  if (e.crimeRate != null) infra.push(fact(L('অপরাধের হার', 'अपराध दर', 'Crime rate'), nf1.format(e.crimeRate), L('প্রতি লক্ষ জনসংখ্যায়, NCRB। কম মানেই ভালো', 'प्रति लाख जनसंख्या पर, NCRB। कम मूल्य बेहतर है', 'Per lakh population, NCRB. A lower value is better')));
-  const out = grp(L('জনমিতি', 'जनसांख्यिकी', 'Demographics'), demo) + grp(L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy'), eco) + grp(L('স্বাস্থ্য ও সামাজিক সূচক', 'स्वास्थ्य और सामाजिक सूचकांक', 'Health & Social Index'), health) + grp(L('শাসন ও প্রতিনিধিত্ব', 'शासन और प्रतिनिधित्व', 'Governance & Representation'), gov) + grp(L('পরিকাঠামো ও পরিবেশ', 'बुनियादी ढांचा और पर्यावरण', 'Infrastructure & Environment'), infra);
-  const missing = [];
-  if (e.sexRatio == null) missing.push(L('লিঙ্গ অনুপাত', 'लिंगानुपात', 'sex ratio'));
-  if (e.hdi == null) missing.push('HDI');
-  if (MPI[x.id] == null) missing.push('MPI');
-  if (!e.governor) missing.push(L('রাজ্যপাল', 'राज्यपाल', 'Governor'));
-  const missNote = missing.length ? `<p class="hint">${L(`${nm}-এর জন্য এই তথ্যগুলো নির্ভরযোগ্য সূত্রে যাচাই করা যায়নি, তাই দেখানো হয়নি: `, `${nm} के लिए ये आँकड़े किसी भरोसेमंद स्रोत से सत्यापित नहीं हो सके, इसलिए नहीं दिखाए गए: `, `These could not be verified from a reliable source for ${nm}, so they are not shown: `)}${missing.join(L(', ', ', ', ', '))}।</p>` : '';
-  return (out || `<p class="hint">${L(`${nm}-এর আলাদা সূচক তথ্য আমি পাইনি।`, `${nm} के अलग सूचकांक आँकड़े नहीं मिले।`, `I did not find separate index data for ${nm}.`)}</p>`) + missNote +
-    `<p class="hint">${L('সূত্র: আদমশুমারি, RBI হ্যান্ডবুক অফ স্ট্যাটিস্টিক্স, NITI Aayog, NFHS-5, ISFR ও নির্বাচন কমিশন। বেকারত্বের হার, ঋণ-GSDP অনুপাত, জাতীয় সড়কের দৈর্ঘ্য ও স্থাপিত বিদ্যুৎক্ষমতা — এই চারটি সূচকের জন্য সব রাজ্যের নির্ভরযোগ্য, হালনাগাদ সরকারি তথ্য আমি যাচাই করতে পারিনি, তাই ভুল তথ্য দেওয়ার বদলে এই সংস্করণে বাদ রাখা হলো।', 'स्रोत: जनगणना, RBI हैंडबुक ऑफ़ स्टैटिस्टिक्स, NITI Aayog, NFHS-5, ISFR और चुनाव आयोग। बेरोज़गारी दर, ऋण-GSDP अनुपात, राष्ट्रीय राजमार्ग की लंबाई और स्थापित बिजली क्षमता — इन चार सूचकांकों के लिए सभी राज्यों के भरोसेमंद, अद्यतन सरकारी आँकड़े सत्यापित नहीं हो सके, इसलिए ग़लत आँकड़े देने के बजाय इस संस्करण में इन्हें शामिल नहीं किया गया।', 'Source: Census, RBI Handbook of Statistics, NITI Aayog, NFHS-5, ISFR and the Election Commission. For four metrics — unemployment rate, debt-to-GSDP ratio, national highway length and installed power capacity — reliable, up-to-date official data could not be verified for all states, so rather than show inaccurate figures, they have been left out of this version.')}</p>`;
+  if (si.net != null) infra.push(card(L('টেলিডেনসিটি / ডিজিটাল সংযোগ', 'टेलीडेंसिटी / डिजिटल कनेक्शन', 'Teledensity (TRAI)'), nf1.format(si.net) + '%', L('প্রতি ১০০ জনে টেলিকম ও ইন্টারনেট সংযোগ', 'प्रति 100 व्यक्तियों पर कनेक्शन', 'Telecom subscribers per 100 population'), Math.min(100, (si.net / 130) * 100)));
+  if (si.clean) infra.push(card(L('স্বচ্ছ সর্বেক্ষণ হাইলাইট', 'स्वच्छ सर्वेक्षण हाइलाइट', 'Swachh Survekshan Highlight'), L(...si.clean), L('রাজ্যের অন্যতম পরিচ্ছন্ন শহর', 'राज्य के प्रमुख स्वच्छ शहर', 'Notable cleanest city / highlight')));
+  if (e.forestCover != null) infra.push(card(L('বনভূমি (ISFR ২০২৩)', 'वन क्षेत्र (ISFR 2023)', 'Forest Cover (ISFR 2023)'), nf2.format(e.forestCover) + '%', L('মোট ভৌগোলিক আয়তনের অংশ', 'कुल भौगोलिक क्षेत्रफल का हिस्सा', 'Share of total geographical area'), e.forestCover));
+  if (e.crimeRate != null) infra.push(card(L('অপরাধের হার (NCRB)', 'अपराध दर (NCRB)', 'Crime Rate (NCRB)'), nf1.format(e.crimeRate), L('প্রতি লক্ষ জনসংখ্যায় (কম ভালো)', 'प्रति लाख जनसंख्या पर (कम बेहतर)', 'Per lakh population (lower better)'), Math.min(100, (e.crimeRate / 1000) * 100)));
+
+  return kpiHtml +
+    sec('👥', L('জনমিতি', 'जनसांख्यिकी', 'Demographics'), '#2563EB', demo) +
+    sec('💼', L('অর্থনীতি, দারিদ্র্য ও কর্মসংস্থান', 'अर्थव्यवस्था, ग़रीबी व रोज़गार', 'Economy, Poverty & Jobs'), '#059669', econ) +
+    sec('🏥', L('স্বাস্থ্য ও সামাজিক সূচক', 'स्वास्थ्य और सामाजिक सूचकांक', 'Health & Social Index'), '#EC4899', health) +
+    sec('🏛️', L('শাসন ও প্রতিনিধিত্ব', 'शासन और प्रतिनिधित्व', 'Governance & Representation'), '#7C3AED', gov) +
+    sec('🌿', L('ডিজিটাল, পরিচ্ছন্নতা ও পরিবেশ', 'डिजिटल, स्वच्छता और पर्यावरण', 'Digital, Cleanliness & Environment'), '#0D9488', infra) +
+    `<p class="hint">${L('সূত্র: NITI Aayog (SDG India Index ২০২৩-২৪, National MPI ২০২৩, State Health Index, Export Preparedness Index), MoSPI PLFS ২০২৩-২৪, TRAI, স্বচ্ছ সর্বেক্ষণ, ISFR ২০২৩, NCRB ও আদমশুমারি।', 'स्रोत: NITI Aayog (SDG India Index 2023-24, National MPI 2023, State Health Index, EPI), MoSPI PLFS 2023-24, TRAI, स्वच्छ सर्वेक्षण, ISFR 2023, NCRB और जनगणना।', 'Sources: NITI Aayog (SDG India Index 2023-24, National MPI 2023, State Health Index, EPI), MoSPI PLFS 2023-24, TRAI, Swachh Survekshan, ISFR 2023, NCRB & Census.')}</p>`;
 }
+
 
 const CAD = {
   gen: ['জনসংখ্যা-আয়তন ২০১১ শুমারির, পরের শুমারি ২০২৭।', 'जनसंख्या-क्षेत्रफल 2011 की जनगणना के हैं, अगली जनगणना 2027।', 'Population and area are from the 2011 Census; the next census is 2027.'],
@@ -4486,7 +5728,15 @@ document.addEventListener('click', (e) => {
   const lg = e.target.closest('[data-lang]');
   if (lg) { setLang(lg.dataset.lang); return; }
   const so = e.target.closest('[data-sort]');
-  if (so) { cmpKey = so.dataset.sort; render(); }
+  if (so) { cmpKey = so.dataset.sort; cmpDir = 'best'; render(); return; }
+  const sd = e.target.closest('[data-sort-dir]');
+  if (sd) { cmpDir = cmpDir === 'best' ? 'rev' : 'best'; render(); return; }
+  const ic = e.target.closest('[data-idx-cat]');
+  if (ic) { idxCat = ic.dataset.idxCat; render(); return; }
+  const cp = e.target.closest('[data-cmp-preset]');
+  if (cp) { const ids = cp.dataset.cmpPreset.split(',').filter((id) => byId[id]); if (ids.length >= 2) { cmpList = ids.slice(0, CMP_MAX); render(); } return; }
+  const vq = e.target.closest('[data-vs-quick]');
+  if (vq) { vsWith = vq.dataset.vsQuick; render(); return; }
   const qo = e.target.closest('[data-quiz-opt]');
   if (qo) { if (quizPicked < 0) { quizPicked = +qo.dataset.quizOpt; if (quizPicked === quizPool()[quizI][2]) quizScore++; render(); } return; }
   const qn = e.target.closest('[data-quiz-next]');
