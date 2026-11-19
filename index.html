@@ -861,6 +861,201 @@ select:focus, .searchrow input:focus {
   line-height: 1.55;
 }
 
+
+/* ===== Mobile Responsiveness & Overflow Fix ===== */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+body {
+  margin: 0;
+  padding-top: max(12px, env(safe-area-inset-top, 12px));
+  padding-bottom: max(28px, env(safe-area-inset-bottom, 28px));
+  padding-left: max(10px, env(safe-area-inset-left, 10px));
+  padding-right: max(10px, env(safe-area-inset-right, 10px));
+}
+.wrap, .layout, .mapcol, .panel, .top, .totd, .lq-banner {
+  min-width: 0;
+  max-width: 100%;
+}
+.topr {
+  min-width: 0;
+  max-width: 100%;
+}
+.top-controls {
+  max-width: 100%;
+}
+.asof {
+  white-space: normal;
+  word-break: break-word;
+  max-width: 100%;
+  border-radius: 10px;
+  line-height: 1.4;
+}
+
+@media (max-width: 639px) {
+  .top {
+    padding: 14px 14px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+    gap: 10px;
+  }
+  .top h1 {
+    font-size: 1.65rem;
+  }
+  .top p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .topr {
+    width: 100%;
+    align-items: stretch;
+  }
+  .top-controls {
+    gap: 6px;
+  }
+  .nav-pill {
+    padding: 5px 10px;
+    font-size: 13px;
+  }
+  .langs button {
+    padding: 5px 10px;
+    font-size: 13.5px;
+  }
+  .asof {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  .totd {
+    padding: 10px 12px;
+    margin: 10px 0;
+    gap: 6px 10px;
+  }
+  .totd-txt {
+    flex: 1 1 180px;
+    font-size: 13.5px;
+  }
+  .layout {
+    gap: 14px;
+  }
+  .mapcol {
+    padding: 12px;
+    border-radius: 12px;
+  }
+  .pickrow, .choropick {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+  .pickrow label, .choropick label {
+    font-size: 12.5px;
+  }
+  select, .searchrow input {
+    width: 100%;
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+  .zoombar {
+    gap: 5px;
+  }
+  .zoombar button {
+    min-width: 34px;
+    height: 32px;
+    padding: 0 10px;
+    font-size: 15px;
+  }
+  .zoombar #zreset {
+    font-size: 13px;
+  }
+  .zhint {
+    font-size: 12px;
+    flex-basis: 100%;
+  }
+  .panel {
+    padding: 14px 12px 20px;
+    border-radius: 12px;
+  }
+  .phead {
+    gap: 10px;
+    padding-bottom: 12px;
+  }
+  .phead h2 {
+    font-size: 1.45rem;
+  }
+  .pbtns {
+    width: 100%;
+    gap: 6px;
+  }
+  #tomap, #back, .sharebtn {
+    padding: 5px 9px;
+    font-size: 12.5px;
+  }
+  #tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    padding-bottom: 10px;
+  }
+  #tabs button {
+    padding: 8px 8px;
+    gap: 6px;
+    font-size: 13px;
+    border-left-width: 3px;
+  }
+  #tabs button .ticon {
+    width: 20px;
+    height: 20px;
+    font-size: 13.5px;
+  }
+  .fact {
+    padding: 11px 12px;
+    border-left-width: 3px;
+  }
+  .fact dt {
+    font-size: 13px;
+  }
+  .fact dd {
+    font-size: 14.5px;
+  }
+  .cab-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+    padding: 10px 12px;
+  }
+  .idx li {
+    padding: 12px;
+  }
+  .idx-top {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .idx-l {
+    font-size: 14.5px;
+  }
+  .idx-v {
+    font-size: 1rem;
+  }
+  .cbl {
+    padding: 11px 12px;
+  }
+  .cbl-h {
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    font-size: 14px;
+  }
+  .sub {
+    font-size: 1.05rem;
+    padding: 7px 10px;
+    margin: 16px 0 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  #tabs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 </style>
 </head><body>
 <div class="wrap">
