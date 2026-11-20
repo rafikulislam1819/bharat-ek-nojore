@@ -2915,6 +2915,107 @@ select option, select optgroup {
   }
 }
 
+
+/* ===== Collapsible Map Drawer (Mobile Default Hidden · Desktop Toggleable) ===== */
+.map-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 13px;
+  margin-top: 2px;
+  border-radius: 10px;
+  border: 1.5px solid color-mix(in srgb, var(--accent) 42%, var(--line));
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg));
+  color: var(--fg);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .16s ease, border-color .16s ease, transform .12s ease, box-shadow .16s ease;
+}
+.map-toggle:hover {
+  background: color-mix(in srgb, var(--accent) 15%, var(--bg));
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.map-toggle[aria-expanded="true"] {
+  background: color-mix(in srgb, var(--accent) 13%, var(--bg));
+  border-color: var(--accent);
+  margin-bottom: 12px;
+}
+.map-toggle-l {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+.map-toggle-ico {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 14px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+.map-toggle-txt {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.map-toggle-chev {
+  font-size: 15px;
+  line-height: 1;
+  color: var(--accent);
+  flex: 0 0 auto;
+  transition: transform .2s ease;
+}
+.map-toggle[aria-expanded="true"] .map-toggle-chev {
+  transform: rotate(180deg);
+}
+.map-drawer {
+  padding-top: 2px;
+}
+@keyframes mapDrawerFade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.map-drawer.map-opening {
+  animation: mapDrawerFade .24s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-drawer.map-opening { animation: none; }
+}
+@media (min-width: 900px) {
+  .layout.map-collapsed {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  .layout.map-collapsed .mapcol {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+    padding: 12px 16px;
+  }
+  .layout.map-collapsed .mapcol .pickrow {
+    flex: 1 1 240px;
+    margin-bottom: 0;
+  }
+  .layout.map-collapsed .mapcol .map-toggle {
+    flex: 0 0 auto;
+    width: auto;
+    margin-top: 0;
+    padding: 8px 14px;
+  }
+}
+
 </style>
 </head><body>
 <div class="wrap">
@@ -2988,24 +3089,33 @@ select option, select optgroup {
         <label for="pick" id="lblpick"></label>
         <select id="pick"></select>
       </div>
-      <div class="choropick"><label for="choro-sel" id="lblchoro"></label><select id="choro-sel"></select></div>
-      <div class="zoombar" role="group" id="zbar">
-        <button type="button" id="zin">+</button>
-        <button type="button" id="zout" disabled>−</button>
-        <button type="button" id="zreset"></button>
-        <span class="zhint" id="zhint"></span>
-      </div>
-      <div class="mapwrap" id="mapwrap">
-        <div class="mapvp" id="mapvp">
-          <div class="stage" id="stage">
-            <svg id="map" viewBox="0 0 1280 1495" role="group"></svg>
-          </div>
+      <button type="button" id="mapToggle" class="map-toggle" aria-expanded="false" aria-controls="mapDrawer">
+        <span class="map-toggle-l">
+          <span class="map-toggle-ico" aria-hidden="true">☰</span>
+          <span class="map-toggle-txt" id="mapToggleTxt"></span>
+        </span>
+        <span class="map-toggle-chev" id="mapToggleChev" aria-hidden="true">▾</span>
+      </button>
+      <div class="map-drawer" id="mapDrawer">
+        <div class="choropick"><label for="choro-sel" id="lblchoro"></label><select id="choro-sel"></select></div>
+        <div class="zoombar" role="group" id="zbar">
+          <button type="button" id="zin">+</button>
+          <button type="button" id="zout" disabled>−</button>
+          <button type="button" id="zreset"></button>
+          <span class="zhint" id="zhint"></span>
         </div>
-        <div class="tip" id="tip" hidden></div>
+        <div class="mapwrap" id="mapwrap">
+          <div class="mapvp" id="mapvp">
+            <div class="stage" id="stage">
+              <svg id="map" viewBox="0 0 1280 1495" role="group"></svg>
+            </div>
+          </div>
+          <div class="tip" id="tip" hidden></div>
+        </div>
+        <div class="legend" id="legend" hidden></div>
+        <div class="chips"><span id="chiplbl"></span><span id="chips"></span></div>
+        <p class="maphint" id="maphint"></p>
       </div>
-      <div class="legend" id="legend" hidden></div>
-      <div class="chips"><span id="chiplbl"></span><span id="chips"></span></div>
-      <p class="maphint" id="maphint"></p>
     </section>
 
     <section class="panel" id="panel" aria-live="polite">
@@ -3508,6 +3618,7 @@ function applyStatic() {
     'किसी भी राज्य या क्षेत्र पर टैप करते ही उसकी जानकारी दाईं ओर (फ़ोन में नीचे) खुलेगी। नक़्शे की तस्वीर पुराने संस्करण की है, इसलिए ओडिशा "Orissa" लिखा है और लद्दाख जम्मू-कश्मीर के भीतर बना है। लद्दाख का अलग क्लिक-योग्य क्षेत्र अनुमानित सीमा पर रखा गया है।',
     'Tap any state or territory to open its details on the right (below on a phone). The map image is an older edition, so Odisha is labelled "Orissa" and Ladakh is drawn inside Jammu & Kashmir. The separate clickable area for Ladakh is placed on an approximate border.');
   $('#tomap').textContent = L('↑ মানচিত্র', '↑ नक़्शा', '↑ Map');
+  if (typeof updateMapToggleUI === 'function') updateMapToggleUI();
   $('#back').textContent = L('← সারা ভারত', '← पूरा भारत', '← All of India');
   $('#tabs').setAttribute('aria-label', L('তথ্যের বিভাগ', 'जानकारी के खंड', 'Sections'));
   $('#foot1').textContent = L('তথ্য প্রকাশিত সূত্র থেকে সংগ্রহ করা (IMF, UN, UNDP, RSF, Henley & Partners, ICC, নির্বাচনী ও সরকারি ঘোষণা)। পদাধিকারী, র‍্যাংক ও পূর্বাভাস বদলায়, তাই প্রতিটি তথ্যের পাশে সূত্র ও সময় দেওয়া আছে।',
@@ -6049,8 +6160,14 @@ document.addEventListener('click', (e) => {
       return;
     }
     if (go.classList.contains('reg')) skipFocus = true;
+    const fromMap = go.classList.contains('reg') || go.classList.contains('chip');
+    if (fromMap && innerWidth < 900 && !isMapQuizActive()) setMapOpen(false);
     if (id === 'india') { goHome(); return; }
-    if (id === cur) { tab = 'gen'; render(); return; }
+    if (id === cur) {
+      tab = 'gen'; render();
+      if (fromMap && innerWidth < 900) $('#panel').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      return;
+    }
     setCur(id, true);
     return;
   }
@@ -6077,7 +6194,7 @@ document.addEventListener('click', (e) => {
   const qm = e.target.closest('[data-quiz-mode]');
   if (qm) {
     quizMode = qm.dataset.quizMode; quizCat = null; quizI = 0; quizScore = 0; quizPicked = -1;
-    if (quizMode === 'map') initMapQuiz(); else mapQuizHighlight = null;
+    if (quizMode === 'map') { initMapQuiz(); setMapOpen(true, true); } else mapQuizHighlight = null;
     render(); return;
   }
   const mqn = e.target.closest('[data-mapquiz-next]');
@@ -6085,7 +6202,7 @@ document.addEventListener('click', (e) => {
   const mqr = e.target.closest('[data-mapquiz-restart]');
   if (mqr) { initMapQuiz(); render(); return; }
   const mqs = e.target.closest('[data-mapquiz-scroll]');
-  if (mqs) { document.querySelector('.mapcol').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); return; }
+  if (mqs) { setMapOpen(true, true); document.querySelector('.mapcol').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); return; }
   const qc = e.target.closest('[data-quiz-cat]');
   if (qc) { quizCat = qc.dataset.quizCat; quizI = 0; quizScore = 0; quizPicked = -1; render(); return; }
   const qcb = e.target.closest('[data-quiz-cat-back]');
@@ -6142,7 +6259,55 @@ svg.addEventListener('pointerleave', () => { tip.hidden = true; });
 $('#zin').addEventListener('click', () => setZoom(zoom * 1.6));
 $('#zout').addEventListener('click', () => setZoom(zoom / 1.6));
 $('#zreset').addEventListener('click', () => setZoom(1));
-$('#tomap').addEventListener('click', () => document.querySelector('.mapcol').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }));
+$('#tomap').addEventListener('click', () => {
+  setMapOpen(true, true);
+  document.querySelector('.mapcol').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+});
+
+/* ---------- মানচিত্র হাইড/শো (মোবাইলে ডিফল্ট বন্ধ, ডেস্কটপে ডিফল্ট খোলা) ---------- */
+let mapOpen = innerWidth >= 900;
+let mapUserToggled = false;
+function updateMapToggleUI() {
+  const btn = $('#mapToggle');
+  const txt = $('#mapToggleTxt');
+  const drawer = $('#mapDrawer');
+  const layout = document.querySelector('.layout');
+  if (!btn || !drawer) return;
+  drawer.hidden = !mapOpen;
+  btn.setAttribute('aria-expanded', String(mapOpen));
+  if (layout) layout.classList.toggle('map-collapsed', !mapOpen);
+  if (txt) {
+    txt.textContent = mapOpen
+      ? L('🗺️ মানচিত্র লুকান', '🗺️ नक़्शा छिपाएँ', '🗺️ Hide India Map')
+      : L('🗺️ ভারতের মানচিত্র দেখুন', '🗺️ भारत का नक़्शा देखें', '🗺️ Show India Map');
+  }
+  btn.setAttribute('aria-label', mapOpen
+    ? L('মানচিত্র লুকান', 'नक़्शा छिपाएँ', 'Hide map')
+    : L('ভারতের মানচিত্র দেখুন', 'भारत का नक़्शा देखें', 'Show India map'));
+}
+function setMapOpen(open, animate = false) {
+  const wasOpen = mapOpen;
+  mapOpen = !!open;
+  updateMapToggleUI();
+  const drawer = $('#mapDrawer');
+  if (mapOpen && !wasOpen && drawer && animate) {
+    drawer.classList.remove('map-opening');
+    void drawer.offsetWidth;
+    drawer.classList.add('map-opening');
+  }
+  if (mapOpen && !wasOpen && cur && cur !== 'india') focusOn(cur);
+}
+$('#mapToggle').addEventListener('click', () => {
+  mapUserToggled = true;
+  setMapOpen(!mapOpen, true);
+});
+window.addEventListener('resize', () => {
+  if (!mapUserToggled) {
+    const want = innerWidth >= 900;
+    if (want !== mapOpen) setMapOpen(want, false);
+  }
+});
+updateMapToggleUI();
 addEventListener('hashchange', () => { applyHashState(); render(); focusOn(cur); });
 
 
