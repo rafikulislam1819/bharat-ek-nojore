@@ -2297,9 +2297,11 @@ body {
 }
 .vspick-item select {
   border: 0 !important;
-  background: transparent !important;
+  background-color: var(--surface) !important;
+  color: var(--fg) !important;
   box-shadow: none !important;
-  padding: 5px 6px !important;
+  border-radius: 7px;
+  padding: 5px 8px !important;
 }
 .vstable thead th.vs-col-head {
   border-top: 3.5px solid var(--col, var(--accent));
@@ -2453,10 +2455,12 @@ body {
 }
 .duel-sel-wrap select {
   border: 0 !important;
-  background: transparent !important;
+  background-color: var(--surface) !important;
+  color: var(--fg) !important;
   box-shadow: none !important;
+  border-radius: 7px;
   font-weight: 700;
-  padding: 5px 4px !important;
+  padding: 5px 8px !important;
 }
 .duel-quick {
   display: flex;
@@ -2733,6 +2737,35 @@ body {
   .rgt-icon-box svg {
     width: 40px;
     height: 40px;
+  }
+}
+
+
+/* ===== Dark & Light Mode Select Dropdown Visibility Fix (Windows Chrome/Edge/Firefox) ===== */
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+select {
+  color: var(--fg);
+  background-color: var(--surface);
+}
+select option, select optgroup {
+  background-color: #FFFFFF;
+  color: #0F172A;
+}
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] select option,
+:root[data-theme="dark"] select optgroup {
+  background-color: #11192C;
+  color: #F1F5F9;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) select,
+  :root:not([data-theme="light"]) select option,
+  :root:not([data-theme="light"]) select optgroup {
+    background-color: #11192C;
+    color: #F1F5F9;
+    color-scheme: dark;
   }
 }
 
