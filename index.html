@@ -5839,64 +5839,87 @@ function fmtLiveDate(iso) {
 function applyLiveMarket(d) {
   if (!d || !(d.gold24 || d.silver || d.usdinr)) return;
   mktLive = Object.assign({}, mktLive || {}, d);
-  if (!mktLive.asOf && d.updatedAt) mktLive.asOf = fmtLiveDate(d.updatedAt);
+  if (d.asOf) {
+    mktLive.asOf = d.asOf;
+  } else if (d.updatedAt) {
+    mktLive.asOf = fmtLiveDate(d.updatedAt);
+  }
   if (typeof applyStatic === 'function') applyStatic();
   if (typeof render === 'function') render();
 }
-async function fetchBrowserLiveMarket() {
-  let usdinr = (mktLive && mktLive.usdinr) ? +mktLive.usdinr : null;
-  let spotGoldUsd = (mktLive && mktLive.spotGoldUsd) ? +mktLive.spotGoldUsd : null;
-  let spotSilverUsd = (mktLive && mktLive.spotSilverUsd) ? +mktLive.spotSilverUsd : null;
-  let gold24 = (mktLive && mktLive.gold24) ? +mktLive.gold24 : null;
-  let silver = (mktLive && mktLive.silver) ? +mktLive.silver : null;
+async function fetchBrowserLiveMarket(forceFresh = false) {
+  const prev = mktLive || {};
+  let usdinr = (!forceFresh && prev.usdinr) ? +prev.usdinr : null;
+  let spotGoldUsd = (!forceFresh && prev.spotGoldUsd) ? +prev.spotGoldUsd : null;
+  let spotSilverUsd = (!forceFresh && prev.spotSilverUsd) ? +prev.spotSilverUsd : null;
+  let gold24 = (!forceFresh && prev.gold24) ? +prev.gold24 : null;
+  let silver = (!forceFresh && prev.silver) ? +prev.silver : null;
+  let fetchedAny = false;
 
-  // 1) Live USD -> INR exchange rate (CORS-enabled, free, no API key)
+  // 1. Live USD -> INR exchange rate (CORS-enabled, free, no API key)
   if (!usdinr) {
     try {
-      const fx = await fetch('https://open.er-api.com/v6/latest/USD').then((r) => r.json());
-      if (fx && fx.rates && fx.rates.INR) usdinr = +Number(fx.rates.INR).toFixed(2);
+      const fx = await fetch('https://open.er-api.com/v6/latest/USD', { cache: 'no-store' }).then((r) => r.json());
+      if (fx && fx.rates && fx.rates.INR) {
+        usdinr = +Number(fx.rates.INR).toFixed(2);
+        fetchedAny = true;
+      }
     } catch (_) {}
   }
 
-  // 2) Live Gold & Silver international spot prices (free CORS-enabled public APIs)
+  // 2. Live Gold & Silver international spot prices (free CORS-enabled public APIs)
   if (!spotGoldUsd || !spotSilverUsd) {
     try {
       const [gRes, sRes] = await Promise.all([
-        fetch('https://api.gold-api.com/price/XAU').then((r) => r.ok ? r.json() : null).catch(() => null),
-        fetch('https://api.gold-api.com/price/XAG').then((r) => r.ok ? r.json() : null).catch(() => null)
+        fetch('https://api.gold-api.com/price/XAU', { cache: 'no-store' }).then((r) => r.ok ? r.json() : null).catch(() => null),
+        fetch('https://api.gold-api.com/price/XAG', { cache: 'no-store' }).then((r) => r.ok ? r.json() : null).catch(() => null)
       ]);
-      if (gRes && gRes.price) spotGoldUsd = Math.round(+gRes.price);
-      if (sRes && sRes.price) spotSilverUsd = +Number(sRes.price).toFixed(2);
+      if (gRes && gRes.price) { spotGoldUsd = Math.round(+gRes.price); fetchedAny = true; }
+      if (sRes && sRes.price) { spotSilverUsd = +Number(sRes.price).toFixed(2); fetchedAny = true; }
     } catch (_) {}
   }
 
   // Fallback bullion feed in INR directly if gold-api is unavailable
   if ((!gold24 || !silver) && (!spotGoldUsd || !spotSilverUsd)) {
     try {
-      const gp = await fetch('https://data-asg.goldprice.org/dbXRates/INR').then((r) => r.json());
+      const gp = await fetch('https://data-asg.goldprice.org/dbXRates/INR', { cache: 'no-store' }).then((r) => r.json());
       const item = gp && gp.items && gp.items[0];
       if (item && item.xauPrice) {
-        if (!gold24) gold24 = Math.round(((item.xauPrice / 31.1034768) * 10 * 1.115) / 10) * 10;
+        if (!gold24) { gold24 = Math.round(((item.xauPrice / 31.1034768) * 10 * 1.115) / 10) * 10; fetchedAny = true; }
         if (usdinr && !spotGoldUsd) spotGoldUsd = Math.round(item.xauPrice / usdinr);
       }
       if (item && item.xagPrice) {
-        if (!silver) silver = Math.round(((item.xagPrice / 31.1034768) * 1000 * 1.18) / 100) * 100;
+        if (!silver) { silver = Math.round(((item.xagPrice / 31.1034768) * 1000 * 1.18) / 100) * 100; fetchedAny = true; }
         if (usdinr && !spotSilverUsd) spotSilverUsd = +Number(item.xagPrice / usdinr).toFixed(2);
       }
     } catch (_) {}
   }
 
-  // Derive Indian retail bullion estimates from live spot + live USD/INR when Firebase doesn't supply them
+  // Fallback to previous cached values only for fields that failed to fetch
+  if (!usdinr && prev.usdinr) usdinr = +prev.usdinr;
+  if (!spotGoldUsd && prev.spotGoldUsd) spotGoldUsd = +prev.spotGoldUsd;
+  if (!spotSilverUsd && prev.spotSilverUsd) spotSilverUsd = +prev.spotSilverUsd;
+
+  // Derive Indian retail bullion estimates from live spot + live USD/INR
   const fxVal = usdinr || 93.34;
   if (!gold24 && spotGoldUsd) {
     gold24 = Math.round(((spotGoldUsd / 31.1034768) * 10 * fxVal * 1.125) / 10) * 10;
+  } else if (!gold24 && prev.gold24) {
+    gold24 = +prev.gold24;
   }
   if (!silver && spotSilverUsd) {
     silver = Math.round(((spotSilverUsd / 31.1034768) * 1000 * fxVal * 1.24) / 100) * 100;
+  } else if (!silver && prev.silver) {
+    silver = +prev.silver;
   }
 
-  if (usdinr || gold24 || silver) {
-    const patch = { updatedAt: new Date().toISOString(), source: 'Live Market APIs' };
+  if (fetchedAny && (usdinr || gold24 || silver)) {
+    const nowIso = new Date().toISOString();
+    const patch = {
+      updatedAt: nowIso,
+      asOf: fmtLiveDate(nowIso),
+      source: 'Live Market APIs'
+    };
     if (usdinr) patch.usdinr = usdinr;
     if (spotGoldUsd) patch.spotGoldUsd = spotGoldUsd;
     if (spotSilverUsd) patch.spotSilverUsd = spotSilverUsd;
@@ -5910,21 +5933,22 @@ async function fetchBrowserLiveMarket() {
   }
 }
 
-fetch(LQ_DB + '/marketData.json').then((r) => r.json()).then((d) => {
+fetch(LQ_DB + '/marketData.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => {
   const todayStr = shortDateKey();
   const fbTime = (d && d.updatedAt) ? new Date(d.updatedAt).getTime() : 0;
   const baselineTime = Date.parse('2026-11-19T00:00:00+05:30');
   const fbDateStr = (d && d.updatedAt) ? shortDateKey(d.updatedAt) : '';
   if (d && (d.gold24 || d.silver || d.usdinr) && fbTime >= baselineTime) {
     applyLiveMarket(d);
-    if (!d.gold24 || !d.silver || (fbDateStr && fbDateStr !== todayStr)) {
-      fetchBrowserLiveMarket();
+    const isStaleDay = !fbDateStr || fbDateStr !== todayStr;
+    if (isStaleDay || !d.gold24 || !d.silver || !d.usdinr) {
+      fetchBrowserLiveMarket(isStaleDay);
     }
   } else {
-    fetchBrowserLiveMarket();
+    fetchBrowserLiveMarket(true);
   }
 }).catch(() => {
-  fetchBrowserLiveMarket();
+  fetchBrowserLiveMarket(true);
 });
 
 function lqEsc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
