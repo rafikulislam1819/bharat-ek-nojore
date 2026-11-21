@@ -3026,38 +3026,46 @@ select option, select optgroup {
 
 .geo-kpis {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 9px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
   margin-bottom: 16px;
 }
 .geo-kpi {
   --gk: #2563EB;
+  min-width: 0;
   background: color-mix(in srgb, var(--gk) 8%, var(--bg));
   border: 1px solid color-mix(in srgb, var(--gk) 30%, var(--line));
   border-top: 3.5px solid var(--gk);
-  border-radius: 12px;
-  padding: 11px 12px;
+  border-radius: 11px;
+  padding: 10px 10px;
   display: flex;
   flex-direction: column;
   gap: 3px;
 }
 .geo-kpi-lbl {
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--gk);
   letter-spacing: 0.01em;
+  line-height: 1.3;
 }
 .geo-kpi-val {
   font-family: var(--font-display);
-  font-size: 1.28rem;
+  font-size: 1.2rem;
   font-weight: 800;
   color: var(--fg);
   line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.geo-kpi-val.is-name {
+  font-size: 0.94rem;
+  line-height: 1.28;
 }
 .geo-kpi-sub {
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--muted);
-  line-height: 1.35;
+  line-height: 1.32;
+  overflow-wrap: anywhere;
 }
 .geo-bar {
   width: 100%;
@@ -3476,6 +3484,9 @@ select option, select optgroup {
   .geo-kpis {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 7px;
+  }
+  .geo-kpis .geo-kpi:nth-child(3) {
+    grid-column: 1 / -1;
   }
   .city-grid, .geo-admin-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -5590,14 +5601,15 @@ function stGeo(x) {
   const li = lang === 'bn' ? 0 : (lang === 'hi' ? 1 : 2);
   const DIV_COLS = ['#2563EB', '#0D9488', '#D97706', '#7C3AED', '#E11D48', '#059669'];
 
-  // 1. 4 Color-Coded KPI Cards
+  // 1. 5 Color-Coded KPI Cards in One Top Row (including Largest & Smallest District side by side)
   const urbVal = e.urban != null ? nf1.format(e.urban) + '%' : '—';
   const urbBar = e.urban != null ? Math.min(100, Math.round(e.urban)) : 0;
   const kpiHtml = `<div class="geo-kpis">` +
-    `<div class="geo-kpi" style="--gk:#2563EB"><span class="geo-kpi-lbl">${L('মোট প্রশাসনিক জেলা', 'कुल प्रशासनिक ज़िले', 'Total Districts')}</span><div class="geo-kpi-val">${nf.format(totalDists)}</div><span class="geo-kpi-sub">${g.divs.length > 1 ? L(`${nf.format(g.divs.length)}টি বিভাগ / অঞ্চলে বিভক্ত`, `${nf.format(g.divs.length)} प्रभागों / क्षेत्रों में विभाजित`, `Across ${g.divs.length} divisions / regions`) : L('সরকারি জেলা তালিকা', 'आधिकारिक ज़िला सूची', 'Official district roster')}</span></div>` +
-    `<div class="geo-kpi" style="--gk:#0D9488"><span class="geo-kpi-lbl">${L('নগরায়ণ হার', 'शहरीकरण दर', 'Urbanisation')}</span><div class="geo-kpi-val">${urbVal}</div><div class="geo-bar"><i style="width:${urbBar}%"></i></div><span class="geo-kpi-sub">${L('শহরাঞ্চলে বসবাসকারী জনসংখ্যা', 'शहरी क्षेत्रों में आबादी', 'Urban population share')}</span></div>` +
+    `<div class="geo-kpi" style="--gk:#2563EB"><span class="geo-kpi-lbl">${L('মোট প্রশাসনিক জেলা', 'कुल प्रशासनिक ज़िले', 'Total Districts')}</span><div class="geo-kpi-val">${nf.format(totalDists)}</div><span class="geo-kpi-sub">${g.divs.length > 1 ? L(`${nf.format(g.divs.length)}টি বিভাগ / অঞ্চল`, `${nf.format(g.divs.length)} प्रभाग / क्षेत्र`, `${g.divs.length} divisions / regions`) : L('সরকারি জেলা তালিকা', 'आधिकारिक ज़िला सूची', 'Official district roster')}</span></div>` +
+    `<div class="geo-kpi" style="--gk:#0D9488"><span class="geo-kpi-lbl">${L('নগরায়ণ হার', 'शहरीकरण दर', 'Urbanisation')}</span><div class="geo-kpi-val">${urbVal}</div><div class="geo-bar"><i style="width:${urbBar}%"></i></div><span class="geo-kpi-sub">${L('শহরাঞ্চলের জনসংখ্যা', 'शहरी आबादी', 'Urban share')}</span></div>` +
     `<div class="geo-kpi" style="--gk:#EA580C"><span class="geo-kpi-lbl">${L('প্রধান শহর', 'प्रमुख शहर', 'Major Cities')}</span><div class="geo-kpi-val">${nf.format(g.cities.length)}</div><span class="geo-kpi-sub">${L('রাজধানী: ', 'राजधानी: ', 'Capital: ') + R(x).cap.split('(')[0].trim()}</span></div>` +
-    `<div class="geo-kpi" style="--gk:#7C3AED"><span class="geo-kpi-lbl">${L('আয়তনে বৃহত্তম জেলা', 'क्षेत्रफल में सबसे बड़ा', 'Largest District')}</span><div class="geo-kpi-val" style="font-size:1.02rem">${g.big[li].split('(')[0].trim()}</div><span class="geo-kpi-sub">${(g.big[li].match(/\((.*?)\)/) || ['', ''])[1]}</span></div>` +
+    `<div class="geo-kpi" style="--gk:#7C3AED"><span class="geo-kpi-lbl">▲ ${L('আয়তনে বৃহত্তম জেলা', 'सबसे बड़ा ज़िला', 'Largest District')}</span><div class="geo-kpi-val is-name">${g.big[li].split('(')[0].trim()}</div><span class="geo-kpi-sub">${(g.big[li].match(/\((.*?)\)/) || ['', ''])[1]}</span></div>` +
+    `<div class="geo-kpi" style="--gk:#E11D48"><span class="geo-kpi-lbl">▼ ${L('আয়তনে ক্ষুদ্রতম জেলা', 'सबसे छोटा ज़िला', 'Smallest District')}</span><div class="geo-kpi-val is-name">${g.sml[li].split('(')[0].trim()}</div><span class="geo-kpi-sub">${(g.sml[li].match(/\((.*?)\)/) || ['', ''])[1]}</span></div>` +
   `</div>`;
 
   // 2. Role-Color-Coded Major Cities Showcase
@@ -5686,8 +5698,7 @@ function stGeo(x) {
     `<div class="geo-acard" style="--ac:#0284C7"><span class="geo-albl">✈️ ${L('প্রধান বিমানবন্দর (IATA)', 'प्रमुख हवाई अड्डे (IATA)', 'Major Airports (IATA)')}</span><div class="geo-aval">${g.air[li]}</div></div>`,
     `<div class="geo-acard" style="--ac:#0D9488"><span class="geo-albl">🚆 ${L('প্রধান রেলওয়ে জংশন', 'प्रमुख रेलवे जंक्शन', 'Major Railway Hubs')}</span><div class="geo-aval">${g.rail[li]}</div></div>`,
     `<div class="geo-acard" style="--ac:#0891B2"><span class="geo-albl">🌊 ${L('প্রধান নদ-নদী ও জলসম্পদ', 'प्रमुख नदियाँ व जल स्रोत', 'Major Rivers & Waters')}</span><div class="geo-aval">${g.riv[li]}</div></div>`,
-    `<div class="geo-acard" style="--ac:#059669"><span class="geo-albl">📏 ${L('আয়তনে বৃহত্তম ও ক্ষুদ্রতম জেলা', 'सबसे बड़ा व सबसे छोटा ज़िला', 'Largest & Smallest Districts')}</span><div class="geo-aval">▲ ${g.big[li]}<br>▼ ${g.sml[li]}</div></div>`,
-    ...(giu && giu.unesco ? [`<div class="geo-acard" style="--ac:#D97706"><span class="geo-albl">🏛️ ${L('ইউনেস্কো বিশ্ব ঐতিহ্যবাহী স্থান', 'यूनेस्को विश्व धरोहर स्थल', 'UNESCO World Heritage Sites')}</span><div class="geo-aval">${giu.unesco[li]}</div></div>`] : []),
+    ...(giu && giu.unesco ? [`<div class="geo-acard full" style="--ac:#D97706"><span class="geo-albl">🏛️ ${L('ইউনেস্কো বিশ্ব ঐতিহ্যবাহী স্থান', 'यूनेस्को विश्व धरोहर स्थल', 'UNESCO World Heritage Sites')}</span><div class="geo-aval">${giu.unesco[li]}</div></div>`] : []),
     `<div class="geo-acard full" style="--ac:#0F766E"><span class="geo-albl">🧭 ${L('সীমান্তবর্তী রাজ্য ও আন্তর্জাতিক / উপকূলীয় সীমা (রাজ্যে ক্লিক করে দেখুন)', 'सीमावर्ती राज्य व अंतर्राष्ट्रीय / तटीय सीमा (क्लिक कर देखें)', 'Bordering States & International / Coastal Boundaries (click a state)')}</span><div class="geo-borders">${borderChips || ''}${intChip}</div></div>`
   ].join('');
 
