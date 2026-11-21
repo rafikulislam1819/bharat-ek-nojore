@@ -3512,6 +3512,566 @@ select option, select optgroup {
   }
 }
 
+
+/* ===== Survival & Disaster Safety Tips Tab + 5-Time Smart Popup Modal ===== */
+#tabs button[data-tab="tips"] { --tbg: #FEF2F2; --tbd: #FECACA; --tic: #DC2626; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) #tabs button[data-tab="tips"] { --tbg: #450A0A; --tbd: #7F1D1D; --tic: #F87171; }
+}
+:root[data-theme="dark"] #tabs button[data-tab="tips"] { --tbg: #450A0A; --tbd: #7F1D1D; --tic: #F87171; }
+
+.tips-pill-hdr {
+  border-color: color-mix(in srgb, #DC2626 55%, var(--fg));
+  color: #DC2626;
+}
+.tips-pill-hdr:hover, .tips-pill-hdr.is-on {
+  background: #DC2626;
+  border-color: #DC2626;
+  color: #FFFFFF;
+}
+:root[data-theme="dark"] .tips-pill-hdr { color: #F87171; border-color: #F87171; }
+:root[data-theme="dark"] .tips-pill-hdr:hover, :root[data-theme="dark"] .tips-pill-hdr.is-on { background: #DC2626; border-color: #DC2626; color: #FFFFFF; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tips-pill-hdr { color: #F87171; border-color: #F87171; }
+  :root:not([data-theme="light"]) .tips-pill-hdr:hover, :root:not([data-theme="light"]) .tips-pill-hdr.is-on { background: #DC2626; border-color: #DC2626; color: #FFFFFF; }
+}
+
+.tips-hero {
+  background: linear-gradient(135deg, color-mix(in srgb, #DC2626 9%, var(--bg)), color-mix(in srgb, #EA580C 7%, var(--surface)));
+  border: 1px solid color-mix(in srgb, #DC2626 28%, var(--line));
+  border-left: 4.5px solid #DC2626;
+  border-radius: 13px;
+  padding: 13px 15px;
+  margin-bottom: 13px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 14px;
+}
+.tips-hero-txt h3 {
+  margin: 0 0 3px;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--fg);
+}
+.tips-hero-txt p {
+  margin: 0;
+  font-size: 13.2px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.tips-preview-btn {
+  flex: 0 0 auto;
+  background: var(--surface);
+  color: #DC2626;
+  border: 1.5px solid color-mix(in srgb, #DC2626 55%, var(--line));
+  border-radius: 9px;
+  padding: 7px 12px;
+  font-size: 12.8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.tips-preview-btn:hover {
+  background: #DC2626;
+  border-color: #DC2626;
+  color: #FFFFFF;
+}
+:root[data-theme="dark"] .tips-preview-btn { color: #F87171; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tips-preview-btn { color: #F87171; }
+}
+
+.tips-helplines {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 9px 12px;
+  margin-bottom: 12px;
+}
+.tips-hl-lbl {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted);
+  margin-right: 4px;
+}
+.tips-hl-chip {
+  --hc: #DC2626;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.2px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--hc) 11%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--hc) 35%, transparent);
+  color: var(--fg);
+  transition: transform .12s ease, background .15s ease, color .15s ease;
+}
+.tips-hl-chip b { color: var(--hc); font-weight: 800; }
+.tips-hl-chip:hover {
+  background: var(--hc);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+.tips-hl-chip:hover b { color: #FFFFFF; }
+
+.tips-schedule-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px 8px;
+  font-size: 12px;
+  color: var(--muted);
+  background: color-mix(in srgb, #2563EB 6%, var(--bg));
+  border: 1px dashed color-mix(in srgb, #2563EB 32%, var(--line));
+  border-radius: 10px;
+  padding: 7px 11px;
+  margin-bottom: 13px;
+}
+.tips-slot-tag {
+  font-size: 11.2px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--fg);
+}
+.tips-slot-tag.is-now {
+  background: #2563EB;
+  border-color: #2563EB;
+  color: #FFFFFF;
+}
+
+.tips-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.tips-fbtn {
+  --fc: #DC2626;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 12.8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .14s ease;
+}
+.tips-fbtn:hover { border-color: var(--fc); color: var(--fc); }
+.tips-fbtn.active {
+  background: var(--fc);
+  border-color: var(--fc);
+  color: #FFFFFF;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+.tip-card {
+  --tc: #EA580C;
+  background: color-mix(in srgb, var(--tc) 5%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--tc) 30%, var(--line));
+  border-top: 4px solid var(--tc);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform .16s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.tip-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--tc);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--tc) 16%, transparent);
+}
+.tip-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 8px 11px 6px;
+}
+.tip-cat-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: var(--tc);
+  background: color-mix(in srgb, var(--tc) 15%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--tc) 35%, transparent);
+  white-space: nowrap;
+}
+.tip-lang-mini {
+  display: inline-flex;
+  border: 1px solid color-mix(in srgb, var(--tc) 36%, var(--line));
+  border-radius: 7px;
+  overflow: hidden;
+  background: var(--surface);
+  flex: 0 0 auto;
+}
+.tip-lang-mini button {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  cursor: pointer;
+  line-height: 1.45;
+  transition: background .12s, color .12s;
+}
+.tip-lang-mini button + button {
+  border-left: 1px solid color-mix(in srgb, var(--tc) 25%, var(--line));
+}
+.tip-lang-mini button.active {
+  background: var(--tc);
+  color: #FFFFFF;
+}
+.tip-art {
+  padding: 2px 11px 4px;
+  cursor: pointer;
+}
+.tip-art svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--tc) 20%, var(--line));
+}
+.tip-body {
+  padding: 8px 13px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+.tip-click-area {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+.tip-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.04rem;
+  font-weight: 800;
+  color: var(--fg);
+  line-height: 1.3;
+}
+.tip-short {
+  margin: 0;
+  font-size: 13.4px;
+  color: var(--muted);
+  line-height: 1.52;
+}
+.tip-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 8px;
+  margin-top: 4px;
+  border-top: 1px dashed color-mix(in srgb, var(--line) 90%, transparent);
+}
+.tip-read-btn {
+  background: color-mix(in srgb, var(--tc) 13%, var(--surface));
+  color: var(--tc);
+  border: 1px solid color-mix(in srgb, var(--tc) 38%, transparent);
+  border-radius: 8px;
+  padding: 5px 11px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.tip-read-btn:hover {
+  background: var(--tc);
+  border-color: var(--tc);
+  color: #FFFFFF;
+}
+.tip-hl-mini {
+  text-decoration: none;
+  font-size: 11.8px;
+  font-weight: 800;
+  color: #DC2626;
+  background: rgba(220, 38, 38, 0.10);
+  border: 1px solid rgba(220, 38, 38, 0.28);
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+:root[data-theme="dark"] .tip-hl-mini { color: #FCA5A5; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tip-hl-mini { color: #FCA5A5; }
+}
+
+/* ===== Survival Tip Popup & Full Article Modal Overlay ===== */
+.tip-modal-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  background: rgba(8, 14, 26, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  animation: tipFadeIn .22s ease;
+}
+@keyframes tipFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.tip-modal {
+  --tc: #EA580C;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--surface);
+  color: var(--fg);
+  border: 1.5px solid color-mix(in srgb, var(--tc) 45%, var(--line));
+  border-top: 5px solid var(--tc);
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
+  animation: tipPopUp .25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes tipPopUp {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tip-modal-bg, .tip-modal { animation: none; }
+}
+.tip-mbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
+}
+.tip-mbar-l {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+.tip-slot-pill {
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 2px 9px;
+  border-radius: 999px;
+  color: var(--tc);
+  background: color-mix(in srgb, var(--tc) 14%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--tc) 35%, transparent);
+}
+.tip-xbtn {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .14s, color .14s, border-color .14s;
+}
+.tip-xbtn:hover {
+  background: #DC2626;
+  border-color: #DC2626;
+  color: #FFFFFF;
+}
+.tip-mcontent {
+  padding: 14px 16px 16px;
+}
+.tip-mart {
+  margin-bottom: 12px;
+}
+.tip-mart svg {
+  width: 100%;
+  max-height: 190px;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--tc) 25%, var(--line));
+}
+.tip-mclickable {
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 8px 10px;
+  margin: -4px -10px 8px;
+  transition: background .15s ease;
+}
+.tip-mclickable:hover {
+  background: color-mix(in srgb, var(--tc) 7%, var(--bg));
+}
+.tip-mtitle {
+  margin: 0 0 7px;
+  font-family: var(--font-display);
+  font-size: 1.32rem;
+  font-weight: 800;
+  color: var(--fg);
+  line-height: 1.25;
+}
+.tip-mshort {
+  margin: 0;
+  font-size: 14.8px;
+  color: var(--fg);
+  line-height: 1.6;
+}
+.tip-mhint-tap {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 9px;
+  font-size: 12.8px;
+  font-weight: 700;
+  color: var(--tc);
+}
+
+.tip-art-boxes {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-top: 13px;
+}
+.tip-box {
+  border-radius: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+}
+.tip-box.do {
+  background: rgba(16, 185, 129, 0.09);
+  border-color: rgba(16, 185, 129, 0.34);
+  border-left: 4px solid #059669;
+}
+.tip-box.dont {
+  background: rgba(239, 68, 68, 0.09);
+  border-color: rgba(239, 68, 68, 0.34);
+  border-left: 4px solid #DC2626;
+}
+.tip-box h4 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+}
+.tip-box.do h4 { color: #059669; }
+.tip-box.dont h4 { color: #DC2626; }
+:root[data-theme="dark"] .tip-box.do h4 { color: #34D399; }
+:root[data-theme="dark"] .tip-box.dont h4 { color: #F87171; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tip-box.do h4 { color: #34D399; }
+  :root:not([data-theme="light"]) .tip-box.dont h4 { color: #F87171; }
+}
+.tip-box ul {
+  margin: 0;
+  padding-left: 19px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--fg);
+}
+.tip-mfoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 11px 16px 14px;
+  border-top: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 70%, var(--surface));
+}
+.tip-macts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+}
+.tip-primary-btn {
+  background: var(--tc);
+  color: #FFFFFF;
+  border: 0;
+  border-radius: 9px;
+  padding: 8px 14px;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.tip-primary-btn:hover { filter: brightness(1.08); }
+.tip-sec-btn {
+  background: var(--surface);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.tip-sec-btn:hover { border-color: var(--tc); color: var(--tc); }
+.tip-mute-btn {
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 4px 2px;
+}
+.tip-mute-btn:hover { color: var(--fg); }
+.tip-msrc {
+  margin: 10px 0 0;
+  font-size: 11.8px;
+  color: var(--muted);
+}
+
+@media (max-width: 639px) {
+  .tips-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 11px;
+  }
+  .tip-mtitle { font-size: 1.16rem; }
+  .tip-mshort { font-size: 14px; }
+  .tip-modal { max-height: 92vh; border-radius: 15px; }
+}
+
 </style>
 </head><body>
 <div class="wrap">
@@ -3523,6 +4083,7 @@ select option, select optgroup {
     <div class="topr">
       <div class="top-controls">
         <button type="button" id="homeBtn" class="nav-pill home-pill"></button>
+        <button type="button" id="tipsBtn" class="nav-pill tips-pill-hdr"></button>
         <button type="button" id="themeBtn" class="nav-pill theme-pill" aria-label=""></button>
         <div class="langs" id="langs" role="group" aria-label="Language / ভাষা / भाषा">
           <button type="button" data-lang="bn" lang="bn">বাংলা</button><button type="button" data-lang="hi" lang="hi">हिन्दी</button><button type="button" data-lang="en" lang="en">English</button>
@@ -3643,6 +4204,11 @@ select option, select optgroup {
     <p id="foot2"></p>
     <p id="foot3"></p>
   </footer>
+</div>
+
+
+<div class="tip-modal-bg" id="tipModalBg" hidden role="dialog" aria-modal="true" aria-labelledby="tipModalTitle">
+  <div class="tip-modal" id="tipModalCard"></div>
 </div>
 
 <script>
@@ -4032,7 +4598,7 @@ const KM = () => L('বর্গ কিমি', 'वर्ग किमी', 'sq
 const PKM = () => L('জন/বর্গ কিমি', 'व्यक्ति/वर्ग किमी', 'people/sq km');
 const TYPE_LABEL = () => ({ state: L('রাজ্য', 'राज्य', 'State'), ut: L('কেন্দ্রশাসিত অঞ্চল', 'केंद्रशासित प्रदेश', 'Union Territory') });
 const ST_TAB = () => [['gen', L('সাধারণ', 'सामान्य', 'General')], ['geo', L('জেলা ও শহর', 'ज़िले और शहर', 'Districts & Cities')], ['idx', L('সূচক', 'सूचकांक', 'Indices')], ['pol', L('রাজনীতি', 'राजनीति', 'Politics')], ['eco', L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy')], ['edu', L('শিক্ষা', 'शिक्षा', 'Education')], ['cul', L('সংস্কৃতি', 'संस्कृति', 'Culture')], ['saf', L('নারী নিরাপত্তা', 'महिला सुरक्षा', "Women's safety")], ['trv', L('ভ্রমণ', 'यात्रा', 'Travel')], ['cmp', L('তুলনা', 'तुलना', 'Compare')]];
-const NAT_TAB = () => [['gen', L('সাধারণ', 'सामान्य', 'General')], ['pol', L('রাজনীতি', 'राजनीति', 'Politics')], ['cab', L('মন্ত্রিসভা', 'मंत्रिमंडल', 'Cabinet')], ['eco', L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy')], ['mkt', L('ডলার, সোনা, রুপো', 'डॉलर, सोना, चाँदी', 'Dollar, gold, silver')], ['idx', L('সূচক', 'सूचकांक', 'Indices')], ['air', L('দূষণ', 'प्रदूषण', 'Pollution')], ['saf', L('নারী নিরাপত্তা', 'महिला सुरक्षा', "Women's safety")], ['crime', L('দুর্নীতি ও অপরাধ', 'भ्रष्टाचार और अपराध', 'Corruption & Crime')], ['rgt', L('মৌলিক অধিকার', 'मौलिक अधिकार', 'Fundamental Rights')], ['sym', L('জাতীয় প্রতীক', 'राष्ट्रीय प्रतीक', 'National Symbols')], ['hist', L('ইতিহাস', 'इतिहास', 'History')], ['trv', L('ভ্রমণ', 'यात्रा', 'Travel')], ['spt', L('খেলা', 'खेल', 'Sports')], ['quiz', L('কুইজ', 'क्विज़', 'Quiz')], ['cmp', L('রাজ্য তুলনা', 'राज्यों की तुलना', 'Compare states')]];
+const NAT_TAB = () => [['gen', L('সাধারণ', 'सामान्य', 'General')], ['pol', L('রাজনীতি', 'राजनीति', 'Politics')], ['cab', L('মন্ত্রিসভা', 'मंत्रिमंडल', 'Cabinet')], ['eco', L('অর্থনীতি', 'अर्थव्यवस्था', 'Economy')], ['mkt', L('ডলার, সোনা, রুপো', 'डॉलर, सोना, चाँदी', 'Dollar, gold, silver')], ['idx', L('সূচক', 'सूचकांक', 'Indices')], ['air', L('দূষণ', 'प्रदूषण', 'Pollution')], ['saf', L('নারী নিরাপত্তা', 'महिला सुरक्षा', "Women's safety")], ['crime', L('দুর্নীতি ও অপরাধ', 'भ्रष्टाचार और अपराध', 'Corruption & Crime')], ['rgt', L('মৌলিক অধিকার', 'मौलिक अधिकार', 'Fundamental Rights')], ['sym', L('জাতীয় প্রতীক', 'राष्ट्रीय प्रतीक', 'National Symbols')], ['hist', L('ইতিহাস', 'इतिहास', 'History')], ['trv', L('ভ্রমণ', 'यात्रा', 'Travel')], ['spt', L('খেলা', 'खेल', 'Sports')], ['tips', L('টিপস ও সুরক্ষা', 'टिप्स व सुरक्षा', 'Safety Tips')], ['quiz', L('কুইজ', 'क्विज़', 'Quiz')], ['cmp', L('রাজ্য তুলনা', 'राज्यों की तुलना', 'Compare states')]];
 const zn = (z) => ZNX[z][lang === 'bn' ? 0 : lang === 'hi' ? 1 : 2];
 const R = (x) => {
   if (lang === 'bn') return { n: x.bn, cap: x.cap, lg: x.lang, cm: x.cm, since: x.since, tour: x.tour, sh: x.sh };
@@ -4114,6 +4680,7 @@ function applyStatic() {
     'किसी भी राज्य या क्षेत्र पर टैप करते ही उसकी जानकारी दाईं ओर (फ़ोन में नीचे) खुलेगी। नक़्शे की तस्वीर पुराने संस्करण की है, इसलिए ओडिशा "Orissa" लिखा है और लद्दाख जम्मू-कश्मीर के भीतर बना है। लद्दाख का अलग क्लिक-योग्य क्षेत्र अनुमानित सीमा पर रखा गया है।',
     'Tap any state or territory to open its details on the right (below on a phone). The map image is an older edition, so Odisha is labelled "Orissa" and Ladakh is drawn inside Jammu & Kashmir. The separate clickable area for Ladakh is placed on an approximate border.');
   $('#tomap').textContent = L('↑ মানচিত্র', '↑ नक़्शा', '↑ Map');
+  if ($('#tipsBtn')) $('#tipsBtn').textContent = L('🆘 টিপস', '🆘 टिप्स', '🆘 Tips');
   if (typeof updateMapToggleUI === 'function') updateMapToggleUI();
   $('#back').textContent = L('← সারা ভারত', '← पूरा भारत', '← All of India');
   $('#tabs').setAttribute('aria-label', L('তথ্যের বিভাগ', 'जानकारी के खंड', 'Sections'));
@@ -6719,10 +7286,12 @@ function render() {
     hb.classList.toggle('is-away', !isHome);
     hb.setAttribute('aria-current', isHome ? 'page' : 'false');
   }
+  const tbtn = $('#tipsBtn');
+  if (tbtn) tbtn.classList.toggle('is-on', nat && tab === 'tips');
   $('#pick').value = cur;
-  const TAB_ICONS = { gen: '🌐', geo: '🏙️', pol: '🏛️', cab: '🪑', eco: '📈', mkt: '🪙', idx: '📊', air: '🌫️', saf: '🛡️', crime: '⚖️', rgt: '📜', sym: '🇮🇳', hist: '🏺', edu: '🎓', cul: '🎭', trv: '🧭', spt: '🏆', quiz: '🎯', cmp: '⚖️' };
+  const TAB_ICONS = { gen: '🌐', geo: '🏙️', pol: '🏛️', cab: '🪑', eco: '📈', mkt: '🪙', idx: '📊', air: '🌫️', saf: '🛡️', crime: '⚖️', rgt: '📜', sym: '🇮🇳', hist: '🏺', edu: '🎓', cul: '🎭', trv: '🧭', spt: '🏆', tips: '🆘', quiz: '🎯', cmp: '⚖️' };
   $('#tabs').innerHTML = tabs.map(([k, l]) => `<button role="tab" id="tab-${k}" data-tab="${k}" aria-selected="${k === tab}" tabindex="${k === tab ? 0 : -1}"><span class="ticon" aria-hidden="true">${TAB_ICONS[k] || '📌'}</span><span class="tlabel">${l}</span></button>`).join('');
-  const bodies = nat ? { gen: natGen, pol: natPol, cab: natCab, eco: natEco, mkt: natMkt, idx: natIdx, air: natAir, saf: natSaf, crime: natCrime, rgt: natRgt, sym: natSym, hist: natHist, trv: natTrv, spt: natSpt, quiz: natQuiz, cmp: natCmp } : { gen: () => stGen(x), geo: () => stGeo(x), idx: () => stIdx(x), pol: () => stPol(x), eco: () => stEco(x), edu: () => stEdu(x), cul: () => stCul(x), saf: () => stSaf(x), trv: () => stTrv(x), cmp: () => stCmp(x) };
+  const bodies = nat ? { gen: natGen, pol: natPol, cab: natCab, eco: natEco, mkt: natMkt, idx: natIdx, air: natAir, saf: natSaf, crime: natCrime, rgt: natRgt, sym: natSym, hist: natHist, trv: natTrv, spt: natSpt, tips: natTips, quiz: natQuiz, cmp: natCmp } : { gen: () => stGen(x), geo: () => stGeo(x), idx: () => stIdx(x), pol: () => stPol(x), eco: () => stEco(x), edu: () => stEdu(x), cul: () => stCul(x), saf: () => stSaf(x), trv: () => stTrv(x), cmp: () => stCmp(x) };
   const bd = $('#body');
   bd.setAttribute('aria-labelledby', 'tab-' + tab);
   bd.innerHTML = bodies[tab]() + `<p class="hint upd"><span class="badge badge-fresh">${L('হালনাগাদ', 'अद्यतन', 'Updated')}</span>${((mktLive && mktLive.asOf) ? L(`এই বিভাগ শেষ যাচাই: ${typeof mktLive.asOf === 'object' ? mktLive.asOf.bn : mktLive.asOf}। `, `यह खंड आख़िरी बार जाँचा गया: ${typeof mktLive.asOf === 'object' ? mktLive.asOf.hi : mktLive.asOf}। `, `This section last checked: ${typeof mktLive.asOf === 'object' ? mktLive.asOf.en : mktLive.asOf}. `) : L('এই বিভাগ শেষ যাচাই: ১৯ নভেম্বর ২০২৬। ', 'यह खंड आख़िरी बार जाँचा गया: 19 नवंबर 2026। ', 'This section last checked: 19 November 2026. '))}${CAD[tab] ? L(...CAD[tab]) : ''}</p>`;
@@ -7387,7 +7956,306 @@ applyStatic();
 labelMap();
 render();
 if (cur !== 'india') focusOn(cur);
+
+/* ---------- জীবন সুরক্ষা ও দুর্যোগ টিপস (কার্টুন SVG + প্রতি কার্ডে আলাদা ভাষা + দিনে ৫ বার স্মার্ট পপ-আপ) ---------- */
+const TIP_SVGS = {"heat":"<svg viewBox=\"0 0 240 136\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n<defs><linearGradient id=\"th-sky\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0%\" stop-color=\"#FEF3C7\"/><stop offset=\"100%\" stop-color=\"#FDE68A\"/></linearGradient></defs>\n<rect width=\"240\" height=\"136\" rx=\"12\" fill=\"url(#th-sky)\"/>\n<rect y=\"106\" width=\"240\" height=\"30\" fill=\"#F59E0B\" opacity=\".28\"/>\n<g transform=\"translate(188 34)\">\n  <circle r=\"22\" fill=\"#F97316\"/>\n  <circle r=\"16\" fill=\"#FACC15\"/>\n  <g stroke=\"#EA580C\" stroke-width=\"3\" stroke-linecap=\"round\">\n    <line x1=\"0\" y1=\"-30\" x2=\"0\" y2=\"-25\"/><line x1=\"0\" y1=\"25\" x2=\"0\" y2=\"30\"/>\n    <line x1=\"-30\" y1=\"0\" x2=\"-25\" y2=\"0\"/><line x1=\"25\" y1=\"0\" x2=\"30\" y2=\"0\"/>\n    <line x1=\"-21\" y1=\"-21\" x2=\"-17\" y2=\"-17\"/><line x1=\"17\" y1=\"17\" x2=\"21\" y2=\"21\"/>\n    <line x1=\"21\" y1=\"-21\" x2=\"17\" y2=\"-17\"/><line x1=\"-17\" y1=\"17\" x2=\"-21\" y2=\"21\"/>\n  </g>\n</g>\n<path d=\"M138 66 Q146 59 154 66 T170 66\" fill=\"none\" stroke=\"#EA580C\" stroke-width=\"2.5\" stroke-linecap=\"round\" opacity=\".7\"/>\n<path d=\"M144 78 Q152 71 160 78 T176 78\" fill=\"none\" stroke=\"#EA580C\" stroke-width=\"2.5\" stroke-linecap=\"round\" opacity=\".55\"/>\n<g transform=\"translate(74 28)\">\n  <path d=\"M-38 24 C-32 -2 32 -2 38 24 Z\" fill=\"#0284C7\" stroke=\"#0F172A\" stroke-width=\"2.5\"/>\n  <path d=\"M-16 24 C-12 2 12 2 16 24 Z\" fill=\"#38BDF8\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <line x1=\"0\" y1=\"24\" x2=\"0\" y2=\"62\" stroke=\"#0F172A\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n  <circle cx=\"0\" cy=\"-2\" r=\"3\" fill=\"#0F172A\"/>\n</g>\n<g transform=\"translate(88 64)\">\n  <circle cx=\"0\" cy=\"0\" r=\"14\" fill=\"#FDBA74\" stroke=\"#0F172A\" stroke-width=\"2.4\"/>\n  <path d=\"M-13 -4 C-10 -16 10 -16 13 -4 Z\" fill=\"#1E293B\"/>\n  <circle cx=\"-4.5\" cy=\"0\" r=\"1.8\" fill=\"#0F172A\"/><circle cx=\"4.5\" cy=\"0\" r=\"1.8\" fill=\"#0F172A\"/>\n  <path d=\"M-4 6 Q0 9 4 6\" fill=\"none\" stroke=\"#0F172A\" stroke-width=\"2\" stroke-linecap=\"round\"/>\n  <rect x=\"-12\" y=\"15\" width=\"24\" height=\"30\" rx=\"8\" fill=\"#FFFFFF\" stroke=\"#0F172A\" stroke-width=\"2.4\"/>\n  <path d=\"M12 22 L24 14\" stroke=\"#FDBA74\" stroke-width=\"5\" stroke-linecap=\"round\"/>\n  <rect x=\"22\" y=\"5\" width=\"11\" height=\"16\" rx=\"3\" fill=\"#38BDF8\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <rect x=\"24\" y=\"2\" width=\"7\" height=\"3\" rx=\"1\" fill=\"#0369A1\"/>\n</g>\n<g transform=\"translate(198 78)\">\n  <rect x=\"-6\" y=\"0\" width=\"12\" height=\"36\" rx=\"6\" fill=\"#FFFFFF\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <circle cx=\"0\" cy=\"36\" r=\"10\" fill=\"#EF4444\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <rect x=\"-2.5\" y=\"9\" width=\"5\" height=\"24\" rx=\"2\" fill=\"#EF4444\"/>\n</g>\n</svg>","cold":"<svg viewBox=\"0 0 240 136\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n<defs><linearGradient id=\"tc-sky\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0%\" stop-color=\"#DBEAFE\"/><stop offset=\"100%\" stop-color=\"#BFDBFE\"/></linearGradient></defs>\n<rect width=\"240\" height=\"136\" rx=\"12\" fill=\"url(#tc-sky)\"/>\n<path d=\"M0 108 Q60 96 120 108 T240 104 L240 136 L0 136 Z\" fill=\"#FFFFFF\" opacity=\".9\"/>\n<g stroke=\"#0284C7\" stroke-width=\"2.2\" stroke-linecap=\"round\" opacity=\".8\">\n  <g transform=\"translate(36 28)\"><line x1=\"-8\" y1=\"0\" x2=\"8\" y2=\"0\"/><line x1=\"0\" y1=\"-8\" x2=\"0\" y2=\"8\"/><line x1=\"-6\" y1=\"-6\" x2=\"6\" y2=\"6\"/><line x1=\"6\" y1=\"-6\" x2=\"-6\" y2=\"6\"/></g>\n  <g transform=\"translate(200 28)\"><line x1=\"-9\" y1=\"0\" x2=\"9\" y2=\"0\"/><line x1=\"0\" y1=\"-9\" x2=\"0\" y2=\"9\"/><line x1=\"-6\" y1=\"-6\" x2=\"6\" y2=\"6\"/><line x1=\"6\" y1=\"-6\" x2=\"-6\" y2=\"6\"/></g>\n  <g transform=\"translate(172 58)\"><line x1=\"-6\" y1=\"0\" x2=\"6\" y2=\"0\"/><line x1=\"0\" y1=\"-6\" x2=\"0\" y2=\"6\"/></g>\n</g>\n<g transform=\"translate(96 58)\">\n  <circle cx=\"0\" cy=\"0\" r=\"15\" fill=\"#FED7AA\" stroke=\"#0F172A\" stroke-width=\"2.4\"/>\n  <path d=\"M-15 -3 C-14 -20 14 -20 15 -3 Z\" fill=\"#DC2626\" stroke=\"#0F172A\" stroke-width=\"2.3\"/>\n  <circle cx=\"0\" cy=\"-19\" r=\"5\" fill=\"#FFFFFF\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <rect x=\"-16\" y=\"-6\" width=\"32\" height=\"6\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <circle cx=\"-5\" cy=\"2\" r=\"1.8\" fill=\"#0F172A\"/><circle cx=\"5\" cy=\"2\" r=\"1.8\" fill=\"#0F172A\"/>\n  <path d=\"M-4 8 Q0 11 4 8\" fill=\"none\" stroke=\"#0F172A\" stroke-width=\"2\" stroke-linecap=\"round\"/>\n  <rect x=\"-18\" y=\"16\" width=\"36\" height=\"36\" rx=\"12\" fill=\"#2563EB\" stroke=\"#0F172A\" stroke-width=\"2.4\"/>\n  <rect x=\"-15\" y=\"13\" width=\"30\" height=\"9\" rx=\"4\" fill=\"#F59E0B\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <path d=\"M5 20 L11 36 L18 34 L12 18 Z\" fill=\"#F59E0B\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n</g>\n<g transform=\"translate(158 84)\">\n  <rect x=\"-11\" y=\"0\" width=\"22\" height=\"20\" rx=\"4\" fill=\"#EA580C\" stroke=\"#0F172A\" stroke-width=\"2.2\"/>\n  <path d=\"M11 4 C18 4 18 15 11 15\" fill=\"none\" stroke=\"#0F172A\" stroke-width=\"2.4\"/>\n  <path d=\"M-4 -4 Q-7 -10 -3 -15 M4 -4 Q1 -10 5 -15\" fill=\"none\" stroke=\"#FFFFFF\" stroke-width=\"2.2\" stroke-linecap=\"round\"/>\n</g>\n</svg>","fire":"<svg viewBox=\"0 0 240 136\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n<rect width=\"240\" height=\"136\" rx=\"12\" fill=\"#FEF2F2\"/>\n<path d=\"M0 0 H240 V46 Q180 62 120 48 T0 54 Z\" fill=\"#64748B\" opacity=\".52\"/>\n<path d=\"M0 0 H240 V30 Q170 42 100 30 T0 36 Z\" fill=\"#475569\" opacity=\".6\"/>\n<rect y=\"108\" width=\"240\" height=\"28\" fill=\"#E2E8F0\"/>\n<g transform=\"translate(46 108)\">\n  <path d=\"M-18 0 C-24 -26 -4 -42 2 -54 C6 -36 22 -28 18 0 Z\" fill=\"#EF4444\" stroke=\"#991B1B\" stroke-width=\"2\"/>\n  <path d=\"M-9 0 C-12 -16 0 -28 2 -36 C6 -22 12 -16 9 0 Z\" fill=\"#FACC15\"/>\n</g>\n<g transform=\"translate(198 44)\">\n  <rect x=\"0\" y=\"0\" width=\"32\" height=\"64\" rx=\"3\" fill=\"#10B981\" stroke=\"#0F172A\" stroke-width=\"2.4\"/>\n  <rect x=\"4\" y=\"-14\" width=\"24\" height=\"12\" rx=\"3\" fill=\"#059669\"/>\n  <text x=\"16\" y=\"-5\" text-anchor=\"middle\" fill=\"#FFFFFF\" font-size=\"7.5\" font-weight=\"800\" font-family=\"sans-serif\">EXIT</text>\n  <circle cx=\"7\" cy=\"34\" r=\"2.2\" fill=\"#FEF08A\"/>\n</g>\n<g transform=\"translate(128 96)\">\n  <ellipse cx=\"-14\" cy=\"-4\" rx=\"18\" ry=\"8\" fill=\"#2563EB\" stroke=\"#0F172A\" stroke-width=\"2.3\"/>\n  <circle cx=\"10\" cy=\"-10\" r=\"10\" fill=\"#FDBA74\" stroke=\"#0F172A\" stroke-width=\"2.3\"/>\n  <rect x=\"12\" y=\"-11\" width=\"9\" height=\"6\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#0F172A\" stroke-width=\"1.6\"/>\n  <path d=\"M-28 2 L-36 10 M-10 3 L-14 11 M4 0 L12 10\" stroke=\"#0F172A\" stroke-width=\"3.2\" stroke-linecap=\"round\"/>\n  <path d=\"M30 -10 L46 -10 M41 -15 L47 -10 L41 -5\" fill=\"none\" stroke=\"#059669\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</g>\n</svg>","lpg":"<svg viewBox=\"0 0 240 136\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n<rect width=\"240\" height=\"136\" rx=\"12\" fill=\"#FFF7ED\"/>\n<rect y=\"108\" width=\"240\" height=\"28\" fill=\"#FED7AA\" opacity=\".6\"/>\n<g transform=\"translate(56 44)\">\n  <rect x=\"-18\" y=\"14\" width=\"36\" height=\"50\" rx=\"12\" fill=\"#DC2626\" stroke=\"#0F172A\" stroke-width=\"2.5\"/>\n  <path d=\"M-12 14 V4 H12 V14\" fill=\"none\" stroke=\"#0F172A\" stroke-width=\"3\"/>\n  <rect x=\"-6\" y=\"7\" width=\"12\" height=\"7\" rx=\"2\" fill=\"#64748B\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <rect x=\"-18\" y=\"34\" width=\"36\" height=\"8\" fill=\"#FFFFFF\" opacity=\".9\"/>\n  <text x=\"0\" y=\"40.5\" text-anchor=\"middle\" fill=\"#DC2626\" font-size=\"7.5\" font-weight=\"800\" font-family=\"sans-serif\">LPG</text>\n  <path d=\"M10 6 Q22 2 28 -8 M14 12 Q26 10 34 2\" fill=\"none\" stroke=\"#F59E0B\" stroke-width=\"2.4\" stroke-dasharray=\"3 3\" stroke-linecap=\"round\"/>\n</g>\n<g transform=\"translate(128 22)\">\n  <rect x=\"0\" y=\"0\" width=\"44\" height=\"44\" rx=\"4\" fill=\"#BAE6FD\" stroke=\"#0F172A\" stroke-width=\"2.4\"/>\n  <line x1=\"22\" y1=\"0\" x2=\"22\" y2=\"44\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <line x1=\"0\" y1=\"22\" x2=\"44\" y2=\"22\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <path d=\"M6 12 Q18 8 34 12 M10 32 Q22 28 38 32\" fill=\"none\" stroke=\"#0284C7\" stroke-width=\"2.4\" stroke-linecap=\"round\"/>\n  <circle cx=\"38\" cy=\"38\" r=\"10\" fill=\"#10B981\" stroke=\"#FFFFFF\" stroke-width=\"2\"/>\n  <path d=\"M34 38 L37 41 L43 34\" fill=\"none\" stroke=\"#FFFFFF\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</g>\n<g transform=\"translate(202 74)\">\n  <rect x=\"-16\" y=\"-18\" width=\"32\" height=\"36\" rx=\"5\" fill=\"#FFFFFF\" stroke=\"#0F172A\" stroke-width=\"2.2\"/>\n  <rect x=\"-5\" y=\"-8\" width=\"10\" height=\"16\" rx=\"2\" fill=\"#CBD5E1\" stroke=\"#0F172A\" stroke-width=\"1.8\"/>\n  <circle cx=\"0\" cy=\"0\" r=\"21\" fill=\"none\" stroke=\"#DC2626\" stroke-width=\"3.5\"/>\n  <line x1=\"-14\" y1=\"-14\" x2=\"14\" y2=\"14\" stroke=\"#DC2626\" stroke-width=\"3.5\" stroke-linecap=\"round\"/>\n</g>\n</svg>","quake":"<svg viewBox=\"0 0 240 136\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n<rect width=\"240\" height=\"136\" rx=\"12\" fill=\"#F5F3FF\"/>\n<rect y=\"108\" width=\"240\" height=\"28\" fill=\"#DDD6FE\"/>\n<path d=\"M22 16 L30 34 L24 48 L34 66\" fill=\"none\" stroke=\"#7C3AED\" stroke-width=\"2.8\" stroke-linecap=\"round\"/>\n<path d=\"M214 20 L206 38 L214 52 L204 70\" fill=\"none\" stroke=\"#7C3AED\" stroke-width=\"2.8\" stroke-linecap=\"round\"/>\n<path d=\"M18 118 L52 114 L74 122 L106 112 L138 122 L176 114 L222 120\" fill=\"none\" stroke=\"#6D28D9\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n<g transform=\"translate(120 60)\">\n  <rect x=\"-56\" y=\"0\" width=\"112\" height=\"10\" rx=\"4\" fill=\"#B45309\" stroke=\"#0F172A\" stroke-width=\"2.5\"/>\n  <rect x=\"-48\" y=\"10\" width=\"9\" height=\"40\" rx=\"2\" fill=\"#92400E\" stroke=\"#0F172A\" stroke-width=\"2.2\"/>\n  <rect x=\"39\" y=\"10\" width=\"9\" height=\"40\" rx=\"2\" fill=\"#92400E\" stroke=\"#0F172A\" stroke-width=\"2.2\"/>\n  <g transform=\"translate(-4 24)\">\n    <circle cx=\"-12\" cy=\"-2\" r=\"9.5\" fill=\"#FDBA74\" stroke=\"#0F172A\" stroke-width=\"2.2\"/>\n    <path d=\"M-20 -4 C-16 -14 -4 -14 0 -4\" fill=\"#1E293B\"/>\n    <ellipse cx=\"8\" cy=\"8\" rx=\"16\" ry=\"10\" fill=\"#2563EB\" stroke=\"#0F172A\" stroke-width=\"2.2\"/>\n    <path d=\"M-16 6 L-40 4\" stroke=\"#0F172A\" stroke-width=\"3.2\" stroke-linecap=\"round\"/>\n    <path d=\"M-6 18 L18 18\" stroke=\"#1E3A8A\" stroke-width=\"5\" stroke-linecap=\"round\"/>\n  </g>\n</g>\n<text x=\"120\" y=\"34\" text-anchor=\"middle\" fill=\"#5B21B6\" font-size=\"11\" font-weight=\"800\" font-family=\"sans-serif\">DROP · COVER · HOLD</text>\n</svg>","flood":"<svg viewBox=\"0 0 240 136\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n<defs><linearGradient id=\"tf-sky\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0%\" stop-color=\"#E0F2FE\"/><stop offset=\"100%\" stop-color=\"#BAE6FD\"/></linearGradient></defs>\n<rect width=\"240\" height=\"136\" rx=\"12\" fill=\"url(#tf-sky)\"/>\n<g fill=\"#64748B\">\n  <circle cx=\"54\" cy=\"24\" r=\"14\"/><circle cx=\"70\" cy=\"22\" r=\"16\"/><circle cx=\"88\" cy=\"26\" r=\"12\"/>\n</g>\n<g stroke=\"#0284C7\" stroke-width=\"2\" stroke-linecap=\"round\">\n  <line x1=\"50\" y1=\"42\" x2=\"46\" y2=\"54\"/><line x1=\"68\" y1=\"44\" x2=\"64\" y2=\"56\"/><line x1=\"86\" y1=\"42\" x2=\"82\" y2=\"54\"/>\n</g>\n<path d=\"M120 116 L168 62 L240 62 L240 136 L120 136 Z\" fill=\"#15803D\"/>\n<g transform=\"translate(182 42)\">\n  <circle cx=\"0\" cy=\"0\" r=\"8.5\" fill=\"#FDBA74\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <rect x=\"-7\" y=\"9\" width=\"14\" height=\"16\" rx=\"4\" fill=\"#F97316\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <path d=\"M-16 8 L-28 20 M-28 8 L-28 20 L-16 20\" fill=\"none\" stroke=\"#FFFFFF\" stroke-width=\"2.5\" stroke-linecap=\"round\" transform=\"rotate(180 -22 14)\"/>\n</g>\n<rect x=\"26\" y=\"70\" width=\"52\" height=\"38\" fill=\"#FEF3C7\" stroke=\"#0F172A\" stroke-width=\"2.2\"/>\n<polygon points=\"20,72 52,48 84,72\" fill=\"#DC2626\" stroke=\"#0F172A\" stroke-width=\"2.2\"/>\n<path d=\"M0 98 Q24 88 48 98 T96 98 T144 98 T192 98 T240 98 L240 136 L0 136 Z\" fill=\"#0284C7\" opacity=\".88\"/>\n<path d=\"M0 114 Q30 105 60 114 T120 114 T180 114 T240 114 L240 136 L0 136 Z\" fill=\"#0369A1\"/>\n</svg>","lightning":"<svg viewBox=\"0 0 240 136\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n<rect width=\"240\" height=\"136\" rx=\"12\" fill=\"#1E293B\"/>\n<rect y=\"106\" width=\"240\" height=\"30\" fill=\"#15803D\"/>\n<g fill=\"#475569\">\n  <circle cx=\"72\" cy=\"26\" r=\"18\"/><circle cx=\"96\" cy=\"22\" r=\"22\"/><circle cx=\"124\" cy=\"26\" r=\"18\"/><circle cx=\"146\" cy=\"30\" r=\"14\"/>\n</g>\n<polygon points=\"104,36 86,70 102,70 90,104 126,60 108,60 120,36\" fill=\"#FACC15\" stroke=\"#FEF08A\" stroke-width=\"1.8\" stroke-linejoin=\"round\"/>\n<g transform=\"translate(46 72)\">\n  <rect x=\"-5\" y=\"14\" width=\"10\" height=\"22\" fill=\"#78350F\"/>\n  <circle cx=\"0\" cy=\"4\" r=\"18\" fill=\"#16A34A\"/>\n  <circle cx=\"0\" cy=\"12\" r=\"22\" fill=\"none\" stroke=\"#EF4444\" stroke-width=\"3.2\"/>\n  <line x1=\"-15\" y1=\"-3\" x2=\"15\" y2=\"27\" stroke=\"#EF4444\" stroke-width=\"3.2\"/>\n</g>\n<g transform=\"translate(186 72)\">\n  <rect x=\"-24\" y=\"6\" width=\"48\" height=\"30\" rx=\"3\" fill=\"#F8FAFC\" stroke=\"#0F172A\" stroke-width=\"2.2\"/>\n  <polygon points=\"-30,8 0,-14 30,8\" fill=\"#0284C7\" stroke=\"#0F172A\" stroke-width=\"2.2\"/>\n  <rect x=\"-7\" y=\"18\" width=\"14\" height=\"18\" fill=\"#94A3B8\" stroke=\"#0F172A\" stroke-width=\"1.8\"/>\n  <circle cx=\"22\" cy=\"-6\" r=\"10\" fill=\"#10B981\" stroke=\"#FFFFFF\" stroke-width=\"2\"/>\n  <path d=\"M18 -6 L21 -3 L27 -10\" fill=\"none\" stroke=\"#FFFFFF\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</g>\n</svg>","cyclone":"<svg viewBox=\"0 0 240 136\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n<rect width=\"240\" height=\"136\" rx=\"12\" fill=\"#ECFEFF\"/>\n<rect y=\"108\" width=\"240\" height=\"28\" fill=\"#0891B2\" opacity=\".28\"/>\n<g transform=\"translate(74 68)\" fill=\"none\" stroke=\"#0E7490\" stroke-linecap=\"round\">\n  <circle r=\"10\" stroke-width=\"4\" fill=\"#CFFAFE\"/>\n  <path d=\"M-12 -14 C10 -32 38 -14 26 12\" stroke-width=\"4.5\"/>\n  <path d=\"M12 14 C-10 32 -38 14 -26 -12\" stroke-width=\"4.5\"/>\n  <path d=\"M-24 -24 C14 -48 56 -16 38 24\" stroke-width=\"3\" stroke=\"#06B6D4\"/>\n  <path d=\"M24 24 C-14 48 -56 16 -38 -24\" stroke-width=\"3\" stroke=\"#06B6D4\"/>\n</g>\n<g transform=\"translate(178 72)\">\n  <rect x=\"-28\" y=\"4\" width=\"56\" height=\"34\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#0F172A\" stroke-width=\"2.4\"/>\n  <polygon points=\"-34,6 0,-18 34,6\" fill=\"#0F766E\" stroke=\"#0F172A\" stroke-width=\"2.4\"/>\n  <rect x=\"-18\" y=\"14\" width=\"14\" height=\"14\" fill=\"#FDE68A\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <line x1=\"-18\" y1=\"14\" x2=\"-4\" y2=\"28\" stroke=\"#92400E\" stroke-width=\"2.2\"/>\n  <line x1=\"-4\" y1=\"14\" x2=\"-18\" y2=\"28\" stroke=\"#92400E\" stroke-width=\"2.2\"/>\n  <rect x=\"6\" y=\"16\" width=\"14\" height=\"22\" fill=\"#CBD5E1\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n</g>\n<path d=\"M124 30 H154 M130 42 H152\" stroke=\"#0284C7\" stroke-width=\"2.8\" stroke-linecap=\"round\"/>\n</svg>","snake":"<svg viewBox=\"0 0 240 136\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n<rect width=\"240\" height=\"136\" rx=\"12\" fill=\"#ECFDF5\"/>\n<rect y=\"106\" width=\"240\" height=\"30\" fill=\"#A7F3D0\"/>\n<g transform=\"translate(66 84)\">\n  <path d=\"M-40 16 C-28 2 -14 26 0 12 C12 0 22 22 32 6\" fill=\"none\" stroke=\"#15803D\" stroke-width=\"10\" stroke-linecap=\"round\"/>\n  <path d=\"M-40 16 C-28 2 -14 26 0 12 C12 0 22 22 32 6\" fill=\"none\" stroke=\"#86EFAC\" stroke-width=\"3\" stroke-dasharray=\"4 6\" stroke-linecap=\"round\"/>\n  <ellipse cx=\"34\" cy=\"4\" rx=\"8\" ry=\"5.5\" fill=\"#166534\" stroke=\"#0F172A\" stroke-width=\"1.8\"/>\n  <circle cx=\"36\" cy=\"2.5\" r=\"1.5\" fill=\"#FEF08A\"/>\n  <path d=\"M42 5 L49 3 M45 4 L49 7\" stroke=\"#EF4444\" stroke-width=\"1.8\" stroke-linecap=\"round\"/>\n</g>\n<g transform=\"translate(174 66)\">\n  <rect x=\"-34\" y=\"-12\" width=\"68\" height=\"36\" rx=\"8\" fill=\"#FFFFFF\" stroke=\"#0F172A\" stroke-width=\"2.4\"/>\n  <rect x=\"10\" y=\"-4\" width=\"16\" height=\"12\" rx=\"2\" fill=\"#BAE6FD\" stroke=\"#0F172A\" stroke-width=\"1.8\"/>\n  <rect x=\"-20\" y=\"-2\" width=\"18\" height=\"6\" rx=\"1.5\" fill=\"#DC2626\"/>\n  <rect x=\"-14\" y=\"-8\" width=\"6\" height=\"18\" rx=\"1.5\" fill=\"#DC2626\"/>\n  <rect x=\"-6\" y=\"-20\" width=\"12\" height=\"8\" rx=\"3\" fill=\"#EF4444\" stroke=\"#0F172A\" stroke-width=\"1.8\"/>\n  <circle cx=\"-18\" cy=\"26\" r=\"8\" fill=\"#334155\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <circle cx=\"18\" cy=\"26\" r=\"8\" fill=\"#334155\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n</g>\n<text x=\"174\" y=\"28\" text-anchor=\"middle\" fill=\"#065F46\" font-size=\"10.5\" font-weight=\"800\" font-family=\"sans-serif\">CALL 108 · STAY CALM</text>\n</svg>","shock":"<svg viewBox=\"0 0 240 136\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n<rect width=\"240\" height=\"136\" rx=\"12\" fill=\"#FEFCE8\"/>\n<rect y=\"108\" width=\"240\" height=\"28\" fill=\"#FEF08A\" opacity=\".55\"/>\n<g transform=\"translate(52 64)\">\n  <rect x=\"-24\" y=\"-28\" width=\"48\" height=\"56\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#0F172A\" stroke-width=\"2.5\"/>\n  <rect x=\"-12\" y=\"-12\" width=\"24\" height=\"24\" rx=\"3\" fill=\"#E2E8F0\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <rect x=\"-6\" y=\"0\" width=\"12\" height=\"10\" rx=\"2\" fill=\"#DC2626\"/>\n  <text x=\"0\" y=\"-16\" text-anchor=\"middle\" fill=\"#DC2626\" font-size=\"8\" font-weight=\"800\" font-family=\"sans-serif\">OFF</text>\n  <text x=\"0\" y=\"22\" text-anchor=\"middle\" fill=\"#334155\" font-size=\"7.5\" font-weight=\"700\" font-family=\"sans-serif\">MCB</text>\n</g>\n<g transform=\"translate(154 70)\">\n  <path d=\"M-38 22 Q-12 36 16 18 T54 20\" fill=\"none\" stroke=\"#0F172A\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n  <polygon points=\"8,-26 -6,2 6,2 -4,24 22,-4 10,-4 20,-26\" fill=\"#F59E0B\" stroke=\"#B45309\" stroke-width=\"1.6\"/>\n  <line x1=\"-26\" y1=\"-22\" x2=\"18\" y2=\"28\" stroke=\"#92400E\" stroke-width=\"7\" stroke-linecap=\"round\"/>\n  <line x1=\"-26\" y1=\"-22\" x2=\"18\" y2=\"28\" stroke=\"#D97706\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n</g>\n<text x=\"164\" y=\"26\" text-anchor=\"middle\" fill=\"#92400E\" font-size=\"9.5\" font-weight=\"800\" font-family=\"sans-serif\">DRY WOOD ONLY</text>\n</svg>","crowd":"<svg viewBox=\"0 0 240 136\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n<rect width=\"240\" height=\"136\" rx=\"12\" fill=\"#FDF2F8\"/>\n<rect y=\"106\" width=\"240\" height=\"30\" fill=\"#FBCFE8\" opacity=\".6\"/>\n<g opacity=\".45\" fill=\"#9D174D\">\n  <circle cx=\"38\" cy=\"54\" r=\"10\"/><rect x=\"26\" y=\"66\" width=\"24\" height=\"34\" rx=\"8\"/>\n  <circle cx=\"68\" cy=\"50\" r=\"10\"/><rect x=\"56\" y=\"62\" width=\"24\" height=\"38\" rx=\"8\"/>\n  <circle cx=\"172\" cy=\"50\" r=\"10\"/><rect x=\"160\" y=\"62\" width=\"24\" height=\"38\" rx=\"8\"/>\n  <circle cx=\"202\" cy=\"54\" r=\"10\"/><rect x=\"190\" y=\"66\" width=\"24\" height=\"34\" rx=\"8\"/>\n</g>\n<g transform=\"translate(120 56)\">\n  <circle cx=\"0\" cy=\"-6\" r=\"13\" fill=\"#FDBA74\" stroke=\"#0F172A\" stroke-width=\"2.4\"/>\n  <circle cx=\"-4\" cy=\"-6\" r=\"1.6\" fill=\"#0F172A\"/><circle cx=\"4\" cy=\"-6\" r=\"1.6\" fill=\"#0F172A\"/>\n  <path d=\"M-3 0 H3\" stroke=\"#0F172A\" stroke-width=\"2\" stroke-linecap=\"round\"/>\n  <rect x=\"-15\" y=\"9\" width=\"30\" height=\"38\" rx=\"10\" fill=\"#DB2777\" stroke=\"#0F172A\" stroke-width=\"2.4\"/>\n  <path d=\"M-15 20 L-22 14 L-10 10 M15 20 L22 14 L10 10\" fill=\"none\" stroke=\"#FDBA74\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</g>\n<path d=\"M138 24 L172 14 M163 11 L173 14 L167 22\" fill=\"none\" stroke=\"#059669\" stroke-width=\"3.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<text x=\"120\" y=\"24\" text-anchor=\"middle\" fill=\"#9D174D\" font-size=\"9.5\" font-weight=\"800\" font-family=\"sans-serif\">PROTECT CHEST · MOVE DIAGONAL</text>\n</svg>","kit":"<svg viewBox=\"0 0 240 136\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n<rect width=\"240\" height=\"136\" rx=\"12\" fill=\"#EFF6FF\"/>\n<rect y=\"106\" width=\"240\" height=\"30\" fill=\"#BFDBFE\" opacity=\".65\"/>\n<g transform=\"translate(86 68)\">\n  <path d=\"M-14 -34 C-14 -46 14 -46 14 -34\" fill=\"none\" stroke=\"#0F172A\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n  <rect x=\"-32\" y=\"-32\" width=\"64\" height=\"72\" rx=\"14\" fill=\"#DC2626\" stroke=\"#0F172A\" stroke-width=\"2.6\"/>\n  <rect x=\"-24\" y=\"6\" width=\"48\" height=\"26\" rx=\"8\" fill=\"#B91C1C\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  <circle cx=\"0\" cy=\"-12\" r=\"13\" fill=\"#FFFFFF\"/>\n  <rect x=\"-7\" y=\"-14.5\" width=\"14\" height=\"5\" rx=\"1.5\" fill=\"#DC2626\"/>\n  <rect x=\"-2.5\" y=\"-19\" width=\"5\" height=\"14\" rx=\"1.5\" fill=\"#DC2626\"/>\n</g>\n<g transform=\"translate(166 56)\">\n  <rect x=\"-12\" y=\"-22\" width=\"18\" height=\"32\" rx=\"5\" fill=\"#38BDF8\" stroke=\"#0F172A\" stroke-width=\"2.2\"/>\n  <rect x=\"-7\" y=\"-27\" width=\"8\" height=\"5\" rx=\"1.5\" fill=\"#0369A1\"/>\n  <g transform=\"translate(26 -14) rotate(25)\">\n    <rect x=\"-5\" y=\"-12\" width=\"10\" height=\"24\" rx=\"3\" fill=\"#F59E0B\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n    <polygon points=\"-8,-12 8,-12 11,-19 -11,-19\" fill=\"#FEF08A\" stroke=\"#0F172A\" stroke-width=\"2\"/>\n  </g>\n  <rect x=\"-16\" y=\"20\" width=\"54\" height=\"26\" rx=\"5\" fill=\"#FFFFFF\" stroke=\"#0F172A\" stroke-width=\"2.2\"/>\n  <line x1=\"-8\" y1=\"29\" x2=\"24\" y2=\"29\" stroke=\"#2563EB\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n  <line x1=\"-8\" y1=\"37\" x2=\"16\" y2=\"37\" stroke=\"#94A3B8\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n</g>\n</svg>"};
+const SURVIVAL_TIPS = [{"id":"heat","cat":"weather","col":"#EA580C","ico":"☀️","help":"108","helpLbl":["অ্যাম্বুলেন্স (হিটস্ট্রোক)","एम्बुलेंस (हीटस्ट्रोक)","Ambulance (Heatstroke)"],"title":["তীব্র গরম ও লু থেকে বাঁচার উপায়","भीषण गर्मी और लू से बचाव","Surviving Extreme Heat & Heatwave"],"short":["দুপুর ১২টা থেকে ৩টার মধ্যে সরাসরি রোদ এড়িয়ে চলুন এবং পিপাসা না পেলেও ঘন ঘন জল ও ORS পান করুন। বাইরে বেরোলে হালকা রঙের সুতির ঢিলেঢালা পোশাক পরুন ও ছাতা বা ভেজা কাপড় দিয়ে মাথা ঢেকে রাখুন।","दोपहर 12 से 3 बजे के बीच सीधी धूप से बचें और प्यास न होने पर भी बार-बार पानी व ORS पिएँ। बाहर निकलते समय हल्के सूती कपड़े पहनें और छाते या गीले कपड़े से सिर ढकें।","Avoid direct sun between 12 PM and 3 PM, and drink water or ORS regularly even if not thirsty. Wear loose light-coloured cotton clothes and shield your head with an umbrella or damp cloth."],"dos":[["প্রতি ঘণ্টায় সাধারণ জল, ORS, লেবু-নুন জল, লস্যি বা ঘোল পান করুন।","বাইরে বেরোলে ছাতা, টুপি, সানগ্লাস ও ভেজা গামছা/রুমাল ব্যবহার করুন।","দিনের বেলা জানালার পর্দা টেনে ঘর ঠান্ডা রাখুন এবং রাতে জানালা খুলে দিন।","মাথা ঘোরা, বমি ভাব বা ঘাম বন্ধ হয়ে গেলে তৎক্ষণাৎ ছায়ায় নিয়ে গায়ে ঠান্ডা জল স্পঞ্জ করুন ও ১০৮-এ ফোন করুন।"],["हर घंटे सादा पानी, ORS, नींबू-नमक पानी, छाछ या आम पन्ना पिएँ।","धूप में निकलते समय छाता, टोपी और गीला सूती कपड़ा साथ रखें।","दिन में खिड़कियों पर पर्दे लगाकर घर ठंडा रखें और रात में वेंटिलेशन खोलें।","चक्कर आने, उल्टी या पसीना रुकने पर तुरंत छाँव में ले जाकर ठंडे पानी से पोंछें और 108 पर कॉल करें।"],["Drink plain water, ORS, lemon-salt water, or buttermilk every hour.","Carry an umbrella, cap, or damp cotton cloth whenever stepping outdoors.","Keep curtains drawn during peak afternoon heat and ventilate rooms at night.","If someone feels dizzy or stops sweating, move them to shade, sponge with cool water, and call 108."]],"donts":[["ভুলেও শিশু বা পোষ্যকে পার্ক করা বন্ধ গাড়ির ভেতরে রেখে যাবেন না।","খালি পেটে বা দুপুর ১২–৩টার রোদে ভারী শারীরিক পরিশ্রম করবেন না।","অতিরিক্ত চা, কফি, অ্যালকোহল বা চিনিযুক্ত কোল্ড ড্রিংকস এড়িয়ে চলুন — এগুলো শরীর শুকিয়ে দেয়।"],["बच्चों या पालतू जानवरों को कभी भी बंद खड़ी कार में अकेला न छोड़ें।","खाली पेट या दोपहर 12–3 बजे की तेज़ धूप में भारी शारीरिक श्रम न करें।","अधिक चाय, कॉफ़ी, शराब या मीठे कोल्ड ड्रिंक से बचें — ये शरीर में पानी कम करते हैं।"],["Never leave children or pets inside a parked, closed vehicle.","Avoid heavy outdoor labour on an empty stomach during peak afternoon hours.","Avoid excess tea, coffee, alcohol, or sugary sodas — they worsen dehydration."]],"src":["NDMA ভারত · হিটওয়েভ নির্দেশিকা","NDMA भारत · हीटवेव दिशानिर्देश","NDMA India · Heatwave Guidelines"]},{"id":"cold","cat":"weather","col":"#0284C7","ico":"❄️","help":"112","helpLbl":["জরুরি সহায়তা","आपातकालीन सहायता","National Emergency"],"title":["প্রচণ্ড ঠান্ডা ও শৈত্যপ্রবাহে সুরক্ষা","कड़ाके की ठंड और शीतलहर से बचाव","Staying Safe in Extreme Cold Waves"],"short":["একটি মোটা পোশাকের বদলে একাধিক পাতলা স্তরে (layering) গরম কাপড় পরুন এবং কান, মাথা, হাত ও পা ভালোভাবে ঢেকে রাখুন। শরীর গরম রাখতে গরম জল, স্যুপ ও পুষ্টিকর খাবার খান।","एक मोटे कपड़े की जगह कई परतों (लेयरिंग) में गर्म कपड़े पहनें और सिर, कान, हाथ व पैर ढककर रखें। शरीर को गर्म रखने के लिए गुनगुना पानी, सूप और पौष्टिक आहार लें।","Wear multiple thin layers instead of one heavy garment, keeping your head, ears, hands, and feet covered. Drink warm fluids and eat nutritious hot meals to maintain core body warmth."],"dos":[["তাপ ধরে রাখতে ভেতরে সুতি বা থার্মাল এবং বাইরে উলের সোয়েটার ও উইন্ডচিটার পরুন।","সকাল ও রাতের কুয়াশায় বয়স্ক ও শিশুদের ঘরের ভেতরে রাখুন এবং গরম তরল খাবার দিন।","ত্বক ফাটা বা ফ্রস্টবাইট এড়াতে ময়েশ্চারাইজার বা তেল ব্যবহার করুন এবং আঙুল সচল রাখুন।","প্রচণ্ড কাঁপুনি, অস্পষ্ট কথা বা অতিরিক্ত ঝিমুনি (হাইপোথার্মিয়া) দেখা দিলে দ্রুত চিকিৎসকের সাহায্য নিন।"],["गर्मी बनाए रखने के लिए भीतर थर्मल/सूती और बाहर ऊनी स्वेटर व जैकेट पहनें।","सुबह-रात के घने कोहरे में बुज़ुर्गों व बच्चों को घर के अंदर रखें और गर्म पेय दें।","हाथ-पैरों की उँगलियाँ सुन्न होने से बचाने के लिए दस्ताने-मोज़े पहनें और त्वचा पर तेल लगाएँ।","तेज़ कंपकंपी, लड़खड़ाती आवाज़ या सुस्ती (हाइपोथर्मिया) दिखे तो तुरंत डॉक्टर से संपर्क करें।"],["Layer up: thermal/cotton base layer, warm woollen middle layer, and a windproof outer shell.","Keep elderly family members and infants indoors during early-morning and late-night fog.","Wear gloves, socks, and a warm cap; moisturise exposed skin to prevent frostbite.","Seek urgent medical care if shivering turns into slurred speech or extreme drowsiness (hypothermia)."]],"donts":[["বন্ধ ঘরে কয়লা, কাঠ বা আংটি জ্বালিয়ে ঘুমোবেন না — এতে বিষাক্ত কার্বন মনোক্সাইডে প্রাণহানি হতে পারে।","ঠান্ডা কাটাতে মদ্যপান করবেন না — অ্যালকোহল আসলে শরীরের ভেতরের তাপ দ্রুত কমিয়ে দেয়।","শরীরের কোনো অংশ ঠান্ডায় অবশ হয়ে গেলে সেখানে সরাসরি গরম জল বা আগুন দেবেন না।"],["बंद कमरे में कोयला या अंगीठी जलाकर न सोएँ — ज़हरीली कार्बन मोनोऑक्साइड गैस जानलेवा हो सकती है।","ठंड भगाने के लिए शराब न पिएँ — यह शरीर के अंदरूनी तापमान को और तेज़ी से घटाती है।","सुन्न पड़े हाथ-पैरों को सीधे आग या उबलते पानी से न सेकें।"],["Never sleep with a coal brazier (angithi) burning in a closed room — carbon monoxide is fatal.","Never drink alcohol to 'warm up' — it accelerates core body heat loss.","Do not rub or pour hot water directly on numb, frostbitten skin."]],"src":["NDMA ভারত · শৈত্যপ্রবাহ সুরক্ষা","NDMA भारत · शीतलहर दिशानिर्देश","NDMA India · Cold Wave Advisory"]},{"id":"fire","cat":"home","col":"#DC2626","ico":"🔥","help":"101","helpLbl":["দমকল (Fire Service)","दमकल (Fire Service)","Fire Service"],"title":["আগুন লাগলে তৎক্ষণাৎ কী করবেন","आग लगने पर तुरंत क्या करें","Fire & Smoke Emergency Survival"],"short":["ধোঁয়া ওপরে উঠে যায়, তাই ঘর ধোঁয়ায় ভরে গেলে মেঝে ঘেঁষে হামাগুড়ি দিয়ে বেরোন এবং ভেজা কাপড় দিয়ে নাক-মুখ ঢাকুন। লিফট ছেড়ে সিঁড়ি ব্যবহার করুন এবং নিরাপদ দূরত্বে গিয়ে ১০১ নম্বরে ফোন করুন।","धुआँ हमेशा ऊपर उठता है, इसलिए धुएँ में फ़र्श के पास झुककर या रेंगकर बाहर निकलें और गीले कपड़े से नाक-मुँह ढकें। लिफ़्ट छोड़ें, सीढ़ियाँ इस्तेमाल करें और सुरक्षित जगह से 101 पर कॉल करें।","Smoke rises, so stay low and crawl close to the floor with a damp cloth over your nose and mouth. Always take the stairs—never the lift—and call 101 once safely outside."],"dos":[["বন্ধ দরজা খোলার আগে হাতের উল্টো পিঠ দিয়ে দরজা বা হাতল ছুঁয়ে দেখুন গরম কি না।","পোশাকে আগুন ধরলে দৌড়াবেন না — থামুন, মাটিতে শুয়ে পড়ুন ও গড়াগড়ি দিন (Stop, Drop & Roll)।","বেরোনোর পথ বন্ধ থাকলে ঘরের দরজার নিচের ফাঁক ভেজা তোয়ালে দিয়ে বন্ধ করে জানালার কাছে দাঁড়িয়ে সাহায্য চান।","অগ্নি-নির্বাপণ যন্ত্র ব্যবহারের নিয়ম মনে রাখুন: PASS — পিন টানুন, গোড়ায় তাক করুন, চাপ দিন, এপাশ-ওপাশ স্প্রে করুন।"],["बंद दरवाज़ा खोलने से पहले हाथ के पिछले हिस्से से जाँचें कि वह गर्म तो नहीं है।","कपड़ों में आग लगे तो दौड़ें नहीं — रुकें, ज़मीन पर लेटें और लुढ़कें (Stop, Drop & Roll)।","रास्ता बंद हो तो दरवाज़े के नीचे गीला तौलिया लगाएँ और खिड़की के पास से मदद के लिए आवाज़ दें।","अग्निशामक यंत्र के लिए PASS नियम याद रखें: पिन खींचें, आग की जड़ पर निशाना लगाएँ, दबाएँ और घुमाएँ।"],["Test closed doors with the back of your hand for heat before opening them.","If your clothes catch fire, do not run — Stop, Drop to the ground, and Roll.","If trapped, seal door gaps with wet towels and signal for help from a window.","For an extinguisher, use PASS: Pull the pin, Aim at the base, Squeeze, and Sweep side to side."]],"donts":[["আগুন লাগলে ভুলেও লিফট ব্যবহার করবেন না — বিদ্যুৎ চলে গেলে ভেতরে আটকে পড়বেন।","রান্নার তেল বা বিদ্যুতের আগুনে কখনোই জল ঢালবেন না — আগুন আরও ভয়ংকরভাবে ছড়িয়ে পড়বে।","জিনিসপত্র আনতে ভুলেও জ্বলন্ত বাড়ির ভেতরে ফিরে যাবেন না।"],["आग लगने पर कभी भी लिफ़्ट का उपयोग न करें — बिजली कटने पर फँस सकते हैं।","तेल या बिजली की आग पर पानी कभी न डालें — इससे आग और भड़क सकती है।","सामान लेने के लिए जलती इमारत में वापस कभी न जाएँ।"],["Never use an elevator during a fire — power failure can trap you inside.","Never pour water on grease/oil or electrical fires — it causes violent flare-ups or shock.","Never go back inside a burning building for belongings."]],"src":["ভারতীয় অগ্নিনির্বাপণ সুরক্ষা ও NDMA","राष्ट्रीय अग्नि सुरक्षा व NDMA","India Fire Safety & NDMA"]},{"id":"lpg","cat":"home","col":"#D97706","ico":"🧯","help":"1906","helpLbl":["LPG গ্যাস লিক ইমার্জেন্সি","LPG गैस लीक हेल्पलाइन","LPG Emergency Helpline"],"title":["রান্নাঘরে গ্যাস সিলিন্ডার লিক হলে করণীয়","रसोई में LPG गैस लीक होने पर क्या करें","Kitchen LPG Gas Leak Emergency"],"short":["গ্যাসের গন্ধ পেলেই সঙ্গে সঙ্গে রেগুলেটর বন্ধ করুন এবং ঘরের সব দরজা-জানালা খুলে দিন যাতে গ্যাস বেরিয়ে যায়। ভুলেও কোনো ইলেকট্রিক সুইচ অন বা অফ করবেন না এবং ঘরের বাইরে গিয়ে ১৯০৬-এ ফোন করুন।","गैस की गंध आते ही रेगुलेटर बंद करें और सभी दरवाज़े-खिड़कियाँ खोल दें ताकि गैस बाहर निकल सके। किसी भी बिजली के स्विच को ऑन या ऑफ़ न करें और बाहर जाकर 1906 पर कॉल करें।","If you smell gas, immediately switch off the regulator and open all doors and windows to ventilate. Do NOT touch any electrical switch (on or off), step outside, and dial 1906."],"dos":[["প্রথমেই গ্যাস বার্নারের নব ও সিলিন্ডারের রেগুলেটর বন্ধ করে সেফটি ক্যাপ লাগিয়ে দিন।","গ্যাস বাতাসের চেয়ে ভারী হওয়ায় মেঝের কাছে জমে থাকে — সব দরজা-জানালা খুলে দিন।","সিলিন্ডারের মুখে আগুন ধরে গেলে ভেজা সুতির চাদর বা কম্বল দিয়ে শক্ত করে জড়িয়ে বাতাস বন্ধ করুন।","সকলকে নিরাপদে ঘরের বাইরে নিয়ে গিয়ে ভারতের ২৪×৭ গ্যাস ইমার্জেন্সি নম্বর ১৯০৬-এ কল করুন।"],["सबसे पहले गैस चूल्हे के नॉब और सिलेंडर का रेगुलेटर बंद कर सेफ़्टी कैप लगाएँ।","LPG हवा से भारी होती है और फ़र्श के पास बैठती है — सारे दरवाज़े-खिड़कियाँ खोल दें।","सिलेंडर के मुँह पर आग लग जाए तो गीली सूती चादर या कंबल कसकर लपेटकर ऑक्सीजन रोकें।","सभी को सुरक्षित बाहर निकालें और भारत की 24×7 LPG हेल्पलाइन 1906 पर कॉल करें।"],["Turn off stove knobs and the cylinder regulator, and fit the safety cap immediately.","Open all doors and windows wide — LPG is heavier than air and settles near the floor.","If the cylinder nozzle catches fire, wrap a soaked cotton bedsheet tightly around it to cut off oxygen.","Evacuate everyone outdoors and call India's 24×7 LPG emergency helpline 1906."]],"donts":[["লাইট, ফ্যান, এগজস্ট বা ফ্রিজের কোনো সুইচ চালু বা বন্ধ করবেন না — ক্ষুদ্র স্পার্ক থেকেই বিস্ফোরণ হতে পারে।","গ্যাস লিক হচ্ছে কি না দেখতে ভুলেও দেশলাই, লাইটার বা মোমবাতি জ্বালাবেন না।","ঘরের ভেতরে দাঁড়িয়ে মোবাইল ফোন কল করবেন না; বাইরে খোলা জায়গায় গিয়ে কল করুন।"],["लाइट, पंखे या एग्ज़ॉस्ट का कोई स्विच ऑन या ऑफ़ न करें — हल्की चिंगारी से विस्फोट हो सकता है।","रिसाव जाँचने के लिए माचिस या लाइटर कभी न जलाएँ।","गैस से भरे कमरे के अंदर फ़ोन कॉल न करें; खुली हवा में जाकर कॉल करें।"],["Do NOT flip any light, fan, or exhaust switch — a tiny spark can ignite the gas.","Never use a match, lighter, or candle to check for a gas leak.","Avoid making phone calls inside the gas-filled room; step into open air first."]],"src":["পেট্রোলিয়াম ও প্রাকৃতিক গ্যাস মন্ত্রক (১৯০৬)","पेट्रोलियम एवं प्राकृतिक गैस मंत्रालय (1906)","MoPNG India · LPG Safety (1906)"]},{"id":"quake","cat":"disaster","col":"#7C3AED","ico":"🏚️","help":"1078","helpLbl":["NDMA দুর্যোগ হেল্পলাইন","NDMA आपदा हेल्पलाइन","NDMA Disaster Helpline"],"title":["ভূমিকম্প হলে জীবন বাঁচানোর নিয়ম","भूकंप आने पर जान बचाने के नियम","Earthquake Safety — Drop, Cover, Hold"],"short":["কম্পন শুরু হলেই আতঙ্কিত হয়ে দৌড়াবেন না — মাটিতে বসে পড়ুন (Drop), মজবুত টেবিল বা খাটের নিচে মাথা-ঘাড় ঢেকে আশ্রয় নিন (Cover) এবং শক্ত করে ধরে থাকুন (Hold)। কম্পন থামলে সিঁড়ি দিয়ে খোলা মাঠে বেরোন।","झटके शुरू होते ही घबराकर न भागें — ज़मीन पर झुकें (Drop), मज़बूत मेज़ के नीचे सिर-गर्दन ढकें (Cover) और कसकर पकड़े रहें (Hold)। झटके रुकने पर सीढ़ियों से खुले मैदान में जाएँ।","When shaking starts, do not panic and run — Drop to your knees, take Cover under a sturdy table protecting your head and neck, and Hold on. Once shaking stops, exit via stairs to an open area."],"dos":[["ঘরের ভেতরে থাকলে ভারী কাঁচের জানালা, আলমারি ও ঝুলন্ত পাখা থেকে দূরে থাকুন।","বাইরে খোলা জায়গায় থাকলে বহুতল বাড়ি, গাছ ও বিদ্যুতের খুঁটি থেকে দূরে ফাঁকা মাঠে বসে পড়ুন।","গাড়ির ভেতরে থাকলে সেতু বা ফ্লাইওভার এড়িয়ে নিরাপদ ফাঁকা জায়গায় গাড়ি থামিয়ে ভেতরেই থাকুন।","মূল কম্পনের পর 'আফটারশক' (পুনরায় কম্পন) হতে পারে, তাই সতর্ক থাকুন ও গ্যাস-বিদ্যুৎ মেইন বন্ধ করুন।"],["घर के अंदर हों तो काँच की खिड़कियों, अलमारी और झूमर/पंखे से दूर रहें।","बाहर हों तो ऊँची इमारतों, पेड़ों और बिजली के खंभों से दूर खुले मैदान में बैठ जाएँ।","गाड़ी में हों तो पुल या फ़्लाईओवर से दूर खुली जगह पर रोककर अंदर ही रहें।","पहले झटके के बाद आफ़्टरशॉक आ सकते हैं — सावधान रहें और गैस व बिजली का मेन स्विच बंद करें।"],["Indoors, stay away from glass windows, heavy wardrobes, and hanging ceiling fans.","Outdoors, move to an open ground far from buildings, trees, and power lines.","If driving, pull over safely away from bridges and flyovers and stay inside the car.","Expect aftershocks after the main quake; switch off gas and main electrical supply."]],"donts":[["কম্পন চলাকালীন ভুলেও লিফট ব্যবহার করবেন না বা সিঁড়ি দিয়ে হুড়োহুড়ি করে নামবেন না।","বারান্দায় দাঁড়াবেন না বা উঁচু তলা থেকে লাফ দেবেন না।","কম্পনের পর গ্যাস লিক হতে পারে, তাই দেশলাই বা লাইটার জ্বালাবেন না।"],["भूकंप के दौरान कभी भी लिफ़्ट का इस्तेमाल न करें या सीढ़ियों पर भगदड़ न मचाएँ।","बालकनी में खड़े न हों और ऊँची मंज़िल से छलांग न लगाएँ।","झटकों के बाद गैस रिसाव हो सकता है, इसलिए माचिस या लाइटर न जलाएँ।"],["Never use elevators or rush down crowded staircases while the ground is shaking.","Do not stand on balconies or jump from upper floors.","Do not light matches or candles afterward in case of hidden gas leaks."]],"src":["NDMA ভারত · ভূমিকম্প সুরক্ষা","NDMA भारत · भूकंप सुरक्षा","NDMA India · Earthquake Safety"]},{"id":"flood","cat":"disaster","col":"#0369A1","ico":"🌊","help":"1078","helpLbl":["বন্যা ও দুর্যোগ উদ্ধার","बाढ़ और आपदा बचाव","Flood & NDRF Help"],"title":["বন্যা ও জলাবদ্ধতায় নিরাপদ থাকার উপায়","बाढ़ और जलभराव में सुरक्षित रहने के उपाय","Flood & Flash Flood Survival Guide"],"short":["জল বাড়তে শুরু করলে অবিলম্বে ঘরের মেইন বিদ্যুৎ ও গ্যাস সংযোগ বন্ধ করে উঁচু জায়গায় বা ছাদে চলে যান। মাত্র ৬ ইঞ্চি দ্রুতগতির জল একজন মানুষকে ভাসিয়ে নিতে পারে, তাই বন্যার জলে হাঁটবেন না বা গাড়ি চালাবেন না।","पानी बढ़ते ही घर की मेन बिजली व गैस बंद कर ऊँची जगह या छत पर चले जाएँ। मात्र 6 इंच तेज़ बहता पानी इंसान को बहा सकता है, इसलिए बाढ़ के पानी में पैदल न चलें और न ही गाड़ी चलाएँ।","Turn off main electricity and gas as water rises, and move immediately to higher ground. Just 6 inches of fast-moving water can knock an adult off their feet—never walk or drive through floodwater."],"dos":[["প্রয়োজনীয় কাগজপত্র (আধার, ব্যাংক পাসবই), ওষুধ, টর্চ ও পাওয়ার ব্যাংক ওয়াটারপ্রুফ প্যাকেটে রাখুন।","ফোটানো বা ক্লোরিন-ট্যাবলেট মেশানো বিশুদ্ধ জল পান করুন এবং ঢেকে রাখা শুকনো খাবার খান।","জমে থাকা জলে সাপ, খোলা ম্যানহোল ও ছেঁড়া তার থাকতে পারে — লাঠি দিয়ে পথ যাচাই করে জরুরি চলাচল করুন।","আকাশবাণী, সরকারি সতর্কবার্তা বা IMD-র আপডেট অনুসরণ করুন এবং উদ্ধারকারী দলের নির্দেশ মানুন।"],["ज़रूरी दस्तावेज़, दवाइयाँ, टॉर्च और पावर बैंक को वॉटरप्रूफ़ थैली में सुरक्षित रखें।","उबला हुआ या क्लोरीन से शुद्ध किया पानी पिएँ और ढका हुआ सूखा भोजन खाएँ।","भरे पानी में साँप, खुले मैनहोल या टूटे बिजली के तार हो सकते हैं — अत्यंत सावधानी बरतें।","आधिकारिक IMD/NDMA अलर्ट सुनें और बचाव दल के निर्देशों का पालन करें।"],["Seal IDs, medicines, torch, and power bank inside waterproof bags before evacuating.","Drink only boiled or chlorinated water and eat dry, sealed food to prevent waterborne disease.","Watch out for snakes, open manholes, and submerged live wires in standing water.","Follow official IMD/NDMA alerts and cooperate with NDRF/SDRF evacuation teams."]],"donts":[["স্রোতযুক্ত বন্যার জলে হাঁটা, সাঁতার কাটা বা বাইক/গাড়ি চালানোর চেষ্টা করবেন না।","জমা জলের মধ্যে ভেজা হাতে কোনো বৈদ্যুতিক সুইচ বা খুঁটি স্পর্শ করবেন না।","বন্যার জলে ভেজা খাবার খাবেন না বা গুজবে কান দেবেন না।"],["बहते बाढ़ के पानी में चलने, तैरने या वाहन चलाने की कोशिश न करें।","पानी में खड़े होकर बिजली के स्विच, बोर्ड या खंभे को न छुएँ।","बाढ़ के पानी के संपर्क में आया भोजन न खाएँ और अफ़वाहों पर ध्यान न दें।"],["Never walk, swim, or drive through moving floodwater (Turn Around, Don't Drown).","Never touch electrical switches, appliances, or poles while standing in water.","Do not consume food that has come into contact with floodwater."]],"src":["NDMA ও NDRF ভারত · বন্যা নির্দেশিকা","NDMA व NDRF भारत · बाढ़ दिशानिर्देश","NDMA & NDRF India · Flood Safety"]},{"id":"lightning","cat":"weather","col":"#4F46E5","ico":"⚡","help":"112","helpLbl":["জরুরি সহায়তা","आपातकालीन सहायता","Emergency Help"],"title":["বজ্রপাত থেকে জীবন বাঁচানোর উপায়","आकाशीय बिजली (वज्रपात) से बचाव","Lightning & Thunderstorm Survival"],"short":["মেঘ গর্জন শুনলেই খোলা মাঠ, পুকুর বা গাছের নিচ ছেড়ে দ্রুত পাকা বাড়ি বা বন্ধ গাড়ির ভেতরে আশ্রয় নিন। খোলা মাঠে আটকে পড়লে দু-পা জোড়া করে উবু হয়ে বসুন, মাথা নিচু করে কানে হাত চাপা দিন — কিন্তু শুয়ে পড়বেন না।","बादलों की गड़गड़ाहट सुनते ही खुले मैदान, तालाब या पेड़ के नीचे से हटकर पक्के मकान या बंद कार में जाएँ। खुले में फँस जाएँ तो पैर जोड़कर उकड़ूँ बैठें और कान ढक लें — ज़मीन पर लेटें नहीं।","When thunder roars, go indoors into a concrete building or hard-top car immediately. If caught in the open, crouch on the balls of your feet with heels touching and ears covered—never lie flat."],"dos":[["সুরক্ষিত পাকা বাড়ি বা ধাতব ছাদযুক্ত বন্ধ গাড়ি (জানালা তুলে) বজ্রপাতে সবচেয়ে নিরাপদ।","ঝড়ের আগে টিভি, ফ্রিজ, ওয়াইফাই রাউটার ও মোবাইল চার্জার প্লাগ থেকে খুলে রাখুন।","শেষ বজ্রধ্বনি শোনার অন্তত ৩০ মিনিট পরে বাইরে বেরোন ('৩০-৩০ নিয়ম')।","ভারত সরকারের 'Damini' (দামিনী) অ্যাপ ব্যবহার করলে ২০–৪০ কিমির মধ্যে বজ্রপাতের আগাম সতর্কতা পাবেন।"],["पक्का मकान या बंद शीशे वाली धातु की छत वाली कार बिजली से सबसे सुरक्षित आश्रय है।","तूफ़ान से पहले टीवी, फ़्रिज, राउटर और मोबाइल चार्जर के प्लग निकाल दें।","आख़िरी गड़गड़ाहट के कम से कम 30 मिनट बाद ही बाहर निकलें।","भारत सरकार का 'Damini' ऐप 20–40 किमी के दायरे में बिजली गिरने की अग्रिम चेतावनी देता है।"],["Take shelter inside a sturdy concrete building or a fully closed metal-roofed vehicle.","Unplug TVs, fridges, routers, and chargers before the storm arrives.","Wait at least 30 minutes after the last thunderclap before heading outdoors.","Use the Govt of India 'Damini' app for real-time lightning alerts within 20–40 km."]],"donts":[["ভুলেও একা দাঁড়িয়ে থাকা বড় গাছ, বৈদ্যুতিক খুঁটি, মোবাইল টাওয়ার বা ধাতব ছাউনির নিচে দাঁড়াবেন না।","বজ্রপাতের সময় খোলা মাঠ, ছাদ, নদী, পুকুর বা ধানক্ষেতে থাকবেন না।","ধাতব ডাঁটিওয়ালা ছাতা ব্যবহার করবেন না এবং চার্জে বসানো ফোনে কথা বলবেন না।"],["कभी भी अकेले बड़े पेड़, बिजली के खंभे, टावर या टीन शेड के नीचे न खड़े हों।","वज्रपात के समय खुले खेत, छत, तालाब या नदी में न रहें।","धातु की डंडी वाले छाते का उपयोग न करें और चार्जिंग पर लगे फ़ोन पर बात न करें।"],["Never shelter under an isolated tall tree, electric pole, tower, or open metal shed.","Stay off rooftops, open fields, paddy farms, ponds, and rivers during a storm.","Avoid metal-shaft umbrellas and corded/charging phones during lightning."]],"src":["IITM পুনে (Damini) ও NDMA ভারত","IITM पुणे (Damini) व NDMA भारत","IITM Pune (Damini) & NDMA India"]},{"id":"cyclone","cat":"disaster","col":"#0D9488","ico":"🌀","help":"1078","helpLbl":["ঘূর্ণিঝড় ও দুর্যোগ সহায়তা","चक्रवात आपदा हेल्पलाइन","Cyclone & Disaster Help"],"title":["ঘূর্ণিঝড় ও সামুদ্রিক ঝড়ের প্রস্তুতি","चक्रवात और समुद्री तूफ़ान की तैयारी","Cyclone & Severe Storm Preparedness"],"short":["ঘূর্ণিঝড়ের সতর্কতা পেলেই অন্তত ৩ দিনের পানীয় জল, শুকনো খাবার, টর্চ ও চার্জড পাওয়ার ব্যাংক গুছিয়ে রাখুন। কাঁচের জানালা বন্ধ করে মজবুত ঘরের ভেতরের অংশে থাকুন এবং ঝড়ের চোখ (শান্ত ভাব) দেখে বাইরে বেরোবেন না।","चक्रवात की चेतावनी मिलते ही कम से कम 3 दिन का पीने का पानी, सूखा भोजन, टॉर्च व पावर बैंक तैयार रखें। खिड़की-दरवाज़े बंद कर पक्के कमरे में रहें और अचानक शांति (तूफ़ान की आँख) देखकर बाहर न निकलें।","Stock at least 3 days of drinking water, dry food, torch, and charged power banks when a cyclone alert is issued. Stay in an interior concrete room and don't step out during the sudden calm ('eye' of the storm)."],"dos":[["বারান্দা বা ছাদের আলগা টব, টিন বা ভারী জিনিস আগেই সরিয়ে বা বেঁধে রাখুন যাতে ঝড়ে উড়ে বিপদ না ঘটায়।","কাঁচের জানালায় ক্রস (X) করে মোটা টেপ লাগিয়ে দিন এবং পর্দা টেনে দিন।","সরকারি আশ্রয়কেন্দ্রে যাওয়ার নির্দেশ দিলে দেরি না করে পরিবারসহ নিরাপদ কেন্দ্রে যান।","ঝড়ের পর ছেঁড়া বৈদ্যুতিক তার, হেলে পড়া গাছ ও দূষিত জল থেকে দূরে থাকুন।"],["बालकनी या छत के ढीले गमले, टिन या भारी वस्तुएँ पहले ही हटा दें या बाँध दें।","काँच की खिड़कियों पर क्रॉस (X) में मोटा टेप लगाएँ और पर्दे खींच दें।","प्रशासन द्वारा सुरक्षित आश्रय स्थल जाने को कहा जाए तो बिना देरी किए निकल जाएँ।","तूफ़ान के बाद टूटे बिजली के तारों, झुके पेड़ों और गंदे पानी से दूर रहें।"],["Secure or bring indoors loose flowerpots, tin sheets, and rooftop objects before winds hit.","Tape glass windows in an 'X' pattern and close shutters/curtains tightly.","Evacuate promptly to designated cyclone shelters if advised by authorities.","After the storm passes, stay clear of downed power lines and unstable trees."]],"donts":[["ঝড়ের মাঝখানে হঠাৎ বাতাস থেমে গেলে বাইরে বেরোবেন না — বিপরীত দিক থেকে আরও প্রবল ঝড় ফিরে আসতে পারে।","সমুদ্র উপকূলে ঢেউ দেখতে বা ছবি তুলতে যাবেন না।","গাছের নিচে বা দুর্বল মাটির/টিনের ঘরে আশ্রয় নেবেন না।"],["तूफ़ान के बीच अचानक हवा रुकने पर बाहर न निकलें — दूसरी दिशा से तेज़ हवा फिर लौट सकती है।","समुद्र तट पर ऊँची लहरें देखने या फ़ोटो लेने न जाएँ।","पेड़ों के नीचे या कच्चे/टिन के मकान में शरण न लें।"],["Do not go outside during the sudden calm of the cyclone's eye—violent winds return from the opposite side.","Never visit the coast to watch storm surges or take photos.","Do not shelter under trees or in weak mud/tin structures."]],"src":["IMD ও NDMA ভারত · ঘূর্ণিঝড় গাইড","IMD व NDMA भारत · चक्रवात गाइड","IMD & NDMA India · Cyclone Guide"]},{"id":"snake","cat":"firstaid","col":"#059669","ico":"🐍","help":"108","helpLbl":["জরুরি অ্যাম্বুলেন্স (Anti-Venom)","एम्बुलेंस (एंटी-वेनम)","Ambulance (Anti-Venom)"],"title":["সাপের কামড়ে সঠিক প্রাথমিক চিকিৎসা","साँप के काटने पर सही प्राथमिक उपचार","Snakebite First Aid (Life-Saving Rules)"],"short":["সাপে কাটলে রোগীকে শান্ত রাখুন ও নড়াচড়া বন্ধ করুন — আতঙ্কিত হলে হৃৎস্পন্দন বেড়ে বিষ দ্রুত ছড়িয়ে পড়ে। কামড়ের স্থান স্থির রেখে (স্প্লিন্ট দিয়ে) যত দ্রুত সম্ভব সরকারি হাসপাতালে নিয়ে অ্যান্টি-ভেনম (ASV) দিন।","साँप के काटने पर पीड़ित को शांत रखें और हिलने-डुलने न दें — घबराहट से दिल की धड़कन बढ़कर ज़हर तेज़ी से फैलता है। काटे गए अंग को स्थिर रखकर तुरंत सरकारी अस्पताल ले जाएँ जहाँ एंटी-वेनम (ASV) उपलब्ध हो।","Keep the patient calm and completely still—panic speeds up heart rate and venom spread. Immobilise the bitten limb like a fracture and rush immediately to the nearest hospital with Anti-Snake Venom (ASV)."],"dos":[["রোগীকে আশ্বস্ত করে শুইয়ে রাখুন এবং কামড়ের জায়গাটি হৃৎপিণ্ডের স্তরের সামান্য নিচে স্থির রাখুন।","আংটি, ঘড়ি, চুড়ি বা টাইট পোশাক সাথে সাথে খুলে ফেলুন (ফুলে যাওয়ার আগে)।","হাত বা পা ভাঙার মতো কাঠের চটা/ব্যান্ডেজ দিয়ে হালকা করে স্থির করে দ্রুত ১০৮-এ ফোন করে হাসপাতালে নিন।","সম্ভব হলে দূর থেকে সাপটির রঙ বা দাগ মনে রাখুন (ধরতে বা মারতে যাবেন না) — চিকিৎসায় সুবিধা হবে।"],["पीड़ित को शांत लिटाएँ और काटे गए अंग को हृदय के स्तर से थोड़ा नीचे स्थिर रखें।","सूजन आने से पहले अँगूठी, घड़ी, चूड़ी या तंग कपड़े तुरंत उतार दें।","हड्डी टूटने की तरह हल्के स्प्लिंट से अंग को स्थिर करें और 108 पर कॉल कर तुरंत अस्पताल ले जाएँ।","सुरक्षित दूरी से साँप का रंग-रूप याद रखें (पकड़ने या मारने की कोशिश न करें)।"],["Reassure the patient, have them lie down, and keep the bitten limb still below heart level.","Remove rings, watches, bangles, and tight clothing immediately before swelling starts.","Immobilise the limb gently with a splint and transport rapidly to a hospital (call 108).","Note the snake's appearance from a safe distance if possible—never try to catch or kill it."]],"donts":[["ভুলেও ওঝা, ঝাড়ফুঁক বা টোটকার পিছনে সময় নষ্ট করবেন না — একমাত্র চিকিৎসা হলো অ্যান্টি-ভেনম।","কামড়ের জায়গা ব্লেড দিয়ে কাটবেন না, মুখ দিয়ে বিষ চুষবেন না বা শক্ত দড়ি/বাঁধন দেবেন না (এতে অঙ্গ পচে যেতে পারে)।","রোগীকে হাঁটাবেন না, দৌড়াবেন না বা চা-কফি-অ্যালকোহল খাওয়াবেন না।"],["झाड़-फूँक, तांत्रिक या देसी नुस्खों में समय बर्बाद न करें — एंटी-वेनम ही एकमात्र इलाज है।","काटे गए स्थान को ब्लेड से न काटें, मुँह से ज़हर न चूसें और कसकर रस्सी/पट्टी न बाँधें।","पीड़ित को पैदल न चलाएँ और चाय, कॉफ़ी या शराब न दें।"],["Never waste golden time on faith healers or herbal remedies — hospital anti-venom is the only cure.","Never cut the wound, suck the venom, or tie a tight tourniquet (it causes tissue death).","Do not let the patient walk/run or consume caffeine or alcohol."]],"src":["স্বাস্থ্য ও পরিবার কল্যাণ মন্ত্রক (WHO/ICMR)","स्वास्थ्य मंत्रालय व WHO दिशानिर्देश","MoHFW India & WHO Snakebite Protocol"]},{"id":"shock","cat":"home","col":"#CA8A04","ico":"🔌","help":"108","helpLbl":["অ্যাম্বুলেন্স / জরুরি","एम्बुलेंस / आपातकाल","Ambulance / Emergency"],"title":["বিদ্যুৎস্পৃষ্ট ও শর্ট সার্কিট হলে করণীয়","बिजली का झटका और शॉर्ट सर्किट से बचाव","Electric Shock & Short Circuit Safety"],"short":["কেউ বিদ্যুতের তারে আটকে গেলে ভুলেও তাকে খালি হাতে স্পর্শ করবেন না। সবার আগে মেইন সুইচ বা MCB বন্ধ করুন; তা সম্ভব না হলে শুকনো কাঠের লাঠি বা প্লাস্টিকের জিনিস দিয়ে তারটি সরিয়ে ১০৮-এ ফোন করুন।","यदि कोई बिजली के तार से चिपक जाए तो उसे खाली हाथ कभी न छुएँ। सबसे पहले मेन स्विच या MCB बंद करें; संभव न हो तो सूखी लकड़ी या प्लास्टिक की छड़ी से तार अलग करें और 108 पर कॉल करें।","Never touch a person stuck to a live wire with bare hands. Switch off the main power/MCB first; if unreachable, push the wire away using a completely dry wooden stick or plastic object and call 108."],"dos":[["প্রথমেই ঘরের মেইন সুইচ বা MCB ট্রিপ করে বিদ্যুৎ সংযোগ বিচ্ছিন্ন করুন।","পায়ের নিচে শুকনো রবারের চটি, কাঠের তক্তা বা পুরু খবরের কাগজ রেখে শুকনো কাঠের লাঠি দিয়ে তার সরান।","বিদ্যুৎ থেকে মুক্ত করার পর শ্বাস-প্রশ্বাস ও পালস পরীক্ষা করুন — শ্বাস না চললে CPR শুরু করুন ও অ্যাম্বুলেন্স ডাকুন।","বৈদ্যুতিক শর্ট সার্কিটে আগুন লাগলে কেবল শুকনো বালি বা CO₂/DCP অগ্নি-নির্বাপণ যন্ত্র ব্যবহার করুন।"],["सबसे पहले घर का मेन स्विच या MCB बंद कर बिजली की सप्लाई काट दें।","सूखी रबर की चप्पल या लकड़ी के पटरे पर खड़े होकर सूखी लकड़ी से तार हटाएँ।","बिजली से अलग होने के बाद साँस व नब्ज़ जाँचें — साँस न चले तो CPR दें और एम्बुलेंस बुलाएँ।","शॉर्ट सर्किट की आग बुझाने के लिए सूखी रेत या CO₂/DCP अग्निशामक का ही उपयोग करें।"],["Immediately cut power at the main breaker/MCB before approaching the victim.","Stand on dry rubber footwear or dry wood, and separate the live wire using a dry wooden stick.","Once power is off, check breathing and pulse—start CPR if unresponsive and call 108.","Use dry sand or a Class-C (CO₂/DCP) fire extinguisher for electrical fires."]],"donts":[["খালি হাতে বা ভেজা কোনো বস্তু দিয়ে বিদ্যুৎস্পৃষ্ট ব্যক্তিকে টেনে সরানোর চেষ্টা করবেন না।","বৈদ্যুতিক বোর্ড বা শর্ট সার্কিটের আগুনে কখনোই জল ঢালবেন না।","ভেজা হাতে সুইচ বোর্ড, গিজার, ইস্ত্রি বা চার্জে থাকা ফোন ধরবেন না।"],["खाली हाथ या किसी गीली/धातु की चीज़ से पीड़ित को खींचने की कोशिश न करें।","बिजली के बोर्ड या शॉर्ट सर्किट की आग पर कभी पानी न डालें।","गीले हाथों से स्विच बोर्ड, गीज़र या चार्जिंग पर लगे फ़ोन को न छुएँ।"],["Never pull a shocked person with bare hands or any wet/metallic object.","Never throw water on an electrical board or short-circuit fire.","Do not handle switches, geysers, or charging phones with wet hands."]],"src":["CEA ভারত · বৈদ্যুতিক সুরক্ষা নির্দেশিকা","CEA भारत · विद्युत सुरक्षा दिशानिर्देश","CEA India · Electrical Safety Guide"]},{"id":"crowd","cat":"firstaid","col":"#DB2777","ico":"👥","help":"112","helpLbl":["পুলিশ ও জরুরি সহায়তা","पुलिस व आपातकालीन सेवा","Police & Emergency"],"title":["অতিরিক্ত ভিড়ের চাপে (পদপিষ্ট) বাঁচার উপায়","भीड़ के दबाव (भगदड़) से बचने के उपाय","Surviving a Crowd Surge / Stampede"],"short":["মেলা, স্টেশন বা উৎসবে ভিড় অসহনীয় হয়ে উঠলে স্রোতের বিপরীতে হাঁটবেন না — বক্সারদের মতো দু-হাত বুকের সামনে রেখে ফুসফুসে শ্বাসের জায়গা রাখুন এবং ধীরে ধীরে কোণাকুণি (diagonal) হয়ে ভিড়ের কিনারায় বেরিয়ে আসুন।","मेले, स्टेशन या उत्सव में भीड़ बेकाबू हो तो धारा के विपरीत न चलें — बॉक्सर की तरह दोनों हाथ सीने के आगे रखकर साँस की जगह बनाएँ और तिरछे (डायगोनल) चलते हुए किनारे निकल जाएँ।","If caught in a dense crowd surge at a festival or station, do not push against the flow—hold your arms folded in front of your chest like a boxer to protect your lungs, and move diagonally toward the edge."],"dos":[["বড় কোনো অনুষ্ঠান বা স্টেশনে ঢোকার আগেই অন্তত দুটি বেরোনোর পথ (Exit) চোখে দেখে রাখুন।","ভিড়ের চাপ বাড়লে পা শক্ত রেখে স্রোতের সাথেই এগোন এবং দু-হাত বুকের সামনে ঢালের মতো রাখুন।","পায়ে কিছু পড়ে গেলে নিচু হয়ে তুলতে যাবেন না; জুতো বা ব্যাগ ছেড়ে নিজের ভারসাম্য ধরে রাখুন।","পড়ে গেলে কখনোই চিত বা উপুড় হয়ে থাকবেন না — পাশ ফিরে গুটিয়ে শুয়ে (fetal position) দু-হাত দিয়ে মাথা ও গলা ঢাকুন।"],["किसी बड़े आयोजन या स्टेशन में प्रवेश करते ही कम से कम दो निकास द्वार (Exit) देख लें।","दबाव बढ़ने पर पैरों को जमाकर बहाव के साथ बढ़ें और दोनों हाथ सीने के सामने ढाल की तरह रखें।","चप्पल, फ़ोन या बैग गिर जाए तो झुककर न उठाएँ — अपना संतुलन बनाए रखें।","गिर जाएँ तो करवट लेकर सिकुड़ जाएँ और हाथों से सिर व छाती की रक्षा करें।"],["Identify at least two exit routes whenever entering a crowded venue, fair, or station.","Keep your feet planted, move with the surge, and keep forearms guarding your chest.","If you drop a phone, shoe, or bag, leave it—never bend down in a moving crowd.","If knocked down, curl onto your side (protecting chest & head), never lie flat on your back or stomach."]],"donts":[["ভিড়ের বিপরীত দিকে জোর করে ধাক্কাধাক্কি বা চিৎকার করে আতঙ্ক ছড়াবেন না — এতে অক্সিজেন দ্রুত ফুরোয়।","দেয়াল, রেলিং বা ব্যারিকেডের ঠিক গায়ে দাঁড়িয়ে থাকবেন না — চাপ বাড়লে সেখানে আটকে যাওয়ার ঝুঁকি সবচেয়ে বেশি।","পড়ে যাওয়া জিনিস কুড়াতে কখনোই ভিড়ের মধ্যে নিচু হবেন না।"],["भीड़ के विपरीत धक्का-मुक्की या चिल्लाकर दहशत न फैलाएँ — इससे साँस जल्दी फूलती है।","दीवार, रेलिंग या बैरिकेड से सटकर न खड़े हों — दबाव बढ़ने पर दबने का ख़तरा सबसे ज़्यादा होता है।","गिरी हुई वस्तु उठाने के लिए भीड़ में कभी न झुकें।"],["Do not push against the crowd or scream—save your breath and oxygen.","Avoid standing pinned against solid walls, railings, or barriers where crush pressure peaks.","Never stop or bend down to pick up dropped items."]],"src":["NDMA ভারত · ক্রাউড ম্যানেজমেন্ট গাইড","NDMA भारत · भीड़ प्रबंधन दिशानिर्देश","NDMA India · Crowd Safety Guidelines"]},{"id":"kit","cat":"firstaid","col":"#2563EB","ico":"🎒","help":"112","helpLbl":["সর্বজনীন জরুরি নম্বর","राष्ट्रीय आपात नंबर","India Emergency Hub"],"title":["জরুরি ইমার্জেন্সি ব্যাগ ও রাতের প্রস্তুতি","आपातकालीन किट (Go-Bag) और रात की तैयारी","Emergency Go-Bag & Night Readiness"],"short":["যেকোনো হঠাৎ দুর্যোগের (ভূমিকম্প, বন্যা বা আগুন) জন্য বাড়ির সহজে নাগাল পাওয়া জায়গায় একটি 'ইমার্জেন্সি ব্যাগ' তৈরি রাখুন। তাতে টর্চ, প্রাথমিক ওষুধ, পানীয় জল, শুকনো খাবার, নগদ টাকা ও জরুরি কাগজের কপি রাখুন।","अचानक आपदा (भूकंप, बाढ़ या आग) के लिए घर में हाथ की पहुँच में एक 'आपातकालीन बैग' तैयार रखें। इसमें टॉर्च, प्राथमिक दवाइयाँ, पानी, सूखा भोजन, नकदी और ज़रूरी काग़ज़ात की कॉपी रखें।","Keep a ready-to-grab 'Emergency Go-Bag' near your exit for sudden quakes, floods, or fires. Pack a torch, first-aid medicines, drinking water, dry rations, small cash, and waterproof copies of key IDs."],"dos":[["টর্চ (অতিরিক্ত ব্যাটারিসহ), শিস (আটকে পড়লে সংকেত দেওয়ার জন্য) ও চার্জ করা পাওয়ার ব্যাংক রাখুন।","ব্যান্ডেজ, অ্যান্টিসেপটিক, ORS, প্যারাসিটামল ও পরিবারের নিয়মিত ৭ দিনের ওষুধ ওয়াটারপ্রুফ পাউচে রাখুন।","আধার, রেশন কার্ড, মেডিকেল রিপোর্ট ও জরুরি ফোন নম্বর লেখা কাগজ প্লাস্টিক জিপ-লকে রাখুন।","রাতে ঘুমানোর আগে বাড়ির মেইন দরজার চাবি নির্দিষ্ট জায়গায় রাখুন এবং গ্যাসের রেগুলেটর বন্ধ করে ঘুমোন।"],["टॉर्च (अतिरिक्त बैटरी सहित), सीटी (मदद का संकेत देने के लिए) और चार्ज्ड पावर बैंक रखें।","पट्टी, एंटीसेप्टिक, ORS और परिवार की 7 दिन की नियमित दवाइयाँ वॉटरप्रूफ़ पाउच में रखें।","आधार, मेडिकल रिपोर्ट और महत्वपूर्ण फ़ोन नंबर की कॉपी ज़िप-लॉक थैली में सुरक्षित रखें।","सोने से पहले मुख्य दरवाज़े की चाबी तय जगह पर रखें और गैस रेगुलेटर हमेशा बंद करें।"],["Pack a torch (with spare batteries), a loud whistle (to signal rescuers), and a charged power bank.","Include bandages, antiseptic, ORS, and 7 days of essential family prescription medicines.","Keep copies of IDs, medical notes, and emergency phone numbers in a waterproof zip pouch.","Before bed every night, turn off the LPG regulator and keep front-door keys in one fixed spot."]],"donts":[["জরুরি ব্যাগ এত ভারী করবেন না যে বিপদের সময় এক হাতে নিয়ে দ্রুত বেরোনো কঠিন হয়ে পড়ে।","শুধুমাত্র ফোনের ওপর নির্ভর করবেন না — নেটওয়ার্ক না থাকলে জরুরি নম্বর লেখা কাগজ ও নগদ টাকাই কাজে লাগে।","মেয়াদ উত্তীর্ণ ওষুধ বা পুরনো ব্যাটারি রেখে দেবেন না — প্রতি ৬ মাসে একবার ব্যাগটি যাচাই করুন।"],["इमरजेंसी बैग इतना भारी न बनाएँ कि आपात स्थिति में लेकर भागना मुश्किल हो।","सिर्फ़ मोबाइल फ़ोन पर निर्भर न रहें — नेटवर्क न होने पर काग़ज़ पर लिखे नंबर और नकदी काम आती है।","एक्सपायर दवाइयाँ या कमज़ोर बैटरी न छोड़ें — हर 6 महीने में किट की जाँच करें।"],["Don't overload the bag—you should be able to grab and carry it effortlessly in seconds.","Don't rely solely on your phone—keep printed emergency contacts and small cash for network blackouts.","Check and refresh medicines, batteries, and water every 6 months."]],"src":["NDMA ভারত · পারিবারিক দুর্যোগ প্রস্তুতি","NDMA भारत · पारिवारिक आपदा तैयारी","NDMA India · Family Preparedness"]}];
+const TIP_SLOTS = [
+  { id: 's06', h: 6,  lbl: ['সকাল ৬–৭টা', 'सुबह 6–7 बजे', '6–7 AM'],   pool: ['cold', 'snake', 'lightning'] },
+  { id: 's13', h: 13, lbl: ['দুপুর ১–২টা', 'दोपहर 1–2 बजे', '1–2 PM'],   pool: ['heat', 'crowd', 'flood'] },
+  { id: 's16', h: 16, lbl: ['বিকেল ৪–৫টা', 'शाम 4–5 बजे', '4–5 PM'],    pool: ['lightning', 'cyclone', 'flood'] },
+  { id: 's19', h: 19, lbl: ['সন্ধ্যা ৭–৮টা', 'शाम 7–8 बजे', '7–8 PM'],    pool: ['fire', 'lpg', 'shock'] },
+  { id: 's22', h: 22, lbl: ['রাত ১০–১১টা', 'रात 10–11 बजे', '10–11 PM'], pool: ['quake', 'kit', 'fire'] }
+];
+let tipCat = 'all';
+const tipCardLang = {}; // per-card independent language override: tipId -> 'bn'|'hi'|'en'
+let tipModalState = null; // { id, lang, mode: 'popup'|'article', slotLbl }
+
+function tipLangIdx(code) {
+  return code === 'bn' ? 0 : (code === 'hi' ? 1 : 2);
+}
+function tipPickText(code, bn, hi, en) {
+  return code === 'bn' ? bn : (code === 'hi' ? hi : en);
+}
+function getTipById(id) {
+  return SURVIVAL_TIPS.find((t) => t.id === id) || SURVIVAL_TIPS[0];
+}
+function tipCatLabel(cat, lCode) {
+  const map = {
+    weather: ['আবহাওয়া', 'मौसम', 'Weather'],
+    disaster: ['প্রাকৃতিক দুর্যোগ', 'प्राकृतिक आपदा', 'Disaster'],
+    home: ['গৃহ ও বিদ্যুৎ', 'घर व बिजली', 'Home & Fire'],
+    firstaid: ['জীবন সুরক্ষা', 'प्राथमिक उपचार', 'First Aid']
+  };
+  const a = map[cat] || map.disaster;
+  return a[tipLangIdx(lCode)];
+}
+function tipTodayKey() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function tipDayOfYear() {
+  const d = new Date();
+  return Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 86400000);
+}
+function getDailySlotTips() {
+  const doy = tipDayOfYear();
+  const used = new Set();
+  return TIP_SLOTS.map((slot, sIdx) => {
+    let chosen = slot.pool[(doy + sIdx) % slot.pool.length];
+    if (used.has(chosen)) {
+      chosen = slot.pool.find((id) => !used.has(id)) || SURVIVAL_TIPS.find((t) => !used.has(t.id)).id;
+    }
+    used.add(chosen);
+    return { slot, tipId: chosen };
+  });
+}
+function tipLangButtonsHtml(curL, attrName, attrVal) {
+  return `<div class="tip-lang-mini" role="group" aria-label="Language">` +
+    [['bn', 'বাং'], ['hi', 'हिं'], ['en', 'EN']].map(([c, lbl]) =>
+      `<button type="button" class="${curL === c ? 'active' : ''}" ${attrName}="${attrVal}" data-tl="${c}" aria-pressed="${curL === c}">${lbl}</button>`
+    ).join('') + `</div>`;
+}
+function renderSingleTipCard(t) {
+  const cl = tipCardLang[t.id] || lang;
+  const li = tipLangIdx(cl);
+  return `<article class="tip-card" data-tip-card="${t.id}" style="--tc:${t.col}">` +
+    `<div class="tip-card-top">` +
+      `<span class="tip-cat-badge">${t.ico} ${tipCatLabel(t.cat, cl)}</span>` +
+      tipLangButtonsHtml(cl, 'data-tip-card-lang', t.id) +
+    `</div>` +
+    `<div class="tip-art" data-tip-open="${t.id}" role="button" tabindex="0" aria-label="${t.title[li]}">${TIP_SVGS[t.id] || ''}</div>` +
+    `<div class="tip-body">` +
+      `<div class="tip-click-area" data-tip-open="${t.id}">` +
+        `<h4 class="tip-title">${t.title[li]}</h4>` +
+        `<p class="tip-short">${t.short[li]}</p>` +
+      `</div>` +
+      `<div class="tip-foot">` +
+        `<button type="button" class="tip-read-btn" data-tip-open="${t.id}">${tipPickText(cl, 'পুরো আর্টিকেল পড়ুন →', 'पूरा लेख पढ़ें →', 'Read full guide →')}</button>` +
+        `<a class="tip-hl-mini" href="tel:${t.help}">📞 ${t.help}</a>` +
+      `</div>` +
+    `</div>` +
+  `</article>`;
+}
+
+function natTips() {
+  const nowH = new Date().getHours();
+  const li = tipLangIdx(lang);
+  const hero = `<div class="tips-hero">` +
+    `<div class="tips-hero-txt">` +
+      `<h3>🆘 ${L('জীবন সুরক্ষা ও দুর্যোগ টিপস (ভারত)', 'जीवन सुरक्षा और आपदा बचाव टिप्स', 'Life Survival & Disaster Safety Tips')}</h3>` +
+      `<p>${L('প্রতিটি কার্ডের ওপরে ছোট ল্যাঙ্গুয়েজ বাটনে ক্লিক করে শুধু ওই টিপসটির ভাষা বদলাতে পারবেন। বিস্তারিত করণীয় ও বর্জনীয় পড়তে যেকোনো কার্ডে ক্লিক করুন।', 'हर कार्ड के ऊपर छोटे भाषा बटन से केवल उसी टिप की भाषा बदलें। पूरा लेख और सावधानियाँ पढ़ने के लिए किसी भी कार्ड पर क्लिक करें।', 'Switch language independently on any single card using its mini toggle. Click any card to read full Do\'s, Don\'ts & helplines.')}</p>` +
+    `</div>` +
+    `<button type="button" class="tips-preview-btn" data-tip-preview>🔔 ${L('দৈনিক পপ-আপ দেখুন', 'दैनिक पॉप-अप देखें', 'Preview Daily Popup')}</button>` +
+  `</div>`;
+
+  const helplines = `<div class="tips-helplines">` +
+    `<span class="tips-hl-lbl">🇮🇳 ${L('জরুরি নম্বর:', 'आपात नंबर:', 'India Helplines:')}</span>` +
+    `<a class="tips-hl-chip" style="--hc:#DC2626" href="tel:112"><b>112</b> ${L('সর্বজনীন জরুরি', 'राष्ट्रीय आपात', 'All Emergency')}</a>` +
+    `<a class="tips-hl-chip" style="--hc:#EA580C" href="tel:101"><b>101</b> ${L('দমকল', 'दमकल', 'Fire')}</a>` +
+    `<a class="tips-hl-chip" style="--hc:#059669" href="tel:108"><b>108</b> ${L('অ্যাম্বুলেন্স', 'एम्बुलेंस', 'Ambulance')}</a>` +
+    `<a class="tips-hl-chip" style="--hc:#2563EB" href="tel:1078"><b>1078</b> ${L('NDMA দুর্যোগ', 'NDMA आपदा', 'NDMA Disaster')}</a>` +
+    `<a class="tips-hl-chip" style="--hc:#D97706" href="tel:1906"><b>1906</b> ${L('LPG গ্যাস লিক', 'LPG गैस लीक', 'LPG Gas Leak')}</a>` +
+  `</div>`;
+
+  const sched = `<div class="tips-schedule-bar">` +
+    `<span>⏰ <strong>${L('দিনে ৫ বার স্মার্ট টিপস পপ-আপ:', 'दिन में 5 बार स्मार्ट टिप्स पॉप-अप:', '5 Daily Tip Popup Slots:')}</strong></span>` +
+    TIP_SLOTS.map((s) => `<span class="tips-slot-tag${nowH === s.h ? ' is-now' : ''}">${s.lbl[li]}</span>`).join('') +
+  `</div>`;
+
+  const cats = [
+    ['all', '#DC2626', L('সব টিপস', 'सभी टिप्स', 'All Tips'), SURVIVAL_TIPS.length],
+    ['weather', '#EA580C', '☀️ ' + L('আবহাওয়া', 'मौसम', 'Weather'), SURVIVAL_TIPS.filter((t) => t.cat === 'weather').length],
+    ['disaster', '#7C3AED', '🌊 ' + L('প্রাকৃতিক দুর্যোগ', 'प्राकृतिक आपदा', 'Disasters'), SURVIVAL_TIPS.filter((t) => t.cat === 'disaster').length],
+    ['home', '#D97706', '🔥 ' + L('আগুন ও গৃহ', 'आग व घर', 'Fire & Home'), SURVIVAL_TIPS.filter((t) => t.cat === 'home').length],
+    ['firstaid', '#059669', '🩺 ' + L('সুরক্ষা ও চিকিৎসা', 'प्राथमिक उपचार', 'First Aid'), SURVIVAL_TIPS.filter((t) => t.cat === 'firstaid').length]
+  ];
+  const filterHtml = `<div class="tips-filters">` + cats.map(([k, c, lbl, n]) =>
+    `<button type="button" class="tips-fbtn${tipCat === k ? ' active' : ''}" data-tip-cat="${k}" style="--fc:${c}">${lbl} (${nf.format(n)})</button>`
+  ).join('') + `</div>`;
+
+  const list = tipCat === 'all' ? SURVIVAL_TIPS : SURVIVAL_TIPS.filter((t) => t.cat === tipCat);
+  const gridHtml = `<div class="tips-grid" id="tipsGrid">${list.map(renderSingleTipCard).join('')}</div>`;
+  const noteHtml = `<p class="hint">${L('এই জীবন-সুরক্ষা টিপসগুলো ভারতের জাতীয় দুর্যোগ ব্যবস্থাপনা কর্তৃপক্ষ (NDMA), IMD ও WHO-র প্রাথমিক নির্দেশিকা অনুসরণে তৈরি। জরুরি অবস্থায় অবিলম্বে ১১২ বা সংশ্লিষ্ট হেল্পলাইনে যোগাযোগ করুন।', 'ये जीवन-सुरक्षा टिप्स NDMA भारत, IMD और WHO के प्राथमिक दिशानिर्देशों पर आधारित हैं। किसी भी आपात स्थिति में तुरंत 112 पर कॉल करें।', 'Prepared following India\'s NDMA, IMD and WHO primary safety advisories. In any real emergency, dial 112 immediately.')}</p>`;
+
+  return hero + helplines + sched + filterHtml + gridHtml + noteHtml;
+}
+
+function renderTipModal() {
+  const bg = $('#tipModalBg'), card = $('#tipModalCard');
+  if (!bg || !card || !tipModalState) return;
+  const t = getTipById(tipModalState.id);
+  const ml = tipModalState.lang || lang;
+  const li = tipLangIdx(ml);
+  const isArt = tipModalState.mode === 'article';
+  card.style.setProperty('--tc', t.col);
+
+  const slotBadge = tipModalState.slotLbl
+    ? `<span class="tip-slot-pill">⏰ ${tipModalState.slotLbl[li]} · ${tipPickText(ml, 'দৈনিক সুরক্ষা টিপস', 'दैनिक सुरक्षा टिप', 'Daily Safety Tip')}</span>`
+    : `<span class="tip-slot-pill">${t.ico} ${tipCatLabel(t.cat, ml)}</span>`;
+
+  const artBoxes = isArt
+    ? `<div class="tip-art-boxes">` +
+        `<div class="tip-box do"><h4>✅ ${tipPickText(ml, 'জরুরি করণীয় (কী করবেন)', 'क्या करें (ज़रूरी कदम)', 'What To Do')}</h4><ul>${t.dos[li].map((s) => `<li>${s}</li>`).join('')}</ul></div>` +
+        `<div class="tip-box dont"><h4>❌ ${tipPickText(ml, 'ভুলেও যা করবেন না', 'भूलकर भी न करें', 'Never Do This')}</h4><ul>${t.donts[li].map((s) => `<li>${s}</li>`).join('')}</ul></div>` +
+      `</div><p class="tip-msrc">📌 ${tipPickText(ml, 'সূত্র: ', 'स्रोत: ', 'Source: ') + t.src[li]}</p>`
+    : '';
+
+  const contentWrapStart = isArt ? `<div>` : `<div class="tip-mclickable" data-tip-expand role="button" tabindex="0">`;
+  const tapHint = isArt ? '' : `<div class="tip-mhint-tap">📖 ${tipPickText(ml, 'পুরো আর্টিকেল (করণীয় ও বর্জনীয়) পড়তে এখানে ক্লিক করুন →', 'पूरा लेख (क्या करें और क्या न करें) पढ़ने के लिए यहाँ क्लिक करें →', 'Tap here to read full article (Do\'s & Don\'ts) →')}</div>`;
+
+  const waTxt = encodeURIComponent(`🆘 ${t.title[li]}\n\n${t.short[li]}\n\n📞 ${t.helpLbl[li]}: ${t.help}\n— ${tipPickText(ml, 'ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance')}`);
+
+  card.innerHTML =
+    `<div class="tip-mbar">` +
+      `<div class="tip-mbar-l">` +
+        tipLangButtonsHtml(ml, 'data-tip-modal-lang', '1') +
+        slotBadge +
+      `</div>` +
+      `<button type="button" class="tip-xbtn" data-tip-close aria-label="${tipPickText(ml, 'বন্ধ করুন', 'बंद करें', 'Close')}">✕</button>` +
+    `</div>` +
+    `<div class="tip-mcontent">` +
+      `<div class="tip-mart"${isArt ? '' : ' data-tip-expand style="cursor:pointer"'}>${TIP_SVGS[t.id] || ''}</div>` +
+      contentWrapStart +
+        `<h3 class="tip-mtitle" id="tipModalTitle">${t.ico} ${t.title[li]}</h3>` +
+        `<p class="tip-mshort">${t.short[li]}</p>` +
+        tapHint +
+      `</div>` +
+      artBoxes +
+    `</div>` +
+    `<div class="tip-mfoot">` +
+      `<div class="tip-macts">` +
+        (!isArt ? `<button type="button" class="tip-primary-btn" data-tip-expand>${tipPickText(ml, 'পুরো আর্টিকেল পড়ুন', 'पूरा लेख पढ़ें', 'Read Full Article')}</button>` : '') +
+        `<a class="tip-sec-btn" href="tel:${t.help}">📞 ${t.help} · ${t.helpLbl[li]}</a>` +
+        `<a class="tip-sec-btn" href="https://wa.me/?text=${waTxt}" target="_blank" rel="noopener">WhatsApp</a>` +
+        (tipModalState.slotLbl ? `<button type="button" class="tip-sec-btn" data-tip-goto-all>${tipPickText(ml, 'সব টিপস →', 'सभी टिप्स →', 'All Tips →')}</button>` : '') +
+      `</div>` +
+      (tipModalState.slotLbl ? `<button type="button" class="tip-mute-btn" data-tip-mute-today>${tipPickText(ml, 'আজ আর পপ-আপ দেখিও না', 'आज और पॉप-अप न दिखाएँ', 'Mute popups today')}</button>` : `<button type="button" class="tip-sec-btn" data-tip-close>${tipPickText(ml, 'বন্ধ করুন', 'बंद करें', 'Close')}</button>`) +
+    `</div>`;
+
+  bg.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function openTipModal(id, mode = 'article', slotLbl = null, forcedLang = null) {
+  tipModalState = { id, mode, slotLbl, lang: forcedLang || tipCardLang[id] || lang };
+  renderTipModal();
+}
+function closeTipModal() {
+  const bg = $('#tipModalBg');
+  if (bg) bg.hidden = true;
+  document.body.style.overflow = '';
+  tipModalState = null;
+}
+
+function checkScheduledTipPopup() {
+  try {
+    const bg = $('#tipModalBg');
+    if (bg && !bg.hidden) return;
+    const today = tipTodayKey();
+    if (localStorage.getItem('bharat-tips-mute') === today) return;
+    const nowH = new Date().getHours();
+    const daily = getDailySlotTips();
+    const match = daily.find((d) => d.slot.h === nowH);
+    if (!match) return;
+    const key = 'bharat-tips-seen-' + today;
+    const seen = JSON.parse(localStorage.getItem(key) || '[]');
+    if (seen.includes(match.slot.id)) return;
+    seen.push(match.slot.id);
+    localStorage.setItem(key, JSON.stringify(seen));
+    openTipModal(match.tipId, 'popup', match.slot.lbl, lang);
+  } catch (_) {}
+}
+
+function previewDailyTipPopup() {
+  const daily = getDailySlotTips();
+  const nowH = new Date().getHours();
+  // Pick the active slot if inside one, otherwise the nearest upcoming/recent slot
+  let chosen = daily.find((d) => d.slot.h === nowH) || daily.find((d) => d.slot.h > nowH) || daily[daily.length - 1];
+  openTipModal(chosen.tipId, 'popup', chosen.slot.lbl, lang);
+}
+
+if ($('#tipsBtn')) {
+  $('#tipsBtn').addEventListener('click', () => {
+    cur = 'india';
+    tab = 'tips';
+    render();
+    if (innerWidth < 900) $('#panel').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  });
+}
+
+document.addEventListener('click', (e) => {
+  // 1. Per-card independent language switcher
+  const clBtn = e.target.closest('[data-tip-card-lang]');
+  if (clBtn) {
+    e.stopPropagation();
+    const id = clBtn.dataset.tipCardLang;
+    tipCardLang[id] = clBtn.dataset.tl;
+    const cardEl = document.querySelector(`[data-tip-card="${id}"]`);
+    if (cardEl) cardEl.outerHTML = renderSingleTipCard(getTipById(id));
+    return;
+  }
+  // 2. Modal language switcher
+  const mlBtn = e.target.closest('[data-tip-modal-lang]');
+  if (mlBtn && tipModalState) {
+    tipModalState.lang = mlBtn.dataset.tl;
+    renderTipModal();
+    return;
+  }
+  // 3. Category filter inside Tips tab
+  const catBtn = e.target.closest('[data-tip-cat]');
+  if (catBtn) {
+    tipCat = catBtn.dataset.tipCat;
+    render();
+    return;
+  }
+  // 4. Open full article from card
+  const openEl = e.target.closest('[data-tip-open]');
+  if (openEl) {
+    openTipModal(openEl.dataset.tipOpen, 'article', null, tipCardLang[openEl.dataset.tipOpen] || lang);
+    return;
+  }
+  // 5. Expand popup into full article when clicking popup content or button
+  const expEl = e.target.closest('[data-tip-expand]');
+  if (expEl && tipModalState) {
+    tipModalState.mode = 'article';
+    renderTipModal();
+    return;
+  }
+  // 6. Preview popup button
+  if (e.target.closest('[data-tip-preview]')) {
+    previewDailyTipPopup();
+    return;
+  }
+  // 7. Jump to all Tips from popup
+  if (e.target.closest('[data-tip-goto-all]')) {
+    closeTipModal();
+    cur = 'india';
+    tab = 'tips';
+    render();
+    if (innerWidth < 900) $('#panel').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    return;
+  }
+  // 8. Mute popups for today
+  if (e.target.closest('[data-tip-mute-today]')) {
+    try { localStorage.setItem('bharat-tips-mute', tipTodayKey()); } catch (_) {}
+    closeTipModal();
+    return;
+  }
+  // 9. Close modal via X button or clicking dark backdrop
+  if (e.target.closest('[data-tip-close]') || e.target.id === 'tipModalBg') {
+    closeTipModal();
+    return;
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && tipModalState) closeTipModal();
+});
+
 lqInit();
+setTimeout(checkScheduledTipPopup, 1600);
+setInterval(checkScheduledTipPopup, 60000);
 
 </script>
 </body></html>
