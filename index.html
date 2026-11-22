@@ -4829,6 +4829,278 @@ select option, select optgroup {
   }
 }
 
+
+/* ===== v15 Clean Home Screen + App-Style States & Search Modal ===== */
+/* Hide old bulky Search & Pick from list boxes on all screens (replaced by States Picker Modal) */
+.mapcol .pickrow {
+  display: none !important;
+}
+/* On mobile, hide mapcol completely when map is collapsed & hide redundant ↑ Map button */
+@media (max-width: 899px) {
+  .layout.map-collapsed .mapcol {
+    display: none !important;
+  }
+  #tomap {
+    display: none !important;
+  }
+}
+/* Desktop compact States button inside mapcol */
+.desk-states-btn {
+  display: none;
+}
+@media (min-width: 900px) {
+  .desk-states-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 9px 13px;
+    margin-bottom: 9px;
+    border-radius: 10px;
+    border: 1.5px solid color-mix(in srgb, #2563EB 38%, var(--line));
+    background: color-mix(in srgb, #2563EB 7%, var(--bg));
+    color: var(--fg);
+    font-size: 13.8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .desk-states-btn:hover {
+    border-color: #2563EB;
+    background: color-mix(in srgb, #2563EB 14%, var(--bg));
+    color: #2563EB;
+  }
+  :root[data-theme="dark"] .desk-states-btn:hover { color: #60A5FA; }
+  .layout.map-collapsed .desk-states-btn {
+    width: auto;
+    flex: 1 1 240px;
+    margin-bottom: 0;
+  }
+}
+
+/* 3-column Quick Access row inside 3-line drawer (Home · States · Map) */
+.drawer-quick-row {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+}
+.drawer-qbtn {
+  padding: 9px 6px !important;
+  font-size: 12.2px !important;
+  flex-direction: column;
+  gap: 3px !important;
+}
+.drawer-qbtn.install {
+  flex-direction: row !important;
+  font-size: 13px !important;
+  padding: 9px 10px !important;
+}
+
+/* Native App-Style States & UTs Picker Modal / Bottom Sheet */
+.stpick-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 9985;
+  background: rgba(8, 14, 26, 0.68);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  animation: tipFadeIn .18s ease;
+}
+@media (min-width: 640px) {
+  .stpick-bg {
+    align-items: center;
+    padding: 16px;
+  }
+}
+.stpick-sheet {
+  width: 100%;
+  max-width: 640px;
+  max-height: 88vh;
+  background: var(--surface);
+  color: var(--fg);
+  border-radius: 20px 20px 0 0;
+  border-top: 4px solid var(--accent);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: stSheetUp .24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (min-width: 640px) {
+  .stpick-sheet {
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--accent);
+    max-height: 84vh;
+  }
+}
+@keyframes stSheetUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stpick-bg, .stpick-sheet { animation: none; }
+}
+.stpick-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px 15px 10px;
+  border-bottom: 1px solid var(--line);
+}
+.stpick-head h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--fg);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.stpick-controls {
+  padding: 10px 14px 10px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.stpick-search {
+  width: 100%;
+  font: inherit;
+  font-size: 14.5px;
+  padding: 9px 13px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--fg);
+}
+.stpick-search:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent);
+  outline: none;
+}
+.stpick-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.stpick-fbtn {
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--fg);
+  font-size: 12.2px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .14s ease;
+}
+.stpick-fbtn:hover { border-color: var(--accent); color: var(--accent); }
+.stpick-fbtn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #FFFFFF;
+}
+.stpick-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 11px 13px 22px;
+}
+.stpick-india-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 13px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  border: 1.5px solid color-mix(in srgb, var(--accent) 38%, var(--line));
+  background: linear-gradient(90deg, color-mix(in srgb, #FF9933 12%, var(--surface)), color-mix(in srgb, #138808 8%, var(--bg)));
+  color: var(--fg);
+  cursor: pointer;
+  text-align: left;
+  transition: transform .12s ease, border-color .14s ease;
+}
+.stpick-india-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+.stpick-india-btn.is-cur {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 24%, transparent);
+}
+.stpick-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+@media (max-width: 350px) {
+  .stpick-grid { grid-template-columns: minmax(0, 1fr); }
+}
+.stpick-card {
+  --zc: #2563EB;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  padding: 9px 10px;
+  border-radius: 11px;
+  border: 1px solid color-mix(in srgb, var(--zc) 28%, var(--line));
+  border-left: 3.5px solid var(--zc);
+  background: color-mix(in srgb, var(--zc) 5%, var(--bg));
+  color: var(--fg);
+  cursor: pointer;
+  text-align: left;
+  transition: transform .12s ease, border-color .14s ease, background .14s ease;
+}
+.stpick-card:hover {
+  border-color: var(--zc);
+  background: color-mix(in srgb, var(--zc) 11%, var(--surface));
+  transform: translateY(-1px);
+}
+.stpick-card.is-cur {
+  border-color: var(--accent);
+  border-left-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+}
+.stpick-card-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+.stpick-name {
+  font-weight: 700;
+  font-size: 13.5px;
+  line-height: 1.25;
+  color: var(--fg);
+  overflow-wrap: anywhere;
+}
+.stpick-tag {
+  flex: 0 0 auto;
+  font-size: 9.8px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--zc) 15%, var(--surface));
+  color: var(--zc);
+}
+.stpick-cap {
+  font-size: 11.4px;
+  color: var(--muted);
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
 </style>
 </head><body>
 <div class="wrap">
@@ -4905,6 +5177,7 @@ select option, select optgroup {
         <label for="pick" id="lblpick"></label>
         <select id="pick"></select>
       </div>
+      <button type="button" id="deskStatesBtn" class="desk-states-btn"><span id="deskStatesLbl">📍 রাজ্য ও কেন্দ্রশাসিত অঞ্চল বাছুন (৩৬)</span><span>🔍</span></button>
       <button type="button" id="mapToggle" class="map-toggle" aria-expanded="false" aria-controls="mapDrawer">
         <span class="map-toggle-l">
           <span class="map-toggle-ico" aria-hidden="true">☰</span>
@@ -4990,6 +5263,7 @@ select option, select optgroup {
         <div class="drawer-sec-lbl" id="drawerQuickLbl">⚡ শর্টকাট</div>
         <div class="drawer-quick-row">
           <button type="button" class="drawer-qbtn" id="drawerHomeBtn">🏠 হোম</button>
+          <button type="button" class="drawer-qbtn" id="drawerStatesBtn">📍 রাজ্যসমূহ</button>
           <button type="button" class="drawer-qbtn" id="drawerMapBtn">🗺️ মানচিত্র</button>
           <button type="button" class="drawer-qbtn install" id="drawerInstallBtn" hidden>📲 অ্যাপ ইনস্টল করুন</button>
         </div>
@@ -5009,6 +5283,21 @@ select option, select optgroup {
   <button type="button" class="bnav-btn" data-bnav="quiz"><span class="bnav-ico">🎯</span><span class="bnav-lbl" id="bnQuiz">কুইজ</span></button>
   <button type="button" class="bnav-btn" data-bnav="menu"><span class="bnav-ico">☰</span><span class="bnav-lbl" id="bnMenu">মেনু</span></button>
 </nav>
+
+
+<div class="stpick-bg" id="statePickerBg" hidden role="dialog" aria-modal="true" aria-labelledby="stPickTitle">
+  <div class="stpick-sheet" id="statePickerSheet">
+    <div class="stpick-head">
+      <h3 id="stPickTitle">📍 রাজ্য ও কেন্দ্রশাসিত অঞ্চল</h3>
+      <button type="button" class="tip-xbtn" id="statePickerClose" aria-label="Close">✕</button>
+    </div>
+    <div class="stpick-controls">
+      <input type="search" id="statePickerSearch" class="stpick-search" autocomplete="off" placeholder="🔍 রাজ্য, অঞ্চল বা রাজধানীর নাম খুঁজুন...">
+      <div class="stpick-filters" id="statePickerFilters"></div>
+    </div>
+    <div class="stpick-body" id="statePickerBody"></div>
+  </div>
+</div>
 
 <div class="tip-modal-bg" id="tipModalBg" hidden role="dialog" aria-modal="true" aria-labelledby="tipModalTitle">
   <div class="tip-modal" id="tipModalCard"></div>
@@ -10093,17 +10382,22 @@ function syncAppShellUI(nat, x, tabs, TAB_ICONS) {
     ).join('');
   }
 
+  if ($('#drawerStatesBtn')) $('#drawerStatesBtn').textContent = L('📍 রাজ্যসমূহ', '📍 राज्य', '📍 States');
+  if ($('#deskStatesLbl')) $('#deskStatesLbl').textContent = nat
+    ? L('📍 রাজ্য ও কেন্দ্রশাসিত অঞ্চল বাছুন (৩৬)', '📍 राज्य और केंद्रशासित प्रदेश चुनें (36)', '📍 Browse 28 States & 8 UTs')
+    : ('📍 ' + R(x).n + ' · ' + L('বদলান', 'बदलें', 'Switch'));
+
   const qg = $('#appQuickGrid');
   if (qg) {
     const qItems = [
-      { act: 'map',  ico: '🗺️', col: '#0F766E', lbl: L('মানচিত্র', 'नक़्शा', 'Map'), on: mapOpen },
-      { act: 'mkt',  ico: '🪙', col: '#D97706', lbl: L('বাজার দর', 'बाज़ार भाव', 'Gold/USD'), on: nat && tab === 'mkt' },
-      { act: 'idx',  ico: '📊', col: '#0284C7', lbl: L('সূচক', 'सूचकांक', 'Indices'), on: tab === 'idx' },
-      { act: 'tips', ico: '🆘', col: '#DC2626', lbl: L('সুরক্ষা', 'सुरक्षा', 'Safety'), on: nat && tab === 'tips' },
-      { act: 'quiz', ico: '🎯', col: '#E11D48', lbl: L('কুইজ', 'क्विज़', 'Quiz'), on: nat && tab === 'quiz' },
-      { act: 'cmp',  ico: '⚖️', col: '#475569', lbl: L('তুলনা', 'तुलना', 'Compare'), on: tab === 'cmp' },
-      { act: 'pol',  ico: '🏛️', col: '#4F46E5', lbl: L('রাজনীতি', 'राजनीति', 'Politics'), on: tab === 'pol' },
-      { act: 'rgt',  ico: '📜', col: '#EA580C', lbl: L('অধিকার', 'अधिकार', 'Rights'), on: nat && tab === 'rgt' }
+      { act: 'states', ico: '📍', col: '#2563EB', lbl: L('রাজ্যসমূহ', 'राज्य', 'States'), on: !nat },
+      { act: 'map',    ico: '🗺️', col: '#0F766E', lbl: L('মানচিত্র', 'नक़्शा', 'Map'), on: mapOpen },
+      { act: 'mkt',    ico: '🪙', col: '#D97706', lbl: L('বাজার দর', 'बाज़ार भाव', 'Gold/USD'), on: nat && tab === 'mkt' },
+      { act: 'tips',   ico: '🆘', col: '#DC2626', lbl: L('সুরক্ষা', 'सुरक्षा', 'Safety'), on: nat && tab === 'tips' },
+      { act: 'quiz',   ico: '🎯', col: '#E11D48', lbl: L('কুইজ', 'क्विज़', 'Quiz'), on: nat && tab === 'quiz' },
+      { act: 'idx',    ico: '📊', col: '#0284C7', lbl: L('সূচক', 'सूचकांक', 'Indices'), on: tab === 'idx' },
+      { act: 'cmp',    ico: '⚖️', col: '#475569', lbl: L('তুলনা', 'तुलना', 'Compare'), on: tab === 'cmp' },
+      { act: 'pol',    ico: '🏛️', col: '#4F46E5', lbl: L('রাজনীতি', 'राजनीति', 'Politics'), on: tab === 'pol' }
     ];
     qg.innerHTML = qItems.map((q) =>
       `<button type="button" class="aq-tile${q.on ? ' active' : ''}" data-quick-act="${q.act}" style="--ac:${q.col}">` +
@@ -10142,12 +10436,15 @@ if ($('#appDrawerBg')) {
   });
 }
 if ($('#appSearchFocus')) {
-  $('#appSearchFocus').addEventListener('click', () => {
-    const inp = $('#search');
-    if (inp) {
-      inp.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
-      setTimeout(() => inp.focus(), 220);
-    }
+  $('#appSearchFocus').addEventListener('click', () => openStatePicker(true));
+}
+if ($('#deskStatesBtn')) {
+  $('#deskStatesBtn').addEventListener('click', () => openStatePicker(false));
+}
+if ($('#drawerStatesBtn')) {
+  $('#drawerStatesBtn').addEventListener('click', () => {
+    closeAppDrawer();
+    openStatePicker(false);
   });
 }
 if ($('#drawerHomeBtn')) {
@@ -10175,6 +10472,10 @@ document.addEventListener('click', (e) => {
   const qa = e.target.closest('[data-quick-act]');
   if (qa) {
     const a = qa.dataset.quickAct;
+    if (a === 'states') {
+      openStatePicker(false);
+      return;
+    }
     if (a === 'map') {
       setMapOpen(!mapOpen, true);
       if (mapOpen && $('#mapcol')) $('#mapcol').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
@@ -10251,6 +10552,130 @@ if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.
 }
 
 if (typeof render === "function") render();
+
+/* ---------- v15 Native App States & UTs Picker Modal ---------- */
+let stPickFilter = 'all';
+let stPickQuery = '';
+const ZONE_COL = { n: '#2563EB', w: '#D97706', c: '#059669', e: '#7C3AED', ne: '#0D9488', s: '#E11D48' };
+
+function renderStatePicker() {
+  const titleEl = $('#stPickTitle');
+  const inp = $('#statePickerSearch');
+  const fWrap = $('#statePickerFilters');
+  const body = $('#statePickerBody');
+  if (!body) return;
+
+  if (titleEl) titleEl.textContent = '📍 ' + L('রাজ্য ও কেন্দ্রশাসিত অঞ্চল', 'राज्य और केंद्रशासित प्रदेश', 'States & Union Territories');
+  if (inp) inp.placeholder = L('🔍 রাজ্য, অঞ্চল বা রাজধানীর নাম খুঁজুন…', '🔍 राज्य, केंद्रशासित प्रदेश या राजधानी खोजें…', '🔍 Search state, UT, or capital…');
+
+  const stCount = T.filter((x) => x.t === 'state').length;
+  const utCount = T.filter((x) => x.t === 'ut').length;
+  if (fWrap) {
+    const fBtns = [
+      ['all',   L(`সব (${nf.format(T.length)})`, `सभी (${nf.format(T.length)})`, `All (${T.length})`)],
+      ['state', L(`রাজ্য (${nf.format(stCount)})`, `राज्य (${nf.format(stCount)})`, `States (${stCount})`)],
+      ['ut',    L(`কেন্দ্রশাসিত অঞ্চল (${nf.format(utCount)})`, `केंद्रशासित (${nf.format(utCount)})`, `Union Territories (${utCount})`)]
+    ];
+    fWrap.innerHTML = fBtns.map(([k, lbl]) =>
+      `<button type="button" class="stpick-fbtn${stPickFilter === k ? ' active' : ''}" data-stpick-f="${k}">${lbl}</button>`
+    ).join('');
+  }
+
+  const q = stPickQuery.trim().toLowerCase();
+  const list = T.filter((x) => {
+    if (stPickFilter !== 'all' && x.t !== stPickFilter) return false;
+    if (!q) return true;
+    const rx = R(x);
+    const hay = [x.bn, x.sh, x.en, x.code, x.cap, rx.n, rx.cap, (TRX.hi[x.id] || [''])[0], (TRX.hi[x.id] || ['', ''])[1]].join(' ').toLowerCase();
+    return hay.includes(q);
+  }).sort((a, b) => R(a).n.localeCompare(R(b).n, LOC[lang]));
+
+  const showIndiaCard = !q || L('ভারত', 'भारत', 'india').toLowerCase().includes(q) || 'india'.includes(q) || 'bharat'.includes(q);
+  const indiaHtml = showIndiaCard
+    ? `<button type="button" class="stpick-india-btn${cur === 'india' ? ' is-cur' : ''}" data-stpick-go="india">` +
+        `<div><strong>🇮🇳 ${L('সারা ভারত (হোম)', 'पूरा भारत (होम)', 'All of India (Home)')}</strong>` +
+        `<div class="stpick-cap">${L('২৮টি রাজ্য · ৮টি কেন্দ্রশাসিত অঞ্চল · জাতীয় তথ্য', '28 राज्य · 8 केंद्रशासित प्रदेश · राष्ट्रीय जानकारी', '28 States · 8 Union Territories · National overview')}</div></div>` +
+        `<span style="font-weight:800;color:var(--accent)">${cur === 'india' ? '✓' : '→'}</span>` +
+      `</button>`
+    : '';
+
+  const cardsHtml = list.length
+    ? `<div class="stpick-grid">` + list.map((x) => {
+        const rx = R(x);
+        const zc = ZONE_COL[x.z] || '#2563EB';
+        const badgeTxt = x.t === 'ut' ? L('অঞ্চল', 'UT', 'UT') : L('রাজ্য', 'राज्य', 'State');
+        const isCur = cur === x.id;
+        return `<button type="button" class="stpick-card${isCur ? ' is-cur' : ''}" data-stpick-go="${x.id}" style="--zc:${zc}">` +
+          `<div class="stpick-card-top"><span class="stpick-name">${rx.n}</span><span class="stpick-tag">${isCur ? '✓' : badgeTxt}</span></div>` +
+          `<span class="stpick-cap">${rx.cap}</span>` +
+        `</button>`;
+      }).join('') + `</div>`
+    : `<div class="geo-empty">${L('কোনো রাজ্য বা অঞ্চল পাওয়া যায়নি।', 'कोई राज्य या क्षेत्र नहीं मिला।', 'No matching state or territory found.')}</div>`;
+
+  body.innerHTML = indiaHtml + cardsHtml;
+}
+
+function openStatePicker(focusInput = false) {
+  const bg = $('#statePickerBg');
+  const inp = $('#statePickerSearch');
+  if (!bg) return;
+  stPickQuery = '';
+  if (inp) inp.value = '';
+  renderStatePicker();
+  bg.hidden = false;
+  document.body.style.overflow = 'hidden';
+  if (focusInput && inp) setTimeout(() => inp.focus(), 120);
+}
+function closeStatePicker() {
+  const bg = $('#statePickerBg');
+  if (!bg) return;
+  bg.hidden = true;
+  if (!tipModalState && (!$('#appDrawerBg') || $('#appDrawerBg').hidden)) {
+    document.body.style.overflow = '';
+  }
+}
+
+if ($('#statePickerClose')) $('#statePickerClose').addEventListener('click', closeStatePicker);
+if ($('#statePickerBg')) {
+  $('#statePickerBg').addEventListener('click', (e) => {
+    if (e.target.id === 'statePickerBg') closeStatePicker();
+  });
+}
+if ($('#statePickerSearch')) {
+  $('#statePickerSearch').addEventListener('input', (e) => {
+    stPickQuery = e.target.value;
+    renderStatePicker();
+  });
+}
+document.addEventListener('click', (e) => {
+  const fb = e.target.closest('[data-stpick-f]');
+  if (fb) {
+    stPickFilter = fb.dataset.stpickF;
+    renderStatePicker();
+    return;
+  }
+  const gb = e.target.closest('[data-stpick-go]');
+  if (gb) {
+    const id = gb.dataset.stpickGo;
+    closeStatePicker();
+    if (id === 'india') {
+      goHome();
+    } else if (byId[id]) {
+      cur = id;
+      activeRosterKind = null; activeRosterParty = 'ALL'; geoDivIdx = -1;
+      if (!ST_TAB().some((t) => t[0] === tab)) tab = 'gen';
+      render();
+      if (mapOpen) focusOn(id);
+    }
+    if (innerWidth < 900 && $('#panel')) {
+      $('#panel').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    }
+  }
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && $('#statePickerBg') && !$('#statePickerBg').hidden) closeStatePicker();
+});
+
 lqInit();
 setTimeout(checkScheduledTipPopup, 1600);
 setInterval(checkScheduledTipPopup, 60000);
