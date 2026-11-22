@@ -5101,6 +5101,368 @@ select option, select optgroup {
   max-width: 100%;
 }
 
+
+/* ===== v16 Top Bar Live Weather Pill, App Drawer List & 12-Language Bottom Sheet ===== */
+.app-wx-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 36px;
+  padding: 0 11px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, #0284C7 38%, var(--line));
+  background: linear-gradient(135deg, color-mix(in srgb, #0EA5E9 13%, var(--surface)), color-mix(in srgb, #38BDF8 6%, var(--bg)));
+  color: var(--fg);
+  cursor: pointer;
+  max-width: 175px;
+  overflow: hidden;
+  transition: transform .13s ease, border-color .15s ease, box-shadow .15s ease;
+}
+.app-wx-pill:hover {
+  border-color: #0284C7;
+  box-shadow: 0 3px 10px rgba(2, 132, 199, 0.22);
+}
+.app-wx-pill:active { transform: scale(0.96); }
+.app-wx-pill .wx-ico { font-size: 16px; line-height: 1; flex: 0 0 auto; }
+.app-wx-pill .wx-temp {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 800;
+  color: #0369A1;
+  white-space: nowrap;
+}
+.app-wx-pill .wx-cond {
+  font-size: 11.4px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+:root[data-theme="dark"] .app-wx-pill .wx-temp { color: #38BDF8; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .app-wx-pill .wx-temp { color: #38BDF8; }
+}
+@media (max-width: 420px) {
+  .app-wx-pill { padding: 0 9px; max-width: 116px; }
+  .app-wx-pill .wx-cond { display: none; }
+}
+
+/* Drawer Version & Live Weather Mini Card */
+.drawer-ver {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+.drawer-ver .asof {
+  display: inline;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 11px;
+}
+.drawer-wx-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, color-mix(in srgb, #0284C7 14%, var(--surface)), color-mix(in srgb, #0F766E 8%, var(--bg)));
+  border: 1px solid color-mix(in srgb, #0284C7 35%, var(--line));
+  cursor: pointer;
+  transition: transform .12s ease, border-color .14s ease;
+}
+.drawer-wx-card:hover { border-color: #0284C7; transform: translateY(-1px); }
+.drawer-wx-l { display: flex; align-items: center; gap: 9px; min-width: 0; }
+.drawer-wx-ico { font-size: 24px; line-height: 1; }
+.drawer-wx-l strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 17px;
+  line-height: 1.1;
+  color: var(--fg);
+}
+.drawer-wx-l span {
+  display: block;
+  font-size: 11.5px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+.drawer-wx-city {
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--fg);
+  white-space: nowrap;
+}
+
+/* 'Where is My Train' Inspired Clean App Action Rows inside 3-Line Drawer */
+.drawer-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.dm-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--fg);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background .13s ease;
+}
+.dm-row:hover {
+  background: color-mix(in srgb, var(--accent) 9%, var(--bg));
+}
+.dm-ico {
+  width: 26px;
+  text-align: center;
+  font-size: 17px;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+.dm-lbl {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dm-meta {
+  flex: 0 0 auto;
+  font-size: 11.8px;
+  font-weight: 700;
+  color: var(--muted);
+  max-width: 96px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dm-meta.dm-accent {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 14%, var(--bg));
+  color: var(--accent);
+}
+.drawer-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 2px 0;
+}
+
+/* Bottom-Sheet Handle & 12 Indian Languages Grid (Image 3 exact style) */
+.sheet-handle {
+  width: 40px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--line);
+  margin: 9px auto 2px;
+}
+.lang12-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px 14px;
+  overflow-y: auto;
+}
+.lang12-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 11px;
+  border-radius: 13px;
+  border: 1.5px solid var(--line);
+  background: var(--bg);
+  color: var(--fg);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .14s ease, background .14s ease, transform .1s ease;
+}
+.lang12-card:active { transform: scale(0.98); }
+.lang12-card:hover { border-color: color-mix(in srgb, #3B82F6 60%, var(--line)); }
+.lang12-card.selected {
+  border-color: #3B82F6;
+  background: color-mix(in srgb, #3B82F6 12%, var(--surface));
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.35);
+}
+.lang12-check {
+  display: none;
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #3B82F6;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 800;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.45);
+}
+.lang12-card.selected .lang12-check { display: inline-flex; }
+.lang12-glyph {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--fg) 8%, var(--surface));
+  border: 1px solid var(--line);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--fg);
+  flex: 0 0 auto;
+}
+.lang12-card.selected .lang12-glyph {
+  background: color-mix(in srgb, #3B82F6 20%, var(--surface));
+  color: #2563EB;
+  border-color: rgba(59, 130, 246, 0.45);
+}
+:root[data-theme="dark"] .lang12-card.selected .lang12-glyph { color: #93C5FD; }
+.lang12-name {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--fg);
+}
+.lang12-sub {
+  display: block;
+  font-size: 10.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.lang12-foot {
+  padding: 10px 14px calc(14px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.lang12-note {
+  margin: 0;
+  font-size: 11.6px;
+  color: var(--muted);
+  text-align: center;
+}
+.lang12-submit {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 0;
+  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.3);
+}
+.lang12-submit:hover { filter: brightness(1.06); }
+
+/* Live Weather Modal Card & City Chips */
+.wx-hero {
+  background: linear-gradient(135deg, color-mix(in srgb, #0284C7 16%, var(--surface)), color-mix(in srgb, #0EA5E9 6%, var(--bg)));
+  border: 1px solid color-mix(in srgb, #0284C7 35%, var(--line));
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+.wx-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.wx-big-temp {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--fg);
+}
+.wx-big-ico { font-size: 46px; line-height: 1; }
+.wx-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.wx-mcard {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 9px;
+  text-align: center;
+}
+.wx-mcard span { display: block; font-size: 11px; color: var(--muted); font-weight: 600; }
+.wx-mcard strong { display: block; font-size: 14px; color: var(--fg); margin-top: 2px; }
+.wx-gps-btn {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1.5px solid #0284C7;
+  background: color-mix(in srgb, #0284C7 10%, var(--surface));
+  color: #0369A1;
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+:root[data-theme="dark"] .wx-gps-btn { color: #38BDF8; }
+.wx-cities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+.wx-cbtn {
+  padding: 6px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 12.6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.wx-cbtn.active, .wx-cbtn:hover {
+  border-color: #0284C7;
+  background: #0284C7;
+  color: #FFFFFF;
+}
+.help-step {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 11px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-left: 3.5px solid var(--accent);
+}
+.help-step-ico { font-size: 20px; line-height: 1.2; flex: 0 0 auto; }
+.help-step strong { display: block; font-size: 14px; margin-bottom: 2px; }
+.help-step p { margin: 0; font-size: 12.8px; color: var(--muted); line-height: 1.45; }
+
 </style>
 </head><body>
 <div class="wrap">
@@ -5109,9 +5471,14 @@ select option, select optgroup {
       <button type="button" id="appMenuBtn" class="app-icon-btn" aria-label="Menu" aria-expanded="false" aria-controls="appDrawer">☰</button>
       <button type="button" id="homeBtn" class="app-brand-btn" aria-label="Home">
         <svg class="app-logo-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="bgNav" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0F172A"/><stop offset="100%" stop-color="#1E293B"/></linearGradient><clipPath id="inCard"><rect x="7" y="7" width="50" height="50" rx="12"/></clipPath></defs><rect width="64" height="64" rx="15" fill="url(#bgNav)"/><g clip-path="url(#inCard)"><rect x="7" y="7" width="50" height="17" fill="#FF8A24"/><rect x="7" y="24" width="50" height="16" fill="#FFFFFF"/><rect x="7" y="40" width="50" height="17" fill="#12883E"/></g><circle cx="32" cy="32" r="7.2" fill="none" stroke="#163091" stroke-width="1.9"/><circle cx="32" cy="32" r="1.5" fill="#163091"/><g stroke="#163091" stroke-width="1" stroke-linecap="round"><line x1="32" y1="25.4" x2="32" y2="38.6"/><line x1="25.4" y1="32" x2="38.6" y2="32"/><line x1="27.3" y1="27.3" x2="36.7" y2="36.7"/><line x1="36.7" y1="27.3" x2="27.3" y2="36.7"/></g><rect x="7" y="7" width="50" height="50" rx="12" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/></svg>
-        <span class="app-loc-pill" id="appLocPill">🇮🇳 ভারত</span>
+        <span id="appLocPill" class="sr-only">ভারত</span>
         <span id="h1" class="sr-only"></span>
         <span id="hp" class="sr-only"></span>
+      </button>
+      <button type="button" id="appWeatherBtn" class="app-wx-pill" aria-label="Live Weather">
+        <span class="wx-ico" id="appWxIco">🌤️</span>
+        <span class="wx-temp" id="appWxTemp">--°C</span>
+        <span class="wx-cond" id="appWxCond"></span>
       </button>
     </div>
     <div class="app-bar-r">
@@ -5247,27 +5614,73 @@ select option, select optgroup {
         <svg class="app-logo-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="bgNav" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0F172A"/><stop offset="100%" stop-color="#1E293B"/></linearGradient><clipPath id="inCard"><rect x="7" y="7" width="50" height="50" rx="12"/></clipPath></defs><rect width="64" height="64" rx="15" fill="url(#bgNav)"/><g clip-path="url(#inCard)"><rect x="7" y="7" width="50" height="17" fill="#FF8A24"/><rect x="7" y="24" width="50" height="16" fill="#FFFFFF"/><rect x="7" y="40" width="50" height="17" fill="#12883E"/></g><circle cx="32" cy="32" r="7.2" fill="none" stroke="#163091" stroke-width="1.9"/><circle cx="32" cy="32" r="1.5" fill="#163091"/><g stroke="#163091" stroke-width="1" stroke-linecap="round"><line x1="32" y1="25.4" x2="32" y2="38.6"/><line x1="25.4" y1="32" x2="38.6" y2="32"/><line x1="27.3" y1="27.3" x2="36.7" y2="36.7"/><line x1="36.7" y1="27.3" x2="27.3" y2="36.7"/></g><rect x="7" y="7" width="50" height="50" rx="12" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/></svg>
         <div class="drawer-brand-meta">
           <strong id="drawerTitle">ভারত</strong>
-          <span class="asof" id="asof"></span>
+          <span class="drawer-ver">v16.0 · <span class="asof" id="asof"></span></span>
         </div>
       </div>
       <button type="button" class="tip-xbtn" id="appDrawerClose" aria-label="Close">✕</button>
     </div>
     <div class="drawer-scroll">
-      <div>
-        <div class="drawer-sec-lbl" id="drawerLangLbl">🌐 ভাষা / भाषा / Language</div>
-        <div class="langs" id="langs" role="group" aria-label="Language / ভাষা / भाषा">
-          <button type="button" data-lang="bn" lang="bn">বাংলা</button><button type="button" data-lang="hi" lang="hi">हिन्दी</button><button type="button" data-lang="en" lang="en">English</button>
+      <div class="drawer-wx-card" id="drawerWxCard" role="button" tabindex="0">
+        <div class="drawer-wx-l">
+          <span class="drawer-wx-ico" id="drawerWxIco">🌤️</span>
+          <div>
+            <strong id="drawerWxTemp">--°C</strong>
+            <span id="drawerWxSub">আবহাওয়া লোড হচ্ছে…</span>
+          </div>
         </div>
+        <span class="drawer-wx-city" id="drawerWxCity">📍 কলকাতা</span>
       </div>
-      <div>
-        <div class="drawer-sec-lbl" id="drawerQuickLbl">⚡ শর্টকাট</div>
-        <div class="drawer-quick-row">
-          <button type="button" class="drawer-qbtn" id="drawerHomeBtn">🏠 হোম</button>
-          <button type="button" class="drawer-qbtn" id="drawerStatesBtn">📍 রাজ্যসমূহ</button>
-          <button type="button" class="drawer-qbtn" id="drawerMapBtn">🗺️ মানচিত্র</button>
-          <button type="button" class="drawer-qbtn install" id="drawerInstallBtn" hidden>📲 অ্যাপ ইনস্টল করুন</button>
-        </div>
+
+      <div class="drawer-menu-list" id="drawerMenuList">
+        <button type="button" class="dm-row" id="dmRefresh">
+          <span class="dm-ico">🔄</span>
+          <span class="dm-lbl" id="dmRefreshLbl">লাইভ ডেটা আপডেট</span>
+          <span class="dm-meta" id="dmRefreshMeta">Live</span>
+        </button>
+        <button type="button" class="dm-row" id="dmLang">
+          <span class="dm-ico">🌐</span>
+          <span class="dm-lbl" id="dmLangLbl">ভাষা (১২টি ভারতীয় ভাষা)</span>
+          <span class="dm-meta dm-accent" id="dmLangMeta">বাংলা</span>
+        </button>
+        <button type="button" class="dm-row" id="dmState">
+          <span class="dm-ico">📍</span>
+          <span class="dm-lbl" id="dmStateLbl">রাজ্য / কেন্দ্রশাসিত অঞ্চল</span>
+          <span class="dm-meta" id="dmStateMeta">ভারত</span>
+        </button>
+        <button type="button" class="dm-row" id="dmTheme">
+          <span class="dm-ico">🌓</span>
+          <span class="dm-lbl" id="dmThemeLbl">লাইট / ডার্ক মোড</span>
+          <span class="dm-meta" id="dmThemeMeta">Auto</span>
+        </button>
+        <button type="button" class="dm-row" id="dmAlerts">
+          <span class="dm-ico">🔔</span>
+          <span class="dm-lbl" id="dmAlertsLbl">আজকের সুরক্ষা অ্যালার্ট</span>
+          <span class="dm-meta">SOS</span>
+        </button>
+        <button type="button" class="dm-row" id="dmShare">
+          <span class="dm-ico">📤</span>
+          <span class="dm-lbl" id="dmShareLbl">অ্যাপ শেয়ার করুন</span>
+          <span class="dm-meta">↗</span>
+        </button>
+        <button type="button" class="dm-row" id="drawerInstallBtn" hidden>
+          <span class="dm-ico">📲</span>
+          <span class="dm-lbl" id="dmInstallLbl">ফোনে অ্যাপ ইনস্টল করুন</span>
+          <span class="dm-meta dm-accent">PWA</span>
+        </button>
+        <button type="button" class="dm-row" id="dmHelp">
+          <span class="dm-ico">❓</span>
+          <span class="dm-lbl" id="dmHelpLbl">অ্যাপ ব্যবহারের নিয়ম</span>
+          <span class="dm-meta">›</span>
+        </button>
+        <button type="button" class="dm-row" id="dmClear">
+          <span class="dm-ico">🧹</span>
+          <span class="dm-lbl" id="dmClearLbl">ক্যাশ পরিষ্কার করুন</span>
+          <span class="dm-meta">↺</span>
+        </button>
       </div>
+
+      <div class="drawer-divider"></div>
+
       <div>
         <div class="drawer-sec-lbl" id="drawerNavLbl">📑 সব সেকশন</div>
         <div class="drawer-nav" id="drawerNav"></div>
@@ -5284,6 +5697,44 @@ select option, select optgroup {
   <button type="button" class="bnav-btn" data-bnav="menu"><span class="bnav-ico">☰</span><span class="bnav-lbl" id="bnMenu">মেনু</span></button>
 </nav>
 
+
+
+<div class="stpick-bg" id="lang12Bg" hidden role="dialog" aria-modal="true" aria-labelledby="lang12Title">
+  <div class="stpick-sheet lang12-sheet">
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <div class="stpick-head">
+      <h3 id="lang12Title">Choose a language</h3>
+      <button type="button" class="tip-xbtn" id="lang12Close" aria-label="Close">✕</button>
+    </div>
+    <div class="lang12-grid" id="lang12Grid"></div>
+    <div class="lang12-foot">
+      <p class="lang12-note" id="lang12Note"></p>
+      <button type="button" class="lang12-submit" id="lang12Submit">Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="stpick-bg" id="wxModalBg" hidden role="dialog" aria-modal="true" aria-labelledby="wxModalTitle">
+  <div class="stpick-sheet wx-sheet">
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <div class="stpick-head">
+      <h3 id="wxModalTitle">🌤️ লাইভ আবহাওয়া</h3>
+      <button type="button" class="tip-xbtn" id="wxModalClose" aria-label="Close">✕</button>
+    </div>
+    <div class="stpick-body" id="wxModalBody"></div>
+  </div>
+</div>
+
+<div class="stpick-bg" id="helpModalBg" hidden role="dialog" aria-modal="true" aria-labelledby="helpModalTitle">
+  <div class="stpick-sheet">
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <div class="stpick-head">
+      <h3 id="helpModalTitle">❓ অ্যাপ ব্যবহারের নিয়ম</h3>
+      <button type="button" class="tip-xbtn" id="helpModalClose" aria-label="Close">✕</button>
+    </div>
+    <div class="stpick-body" id="helpModalBody"></div>
+  </div>
+</div>
 
 <div class="stpick-bg" id="statePickerBg" hidden role="dialog" aria-modal="true" aria-labelledby="stPickTitle">
   <div class="stpick-sheet" id="statePickerSheet">
@@ -9501,28 +9952,73 @@ function classifyOpenMeteoWeather(code, temp, precip) {
   return { tags: [...new Set(tags)], label };
 }
 
-function initLiveWeatherForTips() {
+const WX_CITIES = [
+  { id: 'kol', n: ['কলকাতা', 'कोलकाता', 'Kolkata'], lat: 22.57, lon: 88.36 },
+  { id: 'del', n: ['নয়াদিল্লি', 'नई दिल्ली', 'New Delhi'], lat: 28.61, lon: 77.21 },
+  { id: 'mum', n: ['মুম্বই', 'मुंबई', 'Mumbai'], lat: 19.08, lon: 72.88 },
+  { id: 'blr', n: ['বেঙ্গালুরু', 'बेंगलुरु', 'Bengaluru'], lat: 12.97, lon: 77.59 },
+  { id: 'che', n: ['চেন্নাই', 'चेन्नई', 'Chennai'], lat: 13.08, lon: 80.27 },
+  { id: 'hyd', n: ['হায়দরাবাদ', 'हैदराबाद', 'Hyderabad'], lat: 17.39, lon: 78.49 },
+  { id: 'guw', n: ['গুয়াহাটি', 'गुवाहाटी', 'Guwahati'], lat: 26.14, lon: 91.74 },
+  { id: 'pat', n: ['পাটনা', 'पटना', 'Patna'], lat: 25.59, lon: 85.14 },
+  { id: 'jai', n: ['জয়পুর', 'जयपुर', 'Jaipur'], lat: 26.91, lon: 75.79 },
+  { id: 'lko', n: ['লখনউ', 'लखनऊ', 'Lucknow'], lat: 26.85, lon: 80.95 },
+  { id: 'bbs', n: ['ভুবনেশ্বর', 'भुवनेश्वर', 'Bhubaneswar'], lat: 20.29, lon: 85.82 },
+  { id: 'rgj', n: ['রায়গঞ্জ', 'रायगंज', 'Raiganj'], lat: 25.61, lon: 88.12 }
+];
+let wxCity = (() => {
   try {
-    const cached = JSON.parse(localStorage.getItem('bharat-live-weather') || 'null');
-    if (cached && cached.fetchedAt && (Date.now() - cached.fetchedAt) < 7200000) {
-      liveWeatherState = cached;
-      return;
-    }
+    const saved = JSON.parse(localStorage.getItem('bharat-wx-city') || 'null');
+    if (saved && typeof saved.lat === 'number') return saved;
   } catch (_) {}
-  // Free, keyless Open-Meteo current weather (defaults to Eastern/Central India; zero permission popups)
-  const lat = 25.6, lon = 88.3;
-  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,precipitation,weather_code&timezone=Asia%2FKolkata`, { cache: 'no-store' })
+  return WX_CITIES[0];
+})();
+
+function fetchLiveWeather(force = false) {
+  if (!force) {
+    try {
+      const cached = JSON.parse(localStorage.getItem('bharat-live-weather') || 'null');
+      if (cached && cached.fetchedAt && cached.cityId === wxCity.id && (Date.now() - cached.fetchedAt) < 1800000 && typeof cached.temp === 'number') {
+        liveWeatherState = cached;
+        if (typeof updateWeatherWidgets === 'function') updateWeatherWidgets();
+        return Promise.resolve(cached);
+      }
+    } catch (_) {}
+  }
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${wxCity.lat}&longitude=${wxCity.lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&timezone=Asia%2FKolkata`;
+  return fetch(url, { cache: 'no-store' })
     .then((r) => r.ok ? r.json() : null)
     .then((d) => {
-      if (!d || !d.current) return;
+      if (!d || !d.current) return null;
       const temp = d.current.temperature_2m;
+      const feels = d.current.apparent_temperature;
+      const hum = d.current.relative_humidity_2m;
+      const wind = d.current.wind_speed_10m;
       const precip = d.current.precipitation;
       const wcode = d.current.weather_code;
       const info = classifyOpenMeteoWeather(wcode, temp, precip);
-      liveWeatherState = { tags: info.tags, temp, label: info.label, fetchedAt: Date.now() };
+      liveWeatherState = {
+        cityId: wxCity.id,
+        cityName: wxCity.n,
+        tags: info.tags,
+        temp,
+        feels,
+        hum,
+        wind,
+        precip,
+        wcode,
+        label: info.label,
+        fetchedAt: Date.now()
+      };
       try { localStorage.setItem('bharat-live-weather', JSON.stringify(liveWeatherState)); } catch (_) {}
+      if (typeof updateWeatherWidgets === 'function') updateWeatherWidgets();
       if (tab === 'tips' && cur === 'india') render();
-    }).catch(() => {});
+      return liveWeatherState;
+    }).catch(() => null);
+}
+
+function initLiveWeatherForTips() {
+  fetchLiveWeather(false);
 }
 
 /* Active 50 Smart Selection & Ordering:
@@ -9778,7 +10274,6 @@ function natTips() {
 
   const wLbl = liveWeatherState.label ? liveWeatherState.label[li] : season.lbl[li];
   const autoStrip = `<div class="tips-auto-strip">` +
-    `<span class="tips-auto-pill">🌤️ ${wLbl}</span>` +
     `<span class="tips-auto-pill hot">🔥 ${tipPickText(cl, 'মৌসুমি ও ট্রেন্ডিং সবার আগে', 'मौसम व ट्रेंडिंग सबसे ऊपर', 'Weather & Trending First')}</span>` +
     `<span class="tips-auto-pill ok">🔄 ${tipPickText(cl, 'সাপ্তাহিক অটো-আপডেট (' + sunLabel + ')', 'साप्ताहिक ऑटो-अपडेट (' + sunLabel + ')', 'Weekly Auto-Refresh (' + sunLabel + ')')}</span>` +
   `</div>`;
@@ -10675,6 +11170,462 @@ document.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && $('#statePickerBg') && !$('#statePickerBg').hidden) closeStatePicker();
 });
+
+
+/* ---------- v16 Live Weather Pill, App Drawer Actions & 12-Indian-Language Hybrid Engine ---------- */
+const LANGS_12 = [
+  { code: 'en', glyph: 'A',  name: 'English',  native: true,
+    ui: { home:'Home', map:'Map', safety:'Safety', quiz:'Quiz', menu:'Menu', states:'States', mkt:'Gold/USD', idx:'Indices', cmp:'Compare', pol:'Politics', refresh:'Refresh Live Data', lang:'Language', changeState:'Change State / UT', theme:'Light / Dark Mode', alerts:'View Safety Alerts', share:'Share App', install:'Install App', help:'How to use this app', clear:'Clear Cache', sections:'All Sections', chooseLang:'Choose a language', submit:'Submit', tipsBtn:'🆘 Tips' } },
+  { code: 'hi', glyph: 'अ',  name: 'हिंदी',     native: true,
+    ui: { home:'होम', map:'नक़्शा', safety:'सुरक्षा', quiz:'क्विज़', menu:'मेनू', states:'राज्य', mkt:'बाज़ार भाव', idx:'सूचकांक', cmp:'तुलना', pol:'राजनीति', refresh:'लाइव डेटा अपडेट', lang:'भाषा (12 भाषाएँ)', changeState:'राज्य बदलें', theme:'लाइट / डार्क मोड', alerts:'सुरक्षा अलर्ट देखें', share:'ऐप शेयर करें', install:'ऐप इंस्टॉल करें', help:'ऐप कैसे उपयोग करें', clear:'कैश साफ़ करें', sections:'सभी अनुभाग', chooseLang:'भाषा चुनें', submit:'लागू करें', tipsBtn:'🆘 टिप्स' } },
+  { code: 'kn', glyph: 'ಅ',  name: 'ಕನ್ನಡ',     native: false,
+    ui: { home:'ಮುಖಪುಟ', map:'ನಕ್ಷೆ', safety:'ಸುರಕ್ಷತೆ', quiz:'ರಸಪ್ರಶ್ನೆ', menu:'ಮೆನು', states:'ರಾಜ್ಯಗಳು', mkt:'ಬೆಲೆಗಳು', idx:'ಸೂಚ್ಯಂಕ', cmp:'ಹೋಲಿಕೆ', pol:'ರಾಜಕೀಯ', refresh:'ಡೇಟಾ ನವೀಕರಿಸಿ', lang:'ಭಾಷೆ (12 ಭಾಷೆಗಳು)', changeState:'ರಾಜ್ಯ ಬದಲಿಸಿ', theme:'ಲೈಟ್ / ಡಾರ್ಕ್ ಮೋಡ್', alerts:'ಸುರಕ್ಷತಾ ಎಚ್ಚರಿಕೆಗಳು', share:'ಅಪ್ಲಿಕೇಶನ್ ಹಂಚಿಕೊಳ್ಳಿ', install:'ಅಪ್ಲಿಕೇಶನ್ ಇನ್‌ಸ್ಟಾಲ್', help:'ಬಳಸುವುದು ಹೇಗೆ', clear:'ಕ್ಯಾಶ್ ತೆರವುಗೊಳಿಸಿ', sections:'ಎಲ್ಲಾ ವಿಭಾಗಗಳು', chooseLang:'ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ', submit:'ಸಲ್ಲಿಸಿ', tipsBtn:'🆘 ಸುರಕ್ಷತೆ' } },
+  { code: 'ta', glyph: 'அ',  name: 'தமிழ்',     native: false,
+    ui: { home:'முகப்பு', map:'வரைபடம்', safety:'பாதுகாப்பு', quiz:'வினாடி வினா', menu:'மெனு', states:'மாநிலங்கள்', mkt:'தங்கம்/USD', idx:'குறியீடுகள்', cmp:'ஒப்பீடு', pol:'அரசியல்', refresh:'தரவைப் புதுப்பி', lang:'மொழி (12 மொழிகள்)', changeState:'மாநிலத்தை மாற்று', theme:'ஒளி / இருள் பயன்முறை', alerts:'பாதுகாப்பு எச்சரிக்கைகள்', share:'பயன்பாட்டைப் பகிர்', install:'செயலியை நிறுவு', help:'பயன்படுத்துவது எப்படி', clear:'தற்காலிக தரவை அழி', sections:'அனைத்துப் பிரிவுகள்', chooseLang:'மொழியைத் தேர்ந்தெடுக்கவும்', submit:'சமர்ப்பி', tipsBtn:'🆘 பாதுகாப்பு' } },
+  { code: 'bn', glyph: 'অ',  name: 'বাংলা',     native: true,
+    ui: { home:'হোম', map:'মানচিত্র', safety:'সুরক্ষা', quiz:'কুইজ', menu:'মেনু', states:'রাজ্যসমূহ', mkt:'বাজার দর', idx:'সূচক', cmp:'তুলনা', pol:'রাজনীতি', refresh:'লাইভ ডেটা আপডেট', lang:'ভাষা (১২টি ভাষা)', changeState:'রাজ্য বদলান', theme:'লাইট / ডার্ক মোড', alerts:'সুরক্ষা অ্যালার্ট দেখুন', share:'অ্যাপ শেয়ার করুন', install:'অ্যাপ ইনস্টল করুন', help:'অ্যাপ ব্যবহারের নিয়ম', clear:'ক্যাশ পরিষ্কার করুন', sections:'সব সেকশন', chooseLang:'ভাষা বাছুন', submit:'নিশ্চিত করুন', tipsBtn:'🆘 টিপস' } },
+  { code: 'mr', glyph: 'अ',  name: 'मराठी',     native: false,
+    ui: { home:'होम', map:'नकाशा', safety:'सुरक्षा', quiz:'क्विझ', menu:'मेनू', states:'राज्ये', mkt:'बाजार भाव', idx:'निर्देशांक', cmp:'तुलना', pol:'राजकारण', refresh:'डेटा अपडेट करा', lang:'भाषा (12 भाषा)', changeState:'राज्य बदला', theme:'लाइट / डार्क मोड', alerts:'सुरक्षा सूचना पहा', share:'अॅप शेअर करा', install:'अॅप इन्स्टॉल करा', help:'अॅप कसे वापरावे', clear:'कॅश साफ करा', sections:'सर्व विभाग', chooseLang:'भाषा निवडा', submit:'निवडा', tipsBtn:'🆘 सुरक्षा' } },
+  { code: 'ml', glyph: 'അ',  name: 'മലയാളം',   native: false,
+    ui: { home:'ഹോം', map:'മാപ്പ്', safety:'സുരക്ഷ', quiz:'ക്വിസ്', menu:'മെനു', states:'സംസ്ഥാനങ്ങൾ', mkt:'സ്വർണം/USD', idx:'സൂചികകൾ', cmp:'താരതമ്യം', pol:'രാഷ്ട്രീയം', refresh:'ഡാറ്റ പുതുക്കുക', lang:'ഭാഷ (12 ഭാഷകൾ)', changeState:'സംസ്ഥാനം മാറ്റുക', theme:'ലൈറ്റ് / ഡാർക്ക് മോഡ്', alerts:'സുരക്ഷാ അറിയിപ്പുകൾ', share:'ആപ്പ് പങ്കിടുക', install:'ആപ്പ് ഇൻസ്റ്റാൾ', help:'ഉപയോഗിക്കേണ്ട വിധം', clear:'ക്യാഷ് നീക്കം ചെയ്യുക', sections:'എല്ലാ വിഭാഗങ്ങളും', chooseLang:'ഭാഷ തിരഞ്ഞെടുക്കുക', submit:'സമർപ്പിക്കുക', tipsBtn:'🆘 സുരക്ഷ' } },
+  { code: 'te', glyph: 'అ',  name: 'తెలుగు',     native: false,
+    ui: { home:'హోమ్', map:'మ్యాప్', safety:'భద్రత', quiz:'క్విజ్', menu:'మెనూ', states:'రాష్ట్రాలు', mkt:'ధరలు', idx:'సూచీలు', cmp:'పోలిక', pol:'రాజకీయం', refresh:'డేటా అప్‌డేట్', lang:'భాష (12 భాషలు)', changeState:'రాష్ట్రాన్ని మార్చండి', theme:'లైట్ / డార్క్ మోడ్', alerts:'భద్రతా హెచ్చరికలు', share:'యాప్ షేర్ చేయండి', install:'యాప్ ఇన్‌స్టాల్', help:'యాప్ ఎలా వాడాలి', clear:'క్యాష్ క్లియర్', sections:'అన్ని విభాగాలు', chooseLang:'భాషను ఎంచుకోండి', submit:'సమర్పించండి', tipsBtn:'🆘 భద్రత' } },
+  { code: 'or', glyph: 'ଅ',  name: 'ଓଡ଼ିଆ',     native: false,
+    ui: { home:'ହୋମ୍', map:'ମାନଚିତ୍ର', safety:'ସୁରକ୍ଷା', quiz:'କ୍ୱିଜ୍', menu:'ମେନୁ', states:'ରାଜ୍ୟଗୁଡ଼ିକ', mkt:'ବଜାର ଦର', idx:'ସୂଚକାଙ୍କ', cmp:'ତୁଳନା', pol:'ରାଜନୀତି', refresh:'ଡାଟା ଅପଡେଟ୍', lang:'ଭାଷା (12 ଭାଷା)', changeState:'ରାଜ୍ୟ ବଦଳାନ୍ତୁ', theme:'ଲାଇଟ୍ / ଡାର୍କ୍ ମୋଡ୍', alerts:'ସୁରକ୍ଷା ସତର୍କତା', share:'ଆପ୍ ସେୟାର କରନ୍ତୁ', install:'ଆପ୍ ଇନଷ୍ଟଲ୍', help:'ଆପ୍ କିପରି ବ୍ୟବହାର କରିବେ', clear:'କ୍ୟାସ୍ ସଫା କରନ୍ତୁ', sections:'ସମସ୍ତ ବିଭାଗ', chooseLang:'ଭାଷା ବାଛନ୍ତୁ', submit:'ଦାଖଲ କରନ୍ତୁ', tipsBtn:'🆘 ସୁରକ୍ଷା' } },
+  { code: 'as', glyph: 'অ',  name: 'অসমীয়া',    native: false,
+    ui: { home:'হোম', map:'মানচিত্ৰ', safety:'সুৰক্ষা', quiz:'কুইজ', menu:'মেনু', states:'ৰাজ্যসমূহ', mkt:'বজাৰ দৰ', idx:'সূচকাংক', cmp:'তুলনা', pol:'ৰাজনীতি', refresh:'ডেটা আপডেট', lang:'ভাষা (১২টা ভাষা)', changeState:'ৰাজ্য সলনি কৰক', theme:'লাইট / ডাৰ্ক মোড', alerts:'সুৰক্ষা সতৰ্কবাণী', share:'এপ শ্বেয়াৰ কৰক', install:'এপ ইনষ্টল কৰক', help:'এপ ব্যৱহাৰৰ নিয়ম', clear:'কেশ্ব চাফা কৰক', sections:'সকলো শিতান', chooseLang:'ভাষা বাছনি কৰক', submit:'নিশ্চিত কৰক', tipsBtn:'🆘 সুৰক্ষা' } },
+  { code: 'pa', glyph: 'ਓ',  name: 'ਪੰਜਾਬੀ',     native: false,
+    ui: { home:'ਹੋਮ', map:'ਨਕਸ਼ਾ', safety:'ਸੁਰੱਖਿਆ', quiz:'ਕੁਇਜ਼', menu:'ਮੇਨੂ', states:'ਰਾਜ', mkt:'ਸੋਨਾ/USD', idx:'ਸੂਚਕ', cmp:'ਤੁਲਨਾ', pol:'ਰਾਜਨੀਤੀ', refresh:'ਡੇਟਾ ਅੱਪਡੇਟ ਕਰੋ', lang:'ਭਾਸ਼ਾ (12 ਭਾਸ਼ਾਵਾਂ)', changeState:'ਰਾਜ ਬਦਲੋ', theme:'ਲਾਈਟ / ਡਾਰਕ ਮੋਡ', alerts:'ਸੁਰੱਖਿਆ ਅਲਰਟ', share:'ਐਪ ਸ਼ੇਅਰ ਕਰੋ', install:'ਐਪ ਇੰਸਟਾਲ ਕਰੋ', help:'ਐਪ ਕਿਵੇਂ ਵਰਤੀਏ', clear:'ਕੈਸ਼ ਸਾਫ਼ ਕਰੋ', sections:'ਸਾਰੇ ਭਾਗ', chooseLang:'ਭਾਸ਼ਾ ਚੁਣੋ', submit:'ਲਾਗੂ ਕਰੋ', tipsBtn:'🆘 ਸੁਰੱਖਿਆ' } },
+  { code: 'gu', glyph: 'અ',  name: 'ગુજરાતી',   native: false,
+    ui: { home:'હોમ', map:'નકશો', safety:'સુરક્ષા', quiz:'ક્વિઝ', menu:'મેનૂ', states:'રાજ્યો', mkt:'બજાર ભાવ', idx:'સૂચકાંક', cmp:'તુલના', pol:'રાજકારણ', refresh:'ડેટા અપડેટ કરો', lang:'ભાષા (12 ભાષાઓ)', changeState:'રાજ્ય બદલો', theme:'લાઇટ / ડાર્ક મોડ', alerts:'સુરક્ષા એલર્ટ', share:'એપ શેર કરો', install:'એપ ઇન્સ્ટોલ કરો', help:'એપ કેવી રીતે વાપરવી', clear:'કેશ સાફ કરો', sections:'બધા વિભાગો', chooseLang:'ભાષા પસંદ કરો', submit:'લાગુ કરો', tipsBtn:'🆘 સુરક્ષા' } }
+];
+
+let uiLang = (() => {
+  try {
+    const saved = localStorage.getItem('bharat-lang12');
+    if (saved && LANGS_12.some((x) => x.code === saved)) return saved;
+  } catch (_) {}
+  return lang;
+})();
+let lang12Draft = uiLang;
+const trCache = new Map();
+let trJobSeq = 0;
+
+function getLang12Obj(code = uiLang) {
+  return LANGS_12.find((x) => x.code === code) || LANGS_12[0];
+}
+
+function getWxIconAndShort(st) {
+  if (!st) return { ico: '🌤️', cond: L('আবহাওয়া', 'मौसम', 'Weather'), temp: '--°C' };
+  const t = typeof st.temp === 'number' ? Math.round(st.temp) + '°C' : '--°C';
+  const c = st.wcode || 0;
+  let ico = '🌤️';
+  if (c >= 95) ico = '⛈️';
+  else if ((c >= 51 && c <= 67) || (c >= 80 && c <= 82) || (st.precip && st.precip > 0.1)) ico = '🌧️';
+  else if (c === 45 || c === 48) ico = '🌫️';
+  else if (c >= 1 && c <= 3) ico = '⛅';
+  else if (typeof st.temp === 'number' && st.temp >= 34) ico = '☀️';
+  else if (typeof st.temp === 'number' && st.temp <= 16) ico = '❄️';
+  const rawLbl = (st.label && st.label[lang === 'bn' ? 0 : lang === 'hi' ? 1 : 2]) || '';
+  const cleanCond = rawLbl.replace(/^[^\s]+\s+/, '').replace(/\s*\([^)]*\)/g, '').trim();
+  return { ico, cond: cleanCond || L('স্বাভাবিক', 'सामान्य', 'Clear'), temp: t };
+}
+
+function updateWeatherWidgets() {
+  const { ico, cond, temp } = getWxIconAndShort(liveWeatherState);
+  if ($('#appWxIco')) $('#appWxIco').textContent = ico;
+  if ($('#appWxTemp')) $('#appWxTemp').textContent = temp;
+  if ($('#appWxCond')) $('#appWxCond').textContent = cond;
+  if ($('#drawerWxIco')) $('#drawerWxIco').textContent = ico;
+  if ($('#drawerWxTemp')) $('#drawerWxTemp').textContent = temp;
+  if ($('#drawerWxSub')) $('#drawerWxSub').textContent = cond;
+  const cName = wxCity && wxCity.n ? wxCity.n[lang === 'bn' ? 0 : lang === 'hi' ? 1 : 2] : L('কলকাতা', 'कोलकाता', 'Kolkata');
+  if ($('#drawerWxCity')) $('#drawerWxCity').textContent = '📍 ' + cName;
+  if ($('#dmRefreshMeta') && liveWeatherState && liveWeatherState.fetchedAt) {
+    const mins = Math.max(0, Math.round((Date.now() - liveWeatherState.fetchedAt) / 60000));
+    $('#dmRefreshMeta').textContent = mins === 0 ? L('এখনই', 'अभी', 'just now') : (mins + 'm');
+  }
+}
+
+function renderWeatherModal() {
+  const body = $('#wxModalBody');
+  const title = $('#wxModalTitle');
+  if (!body) return;
+  const { ico, cond, temp } = getWxIconAndShort(liveWeatherState);
+  const cName = wxCity && wxCity.n ? wxCity.n[lang === 'bn' ? 0 : lang === 'hi' ? 1 : 2] : 'Kolkata';
+  if (title) title.textContent = `${ico} ${L('লাইভ আবহাওয়া', 'लाइव मौसम', 'Live Weather')} · ${cName}`;
+  const feels = liveWeatherState && typeof liveWeatherState.feels === 'number' ? Math.round(liveWeatherState.feels) + '°C' : '—';
+  const hum = liveWeatherState && typeof liveWeatherState.hum === 'number' ? Math.round(liveWeatherState.hum) + '%' : '—';
+  const wind = liveWeatherState && typeof liveWeatherState.wind === 'number' ? Math.round(liveWeatherState.wind) + ' km/h' : '—';
+
+  body.innerHTML =
+    `<div class="wx-hero">` +
+      `<div class="wx-hero-top">` +
+        `<div><div class="wx-big-temp">${temp}</div><div style="font-size:14px;font-weight:700;margin-top:4px;color:var(--fg)">${cond}</div><div style="font-size:12px;color:var(--muted);margin-top:2px">📍 ${cName}</div></div>` +
+        `<div class="wx-big-ico" aria-hidden="true">${ico}</div>` +
+      `</div>` +
+      `<div class="wx-metrics">` +
+        `<div class="wx-mcard"><span>${L('অনুভূত', 'महसूस', 'Feels Like')}</span><strong>${feels}</strong></div>` +
+        `<div class="wx-mcard"><span>${L('আর্দ্রতা', 'नमी', 'Humidity')}</span><strong>${hum}</strong></div>` +
+        `<div class="wx-mcard"><span>${L('বাতাস', 'हवा', 'Wind')}</span><strong>${wind}</strong></div>` +
+      `</div>` +
+    `</div>` +
+    `<button type="button" class="wx-gps-btn" id="wxUseGps">📡 ${L('আমার বর্তমান লোকেশনের আবহাওয়া দেখুন (GPS)', 'मेरे वर्तमान स्थान का मौसम देखें (GPS)', 'Use My Live GPS Location')}</button>` +
+    `<div class="drawer-sec-lbl">${L('ভারতের প্রধান শহর বাছুন', 'प्रमुख भारतीय शहर चुनें', 'Select an Indian City')}</div>` +
+    `<div class="wx-cities">` +
+      WX_CITIES.map((c) => {
+        const cn = c.n[lang === 'bn' ? 0 : lang === 'hi' ? 1 : 2];
+        return `<button type="button" class="wx-cbtn${wxCity.id === c.id ? ' active' : ''}" data-wx-city="${c.id}">${cn}</button>`;
+      }).join('') +
+    `</div>` +
+    `<button type="button" class="lang12-submit" id="wxGoTips" style="background:linear-gradient(135deg,#DC2626,#EA580C)">🆘 ${L('এই আবহাওয়ার সুরক্ষা টিপস দেখুন', 'इस मौसम के सुरक्षा टिप्स देखें', 'View Safety Tips for This Weather')}</button>`;
+}
+
+function openWeatherModal() {
+  const bg = $('#wxModalBg');
+  if (!bg) return;
+  renderWeatherModal();
+  bg.hidden = false;
+  document.body.style.overflow = 'hidden';
+  fetchLiveWeather(false).then(() => { if (!bg.hidden) renderWeatherModal(); });
+}
+function closeWeatherModal() {
+  const bg = $('#wxModalBg');
+  if (!bg) return;
+  bg.hidden = true;
+  if (!tipModalState && (!$('#appDrawerBg') || $('#appDrawerBg').hidden)) document.body.style.overflow = '';
+}
+
+function openHelpModal() {
+  const bg = $('#helpModalBg');
+  const body = $('#helpModalBody');
+  const title = $('#helpModalTitle');
+  if (!bg || !body) return;
+  const u = getLang12Obj().ui;
+  if (title) title.textContent = '❓ ' + u.help;
+  const steps = [
+    ['📍', L('রাজ্য ও কেন্দ্রশাসিত অঞ্চল', 'राज्य और केंद्रशासित प्रदेश', 'Browse 28 States & 8 UTs'), L('ওপরের "রাজ্যসমূহ" বা 🔍 সার্চ আইকনে ট্যাপ করে ভারতের যেকোনো রাজ্য বা কেন্দ্রশাসিত অঞ্চলের তথ্য, জেলা, রাজনীতি ও ভ্রমণ দেখুন।', 'ऊपर "राज्य" या 🔍 आइकन पर टैप करके किसी भी राज्य या केंद्रशासित प्रदेश की जानकारी देखें।', 'Tap States or the 🔍 icon to instantly explore any of India’s 28 states & 8 UTs.')],
+    ['🖼️', L('স্মার্ট কার্ড ডাউনলোড ও শেয়ার', 'स्मार्ट कार्ड डाउनलोड और शेयर', 'Download & Share Smart Cards'), L('যেই সেকশনে থাকবেন (বাজার দর, সূচক, রাজনীতি, সুরক্ষা টিপস) — "কার্ড ডাউনলোড" চাপলেই ওই সেকশনের তথ্য ছবি হয়ে সেভ হবে।', 'आप जिस अनुभाग में हैं, "कार्ड डाउनलोड" दबाते ही उसकी जानकारी इमेज कार्ड में सेव हो जाएगी।', 'Download Card dynamically captures key metrics of whichever section you are viewing.')],
+    ['🌤️', L('লাইভ আবহাওয়া ও জীবন সুরক্ষা', 'लाइव मौसम और जीवन सुरक्षा', 'Live Weather & Safety Alerts'), L('ওপরের আবহাওয়া পিল ট্যাপ করে নিজের শহরের লাইভ তাপমাত্রা দেখুন এবং আবহাওয়া অনুযায়ী জরুরি সুরক্ষা গাইড পড়ুন।', 'ऊपर मौसम पिल पर टैप करके अपने शहर का तापमान और मौसम-आधारित सुरक्षा गाइड देखें।', 'Tap the top weather pill for live temperature & city weather, synced with Safety Tips.')],
+    ['🌐', L('১২টি ভারতীয় ভাষা ও ডার্ক মোড', '12 भारतीय भाषाएँ और डार्क मोड', '12 Indian Languages & Dark Mode'), L('৩-লাইন মেনু (☰) থেকে যেকোনো সময় ১২টি ভারতীয় ভাষার একটি বেছে নিন এবং ডার্ক/লাইট মোড পরিবর্তন করুন।', '3-लाइन मेनू (☰) से कभी भी 12 भारतीय भाषाओं में से कोई भी चुनें और डार्क मोड बदलें।', 'Switch anytime between 12 Indian languages and Dark/Light themes from the ☰ menu.')]
+  ];
+  body.innerHTML = steps.map(([ic, h, p]) =>
+    `<div class="help-step"><span class="help-step-ico">${ic}</span><div><strong>${h}</strong><p>${p}</p></div></div>`
+  ).join('');
+  bg.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+function closeHelpModal() {
+  const bg = $('#helpModalBg');
+  if (!bg) return;
+  bg.hidden = true;
+  if (!tipModalState && (!$('#appDrawerBg') || $('#appDrawerBg').hidden)) document.body.style.overflow = '';
+}
+
+function renderLang12Modal() {
+  const grid = $('#lang12Grid');
+  const title = $('#lang12Title');
+  const subBtn = $('#lang12Submit');
+  const note = $('#lang12Note');
+  if (!grid) return;
+  const activeObj = getLang12Obj(lang12Draft);
+  if (title) title.textContent = activeObj.ui.chooseLang;
+  if (subBtn) subBtn.textContent = activeObj.ui.submit;
+  if (note) {
+    note.textContent = activeObj.native
+      ? L('✓ সম্পূর্ণ অফলাইন নেটিভ ভাষা সমর্থিত', '✓ पूर्ण ऑफ़लाइन नेटिव भाषा समर्थित', '✓ Full offline native language support')
+      : '🌐 Instant Native UI + Live Auto-Translation (Online)';
+  }
+  grid.innerHTML = LANGS_12.map((it) => {
+    const sel = it.code === lang12Draft;
+    return `<button type="button" class="lang12-card${sel ? ' selected' : ''}" data-pick-lang12="${it.code}">` +
+      `<span class="lang12-check" aria-hidden="true">✓</span>` +
+      `<span class="lang12-glyph" aria-hidden="true">${it.glyph}</span>` +
+      `<span><span class="lang12-name">${it.name}</span></span>` +
+    `</button>`;
+  }).join('');
+}
+
+function openLang12Modal() {
+  const bg = $('#lang12Bg');
+  if (!bg) return;
+  lang12Draft = uiLang;
+  renderLang12Modal();
+  bg.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+function closeLang12Modal() {
+  const bg = $('#lang12Bg');
+  if (!bg) return;
+  bg.hidden = true;
+  if (!tipModalState && (!$('#appDrawerBg') || $('#appDrawerBg').hidden)) document.body.style.overflow = '';
+}
+
+/* Apply native 12-language UI chrome immediately across Header, Quick Grid, Drawer, Bottom Nav */
+function applyLang12Chrome() {
+  const obj = getLang12Obj(uiLang);
+  const u = obj.ui;
+  if ($('#tipsBtn')) $('#tipsBtn').textContent = u.tipsBtn;
+  if ($('#bnHome')) $('#bnHome').textContent = u.home;
+  if ($('#bnMap'))  $('#bnMap').textContent  = u.map;
+  if ($('#bnTips')) $('#bnTips').textContent = u.safety;
+  if ($('#bnQuiz')) $('#bnQuiz').textContent = u.quiz;
+  if ($('#bnMenu')) $('#bnMenu').textContent = u.menu;
+
+  if ($('#dmRefreshLbl')) $('#dmRefreshLbl').textContent = u.refresh;
+  if ($('#dmLangLbl'))    $('#dmLangLbl').textContent    = u.lang;
+  if ($('#dmLangMeta'))   $('#dmLangMeta').textContent   = obj.name;
+  if ($('#dmStateLbl'))   $('#dmStateLbl').textContent   = u.changeState;
+  if ($('#dmStateMeta'))  $('#dmStateMeta').textContent  = cur === 'india' ? L('ভারত', 'भारत', 'India') : R(byId[cur]).sh;
+  if ($('#dmThemeLbl'))   $('#dmThemeLbl').textContent   = u.theme;
+  const isDk = document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+  if ($('#dmThemeMeta'))  $('#dmThemeMeta').textContent  = isDk ? '🌙 Dark' : '☀️ Light';
+  if ($('#dmAlertsLbl'))  $('#dmAlertsLbl').textContent  = u.alerts;
+  if ($('#dmShareLbl'))   $('#dmShareLbl').textContent   = u.share;
+  if ($('#dmInstallLbl')) $('#dmInstallLbl').textContent = u.install;
+  if ($('#dmHelpLbl'))    $('#dmHelpLbl').textContent    = u.help;
+  if ($('#dmClearLbl'))   $('#dmClearLbl').textContent   = u.clear;
+  if ($('#drawerNavLbl')) $('#drawerNavLbl').textContent = '📑 ' + u.sections;
+
+  const qMap = { states: u.states, map: u.map, mkt: u.mkt, tips: u.safety, quiz: u.quiz, idx: u.idx, cmp: u.cmp, pol: u.pol };
+  document.querySelectorAll('#appQuickGrid [data-quick-act]').forEach((btn) => {
+    const lbl = btn.querySelector('.aq-lbl');
+    if (lbl && qMap[btn.dataset.quickAct]) lbl.textContent = qMap[btn.dataset.quickAct];
+  });
+  updateWeatherWidgets();
+}
+
+/* Lightweight Batched Auto-Translator for the 9 Extended Regional Indian Languages */
+async function translateNodesForRegion(targetLang, containers) {
+  if (!targetLang || ['bn', 'hi', 'en'].includes(targetLang)) return;
+  const job = ++trJobSeq;
+  const nodes = [];
+  containers.forEach((root) => {
+    if (!root) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    let n;
+    while ((n = walker.nextNode())) {
+      const p = n.parentElement;
+      if (!p || p.closest('script, style, svg, .sym-stage, .tip-art, .tip-mart, .lang12-grid')) continue;
+      const raw = n.nodeValue;
+      const trim = raw.trim();
+      if (!trim || trim.length < 2 || /^[\d\s.,₹$%°/:+\-—–·•✓✕()|]+$/.test(trim)) continue;
+      nodes.push({ node: n, raw, trim });
+    }
+  });
+  if (!nodes.length) return;
+
+  const missing = [];
+  const missingSet = new Set();
+  nodes.forEach((item) => {
+    const key = targetLang + '|' + item.trim;
+    if (trCache.has(key)) {
+      item.node.nodeValue = item.raw.replace(item.trim, trCache.get(key));
+    } else if (!missingSet.has(item.trim)) {
+      missingSet.add(item.trim);
+      missing.push(item.trim);
+    }
+  });
+  if (!missing.length) return;
+
+  // Batch up to ~1100 chars per request so tabs translate cleanly in 1-3 fast requests
+  const batches = [];
+  let curBatch = [], curLen = 0;
+  for (const s of missing) {
+    if (curLen + s.length > 1050 && curBatch.length) {
+      batches.push(curBatch);
+      curBatch = [s]; curLen = s.length;
+    } else {
+      curBatch.push(s); curLen += s.length + 5;
+    }
+  }
+  if (curBatch.length) batches.push(curBatch);
+
+  const SEP = ' ||| ';
+  for (const batch of batches) {
+    if (job !== trJobSeq) return;
+    try {
+      const joined = batch.join(SEP);
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(targetLang)}&dt=t&q=${encodeURIComponent(joined)}`;
+      const res = await fetch(url);
+      if (!res.ok) continue;
+      const data = await res.json();
+      const translatedFull = (data && data[0] ? data[0].map((seg) => seg[0] || '').join('') : '');
+      const parts = translatedFull.split(/\s*\|\|\|\s*/);
+      if (parts.length === batch.length) {
+        batch.forEach((orig, idx) => {
+          const out = (parts[idx] || orig).trim();
+          trCache.set(targetLang + '|' + orig, out);
+        });
+      } else {
+        // Fallback line-by-line if separator count differs
+        const altJoined = batch.join('\n');
+        const res2 = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(targetLang)}&dt=t&q=${encodeURIComponent(altJoined)}`);
+        if (res2.ok) {
+          const d2 = await res2.json();
+          const lines = (d2 && d2[0] ? d2[0].map((seg) => seg[0] || '').join('') : '').split('\n');
+          batch.forEach((orig, idx) => {
+            if (lines[idx]) trCache.set(targetLang + '|' + orig, lines[idx].trim());
+          });
+        }
+      }
+      if (job !== trJobSeq) return;
+      nodes.forEach((item) => {
+        const hit = trCache.get(targetLang + '|' + item.trim);
+        if (hit) item.node.nodeValue = item.raw.replace(item.trim, hit);
+      });
+    } catch (_) {}
+  }
+}
+
+function applyLang12Choice(code) {
+  const obj = getLang12Obj(code);
+  uiLang = obj.code;
+  try { localStorage.setItem('bharat-lang12', uiLang); } catch (_) {}
+  const coreLang = obj.native ? obj.code : 'en';
+  setLang(coreLang);
+  applyLang12Chrome();
+  if (!obj.native) {
+    showTipToast(`🌐 ${obj.name} …`);
+    translateNodesForRegion(uiLang, [$('#panel'), $('#totd'), $('#drawerNav')]);
+  }
+}
+
+/* Hook into render() and theme toggle so 12-lang chrome + weather + drawer stay synced */
+const _origRenderV16 = render;
+render = function () {
+  _origRenderV16();
+  applyLang12Chrome();
+  if (!['bn', 'hi', 'en'].includes(uiLang)) {
+    translateNodesForRegion(uiLang, [$('#panel'), $('#totd'), $('#drawerNav')]);
+  }
+};
+const _origToggleThemeV16 = toggleTheme;
+toggleTheme = function () {
+  _origToggleThemeV16();
+  applyLang12Chrome();
+};
+
+/* Event Listeners for Weather Pill, Drawer Action List, 12-Lang Modal & Help Modal */
+if ($('#appWeatherBtn')) $('#appWeatherBtn').addEventListener('click', openWeatherModal);
+if ($('#drawerWxCard')) $('#drawerWxCard').addEventListener('click', () => { closeAppDrawer(); openWeatherModal(); });
+if ($('#wxModalClose')) $('#wxModalClose').addEventListener('click', closeWeatherModal);
+if ($('#wxModalBg')) $('#wxModalBg').addEventListener('click', (e) => { if (e.target.id === 'wxModalBg') closeWeatherModal(); });
+
+if ($('#lang12Close')) $('#lang12Close').addEventListener('click', closeLang12Modal);
+if ($('#lang12Bg')) $('#lang12Bg').addEventListener('click', (e) => { if (e.target.id === 'lang12Bg') closeLang12Modal(); });
+if ($('#lang12Submit')) {
+  $('#lang12Submit').addEventListener('click', () => {
+    closeLang12Modal();
+    applyLang12Choice(lang12Draft);
+  });
+}
+
+if ($('#helpModalClose')) $('#helpModalClose').addEventListener('click', closeHelpModal);
+if ($('#helpModalBg')) $('#helpModalBg').addEventListener('click', (e) => { if (e.target.id === 'helpModalBg') closeHelpModal(); });
+
+if ($('#dmRefresh')) {
+  $('#dmRefresh').addEventListener('click', () => {
+    closeAppDrawer();
+    showTipToast(L('🔄 লাইভ ডেটা আপডেট হচ্ছে…', '🔄 लाइव डेटा अपडेट हो रहा है…', '🔄 Refreshing live data…'));
+    fetchLiveWeather(true).then(() => {
+      showTipToast(L('✅ লাইভ আবহাওয়া ও ডেটা আপডেট হয়েছে!', '✅ लाइव मौसम और डेटा अपडेट हो गया!', '✅ Live weather & data updated!'));
+    });
+  });
+}
+if ($('#dmLang')) $('#dmLang').addEventListener('click', () => { closeAppDrawer(); openLang12Modal(); });
+if ($('#dmState')) $('#dmState').addEventListener('click', () => { closeAppDrawer(); openStatePicker(false); });
+if ($('#dmTheme')) $('#dmTheme').addEventListener('click', () => { toggleTheme(); });
+if ($('#dmAlerts')) {
+  $('#dmAlerts').addEventListener('click', () => {
+    closeAppDrawer();
+    if (typeof previewCurrentSlotTip === 'function') previewCurrentSlotTip();
+    else { cur = 'india'; tab = 'tips'; render(); }
+  });
+}
+if ($('#dmShare')) {
+  $('#dmShare').addEventListener('click', async () => {
+    closeAppDrawer();
+    const { url, text } = shareInfo();
+    if (navigator.share) {
+      try { await navigator.share({ title: L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance'), text, url }); return; } catch (_) {}
+    }
+    try { await navigator.clipboard.writeText(url); showTipToast(L('✅ অ্যাপের লিংক কপি হয়েছে!', '✅ ऐप लिंक कॉपी हो गया!', '✅ App link copied!')); } catch (_) {}
+  });
+}
+if ($('#dmHelp')) $('#dmHelp').addEventListener('click', () => { closeAppDrawer(); openHelpModal(); });
+if ($('#dmClear')) {
+  $('#dmClear').addEventListener('click', () => {
+    try {
+      localStorage.removeItem('bharat-live-weather');
+      localStorage.removeItem('bharat-tip-mute');
+      trCache.clear();
+    } catch (_) {}
+    closeAppDrawer();
+    fetchLiveWeather(true);
+    showTipToast(L('🧹 ক্যাশ পরিষ্কার করা হয়েছে!', '🧹 कैश साफ़ कर दिया गया!', '🧹 Cache cleared!'));
+  });
+}
+
+document.addEventListener('click', (e) => {
+  const lpick = e.target.closest('[data-pick-lang12]');
+  if (lpick) {
+    lang12Draft = lpick.dataset.pickLang12;
+    renderLang12Modal();
+    return;
+  }
+  const wxc = e.target.closest('[data-wx-city]');
+  if (wxc) {
+    const found = WX_CITIES.find((c) => c.id === wxc.dataset.wxCity);
+    if (found) {
+      wxCity = found;
+      try { localStorage.setItem('bharat-wx-city', JSON.stringify(wxCity)); } catch (_) {}
+      renderWeatherModal();
+      fetchLiveWeather(true).then(() => renderWeatherModal());
+    }
+    return;
+  }
+  if (e.target.closest('#wxUseGps')) {
+    if (!navigator.geolocation) {
+      showTipToast(L('GPS সমর্থিত নয়', 'GPS समर्थित नहीं है', 'GPS not supported'));
+      return;
+    }
+    showTipToast(L('📡 লোকেশন খোঁজা হচ্ছে…', '📡 लोकेशन खोजी जा रही है…', '📡 Detecting live location…'));
+    navigator.geolocation.getCurrentPosition((pos) => {
+      wxCity = { id: 'gps', n: ['আমার এলাকা (GPS)', 'मेरा स्थान (GPS)', 'My Location (GPS)'], lat: +pos.coords.latitude.toFixed(3), lon: +pos.coords.longitude.toFixed(3) };
+      try { localStorage.setItem('bharat-wx-city', JSON.stringify(wxCity)); } catch (_) {}
+      fetchLiveWeather(true).then(() => {
+        renderWeatherModal();
+        showTipToast(L('✅ আপনার এলাকার লাইভ আবহাওয়া আপডেট হয়েছে!', '✅ आपके क्षेत्र का लाइव मौसम अपडेट हो गया!', '✅ Live local weather updated!'));
+      });
+    }, () => {
+      showTipToast(L('লোকেশন অনুমতি পাওয়া যায়নি — নিচ থেকে শহর বাছুন', 'लोकेशन अनुमति नहीं मिली — नीचे से शहर चुनें', 'Location permission denied — pick a city below'));
+    }, { timeout: 8000 });
+    return;
+  }
+  if (e.target.closest('#wxGoTips')) {
+    closeWeatherModal();
+    cur = 'india'; tab = 'tips';
+    render();
+    if ($('#panel')) $('#panel').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    return;
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if ($('#lang12Bg') && !$('#lang12Bg').hidden) closeLang12Modal();
+    if ($('#wxModalBg') && !$('#wxModalBg').hidden) closeWeatherModal();
+    if ($('#helpModalBg') && !$('#helpModalBg').hidden) closeHelpModal();
+  }
+});
+
+/* Initial boot sync for 12-lang & live weather widgets */
+if (!['bn', 'hi', 'en'].includes(uiLang)) {
+  applyLang12Choice(uiLang);
+} else {
+  applyLang12Chrome();
+}
 
 lqInit();
 setTimeout(checkScheduledTipPopup, 1600);
