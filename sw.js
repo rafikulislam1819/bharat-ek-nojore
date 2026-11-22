@@ -1,8 +1,9 @@
-const CACHE_NAME = 'bharat-app-v16';
+const CACHE_NAME = 'bharat-app-v17';
 const CORE_ASSETS = [
   './',
   './index.html',
   './manifest.json',
+  './privacy-policy.html',
   './icon-192.png',
   './icon-512.png'
 ];

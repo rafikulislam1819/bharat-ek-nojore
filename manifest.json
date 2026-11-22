@@ -2,7 +2,7 @@
   "id": "./",
   "name": "ভারত এক নজরে — India at a Glance",
   "short_name": "ভারত",
-  "description": "Interactive guide to India's 28 States & 8 Union Territories, live market rates, global indices, safety survival tips, and weekly quizzes in Bengali, Hindi & English.",
+  "description": "Independent educational & reference guide to India's 28 States & 8 Union Territories, live weather, market rates, global indices, safety tips, and quizzes in 12 Indian languages.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -12,13 +12,13 @@
   ],
   "orientation": "portrait-primary",
   "background_color": "#0F172A",
-  "theme_color": "#C2410C",
+  "theme_color": "#0F172A",
   "lang": "bn",
   "dir": "ltr",
   "categories": [
     "education",
     "reference",
-    "news"
+    "books"
   ],
   "icons": [
     {
