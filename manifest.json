@@ -1,0 +1,78 @@
+{
+  "id": "./",
+  "name": "ভারত এক নজরে — India at a Glance",
+  "short_name": "ভারত",
+  "description": "Interactive guide to India's 28 States & 8 Union Territories, live market rates, global indices, safety survival tips, and weekly quizzes in Bengali, Hindi & English.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "portrait-primary",
+  "background_color": "#0F172A",
+  "theme_color": "#C2410C",
+  "lang": "bn",
+  "dir": "ltr",
+  "categories": [
+    "education",
+    "reference",
+    "news"
+  ],
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Safety Tips / জীবন সুরক্ষা",
+      "short_name": "Safety Tips",
+      "url": "./index.html#india/tips",
+      "icons": [
+        {
+          "src": "./icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Weekly Quiz / কুইজ",
+      "short_name": "Quiz",
+      "url": "./index.html#india/quiz",
+      "icons": [
+        {
+          "src": "./icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Compare States / রাজ্য তুলনা",
+      "short_name": "Compare",
+      "url": "./index.html#india/cmp",
+      "icons": [
+        {
+          "src": "./icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
