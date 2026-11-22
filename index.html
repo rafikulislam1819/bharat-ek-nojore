@@ -8118,11 +8118,11 @@ const TIP_CATS = [
   { k: 'mind',     col: '#0D9488', ico: '💚', lbl: ['মানসিক ও সাইবার সুরক্ষা', 'मानसिक व साइबर सुरक्षा', 'Mental & Cyber Safety'] }
 ];
 const TIP_SLOTS = [
-  { id: 's06', h: 6,  lbl: ['সকাল ৬–৭টা', 'सुबह 6–7 बजे', '6–7 AM'],   pool: ['cold', 'fog', 'dogbite', 'snake', 'depression', 'stress', 'smog', 'heartattack', 'stroke', 'train'] },
-  { id: 's13', h: 13, lbl: ['দুপুর ১–২টা', 'दोपहर 1–2 बजे', '1–2 PM'],   pool: ['heat', 'dehydration', 'foodpoison', 'crowd', 'fainting', 'roadcrash', 'bee', 'monkey', 'duststorm', 'lostchild'] },
-  { id: 's16', h: 16, lbl: ['বিকেল ৪–৫টা', 'शाम 4–5 बजे', '4–5 PM'],    pool: ['lightning', 'cyclone', 'flood', 'drowning', 'hailstorm', 'landslide', 'tsunami', 'carwater', 'wildfire', 'fracture'] },
-  { id: 's19', h: 19, lbl: ['সন্ধ্যা ৭–৮টা', 'शाम 7–8 बजे', '7–8 PM'],    pool: ['fire', 'lpg', 'oilfire', 'burn', 'shock', 'choking', 'bleeding', 'glass', 'poison', 'womenhelp'] },
-  { id: 's22', h: 22, lbl: ['রাত ১০–১১টা', 'रात 10–11 बजे', '10–11 PM'], pool: ['quake', 'kit', 'battery', 'monoxide', 'cyberfraud', 'digitalarrest', 'panic', 'seizure', 'scorpion', 'lift'] }
+  { id: 's06', h: 6,  lbl: ['সকাল ৬টা', 'सुबह 6 बजे', '6 AM'],    pool: ['cold', 'fog', 'dogbite', 'snake', 'depression', 'stress', 'smog', 'heartattack', 'stroke', 'train'] },
+  { id: 's13', h: 13, lbl: ['দুপুর ১টা', 'दोपहर 1 बजे', '1 PM'],   pool: ['heat', 'dehydration', 'foodpoison', 'crowd', 'fainting', 'roadcrash', 'bee', 'monkey', 'duststorm', 'lostchild'] },
+  { id: 's16', h: 16, lbl: ['বিকেল ৪টা', 'शाम 4 बजे', '4 PM'],     pool: ['lightning', 'cyclone', 'flood', 'drowning', 'hailstorm', 'landslide', 'tsunami', 'carwater', 'wildfire', 'fracture'] },
+  { id: 's19', h: 19, lbl: ['সন্ধ্যা ৭টা', 'शाम 7 बजे', '7 PM'],    pool: ['fire', 'lpg', 'oilfire', 'burn', 'shock', 'choking', 'bleeding', 'glass', 'poison', 'womenhelp'] },
+  { id: 's22', h: 22, lbl: ['রাত ১০টা', 'रात 10 बजे', '10 PM'],    pool: ['quake', 'kit', 'battery', 'monoxide', 'cyberfraud', 'digitalarrest', 'panic', 'seizure', 'scorpion', 'lift'] }
 ];
 
 let tipCat = 'all';
@@ -8143,16 +8143,17 @@ function tipCatLabel(cat, lCode) {
   const c = TIP_CATS.find((x) => x.k === cat);
   return c ? c.lbl[tipLangIdx(lCode)] : cat;
 }
-function tipTodayKey() {
-  const d = new Date();
+function tipDateKeyFor(d) {
   return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
 }
-function tipDayOfYear() {
-  const d = new Date();
+function tipTodayKey() {
+  return tipDateKeyFor(new Date());
+}
+function tipDayOfYear(d = new Date()) {
   return Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 86400000);
 }
-function getDailySlotTips() {
-  const doy = tipDayOfYear();
+function getDailySlotTips(d = new Date()) {
+  const doy = tipDayOfYear(d);
   const used = new Set();
   return TIP_SLOTS.map((slot, sIdx) => {
     let chosen = slot.pool[(doy + sIdx) % slot.pool.length];
@@ -8162,6 +8163,21 @@ function getDailySlotTips() {
     used.add(chosen);
     return { slot, tipId: chosen };
   });
+}
+function getLatestTipSlot(now = new Date()) {
+  const h = now.getHours();
+  if (h < TIP_SLOTS[0].h) {
+    const yest = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+    const prevDaily = getDailySlotTips(yest);
+    const last = prevDaily[prevDaily.length - 1];
+    return { ...last, dayKey: tipDateKeyFor(yest) };
+  }
+  const daily = getDailySlotTips(now);
+  let active = daily[0];
+  for (const item of daily) {
+    if (h >= item.slot.h) active = item;
+  }
+  return { ...active, dayKey: tipDateKeyFor(now) };
 }
 function getTipShareUrl(tipId) {
   try {
@@ -8246,7 +8262,7 @@ function natTips() {
   const cl = tipsLang;
   const li = tipLangIdx(cl);
   const nfT = new Intl.NumberFormat(LOC[cl] || 'en-IN');
-  const nowH = new Date().getHours();
+  const activeSlotId = getLatestTipSlot().slot.id;
   const list = getFilteredTips();
 
   const hero = `<div class="tips-hero">` +
@@ -8284,7 +8300,7 @@ function natTips() {
 
   const sched = `<div class="tips-schedule-bar">` +
     `<span>⏰ <strong>${tipPickText(cl, 'দিনে ৫ বার স্মার্ট টিপস পপ-আপ:', 'दिन में 5 बार स्मार्ट टिप्स पॉप-अप:', '5 Daily Popup Slots:')}</strong></span>` +
-    TIP_SLOTS.map((s) => `<span class="tips-slot-tag${nowH === s.h ? ' is-now' : ''}">${s.lbl[li]}</span>`).join('') +
+    TIP_SLOTS.map((s) => `<span class="tips-slot-tag${activeSlotId === s.id ? ' is-now' : ''}">${s.lbl[li]}</span>`).join('') +
   `</div>`;
 
   const searchHtml = `<div class="tips-search-row">` +
@@ -8639,14 +8655,12 @@ function closeTipModal() {
 function checkScheduledTipPopup() {
   try {
     const bg = $('#tipModalBg');
-    if (bg && !bg.hidden) return;
+    if ((bg && !bg.hidden) || pendingDeepTipId) return;
     const today = tipTodayKey();
     if (localStorage.getItem('bharat-tips-mute') === today) return;
-    const nowH = new Date().getHours();
-    const daily = getDailySlotTips();
-    const match = daily.find((d) => d.slot.h === nowH);
+    const match = getLatestTipSlot();
     if (!match) return;
-    const key = 'bharat-tips-seen-' + today;
+    const key = 'bharat-tips-seen-' + match.dayKey;
     const seen = JSON.parse(localStorage.getItem(key) || '[]');
     if (seen.includes(match.slot.id)) return;
     seen.push(match.slot.id);
@@ -8656,9 +8670,7 @@ function checkScheduledTipPopup() {
 }
 
 function previewDailyTipPopup() {
-  const daily = getDailySlotTips();
-  const nowH = new Date().getHours();
-  let chosen = daily.find((d) => d.slot.h === nowH) || daily.find((d) => d.slot.h > nowH) || daily[daily.length - 1];
+  const chosen = getLatestTipSlot();
   openTipModal(chosen.tipId, 'popup', chosen.slot.lbl, tipsLang || lang, true);
 }
 
