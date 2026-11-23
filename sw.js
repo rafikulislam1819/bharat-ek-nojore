@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bharat-app-v18';
+const CACHE_NAME = 'bharat-app-v19';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -29,33 +29,37 @@ self.addEventListener('fetch', (event) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
 
-  // Network-first for live APIs, Firebase, and HTML navigation so updates show immediately
-  if (req.mode === 'navigate' || url.origin !== self.location.origin) {
+  // External APIs (Weather, Live Market, Fonts, Translate, Firebase): network-first, never block app shell
+  if (url.origin !== self.location.origin) {
     event.respondWith(
-      fetch(req)
-        .then((res) => {
-          if (url.origin === self.location.origin && res && res.status === 200) {
-            const copy = res.clone();
-            caches.open(CACHE_NAME).then((c) => c.put(req, copy)).catch(() => {});
-          }
-          return res;
-        })
-        .catch(() => caches.match(req).then((r) => r || caches.match('./index.html')))
+      fetch(req).catch(() => caches.match(req))
     );
     return;
   }
 
-  // Cache-first with background refresh for local icons & manifest
+  // Same-origin App Shell (HTML, Icons, Manifest, Privacy Policy):
+  // Instant Cache-First (opens in <0.3s!) + Silent Background Update (Stale-While-Revalidate)
   event.respondWith(
-    caches.match(req).then((cached) => {
-      const net = fetch(req).then((res) => {
-        if (res && res.status === 200) {
-          const copy = res.clone();
-          caches.open(CACHE_NAME).then((c) => c.put(req, copy)).catch(() => {});
-        }
-        return res;
-      }).catch(() => cached);
-      return cached || net;
-    })
+    caches.open(CACHE_NAME).then((cache) =>
+      cache.match(req, { ignoreSearch: true }).then((cached) => {
+        const fallback = cached
+          ? Promise.resolve(cached)
+          : (req.mode === 'navigate' ? cache.match('./index.html') : Promise.resolve(undefined));
+
+        const netUpdate = fetch(req)
+          .then((res) => {
+            if (res && res.status === 200) {
+              cache.put(req, res.clone()).catch(() => {});
+              if (req.mode === 'navigate') {
+                cache.put('./index.html', res.clone()).catch(() => {});
+              }
+            }
+            return res;
+          })
+          .catch(() => null);
+
+        return fallback.then((hit) => hit || netUpdate);
+      })
+    )
   );
 });
