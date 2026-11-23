@@ -5573,6 +5573,396 @@ select option, select optgroup {
   color: var(--accent);
 }
 
+
+/* ===== v18 Desktop Live Market Ticker, Compact Drawer Hierarchy & Global App Search ===== */
+
+/* Desktop Center Live Market Ticker (fills empty center space in top bar on >= 900px) */
+.desk-mkt-strip {
+  display: none;
+}
+@media (min-width: 900px) {
+  .app-bar-l { flex: 0 0 auto; }
+  .desk-mkt-strip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 5px 14px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, #D97706 34%, var(--line));
+    background: linear-gradient(135deg, color-mix(in srgb, #F59E0B 10%, var(--surface)), color-mix(in srgb, #0EA5E9 6%, var(--bg)));
+    color: var(--fg);
+    cursor: pointer;
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    transition: transform .13s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .desk-mkt-strip:hover {
+    border-color: #D97706;
+    box-shadow: 0 4px 14px rgba(217, 119, 6, 0.18);
+    transform: translateY(-1px);
+  }
+  .dmkt-live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.22);
+    flex: 0 0 auto;
+  }
+  .dmkt-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    font-size: 12.6px;
+  }
+  .dmkt-ico { font-size: 14px; line-height: 1; }
+  .dmkt-k {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  .dmkt-item strong {
+    font-family: var(--font-display);
+    font-size: 13.4px;
+    font-weight: 800;
+    color: var(--fg);
+  }
+  .dmkt-item.gold strong { color: #B45309; }
+  .dmkt-item.silver strong { color: #475569; }
+  .dmkt-item.usd strong { color: #059669; }
+  :root[data-theme="dark"] .dmkt-item.gold strong { color: #FBBF24; }
+  :root[data-theme="dark"] .dmkt-item.silver strong { color: #CBD5E1; }
+  :root[data-theme="dark"] .dmkt-item.usd strong { color: #34D399; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .dmkt-item.gold strong { color: #FBBF24; }
+    :root:not([data-theme="light"]) .dmkt-item.silver strong { color: #CBD5E1; }
+    :root:not([data-theme="light"]) .dmkt-item.usd strong { color: #34D399; }
+  }
+  .dmkt-sep {
+    width: 1px;
+    height: 16px;
+    background: var(--line);
+    flex: 0 0 auto;
+  }
+}
+@media (min-width: 900px) and (max-width: 1060px) {
+  .dmkt-k { display: none; }
+  .desk-mkt-strip { gap: 7px; padding: 5px 10px; }
+}
+
+/* Redesigned Compact 3-Line App Drawer Header & Top Widgets */
+.drawer-sub-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  line-height: 1.2;
+}
+.drawer-head-acts {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+.drawer-sym-btn {
+  height: 34px;
+  min-width: 34px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--fg);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: all .14s ease;
+}
+.drawer-sym-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+}
+.dsym-badge {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent);
+  max-width: 44px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.drawer-top-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.drawer-wx-card {
+  padding: 8px 11px;
+}
+.drawer-mkt-strip {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+  padding: 7px 6px;
+  border-radius: 11px;
+  border: 1px solid color-mix(in srgb, #D97706 32%, var(--line));
+  background: linear-gradient(135deg, color-mix(in srgb, #F59E0B 10%, var(--surface)), color-mix(in srgb, #10B981 6%, var(--bg)));
+  cursor: pointer;
+  text-align: center;
+  transition: border-color .14s ease, transform .12s ease;
+}
+.drawer-mkt-strip:hover {
+  border-color: #D97706;
+  transform: translateY(-1px);
+}
+.dr-mkt-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  min-width: 0;
+}
+.dr-mkt-cell + .dr-mkt-cell {
+  border-left: 1px solid color-mix(in srgb, var(--line) 85%, transparent);
+}
+.dr-mkt-cell small {
+  font-size: 10.2px;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.dr-mkt-cell strong {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.drawer-sym-bar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+}
+.dsbar-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 7px 4px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--fg);
+  cursor: pointer;
+  transition: all .14s ease;
+}
+.dsbar-btn:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+  color: var(--accent);
+}
+.dsbar-ico { font-size: 15.5px; line-height: 1.1; }
+.dsbar-txt {
+  font-size: 10.4px;
+  font-weight: 700;
+  line-height: 1.2;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.drawer-util-list .dm-row {
+  padding: 8px 9px;
+  font-size: 13.4px;
+}
+.drawer-ver-foot {
+  margin-top: 4px;
+  padding: 10px 8px 4px;
+  border-top: 1px dashed var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+.drawer-ver-pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+}
+.drawer-ver-foot .asof {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 11px;
+  color: var(--muted);
+  white-space: normal;
+  line-height: 1.35;
+}
+
+/* Safety Tips 12-Language Toggle Pill */
+.tips-lang12-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: color-mix(in srgb, #2563EB 10%, var(--surface)) !important;
+  color: #1D4ED8 !important;
+}
+:root[data-theme="dark"] .tips-lang12-btn { color: #93C5FD !important; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tips-lang12-btn { color: #93C5FD !important; }
+}
+.tips-lang12-btn.active {
+  background: #2563EB !important;
+  color: #FFFFFF !important;
+}
+
+/* Universal Global App Search Modal */
+.gs-sheet {
+  max-width: 680px;
+  max-height: 90vh;
+}
+.gs-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.gs-input-wrap .stpick-search {
+  padding-right: 38px;
+}
+.gs-clear-btn {
+  position: absolute;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--line);
+  color: var(--fg);
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.gs-suggest-lbl {
+  font-size: 11.8px;
+  font-weight: 800;
+  color: var(--muted);
+  margin: 2px 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.gs-suggest-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+.gs-chip {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 12.8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .14s ease;
+}
+.gs-chip:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  color: var(--accent);
+}
+.gs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.gs-item {
+  --gc: #2563EB;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--gc) 25%, var(--line));
+  border-left: 4px solid var(--gc);
+  background: color-mix(in srgb, var(--gc) 4.5%, var(--bg));
+  color: var(--fg);
+  text-align: left;
+  cursor: pointer;
+  transition: transform .12s ease, border-color .14s ease, background .14s ease;
+}
+.gs-item:hover {
+  border-color: var(--gc);
+  background: color-mix(in srgb, var(--gc) 10%, var(--surface));
+  transform: translateX(2px);
+}
+.gs-item-l {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.gs-item-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+.gs-item-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--fg);
+  line-height: 1.3;
+}
+.gs-item-sub {
+  font-size: 12.2px;
+  color: var(--muted);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.gs-cat-tag {
+  flex: 0 0 auto;
+  font-size: 10.4px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--gc) 14%, var(--surface));
+  color: var(--gc);
+  border: 1px solid color-mix(in srgb, var(--gc) 30%, transparent);
+  white-space: nowrap;
+}
+.gs-count-bar {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  margin: 0 0 8px 2px;
+}
+
 </style>
 </head><body>
 <div class="wrap">
@@ -5591,6 +5981,14 @@ select option, select optgroup {
         <span class="wx-cond" id="appWxCond"></span>
       </button>
     </div>
+    <button type="button" id="desktopMktStrip" class="desk-mkt-strip" aria-label="Live Gold, Silver and USD Rates">
+      <span class="dmkt-live-dot" id="dmktLiveDot" aria-hidden="true"></span>
+      <span class="dmkt-item gold"><span class="dmkt-ico">🪙</span><span class="dmkt-k" id="dmktGoldLbl">24K</span><strong id="dmktGoldVal">₹1,30,690</strong></span>
+      <span class="dmkt-sep" aria-hidden="true"></span>
+      <span class="dmkt-item silver"><span class="dmkt-ico">🥈</span><span class="dmkt-k" id="dmktSilvLbl">1kg</span><strong id="dmktSilvVal">₹1,80,000</strong></span>
+      <span class="dmkt-sep" aria-hidden="true"></span>
+      <span class="dmkt-item usd"><span class="dmkt-ico">💵</span><span class="dmkt-k">$1</span><strong id="dmktUsdVal">₹93.34</strong></span>
+    </button>
     <div class="app-bar-r">
       <button type="button" id="appSearchFocus" class="app-icon-btn" aria-label="Search">🔍</button>
       <button type="button" id="tipsBtn" class="app-pill-sos"></button>
@@ -5728,58 +6126,76 @@ select option, select optgroup {
         <svg class="app-logo-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="atlasBg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0F172A"/><stop offset="55%" stop-color="#1C3884"/><stop offset="100%" stop-color="#0F6274"/></linearGradient><linearGradient id="atlasMap2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFF4CD"/><stop offset="60%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#EA580C"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#atlasBg2)"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#F59E0B" stroke-opacity="0.72" stroke-width="1.3"/><ellipse cx="32" cy="32" rx="13.5" ry="24" fill="none" stroke="#94A3B8" stroke-opacity="0.26" stroke-width="0.75"/><ellipse cx="32" cy="32" rx="24" ry="10.2" fill="none" stroke="#94A3B8" stroke-opacity="0.26" stroke-width="0.75"/><g stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round"><line x1="32" y1="4.2" x2="32" y2="8.2"/><line x1="32" y1="55.8" x2="32" y2="59.8"/><line x1="4.2" y1="32" x2="8.2" y2="32"/><line x1="55.8" y1="32" x2="59.8" y2="32"/></g><path d="M23.0,14.6L22.4,17.5L24.3,18.7L26.4,17.3L24.1,14.6ZM26.1,17.3L25.0,18.9L27.3,21.4L28.9,19.2L28.4,18.0L26.2,17.3ZM25.3,18.4L23.7,19.3L22.6,21.8L25.6,22.1L26.8,20.9L25.3,18.5ZM23.6,21.8L25.4,25.0L26.5,24.6L26.8,25.4L26.9,20.9L25.6,22.2L23.7,21.9ZM27.8,20.4L27.6,22.5L30.3,23.9L31.7,21.6L28.1,20.2ZM27.2,21.6L27.2,26.4L29.3,27.0L28.4,30.0L29.1,28.2L32.5,28.8L34.6,30.6L34.7,28.8L36.3,27.8L35.3,25.7L29.6,23.7L27.3,21.6ZM22.6,21.8L20.0,24.8L18.2,24.5L16.9,26.2L18.6,29.2L21.4,29.4L23.0,31.6L23.8,29.0L25.1,29.3L24.7,30.6L26.4,30.2L27.1,28.6L25.9,27.9L27.9,26.3L22.6,21.8ZM15.0,30.1L15.8,31.7L17.8,31.8L15.7,32.4L17.6,34.9L19.9,34.6L20.6,32.9L20.6,35.7L21.6,35.8L23.2,31.9L21.4,29.5L15.1,30.1ZM34.0,29.5L29.0,28.3L28.4,30.0L29.3,27.1L28.4,26.3L26.0,27.7L27.2,28.6L26.4,30.3L24.8,30.7L25.0,29.3L23.8,29.0L22.7,33.3L25.7,34.6L27.0,33.5L31.4,34.4L33.5,31.7L32.8,31.0L34.1,30.9L34.0,29.6ZM20.4,36.2L21.6,41.9L25.6,39.7L28.3,36.3L30.2,36.7L30.5,37.8L31.6,37.1L31.0,33.8L27.0,33.5L25.7,34.6L23.2,33.1L22.4,35.1L20.5,36.2ZM40.4,33.5L35.8,32.6L33.7,35.0L34.2,36.3L33.0,36.1L33.6,37.5L32.5,39.1L38.7,36.0L40.4,33.6ZM36.7,37.2L27.3,41.0L26.0,42.8L27.1,43.9L26.3,44.5L27.9,44.4L28.3,46.1L30.3,45.4L31.0,42.1L33.9,40.7L36.7,37.4ZM26.9,38.2L22.6,40.6L23.0,45.4L26.1,47.5L28.4,45.6L26.0,43.4L27.2,41.1L26.9,38.4ZM23.2,45.9L26.5,52.1L26.7,49.3L23.4,45.8ZM31.0,44.8L25.4,47.5L26.7,49.3L26.5,52.1L30.5,49.2L31.0,44.9ZM35.0,25.5L36.3,27.8L35.1,28.3L35.0,29.6L39.5,29.6L40.0,26.7L35.1,25.4ZM40.2,28.6L38.8,29.9L34.8,30.3L35.8,32.6L38.1,33.2L39.2,32.6L37.8,31.1L40.2,29.1ZM41.8,25.9L40.2,26.2L40.0,29.8L37.9,31.1L40.6,33.8L41.9,32.8L40.5,29.2L41.5,28.3L40.3,27.4L42.1,27.3L42.0,26.0ZM40.9,24.3L40.0,24.6L40.2,26.2L41.5,26.0L41.0,24.4ZM49.3,23.5L42.1,26.7L42.4,27.8L44.7,26.7L45.9,29.5L49.3,23.6ZM51.1,23.2L49.2,21.6L44.1,24.3L44.8,25.5L46.1,25.4L49.3,23.5L49.0,25.8L51.0,24.8L51.0,23.4ZM48.5,25.1L46.7,27.8L48.5,27.4L48.6,25.1ZM48.2,27.1L46.4,29.5L47.9,29.7L48.2,27.2ZM46.1,29.1L46.1,33.0L47.0,31.1L46.2,29.1ZM45.4,29.1L44.2,29.8L44.4,31.3L45.4,29.3ZM45.6,27.8L44.7,26.7L42.3,27.9L45.6,27.9ZM21.9,41.7L22.2,43.0L22.2,41.9ZM31.8,38.5L30.2,36.7L28.3,36.4L26.8,40.9L31.9,39.0ZM34.9,30.3L32.8,31.0L33.6,31.7L31.2,34.6L31.8,36.8L30.9,37.8L32.0,39.1L36.0,32.4L35.1,30.6ZM21.4,13.0L24.6,14.8L26.7,17.6L29.8,18.4L29.1,16.3L30.5,15.3L30.3,13.7L27.4,14.2L24.8,11.8L21.5,12.9Z" fill="url(#atlasMap2)" stroke="url(#atlasMap2)" stroke-width="0.5" stroke-linejoin="round"/><circle cx="27.9" cy="30.5" r="4.4" fill="#14B8A6" fill-opacity="0.40"/><circle cx="27.9" cy="30.5" r="2.3" fill="#14B8A6" stroke="#FFFFFF" stroke-width="1"/><rect x="1" y="1" width="62" height="62" rx="13.5" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1"/></svg>
         <div class="drawer-brand-meta">
           <strong id="drawerTitle">ভারত</strong>
-          <span class="drawer-ver">v17.0 · <span class="asof" id="asof"></span></span>
+          <span class="drawer-sub-tag" id="drawerSubTag">India at a Glance</span>
         </div>
       </div>
-      <button type="button" class="tip-xbtn" id="appDrawerClose" aria-label="Close">✕</button>
+      <div class="drawer-head-acts">
+        <button type="button" class="drawer-sym-btn" id="dmLang" aria-label="Language" title="12 Indian Languages">
+          <span>🌐</span><span class="dsym-badge" id="dmLangMeta">বাং</span>
+        </button>
+        <button type="button" class="drawer-sym-btn" id="dmTheme" aria-label="Theme" title="Light / Dark Mode">
+          <span id="dmThemeIco">🌙</span>
+        </button>
+        <button type="button" class="tip-xbtn" id="appDrawerClose" aria-label="Close">✕</button>
+      </div>
     </div>
+
     <div class="drawer-scroll">
-      <div class="drawer-wx-card" id="drawerWxCard" role="button" tabindex="0">
-        <div class="drawer-wx-l">
-          <span class="drawer-wx-ico" id="drawerWxIco">🌤️</span>
-          <div>
-            <strong id="drawerWxTemp">--°C</strong>
-            <span id="drawerWxSub">আবহাওয়া লোড হচ্ছে…</span>
+      <div class="drawer-top-cards">
+        <div class="drawer-wx-card" id="drawerWxCard" role="button" tabindex="0">
+          <div class="drawer-wx-l">
+            <span class="drawer-wx-ico" id="drawerWxIco">🌤️</span>
+            <div>
+              <strong id="drawerWxTemp">--°C</strong>
+              <span id="drawerWxSub">আবহাওয়া লোড হচ্ছে…</span>
+            </div>
           </div>
+          <span class="drawer-wx-city" id="drawerWxCity">📍 কলকাতা</span>
         </div>
-        <span class="drawer-wx-city" id="drawerWxCity">📍 কলকাতা</span>
+
+        <button type="button" class="drawer-mkt-strip" id="drawerMktStrip" aria-label="Live Gold, Silver & USD">
+          <span class="dr-mkt-cell"><small>🪙 <span id="drGoldLbl">24K</span></small><strong id="drGoldVal">₹1,30,690</strong></span>
+          <span class="dr-mkt-cell"><small>🥈 <span id="drSilvLbl">রুপো</span></small><strong id="drSilvVal">₹1,80,000</strong></span>
+          <span class="dr-mkt-cell"><small>💵 USD</small><strong id="drUsdVal">₹93.34</strong></span>
+        </button>
+
+        <div class="drawer-sym-bar">
+          <button type="button" class="dsbar-btn" id="dmState">
+            <span class="dsbar-ico">📍</span>
+            <span class="dsbar-txt" id="dmStateMeta">ভারত</span>
+          </button>
+          <button type="button" class="dsbar-btn" id="dmAlerts">
+            <span class="dsbar-ico">🔔</span>
+            <span class="dsbar-txt" id="dmAlertsLbl">অ্যালার্ট</span>
+          </button>
+          <button type="button" class="dsbar-btn" id="dmRefresh">
+            <span class="dsbar-ico">🔄</span>
+            <span class="dsbar-txt" id="dmRefreshMeta">আপডেট</span>
+          </button>
+          <button type="button" class="dsbar-btn" id="dmSearchBtn">
+            <span class="dsbar-ico">🔍</span>
+            <span class="dsbar-txt" id="dmSearchLbl">খুঁজুন</span>
+          </button>
+        </div>
       </div>
 
-      <div class="drawer-menu-list" id="drawerMenuList">
-        <button type="button" class="dm-row" id="dmRefresh">
-          <span class="dm-ico">🔄</span>
-          <span class="dm-lbl" id="dmRefreshLbl">লাইভ ডেটা আপডেট</span>
-          <span class="dm-meta" id="dmRefreshMeta">Live</span>
-        </button>
-        <button type="button" class="dm-row" id="dmLang">
-          <span class="dm-ico">🌐</span>
-          <span class="dm-lbl" id="dmLangLbl">ভাষা (১২টি ভারতীয় ভাষা)</span>
-          <span class="dm-meta dm-accent" id="dmLangMeta">বাংলা</span>
-        </button>
-        <button type="button" class="dm-row" id="dmState">
-          <span class="dm-ico">📍</span>
-          <span class="dm-lbl" id="dmStateLbl">রাজ্য / কেন্দ্রশাসিত অঞ্চল</span>
-          <span class="dm-meta" id="dmStateMeta">ভারত</span>
-        </button>
-        <button type="button" class="dm-row" id="dmTheme">
-          <span class="dm-ico">🌓</span>
-          <span class="dm-lbl" id="dmThemeLbl">লাইট / ডার্ক মোড</span>
-          <span class="dm-meta" id="dmThemeMeta">Auto</span>
-        </button>
-        <button type="button" class="dm-row" id="dmAlerts">
-          <span class="dm-ico">🔔</span>
-          <span class="dm-lbl" id="dmAlertsLbl">আজকের সুরক্ষা অ্যালার্ট</span>
-          <span class="dm-meta">SOS</span>
+      <div>
+        <div class="drawer-sec-lbl" id="drawerNavLbl">📑 সব সেকশন</div>
+        <div class="drawer-nav" id="drawerNav"></div>
+      </div>
+
+      <div class="drawer-divider"></div>
+
+      <div class="drawer-menu-list drawer-util-list" id="drawerMenuList">
+        <button type="button" class="dm-row" id="drawerInstallBtn" hidden>
+          <span class="dm-ico">📲</span>
+          <span class="dm-lbl" id="dmInstallLbl">ফোনে অ্যাপ ইনস্টল করুন</span>
+          <span class="dm-meta dm-accent">PWA</span>
         </button>
         <button type="button" class="dm-row" id="dmShare">
           <span class="dm-ico">📤</span>
           <span class="dm-lbl" id="dmShareLbl">অ্যাপ শেয়ার করুন</span>
           <span class="dm-meta">↗</span>
-        </button>
-        <button type="button" class="dm-row" id="drawerInstallBtn" hidden>
-          <span class="dm-ico">📲</span>
-          <span class="dm-lbl" id="dmInstallLbl">ফোনে অ্যাপ ইনস্টল করুন</span>
-          <span class="dm-meta dm-accent">PWA</span>
         </button>
         <button type="button" class="dm-row" id="dmHelp">
           <span class="dm-ico">❓</span>
@@ -5803,11 +6219,9 @@ select option, select optgroup {
         </button>
       </div>
 
-      <div class="drawer-divider"></div>
-
-      <div>
-        <div class="drawer-sec-lbl" id="drawerNavLbl">📑 সব সেকশন</div>
-        <div class="drawer-nav" id="drawerNav"></div>
+      <div class="drawer-ver-foot">
+        <span class="drawer-ver-pill">v18.0</span>
+        <span class="asof" id="asof"></span>
       </div>
     </div>
   </aside>
@@ -5822,6 +6236,25 @@ select option, select optgroup {
 </nav>
 
 
+
+
+<div class="stpick-bg" id="globalSearchBg" hidden role="dialog" aria-modal="true" aria-labelledby="gsTitle">
+  <div class="stpick-sheet gs-sheet">
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <div class="stpick-head">
+      <h3 id="gsTitle">🔍 পুরো অ্যাপে খুঁজুন</h3>
+      <button type="button" class="tip-xbtn" id="gsClose" aria-label="Close">✕</button>
+    </div>
+    <div class="stpick-controls">
+      <div class="gs-input-wrap">
+        <input type="search" id="gsInput" class="stpick-search" autocomplete="off" placeholder="🔍 রাজ্য, জেলা, সোনা/ডলার, মন্ত্রী, সূচক, টিপস বা যেকোনো শব্দ লিখুন…">
+        <button type="button" class="gs-clear-btn" id="gsClearBtn" hidden aria-label="Clear">✕</button>
+      </div>
+      <div class="stpick-filters" id="gsFilters"></div>
+    </div>
+    <div class="stpick-body" id="gsBody"></div>
+  </div>
+</div>
 
 <div class="stpick-bg" id="lang12Bg" hidden role="dialog" aria-modal="true" aria-labelledby="lang12Title">
   <div class="stpick-sheet lang12-sheet">
@@ -9599,6 +10032,7 @@ function applyLiveMarket(d) {
   }
   if (typeof applyStatic === 'function') applyStatic();
   if (typeof render === 'function') render();
+  if (typeof updateLiveMarketTickers === 'function') updateLiveMarketTickers();
 }
 async function fetchBrowserLiveMarket(forceFresh = false) {
   const prev = mktLive || {};
@@ -10315,10 +10749,13 @@ function showTipToast(msg) {
 }
 
 function tipPopupLangHtml(curL) {
+  const isExt = typeof uiLang !== 'undefined' && !['bn', 'hi', 'en'].includes(uiLang);
   return `<div class="tip-lang-mini" role="group" aria-label="Popup Language">` +
     [['bn', 'বাং'], ['hi', 'हिं'], ['en', 'EN']].map(([c, lbl]) =>
-      `<button type="button" class="${curL === c ? 'active' : ''}" data-tip-modal-lang="1" data-tl="${c}" aria-pressed="${curL === c}">${lbl}</button>`
-    ).join('') + `</div>`;
+      `<button type="button" class="${curL === c && !isExt ? 'active' : ''}" data-tip-modal-lang="1" data-tl="${c}" aria-pressed="${curL === c && !isExt}">${lbl}</button>`
+    ).join('') +
+    `<button type="button" class="${isExt ? 'active' : ''}" data-open-lang12="1" title="12 Languages">🌐</button>` +
+  `</div>`;
 }
 
 function tipBadgeHtml(badge, cl) {
@@ -10400,8 +10837,9 @@ function natTips() {
         `<span class="tips-lang-lbl">🌐 ${tipPickText(cl, 'সব টিপসের ভাষা:', 'सभी टिप्स की भाषा:', 'All Tips Language:')}</span>` +
         `<div class="tips-lang-group" role="group" aria-label="Tips Section Language">` +
           [['bn', 'বাংলা'], ['hi', 'हिन्दी'], ['en', 'English']].map(([code, lbl]) =>
-            `<button type="button" class="${cl === code ? 'active' : ''}" data-tips-all-lang="${code}" aria-pressed="${cl === code}">${lbl}</button>`
+            `<button type="button" class="${cl === code && ['bn', 'hi', 'en'].includes(uiLang) ? 'active' : ''}" data-tips-all-lang="${code}" aria-pressed="${cl === code && ['bn', 'hi', 'en'].includes(uiLang)}">${lbl}</button>`
           ).join('') +
+          `<button type="button" class="tips-lang12-btn${!['bn', 'hi', 'en'].includes(uiLang) ? ' active' : ''}" data-open-lang12="1" title="All 12 Indian Languages">🌐 ${!['bn', 'hi', 'en'].includes(uiLang) ? getLang12Obj(uiLang).name : '+9'}</button>` +
         `</div>` +
       `</div>` +
       `<button type="button" class="tips-preview-btn" data-tip-preview>🔔 ${tipPickText(cl, 'দৈনিক পপ-আপ দেখুন', 'दैनिक पॉप-अप देखें', 'Preview Daily Popup')}</button>` +
@@ -10868,7 +11306,13 @@ document.addEventListener('click', (e) => {
   const allLangBtn = e.target.closest('[data-tips-all-lang]');
   if (allLangBtn) {
     tipsLang = allLangBtn.dataset.tipsAllLang;
-    render();
+    if (typeof uiLang !== 'undefined' && !['bn', 'hi', 'en'].includes(uiLang)) {
+      uiLang = tipsLang;
+      try { localStorage.setItem('bharat-lang12', uiLang); } catch (_) {}
+      setLang(tipsLang);
+    } else {
+      render();
+    }
     return;
   }
   const mlBtn = e.target.closest('[data-tip-modal-lang]');
@@ -11067,7 +11511,7 @@ if ($('#appDrawerBg')) {
   });
 }
 if ($('#appSearchFocus')) {
-  $('#appSearchFocus').addEventListener('click', () => openStatePicker(true));
+  $('#appSearchFocus').addEventListener('click', () => openGlobalSearch());
 }
 if ($('#deskStatesBtn')) {
   $('#deskStatesBtn').addEventListener('click', () => openStatePicker(false));
@@ -11663,9 +12107,13 @@ if ($('#helpModalBg')) $('#helpModalBg').addEventListener('click', (e) => { if (
 if ($('#dmRefresh')) {
   $('#dmRefresh').addEventListener('click', () => {
     closeAppDrawer();
-    showTipToast(L('🔄 লাইভ ডেটা আপডেট হচ্ছে…', '🔄 लाइव डेटा अपडेट हो रहा है…', '🔄 Refreshing live data…'));
-    fetchLiveWeather(true).then(() => {
-      showTipToast(L('✅ লাইভ আবহাওয়া ও ডেটা আপডেট হয়েছে!', '✅ लाइव मौसम और डेटा अपडेट हो गया!', '✅ Live weather & data updated!'));
+    showTipToast(L('🔄 লাইভ আবহাওয়া ও বাজার দর আপডেট হচ্ছে…', '🔄 लाइव मौसम व बाज़ार भाव अपडेट हो रहे हैं…', '🔄 Refreshing live weather & market rates…'));
+    Promise.all([
+      fetchLiveWeather(true),
+      typeof fetchBrowserLiveMarket === 'function' ? fetchBrowserLiveMarket(true) : Promise.resolve()
+    ]).then(() => {
+      if (typeof updateLiveMarketTickers === 'function') updateLiveMarketTickers();
+      showTipToast(L('✅ লাইভ আবহাওয়া ও বাজার দর আপডেট হয়েছে!', '✅ लाइव मौसम और बाज़ार भाव अपडेट हो गए!', '✅ Live weather & market rates updated!'));
     });
   });
 }
@@ -11843,6 +12291,512 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && $('#discModalBg') && !$('#discModalBg').hidden) closeDisclaimerModal();
 });
 applyLang12Chrome();
+
+
+/* ---------- v18 Global App-Wide Search + Live Gold/Silver/USD Header & Drawer Tickers ---------- */
+let gsQuery = '';
+let gsCat = 'all';
+
+function updateLiveMarketTickers() {
+  const isLive = !!(mktLive && (mktLive.gold24 || mktLive.silver || mktLive.usdinr));
+  const usdinr = (mktLive && mktLive.usdinr) ? +mktLive.usdinr : USDINR[USDINR.length - 1][1];
+  const g24 = (mktLive && mktLive.gold24) ? +mktLive.gold24 : 130690;
+  const slv = (mktLive && mktLive.silver) ? +mktLive.silver : 180000;
+
+  const gStr = '₹' + nf.format(Math.round(g24));
+  const sStr = '₹' + nf.format(Math.round(slv));
+  const uStr = '₹' + nf2.format(usdinr);
+
+  if ($('#dmktGoldVal')) $('#dmktGoldVal').textContent = gStr;
+  if ($('#dmktSilvVal')) $('#dmktSilvVal').textContent = sStr;
+  if ($('#dmktUsdVal'))  $('#dmktUsdVal').textContent  = uStr;
+  if ($('#dmktGoldLbl')) $('#dmktGoldLbl').textContent = L('সোনা 24K', 'सोना 24K', 'Gold 24K');
+  if ($('#dmktSilvLbl')) $('#dmktSilvLbl').textContent = L('রুপো 1kg', 'चाँदी 1kg', 'Silver 1kg');
+  if ($('#dmktLiveDot')) $('#dmktLiveDot').style.background = isLive ? '#10B981' : '#F59E0B';
+
+  if ($('#drGoldVal')) $('#drGoldVal').textContent = gStr;
+  if ($('#drSilvVal')) $('#drSilvVal').textContent = sStr;
+  if ($('#drUsdVal'))  $('#drUsdVal').textContent  = uStr;
+  if ($('#drGoldLbl')) $('#drGoldLbl').textContent = L('সোনা 24K', 'सोना 24K', 'Gold 24K');
+  if ($('#drSilvLbl')) $('#drSilvLbl').textContent = L('রুপো 1kg', 'चाँदी 1kg', 'Silver');
+}
+
+function goToMarketTab() {
+  closeAppDrawer();
+  cur = 'india';
+  tab = 'mkt';
+  render();
+  if ($('#panel')) $('#panel').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+}
+
+if ($('#desktopMktStrip')) $('#desktopMktStrip').addEventListener('click', goToMarketTab);
+if ($('#drawerMktStrip'))  $('#drawerMktStrip').addEventListener('click', goToMarketTab);
+if ($('#dmSearchBtn')) {
+  $('#dmSearchBtn').addEventListener('click', () => {
+    closeAppDrawer();
+    openGlobalSearch();
+  });
+}
+
+/* Sync drawer compact symbol labels & theme icon */
+const _origApplyChromeV18 = applyLang12Chrome;
+applyLang12Chrome = function () {
+  _origApplyChromeV18();
+  const obj = getLang12Obj(uiLang);
+  if ($('#dmLangMeta')) $('#dmLangMeta').textContent = obj.name.length > 6 ? obj.glyph : obj.name;
+  const isDk = document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+  if ($('#dmThemeIco')) $('#dmThemeIco').textContent = isDk ? '☀️' : '🌙';
+  if ($('#dmAlertsLbl')) $('#dmAlertsLbl').textContent = L('অ্যালার্ট', 'अलर्ट', 'Alerts');
+  if ($('#dmSearchLbl')) $('#dmSearchLbl').textContent = L('খুঁজুন', 'खोजें', 'Search');
+  if ($('#dmRefreshMeta') && !liveWeatherState) $('#dmRefreshMeta').textContent = L('আপডেট', 'अपडेट', 'Sync');
+  if ($('#drawerSubTag')) $('#drawerSubTag').textContent = L('ভারত এক নজরে', 'भारत एक नज़र में', 'India at a Glance');
+  updateLiveMarketTickers();
+};
+
+/* Global Click Hook for [data-open-lang12] inside Safety Tips & Tip Modal */
+document.addEventListener('click', (e) => {
+  const ol12 = e.target.closest('[data-open-lang12]');
+  if (ol12) {
+    openLang12Modal();
+    return;
+  }
+});
+
+/* Also translate Tip Modal automatically if an extended regional language is active */
+if (typeof renderTipModal === 'function') {
+  const _origRenderTipModalV18 = renderTipModal;
+  renderTipModal = function () {
+    _origRenderTipModalV18();
+    if (!['bn', 'hi', 'en'].includes(uiLang) && $('#tipModalCard')) {
+      translateNodesForRegion(uiLang, [$('#tipModalCard')]);
+    }
+  };
+}
+
+/* ---------- Universal Global App Search Index & Engine ---------- */
+const GS_SECTION_KW = {
+  gen:   'india general overview population area capital currency language anthem bharat সাধারণ ভারত জনসংখ্যা আয়তন রাজধানী सामान्य भारत जनसंख्या',
+  pol:   'politics parliament lok sabha rajya sabha election voters president pm constitution রাজনীতি সংসদ লোকসভা রাজ্যসভা নির্বাচন ভোটার রাষ্ট্রপতি রাজনীতি संसद लोकसभा चुनाव',
+  cab:   'cabinet ministers union government modi amit shah nirmala rajnath jaishankar মন্ত্রিসভা মন্ত্রী প্রধানমন্ত্রী নরেন্দ্র মোদী অমিত শাহ मंत्रिमंडल मंत्री मोदी',
+  eco:   'economy gdp growth inflation exports imports startups digital upi অর্থনীতি জিডিপি প্রবৃদ্ধি মুদ্রাস্ফীতি अर्थव्यवस्था जीडीपी महंगाई',
+  mkt:   'dollar rupee usdinr gold 24k 22k silver bullion price rate market forex ডলার রুপি সোনা রুপো দাম বাজার দর डॉलर रुपया सोना चांदी भाव बाज़ार',
+  idx:   'indices index rank hdi happiness hunger innovation press freedom passport peace firepower democracy সূচক র‍্যাংক মানব উন্নয়ন সুখ ক্ষুধা পাসপোর্ট সামরিক सूचकांक रैंक खुशहाली',
+  air:   'pollution aqi air quality pm2.5 delhi clean cities environment দূষণ বায়ুমান দিল্লি পরিবেশ प्रदूषण वायु गुणवत्ता',
+  saf:   'women safety helpline ncrb crime against women নারী নিরাপত্তা মহিলা সুরক্ষা महिला सुरक्षा',
+  crime: 'corruption crime cpi police justice দুর্নীতি অপরাধ পুলিশ भ्रष्टाचार अपराध',
+  rgt:   'fundamental rights constitution article equality freedom religion remedies writ মৌলিক অধিকার সংবিধান অনুচ্ছেদ সমতা স্বাধীনতা मौलिक अधिकार संविधान अनुच्छेद',
+  sym:   'national symbols flag tiranga anthem tiger peacock lotus mango banyan dolphin hockey emblem জাতীয় প্রতীক পতাকা বাঘ ময়ূর পদ্ম আম বটগাছ ডলফিন হকি राष्ट्रीय प्रतीक तिरंगा बाघ मोर कमल',
+  hist:  'history timeline independence freedom fighters harappa maurya mughal 1947 ইতিহাস স্বাধীনতা সংগ্রাম হরপ্পা মৌর্য মুঘল इतिहास स्वतंत्रता',
+  trv:   'travel tourism unesco heritage taj mahal kashmir goa kerala ladakh darjeeling ভ্রমণ পর্যটন তাজমহল কাশ্মীর গোয়া দার্জিলিং সুন্দরবন यात्रा पर्यटन ताजमहल',
+  spt:   'sports cricket ipl olympics hockey chess badminton neera chopra manu bhaker খেলা ক্রিকেট অলিম্পিক হকি দাবা ব্যাডমিন্টন खेल क्रिकेट ओलंपिक',
+  tips:  'safety tips disaster survival emergency sos snakebite earthquake cyclone flood heatwave fire cpr cyber fraud 112 1930 সুরক্ষা টিপস দুর্যোগ জরুরি সাপ ভূমিকম্প ঘূর্ণিঝড় বন্যা আগুন নিরাপত্তা टिप्स आपदा सुरक्षा भूकंप बाढ़ आग',
+  quiz:  'quiz gk test trivia game practice map quiz কুইজ প্রশ্ন উত্তর পরীক্ষা খেলা क्विज़ प्रश्नोत्तरी सामान्य ज्ञान',
+  cmp:   'compare states ranking versus vs population area literacy gsdp তুলনা রাজ্য র‍্যাংকিং বনাম तुलना राज्य रैंकिंग'
+};
+
+function buildGlobalSearchResults(rawQ) {
+  const q = rawQ.trim().toLowerCase();
+  if (!q) return [];
+  const terms = q.split(/\s+/).filter(Boolean);
+  const matchAll = (hay) => {
+    const lh = hay.toLowerCase();
+    return terms.every((t) => lh.includes(t));
+  };
+  const li = lang === 'bn' ? 0 : lang === 'hi' ? 1 : 2;
+  const out = [];
+
+  // 1. Live Weather & Map shortcuts
+  const wxHay = 'weather temperature rain forecast humidity wind gps আবহাওয়া তাপমাত্রা বৃষ্টি গরম ঠান্ডা मौसम तापमान बारिश गर्मी';
+  if (matchAll(wxHay)) {
+    const wx = getWxIconAndShort(liveWeatherState);
+    out.push({
+      cat: 'sec', col: '#0284C7', score: 96,
+      badge: L('আবহাওয়া', 'मौसम', 'Weather'),
+      title: `${wx.ico} ${L('লাইভ আবহাওয়া ও তাপমাত্রা', 'लाइव मौसम और तापमान', 'Live Weather & Temperature')} (${wx.temp})`,
+      sub: `${wx.cond} · ${L('শহর বদলান বা GPS ব্যবহার করুন', 'शहर बदलें या GPS उपयोग करें', 'Switch Indian city or use live GPS')}`,
+      act: { type: 'weather' }
+    });
+  }
+  const mapHay = 'india map interactive zoom choropleth states map মানচিত্র ম্যাপ ভারতের মানচিত্র नक़्शा मैप भारत का नक्शा';
+  if (matchAll(mapHay)) {
+    out.push({
+      cat: 'sec', col: '#0F766E', score: 94,
+      badge: L('মানচিত্র', 'नक़्शा', 'Map'),
+      title: `🗺️ ${L('ভারতের ইন্টারেক্টিভ মানচিত্র খুলুন', 'भारत का इंटरैक्टिव नक़्शा खोलें', 'Open Interactive Map of India')}`,
+      sub: L('যেকোনো রাজ্যে ট্যাপ করুন, জুম করুন ও ডেটা ম্যাপ দেখুন', 'किसी भी राज्य पर टैप करें और डेटा मैप देखें', 'Tap states, zoom in, and view choropleth maps'),
+      act: { type: 'map' }
+    });
+  }
+
+  // 2. National Sections (NAT_TAB)
+  NAT_TAB().forEach(([k, lbl]) => {
+    const hay = `${lbl} ${k} ${GS_SECTION_KW[k] || ''}`;
+    if (matchAll(hay)) {
+      const exactTitle = lbl.toLowerCase().includes(q) ? 105 : 88;
+      out.push({
+        cat: 'sec', col: '#EA580C', score: exactTitle,
+        badge: L('বিভাগ', 'अनुभाग', 'Section'),
+        title: `${TAB_ICONS[k] || '📑'} ${lbl}`,
+        sub: L('ভারতের মূল বিভাগে সরাসরি যান', 'भारत के मुख्य अनुभाग पर जाएँ', 'Jump directly to this India section'),
+        act: { type: 'tab', target: 'india', tab: k }
+      });
+    }
+  });
+
+  // 3. All 36 States & Union Territories (name, capital, CM, party, language, tourism)
+  T.forEach((x) => {
+    const rx = R(x);
+    const hiT = TRX.hi[x.id] || [];
+    const enT = TRX.en[x.id] || [];
+    const tourAll = [...(x.tour || []), ...(hiT[5] || []), ...(enT[5] || [])].join(' ');
+    const baseHay = `${x.bn} ${x.sh} ${x.en} ${x.code} ${x.cap} ${x.lang} ${x.cm || ''} ${x.party || ''} ${hiT[0] || ''} ${hiT[1] || ''} ${hiT[3] || ''} ${enT[1] || ''} ${enT[3] || ''}`;
+    const matchedBase = matchAll(baseHay);
+    const matchedTour = !matchedBase && matchAll(baseHay + ' ' + tourAll);
+    if (matchedBase || matchedTour) {
+      const nameHit = [x.bn, x.en, hiT[0] || '', x.sh].some((s) => s.toLowerCase().includes(q));
+      const cmHit = [x.cm || '', hiT[3] || '', enT[3] || ''].some((s) => s && s.toLowerCase().includes(q));
+      const destTab = matchedTour ? 'trv' : cmHit ? 'pol' : 'gen';
+      out.push({
+        cat: 'state', col: '#2563EB', score: nameHit ? 115 : (cmHit ? 95 : 84),
+        badge: x.t === 'ut' ? L('কেন্দ্রশাসিত অঞ্চল', 'केंद्रशासित', 'UT') : L('রাজ্য', 'राज्य', 'State'),
+        title: `📍 ${rx.n}`,
+        sub: `${L('রাজধানী:', 'राजधानी:', 'Capital:')} ${rx.cap}${rx.cm ? ' · ' + L('মুখ্যমন্ত্রী:', 'CM:', 'CM:') + ' ' + rx.cm : ''}${matchedTour ? ' · ' + L('ভ্রমণ:', 'पर्यटन:', 'Travel:') + ' ' + rx.tour.join(', ') : ''}`,
+        act: { type: 'tab', target: x.id, tab: destTab }
+      });
+    }
+  });
+
+  // 4. All Districts & Major Cities across all 36 States (STATE_GEO)
+  if (typeof STATE_GEO !== 'undefined') {
+    for (const sid in STATE_GEO) {
+      const g = STATE_GEO[sid];
+      const st = byId[sid];
+      if (!g || !st) continue;
+      const stName = R(st).n;
+      // Cities
+      (g.cities || []).forEach((ct) => {
+        const cNames = ct[1] || [];
+        const cNicks = ct[2] || [];
+        const cDescs = ct[3] || [];
+        const hay = [...cNames, ...cNicks, ...cDescs, st.bn, st.en].join(' ');
+        if (matchAll(hay)) {
+          const exactCity = cNames.some((s) => s.toLowerCase().includes(q));
+          out.push({
+            cat: 'geo', col: '#0D9488', score: exactCity ? 108 : 80,
+            badge: L('প্রধান শহর', 'प्रमुख शहर', 'Major City'),
+            title: `🏙️ ${cNames[li] || cNames[2]} (${stName})`,
+            sub: `${cNicks[li] || ''} — ${cDescs[li] || ''}`,
+            act: { type: 'geo', target: sid, distQ: '' }
+          });
+        }
+      });
+      // Districts
+      (g.divs || []).forEach((dv) => {
+        (dv[3] || []).forEach((ds) => {
+          const hay = `${ds[0]} ${ds[1]} ${ds[2] || ''} ${dv[0]} ${dv[2]}`;
+          if (matchAll(hay)) {
+            const disp = lang === 'bn' ? ds[1] : (lang === 'hi' ? (ds[2] || ds[0]) : ds[0]);
+            out.push({
+              cat: 'geo', col: '#0891B2', score: ds.some((s) => s && s.toLowerCase() === q) ? 112 : 90,
+              badge: L('জেলা', 'ज़िला', 'District'),
+              title: `🗺️ ${disp} · ${stName}`,
+              sub: `${dv[li] || dv[2]} · ${ds[0]}`,
+              act: { type: 'geo', target: sid, distQ: disp }
+            });
+          }
+        });
+      });
+    }
+  }
+
+  // 5. All 50+ Survival & Safety Tips
+  if (typeof getAllMasterTips === 'function') {
+    getAllMasterTips().forEach((tp) => {
+      const hay = [
+        ...(tp.title || []), ...(tp.short || []),
+        ...((tp.do && tp.do[0]) || []), ...((tp.do && tp.do[2]) || []),
+        tp.id, tp.cat
+      ].join(' ');
+      if (matchAll(hay)) {
+        const tHit = (tp.title || []).some((s) => s.toLowerCase().includes(q));
+        out.push({
+          cat: 'tips', col: tp.col || '#DC2626', score: tHit ? 106 : 82,
+          badge: L('সুরক্ষা টিপস', 'सुरक्षा टिप', 'Safety Tip'),
+          title: `🆘 ${(tp.title && tp.title[li]) || tp.title[2]}`,
+          sub: (tp.short && tp.short[li]) || tp.short[2] || '',
+          act: { type: 'tip', id: tp.id }
+        });
+      }
+    });
+  }
+
+  // 6. Union Cabinet Ministers
+  if (typeof CABINET !== 'undefined') {
+    const mins = (typeof PM_INFO !== 'undefined' ? [PM_INFO] : []).concat(CABINET);
+    mins.forEach((m) => {
+      const ports = (m.p || []).map((pk) => PORT_L[pk] ? PORT_L[pk].join(' ') : pk).join(' ');
+      const hay = `${(m.n || []).join(' ')} ${ports}`;
+      if (matchAll(hay)) {
+        out.push({
+          cat: 'data', col: '#7C3AED', score: 92,
+          badge: L('মন্ত্রিসভা', 'मंत्रिमंडल', 'Cabinet'),
+          title: `🪑 ${m.n[li] || m.n[2]}`,
+          sub: pL(m.p || []),
+          act: { type: 'tab', target: 'india', tab: 'cab' }
+        });
+      }
+    });
+  }
+
+  // 7. Global Indices (19)
+  INDICES.forEach((ix) => {
+    const hay = `${ix.l.join(' ')} ${ix.n.join(' ')} ${(ix.p || []).join(' ')} ${ix.score || ''}`;
+    if (matchAll(hay)) {
+      const rkStr = ix.badge ? ix.badge : `#${ix.rank}/${ix.tot}`;
+      out.push({
+        cat: 'data', col: '#0284C7', score: 91,
+        badge: L('বৈশ্বিক সূচক', 'सूचकांक', 'Index'),
+        title: `📊 ${ix.l[li] || ix.l[2]} (${rkStr})`,
+        sub: ix.n[li] || ix.n[2],
+        act: { type: 'tab', target: 'india', tab: 'idx' }
+      });
+    }
+  });
+
+  // 8. Fundamental Rights
+  if (typeof RIGHTS === 'function') {
+    RIGHTS().forEach((r) => {
+      const hay = `${r.t} ${r.d} ${r.a} ${(r.chips || []).join(' ')}`;
+      if (matchAll(hay)) {
+        out.push({
+          cat: 'data', col: r.col || '#EA580C', score: 89,
+          badge: L('মৌলিক অধিকার', 'मौलिक अधिकार', 'Right'),
+          title: `📜 ${r.t} (${r.a})`,
+          sub: r.d,
+          act: { type: 'tab', target: 'india', tab: 'rgt' }
+        });
+      }
+    });
+  }
+
+  // 9. Quiz Questions (top 6 matches max so quiz doesn't flood results)
+  if (typeof QUIZ === 'function') {
+    let qAdded = 0;
+    QUIZ().forEach((qz) => {
+      if (qAdded >= 6) return;
+      const hay = `${qz[0]} ${(qz[1] || []).join(' ')}`;
+      if (matchAll(hay)) {
+        qAdded++;
+        out.push({
+          cat: 'data', col: '#E11D48', score: 74,
+          badge: L('কুইজ', 'क्विज़', 'Quiz'),
+          title: `🎯 ${qz[0]}`,
+          sub: L('উত্তর যাচাই করতে কুইজ খেলুন', 'उत्तर जानने के लिए क्विज़ खेलें', 'Tap to open Interactive Quiz'),
+          act: { type: 'tab', target: 'india', tab: 'quiz' }
+        });
+      }
+    });
+  }
+
+  out.sort((a, b) => b.score - a.score);
+  return out;
+}
+
+function renderGlobalSearch() {
+  const titleEl = $('#gsTitle');
+  const inp = $('#gsInput');
+  const clearBtn = $('#gsClearBtn');
+  const fWrap = $('#gsFilters');
+  const body = $('#gsBody');
+  if (!body) return;
+
+  if (titleEl) titleEl.textContent = '🔍 ' + L('পুরো অ্যাপে খুঁজুন', 'पूरे ऐप में खोजें', 'Search Entire App');
+  if (inp) inp.placeholder = L('🔍 রাজ্য, জেলা, সোনা/ডলার, মন্ত্রী, সূচক, টিপস বা যেকোনো শব্দ লিখুন…', '🔍 राज्य, ज़िला, सोना/डॉलर, मंत्री, सूचकांक, टिप्स खोजें…', '🔍 Search states, districts, gold/USD, ministers, indices, tips…');
+  if (clearBtn) clearBtn.hidden = !gsQuery.trim();
+
+  const allRes = buildGlobalSearchResults(gsQuery);
+
+  if (fWrap) {
+    const counts = {
+      all: allRes.length,
+      state: allRes.filter((r) => r.cat === 'state').length,
+      geo: allRes.filter((r) => r.cat === 'geo').length,
+      tips: allRes.filter((r) => r.cat === 'tips').length,
+      sec: allRes.filter((r) => r.cat === 'sec' || r.cat === 'data').length
+    };
+    const fBtns = [
+      ['all',   L('সব', 'सभी', 'All')],
+      ['state', L('রাজ্য', 'राज्य', 'States')],
+      ['geo',   L('জেলা ও শহর', 'ज़िले/शहर', 'Districts/Cities')],
+      ['tips',  L('সুরক্ষা টিপস', 'सुरक्षा टिप्स', 'Safety Tips')],
+      ['sec',   L('বিভাগ ও তথ্য', 'अनुभाग/डेटा', 'Sections & Data')]
+    ];
+    fWrap.innerHTML = fBtns.map(([k, lbl]) => {
+      const cntTxt = gsQuery.trim() ? ` (${nf.format(counts[k])})` : '';
+      return `<button type="button" class="stpick-fbtn${gsCat === k ? ' active' : ''}" data-gs-cat="${k}">${lbl}${cntTxt}</button>`;
+    }).join('');
+  }
+
+  if (!gsQuery.trim()) {
+    const suggestions = [
+      L('পশ্চিমবঙ্গ', 'पश्चिम बंगाल', 'West Bengal'),
+      L('কলকাতা', 'कोलकाता', 'Kolkata'),
+      L('সোনা', 'सोना', 'Gold'),
+      L('সাপ', 'साँप', 'Snakebite'),
+      L('ভূমিকম্প', 'भूकंप', 'Earthquake'),
+      'HDI',
+      L('মোদী', 'मोदी', 'Modi'),
+      L('মৌলিক অধিকার', 'मौलिक अधिकार', 'Rights'),
+      L('দার্জিলিং', 'दार्जिलिंग', 'Darjeeling'),
+      L('আবহাওয়া', 'मौसम', 'Weather')
+    ];
+    body.innerHTML =
+      `<div class="gs-suggest-lbl">⚡ ${L('জনপ্রিয় সার্চ কীওয়ার্ড (ট্যাপ করুন)', 'लोकप्रिय खोज (टैप करें)', 'Popular Search Keywords (Tap)')}</div>` +
+      `<div class="gs-suggest-chips">` +
+        suggestions.map((s) => `<button type="button" class="gs-chip" data-gs-q="${s}">${s}</button>`).join('') +
+      `</div>` +
+      `<div class="gs-suggest-lbl">📑 ${L('কী কী খুঁজতে পারবেন', 'आप क्या-क्या खोज सकते हैं', 'What You Can Search')}</div>` +
+      `<div class="help-step"><span class="help-step-ico">🌍</span><div><strong>${L('৩৬টি রাজ্য/অঞ্চল ও ৭০০+ জেলা-শহর', '36 राज्य/UT व 700+ ज़िले-शहर', '36 States/UTs & 700+ Districts/Cities')}</strong><p>${L('রাজ্যের নাম, রাজধানী, মুখ্যমন্ত্রী, যেকোনো জেলা বা প্রধান শহর সরাসরি খুঁজুন।', 'राज्य, राजधानी, मुख्यमंत्री, ज़िला या शहर सीधे खोजें।', 'Find any state, capital, CM, district, or major city instantly.')}</p></div></div>` +
+      `<div class="help-step"><span class="help-step-ico">🪙</span><div><strong>${L('বাজার দর, মন্ত্রিসভা, সূচক, অধিকার ও ৫০টি সুরক্ষা টিপস', 'बाज़ार भाव, मंत्रिमंडल, सूचकांक, अधिकार व 50 सुरक्षा टिप्स', 'Gold/USD, Cabinet, 19 Indices, Rights & 50 Safety Tips')}</strong><p>${L('বাংলা, হিন্দি বা ইংরেজিতে যেকোনো কীওয়ার্ড লিখলেই সরাসরি সেই তথ্য বা গাইড খুলে যাবে।', 'हिंदी, बांग्ला या अंग्रेज़ी में कोई भी शब्द लिखकर तुरंत जानकारी पाएँ।', 'Type keywords in Bengali, Hindi, or English to jump straight to data or guides.')}</p></div></div>`;
+    return;
+  }
+
+  const filtered = allRes.filter((r) => {
+    if (gsCat === 'all') return true;
+    if (gsCat === 'sec') return r.cat === 'sec' || r.cat === 'data';
+    return r.cat === gsCat;
+  });
+
+  if (!filtered.length) {
+    body.innerHTML = `<div class="geo-empty">${L('এই কীওয়ার্ডে কিছু পাওয়া যায়নি — অন্য শব্দ দিয়ে চেষ্টা করুন।', 'इस कीवर्ड से कुछ नहीं मिला — कोई अन्य शब्द लिखें।', 'No results found — try another keyword.')}</div>`;
+    return;
+  }
+
+  const shown = filtered.slice(0, 45);
+  window._gsItems = shown;
+  body.innerHTML =
+    `<div class="gs-count-bar">${L(`মোট ${nf.format(filtered.length)}টি ফলাফল পাওয়া গেছে`, `कुल ${nf.format(filtered.length)} परिणाम मिले`, `${filtered.length} matching results found`)}</div>` +
+    `<div class="gs-list">` +
+      shown.map((it, idx) =>
+        `<button type="button" class="gs-item" data-gs-idx="${idx}" style="--gc:${it.col}">` +
+          `<div class="gs-item-l">` +
+            `<div class="gs-item-top"><span class="gs-item-title">${it.title}</span></div>` +
+            `<div class="gs-item-sub">${it.sub}</div>` +
+          `</div>` +
+          `<span class="gs-cat-tag">${it.badge}</span>` +
+        `</button>`
+      ).join('') +
+    `</div>`;
+}
+
+function openGlobalSearch(initialQ = '') {
+  const bg = $('#globalSearchBg');
+  const inp = $('#gsInput');
+  if (!bg) return;
+  gsQuery = initialQ;
+  gsCat = 'all';
+  if (inp) inp.value = initialQ;
+  renderGlobalSearch();
+  bg.hidden = false;
+  document.body.style.overflow = 'hidden';
+  if (inp) setTimeout(() => inp.focus(), 100);
+}
+
+function closeGlobalSearch() {
+  const bg = $('#globalSearchBg');
+  if (!bg) return;
+  bg.hidden = true;
+  if (!tipModalState && (!$('#appDrawerBg') || $('#appDrawerBg').hidden)) {
+    document.body.style.overflow = '';
+  }
+}
+
+if ($('#gsClose')) $('#gsClose').addEventListener('click', closeGlobalSearch);
+if ($('#globalSearchBg')) {
+  $('#globalSearchBg').addEventListener('click', (e) => {
+    if (e.target.id === 'globalSearchBg') closeGlobalSearch();
+  });
+}
+if ($('#gsInput')) {
+  $('#gsInput').addEventListener('input', (e) => {
+    gsQuery = e.target.value;
+    renderGlobalSearch();
+  });
+}
+if ($('#gsClearBtn')) {
+  $('#gsClearBtn').addEventListener('click', () => {
+    gsQuery = '';
+    if ($('#gsInput')) { $('#gsInput').value = ''; $('#gsInput').focus(); }
+    renderGlobalSearch();
+  });
+}
+
+document.addEventListener('click', (e) => {
+  const gsc = e.target.closest('[data-gs-cat]');
+  if (gsc) {
+    gsCat = gsc.dataset.gsCat;
+    renderGlobalSearch();
+    return;
+  }
+  const gsq = e.target.closest('[data-gs-q]');
+  if (gsq) {
+    gsQuery = gsq.dataset.gsQ;
+    if ($('#gsInput')) $('#gsInput').value = gsQuery;
+    renderGlobalSearch();
+    return;
+  }
+  const gsi = e.target.closest('[data-gs-idx]');
+  if (gsi && window._gsItems) {
+    const it = window._gsItems[+gsi.dataset.gsIdx];
+    if (!it || !it.act) return;
+    closeGlobalSearch();
+    const a = it.act;
+    if (a.type === 'weather') {
+      openWeatherModal();
+    } else if (a.type === 'map') {
+      setMapOpen(true, true);
+      if ($('#mapcol')) $('#mapcol').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      render();
+    } else if (a.type === 'tip') {
+      cur = 'india'; tab = 'tips';
+      render();
+      openTipModal(a.id, 'article');
+    } else if (a.type === 'geo') {
+      cur = a.target;
+      activeRosterKind = null; activeRosterParty = 'ALL'; geoDivIdx = -1;
+      tab = 'geo';
+      render();
+      if (mapOpen) focusOn(cur);
+      if (a.distQ && $('#geoDistSearch')) {
+        $('#geoDistSearch').value = a.distQ;
+        $('#geoDistSearch').dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      if ($('#panel')) $('#panel').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    } else if (a.type === 'tab') {
+      cur = a.target;
+      activeRosterKind = null; activeRosterParty = 'ALL'; geoDivIdx = -1;
+      tab = a.tab;
+      render();
+      if (cur !== 'india' && mapOpen) focusOn(cur);
+      if ($('#panel')) $('#panel').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    }
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && $('#globalSearchBg') && !$('#globalSearchBg').hidden) {
+    closeGlobalSearch();
+    return;
+  }
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault();
+    openGlobalSearch();
+  }
+});
+
+/* Initial sync of v18 Market Tickers & Compact Drawer Labels */
+applyLang12Chrome();
+updateLiveMarketTickers();
 
 lqInit();
 setTimeout(checkScheduledTipPopup, 1600);
