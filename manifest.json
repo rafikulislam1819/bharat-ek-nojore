@@ -2,7 +2,7 @@
   "id": "./",
   "name": "ভারত এক নজরে — India at a Glance",
   "short_name": "ভারত",
-  "description": "Independent educational & reference guide to India's 28 States & 8 Union Territories, live weather, market rates, global indices, safety tips, and quizzes in 12 Indian languages.",
+  "description": "Independent educational guide to India's 28 States & 8 UTs, live weather, market rates, 50 safety tips, 50 civic duties & ethics guides, and quizzes in 12 Indian languages.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -43,8 +43,19 @@
   "shortcuts": [
     {
       "name": "Safety Tips / জীবন সুরক্ষা",
-      "short_name": "Safety Tips",
+      "short_name": "Safety",
       "url": "./index.html#india/tips",
+      "icons": [
+        {
+          "src": "./icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Civic Duties / নাগরিক দায়িত্ব",
+      "short_name": "Civic Duties",
+      "url": "./index.html#india/civic",
       "icons": [
         {
           "src": "./icon-192.png",
