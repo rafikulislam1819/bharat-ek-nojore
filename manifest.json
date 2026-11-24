@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "ভারত এক নজরে — India at a Glance",
-  "short_name": "ভারত",
+  "name": "Bharat Ek Nojore",
+  "short_name": "Bharat Ek Nojore",
   "description": "Independent educational guide to India's 28 States & 8 UTs, live weather, market rates, 50 safety tips, 50 civic duties & ethics guides, and quizzes in 12 Indian languages.",
   "start_url": "./index.html",
   "scope": "./",
