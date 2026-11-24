@@ -6377,7 +6377,7 @@ select option, select optgroup {
       </div>
 
       <div class="drawer-ver-foot">
-        <span class="drawer-ver-pill">v25.0</span>
+        <span class="drawer-ver-pill">v26.0</span>
         <span class="asof" id="asof"></span>
       </div>
     </div>
@@ -10150,10 +10150,26 @@ function updateMapToggleUI() {
     ? L('মানচিত্র লুকান', 'नक़्शा छिपाएँ', 'Hide map')
     : L('ভারতের মানচিত্র দেখুন', 'भारत का नक़्शा देखें', 'Show India map'));
 }
+function syncMapNavUI() {
+  const nat = cur === 'india';
+  const isMobileMapView = mapOpen && innerWidth < 900;
+  const qMapTile = document.querySelector('#appQuickGrid [data-quick-act="map"]');
+  if (qMapTile) qMapTile.classList.toggle('active', mapOpen);
+  document.querySelectorAll('#appBottomNav [data-bnav]').forEach((b) => {
+    const k = b.dataset.bnav;
+    const isAct = isMobileMapView
+      ? (k === 'map')
+      : ((k === 'home' && nat && tab !== 'tips' && tab !== 'quiz')
+        || (k === 'tips' && nat && tab === 'tips')
+        || (k === 'quiz' && nat && tab === 'quiz'));
+    b.classList.toggle('active', isAct);
+  });
+}
 function setMapOpen(open, animate = false) {
   const wasOpen = mapOpen;
   mapOpen = !!open;
   updateMapToggleUI();
+  syncMapNavUI();
   const drawer = $('#mapDrawer');
   if (mapOpen && !wasOpen && drawer && animate) {
     drawer.classList.remove('map-opening');
@@ -11672,14 +11688,7 @@ function syncAppShellUI(nat, x, tabs, TAB_ICONS) {
   if ($('#bnTips')) $('#bnTips').textContent = L('সুরক্ষা', 'सुरक्षा', 'Safety');
   if ($('#bnQuiz')) $('#bnQuiz').textContent = L('কুইজ', 'क्विज़', 'Quiz');
   if ($('#bnMenu')) $('#bnMenu').textContent = L('মেনু', 'मेनू', 'Menu');
-  document.querySelectorAll('#appBottomNav [data-bnav]').forEach((b) => {
-    const k = b.dataset.bnav;
-    const isAct = (k === 'home' && nat && tab !== 'tips' && tab !== 'quiz')
-      || (k === 'tips' && nat && tab === 'tips')
-      || (k === 'quiz' && nat && tab === 'quiz')
-      || (k === 'map' && mapOpen);
-    b.classList.toggle('active', isAct);
-  });
+  if (typeof syncMapNavUI === 'function') syncMapNavUI();
 
   if (innerWidth < 640) {
     const activeTabBtn = document.querySelector('#tabs button[aria-selected="true"]');
@@ -11740,7 +11749,6 @@ document.addEventListener('click', (e) => {
     if (a === 'map') {
       setMapOpen(!mapOpen, true);
       if (mapOpen && $('#mapcol')) $('#mapcol').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-      render();
       return;
     }
     if (['mkt', 'tips', 'civic', 'quiz', 'rgt'].includes(a)) cur = 'india';
@@ -11753,14 +11761,20 @@ document.addEventListener('click', (e) => {
   if (bn) {
     const a = bn.dataset.bnav;
     if (a === 'menu') { openAppDrawer(); return; }
-    if (a === 'home') { goHome(); window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); return; }
+    if (a === 'home') {
+      if (innerWidth < 900 && mapOpen) setMapOpen(false, false);
+      goHome();
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      return;
+    }
     if (a === 'map') {
-      setMapOpen(true, true);
-      if ($('#mapcol')) $('#mapcol').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-      render();
+      const nextOpen = !mapOpen;
+      setMapOpen(nextOpen, true);
+      if (nextOpen && $('#mapcol')) $('#mapcol').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
       return;
     }
     if (a === 'tips' || a === 'quiz') {
+      if (innerWidth < 900 && mapOpen) setMapOpen(false, false);
       cur = 'india'; tab = a;
       render();
       if ($('#panel')) $('#panel').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
