@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bharat-app-v28';
+const CACHE_NAME = 'bharat-app-v29';
 const CORE_ASSETS = [
   './',
   './index.html',
